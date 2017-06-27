@@ -1,18 +1,22 @@
 package wiki.scene.shop.activity;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 import wiki.scene.shop.R;
 import wiki.scene.shop.activity.presenter.LoginPresenter;
 import wiki.scene.shop.activity.view.ILoginView;
 import wiki.scene.shop.mvp.BaseMvpActivity;
+import wiki.scene.shop.utils.ToastUtils;
 
 /**
  * Case By:登录
@@ -27,6 +31,10 @@ public class LoginActivity extends BaseMvpActivity<ILoginView, LoginPresenter> i
     @BindView(R.id.toolbar_title)
     TextView toolbarTitle;
     private Unbinder unbinder;
+    @BindView(R.id.phone_number)
+    TextView phoneNumber;
+    @BindView(R.id.password)
+    TextView password;
 
     private ProgressDialog progressDialog;
 
@@ -75,23 +83,13 @@ public class LoginActivity extends BaseMvpActivity<ILoginView, LoginPresenter> i
     }
 
     @Override
-    public void clearUserName() {
-
-    }
-
-    @Override
-    public void clearPassword() {
-
-    }
-
-    @Override
-    public String getUserName() {
-        return null;
+    public String getPhoneNumber() {
+        return phoneNumber.getText().toString().trim();
     }
 
     @Override
     public String getPassword() {
-        return null;
+        return password.getText().toString().trim();
     }
 
     @Override
@@ -101,17 +99,33 @@ public class LoginActivity extends BaseMvpActivity<ILoginView, LoginPresenter> i
 
     @Override
     public void showFailInfo(String failInfo) {
+        ToastUtils.getInstance(LoginActivity.this).showToast(failInfo);
+    }
 
+    @Override
+    public void showFailInfo(@IdRes int resId) {
+        ToastUtils.getInstance(LoginActivity.this).showToast(resId);
     }
 
     @Override
     public void enterRegisterActivity() {
-
+        Intent intent = new Intent(LoginActivity.this, Register1Activity.class);
+        startActivity(intent);
     }
 
     @Override
     public void enterLosePasswordActivity() {
 
+    }
+
+    @OnClick(R.id.login)
+    public void onClickLogin() {
+        presenter.login();
+    }
+
+    @OnClick(R.id.register)
+    public void onClickRegister() {
+        presenter.enterRegisterActivity();
     }
 
     @Override

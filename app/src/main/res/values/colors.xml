@@ -18,4 +18,5 @@
     <color name="text_color_content">#666666</color>
     <color name="text_color_des">#999999</color>
     <color name="line_color">#AAAAAA</color>
+    <color name="transparent">#00000000</color>
 </resources>

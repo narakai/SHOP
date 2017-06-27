@@ -3,13 +3,14 @@ package wiki.scene.shop.mvp;
 import android.os.Bundle;
 
 import me.yokeyword.fragmentation.SupportActivity;
+import me.yokeyword.fragmentation_swipeback.SwipeBackActivity;
 
 /**
  * Case By: 基类
  * package:
  * Author：scene on 2017/6/27 10:52
  */
-public abstract class BaseMvpActivity<V, T extends BasePresenter<V>> extends SupportActivity {
+public abstract class BaseMvpActivity<V, T extends BasePresenter<V>> extends SwipeBackActivity {
     public T presenter;
 
     @Override

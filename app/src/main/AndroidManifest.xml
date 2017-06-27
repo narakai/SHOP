@@ -38,8 +38,14 @@
         <activity
             android:name=".activity.LoginActivity"
             android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar.SwipeBack"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
-
+        <!--注册-->
+        <activity
+            android:name=".activity.Register1Activity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar.SwipeBack"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <!--###########UMeng分享相关 开始###############-->
         <meta-data
             android:name="UMENG_APPKEY"

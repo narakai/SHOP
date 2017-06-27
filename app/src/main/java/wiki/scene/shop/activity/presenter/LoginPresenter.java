@@ -1,5 +1,8 @@
 package wiki.scene.shop.activity.presenter;
 
+import android.text.TextUtils;
+
+import wiki.scene.shop.R;
 import wiki.scene.shop.activity.model.LoginModel;
 import wiki.scene.shop.activity.view.ILoginView;
 import wiki.scene.shop.mvp.BasePresenter;
@@ -20,22 +23,21 @@ public class LoginPresenter extends BasePresenter<ILoginView> {
     }
 
     /**
-     * 清空文本框
-     */
-    public void clear() {
-        if (loginView != null) {
-            loginView.clearUserName();
-            loginView.clearPassword();
-        }
-    }
-
-    /**
      * 登录
      */
     public void login() {
         if (loginView != null) {
+            if (TextUtils.isEmpty(loginView.getPhoneNumber())) {
+                loginView.showFailInfo(R.string.please_edit_phone_munber);
+                return;
+            }
+            if (TextUtils.isEmpty(loginView.getPassword())) {
+                loginView.showFailInfo(R.string.please_edit_password);
+                return;
+            }
+
             loginView.showLoading();
-            loginModel.login(loginView.getUserName(), loginView.getPassword());
+            loginModel.login(loginView.getPhoneNumber(), loginView.getPassword());
         }
     }
 

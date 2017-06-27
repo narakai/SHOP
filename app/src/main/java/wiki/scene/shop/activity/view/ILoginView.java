@@ -10,17 +10,15 @@ import wiki.scene.shop.mvp.BaseView;
 
 public interface ILoginView extends BaseView {
 
-    void clearUserName();
-
-    void clearPassword();
-
-    String getUserName();
+    String getPhoneNumber();
 
     String getPassword();
 
     void loginSuccess();
 
     void showFailInfo(String failInfo);
+
+    void showFailInfo(int failInfo);
 
     void enterRegisterActivity();
 
