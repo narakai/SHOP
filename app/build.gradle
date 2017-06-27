@@ -41,9 +41,8 @@ dependencies {
     compile project(':loadmore')
     compile project(':fragmentation_swipeback')
     compile project(':fragmentation')
-
+    //官方兼容库
     compile 'com.android.support:design:' + rootProject.appcompat_v7
-
     //butterKnife
     compile 'com.jakewharton:butterknife:8.6.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
@@ -61,4 +60,15 @@ dependencies {
     compile 'org.greenrobot:eventbus:3.0.0'
     //权限适配
     compile 'com.yanzhenjie:permission:1.0.8'
+    //umeng分享和登录
+    compile files('libs/umeng_social_tool.jar')
+    compile files('libs/SocialSDK_QQ_Simplify.jar')
+    compile files('libs/SocialSDK_Sina_Simplify.jar')
+    compile files('libs/SocialSDK_WeChat_Simplify.jar')
+    compile files('libs/umeng_social_api.jar')
+    compile files('libs/umeng_social_net.jar')
+    compile files('libs/umeng_shareboard_widget.jar')
+    compile files('libs/umeng_social_shareboard.jar')
+    //json解析
+    compile files('libs/fastjson-1.2.33.jar')
 }

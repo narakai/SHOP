@@ -20,9 +20,8 @@ import wiki.scene.shop.R;
 
 
 /**
- * Case By: 自定义的bottomBar
- * package:
- * Author：scene on 2017/6/26 14:04
+ * 底部tab
+ * Created by scene on 16/6/3.
  */
 public class BottomBarTab extends FrameLayout {
     private ImageView mIcon;
@@ -32,20 +31,25 @@ public class BottomBarTab extends FrameLayout {
 
     private TextView mTvUnreadCount;
 
-    public BottomBarTab(Context context, @DrawableRes int icon, CharSequence title) {
-        this(context, null, icon, title);
+    private int resIcon_d;
+    private int resIcon_s;
+
+    public BottomBarTab(Context context, @DrawableRes int icon_d, @DrawableRes int icon_s, CharSequence title) {
+        this(context, null, icon_d, icon_s, title);
     }
 
-    public BottomBarTab(Context context, AttributeSet attrs, int icon, CharSequence title) {
-        this(context, attrs, 0, icon, title);
+    public BottomBarTab(Context context, AttributeSet attrs, int icon_d, @DrawableRes int icon_s, CharSequence title) {
+        this(context, attrs, 0, icon_d, icon_s, title);
     }
 
-    public BottomBarTab(Context context, AttributeSet attrs, int defStyleAttr, int icon, CharSequence title) {
+    public BottomBarTab(Context context, AttributeSet attrs, int defStyleAttr, int icon_d, @DrawableRes int icon_s, CharSequence title) {
         super(context, attrs, defStyleAttr);
-        init(context, icon, title);
+        init(context, icon_d, icon_s, title);
     }
 
-    private void init(Context context, int icon, CharSequence title) {
+    private void init(Context context, int icon_d, int icon_s, CharSequence title) {
+        resIcon_d = icon_d;
+        resIcon_s = icon_s;
         mContext = context;
         TypedArray typedArray = context.obtainStyledAttributes(new int[]{R.attr.selectableItemBackgroundBorderless});
         Drawable drawable = typedArray.getDrawable(0);
@@ -60,18 +64,17 @@ public class BottomBarTab extends FrameLayout {
         lLContainer.setLayoutParams(paramsContainer);
 
         mIcon = new ImageView(context);
-        int size = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 27, getResources().getDisplayMetrics());
+        int size = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 20, getResources().getDisplayMetrics());
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(size, size);
-        mIcon.setImageResource(icon);
+        mIcon.setImageResource(icon_d);
         mIcon.setLayoutParams(params);
-        mIcon.setColorFilter(ContextCompat.getColor(context, R.color.tab_unselect));
         lLContainer.addView(mIcon);
 
         mTvTitle = new TextView(context);
         mTvTitle.setText(title);
         LinearLayout.LayoutParams paramsTv = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         paramsTv.topMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2, getResources().getDisplayMetrics());
-        mTvTitle.setTextSize(10);
+        mTvTitle.setTextSize(12);
         mTvTitle.setTextColor(ContextCompat.getColor(context, R.color.tab_unselect));
         mTvTitle.setLayoutParams(paramsTv);
         lLContainer.addView(mTvTitle);
@@ -100,10 +103,10 @@ public class BottomBarTab extends FrameLayout {
     public void setSelected(boolean selected) {
         super.setSelected(selected);
         if (selected) {
-            mIcon.setColorFilter(ContextCompat.getColor(mContext, R.color.colorPrimary));
-            mTvTitle.setTextColor(ContextCompat.getColor(mContext, R.color.colorPrimary));
+            mIcon.setImageResource(resIcon_s);
+            mTvTitle.setTextColor(ContextCompat.getColor(mContext, R.color.tab_select));
         } else {
-            mIcon.setColorFilter(ContextCompat.getColor(mContext, R.color.tab_unselect));
+            mIcon.setImageResource(resIcon_d);
             mTvTitle.setTextColor(ContextCompat.getColor(mContext, R.color.tab_unselect));
         }
     }
@@ -157,4 +160,14 @@ public class BottomBarTab extends FrameLayout {
     private int dip2px(Context context, float dp) {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, context.getResources().getDisplayMetrics());
     }
+
+    public void setIconResouceId(int resouceId) {
+        mIcon.setImageResource(resouceId);
+    }
+
+    public void setTvTitleText(String titleText) {
+        mTvTitle.setText(titleText);
+    }
+
+
 }

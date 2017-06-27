@@ -1,7 +1,6 @@
 package wiki.scene.shop.view;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.v4.view.ViewCompat;
@@ -16,9 +15,12 @@ import android.widget.LinearLayout;
 import java.util.ArrayList;
 import java.util.List;
 
+import wiki.scene.shop.R;
+
 
 /**
- * Created by YoKeyword on 16/6/3.
+ * 底部tab
+ * Created by scene on 16/6/3.
  */
 public class BottomBar extends LinearLayout {
     private static final int TRANSLATE_DURATION_MILLIS = 200;
@@ -55,7 +57,7 @@ public class BottomBar extends LinearLayout {
 //        addView(shadowView, new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
         mTabLayout = new LinearLayout(context);
-        mTabLayout.setBackgroundColor(Color.WHITE);
+        mTabLayout.setBackgroundColor(getResources().getColor(R.color.tab_bar_bg));
         mTabLayout.setOrientation(LinearLayout.HORIZONTAL);
         addView(mTabLayout, new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 

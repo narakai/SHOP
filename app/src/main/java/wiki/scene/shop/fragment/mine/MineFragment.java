@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import wiki.scene.shop.R;
 import wiki.scene.shop.base.BaseMainFragment;
 
@@ -42,9 +43,8 @@ public class MineFragment extends BaseMainFragment {
         toolbarTitle.setText(R.string.bottom_tab_mine);
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-    }
+    @OnClick(R.id.btn)
+    public void onClickLogin() {
 
+    }
 }

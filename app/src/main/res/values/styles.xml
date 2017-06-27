@@ -21,7 +21,7 @@
 
 
     <style name="Toolbar_TextAppearance_White">
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">@dimen/toolbar_title_size</item>
         <item name="android:textColor">@android:color/white</item>
     </style>
 

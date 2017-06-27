@@ -1,6 +1,5 @@
 package wiki.scene.shop;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -88,11 +87,11 @@ public class MainFragment extends SupportFragment {
         BottomBar mBottomBar = (BottomBar) view.findViewById(R.id.bottomBar);
 
         mBottomBar
-                .addItem(new BottomBarTab(_mActivity, R.mipmap.ic_launcher_round, getString(R.string.bottom_tab_indiana)))
-                .addItem(new BottomBarTab(_mActivity, R.mipmap.ic_launcher_round, getString(R.string.bottom_tab_newest)))
-                .addItem(new BottomBarTab(_mActivity, R.mipmap.ic_launcher_round, getString(R.string.bottom_tab_share)))
-                .addItem(new BottomBarTab(_mActivity, R.mipmap.ic_launcher_round, getString(R.string.bottom_tab_car)))
-                .addItem(new BottomBarTab(_mActivity, R.mipmap.ic_launcher_round, getString(R.string.bottom_tab_mine)));
+                .addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottombar_indiana_d, R.drawable.ic_bottombar_indiana_s, getString(R.string.bottom_tab_indiana)))
+                .addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottombar_newest_d, R.drawable.ic_bottombar_newest_s, getString(R.string.bottom_tab_newest)))
+                .addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottombar_share_d, R.drawable.ic_bottombar_share_s, getString(R.string.bottom_tab_share)))
+                .addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottombar_car_d, R.drawable.ic_bottombar_car_s, getString(R.string.bottom_tab_car)))
+                .addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottombar_mine_d, R.drawable.ic_bottombar_mine_s, getString(R.string.bottom_tab_mine)));
 
 
         mBottomBar.setOnTabSelectedListener(new BottomBar.OnTabSelectedListener() {
@@ -121,7 +120,6 @@ public class MainFragment extends SupportFragment {
         super.onFragmentResult(requestCode, resultCode, data);
         if (requestCode == REQ_MSG && resultCode == RESULT_OK) {
             SceneLogUtil.e("返回");
-            return;
         }
     }
 
