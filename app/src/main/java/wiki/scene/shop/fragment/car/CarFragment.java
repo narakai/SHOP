@@ -5,9 +5,7 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import wiki.scene.shop.R;
 import wiki.scene.shop.base.BaseMainFragment;
@@ -18,8 +16,6 @@ import wiki.scene.shop.base.BaseMainFragment;
  * Author：scene on 2017/6/26 14:13
  */
 public class CarFragment extends BaseMainFragment {
-    @BindView(R.id.toolbar_title)
-    TextView toolbarTitle;
 
     public static CarFragment newInstance() {
         CarFragment fragment = new CarFragment();
@@ -39,7 +35,6 @@ public class CarFragment extends BaseMainFragment {
     @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
-        toolbarTitle.setText(R.string.bottom_tab_car);
     }
 
     @Override

@@ -30,6 +30,27 @@
             android:ellipsize="end"
             android:lines="1"
             android:textAppearance="@style/Toolbar_TextAppearance_White" />
+
+        <ImageView
+            android:id="@+id/toolbar_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/ic_toolbar_message"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/toolbar_publish"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:text="发表"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_middle" />
     </RelativeLayout>
 
 </android.support.design.widget.AppBarLayout>

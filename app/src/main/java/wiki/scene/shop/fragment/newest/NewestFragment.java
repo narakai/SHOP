@@ -18,8 +18,6 @@ import wiki.scene.shop.base.BaseMainFragment;
  * Author：scene on 2017/6/26 14:13
  */
 public class NewestFragment extends BaseMainFragment {
-    @BindView(R.id.toolbar_title)
-    TextView toolbarTitle;
 
     public static NewestFragment newInstance() {
         NewestFragment fragment = new NewestFragment();
@@ -39,7 +37,6 @@ public class NewestFragment extends BaseMainFragment {
     @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
-        toolbarTitle.setText(R.string.bottom_tab_newest);
     }
 
     @Override
