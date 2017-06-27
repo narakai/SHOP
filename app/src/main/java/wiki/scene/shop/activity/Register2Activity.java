@@ -1,48 +1,42 @@
 package wiki.scene.shop.activity;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.StringRes;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import wiki.scene.shop.R;
-import wiki.scene.shop.activity.presenter.Register1Presenter;
-import wiki.scene.shop.activity.view.IRegister1View;
+import wiki.scene.shop.activity.presenter.Register2Presenter;
+import wiki.scene.shop.activity.view.IRegister2View;
 import wiki.scene.shop.event.RegisterSuccessEvent;
 import wiki.scene.shop.mvp.BaseMvpActivity;
+import wiki.scene.shop.utils.ToastUtils;
 
 /**
- * Case By:注册第一步
+ * Case By:注册第二步
  * package:wiki.scene.shop.activity
- * Author：scene on 2017/6/27 14:19
+ * Author：scene on 2017/6/27 15:37
  */
 
-public class Register1Activity extends BaseMvpActivity<IRegister1View, Register1Presenter> implements IRegister1View {
+public class Register2Activity extends BaseMvpActivity<IRegister2View, Register2Presenter> implements IRegister2View {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.toolbar_title)
     TextView toolbarTitle;
-    @BindView(R.id.phone_number)
-    EditText phoneNumber;
-    @BindView(R.id.verification)
-    EditText verification;
-    @BindView(R.id.get_verification)
-    TextView getVerification;
-    @BindView(R.id.agree)
-    CheckBox agree;
+    @BindView(R.id.password)
+    EditText password;
+    @BindView(R.id.repassword)
+    EditText repassword;
 
     private Unbinder unbinder;
 
@@ -51,15 +45,15 @@ public class Register1Activity extends BaseMvpActivity<IRegister1View, Register1
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register1);
+        setContentView(R.layout.activity_register2);
         unbinder = ButterKnife.bind(this);
         initToolbar();
         initView();
     }
 
     @Override
-    public Register1Presenter initPresenter() {
-        return new Register1Presenter(this);
+    public Register2Presenter initPresenter() {
+        return new Register2Presenter(this);
     }
 
     private void initToolbar() {
@@ -74,14 +68,15 @@ public class Register1Activity extends BaseMvpActivity<IRegister1View, Register1
     }
 
     private void initView() {
-        progressDialog = new ProgressDialog(Register1Activity.this);
-        progressDialog.setMessage(getString(R.string.is_get_verification));
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage(getString(R.string.is_registing));
     }
 
-    @OnClick(R.id.next_step)
-    public void onClickNextStep() {
-        presenter.enterNextStep();
+    @OnClick(R.id.complete)
+    public void onClickComplete() {
+        presenter.setPassword();
     }
+
 
     @Override
     public void showLoading() {
@@ -97,29 +92,31 @@ public class Register1Activity extends BaseMvpActivity<IRegister1View, Register1
         }
     }
 
-    @Override
-    public void enterNextStep() {
-        Intent intent = new Intent(Register1Activity.this, Register2Activity.class);
-        startActivity(intent);
-    }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onRegisterSuccess(RegisterSuccessEvent event) {
-        if (event != null) {
-            onBackPressed();
-        }
+    @Override
+    public String getPassword() {
+        return password.getText().toString().trim();
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-        EventBus.getDefault().register(this);
+    public String getRePassword() {
+        return repassword.getText().toString().trim();
     }
 
     @Override
-    public void onStop() {
-        super.onStop();
-        EventBus.getDefault().unregister(this);
+    public void showFail(@StringRes int resId) {
+        ToastUtils.getInstance(Register2Activity.this).showToast(resId);
+    }
+
+    @Override
+    public void showFail(String msg) {
+        ToastUtils.getInstance(Register2Activity.this).showToast(msg);
+    }
+
+    @Override
+    public void registerSuccess() {
+        EventBus.getDefault().post(new RegisterSuccessEvent());
+        onBackPressed();
     }
 
     @Override

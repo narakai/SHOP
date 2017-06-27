@@ -46,6 +46,11 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar.SwipeBack"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+        <activity
+            android:name=".activity.Register2Activity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar.SwipeBack"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <!--###########UMeng分享相关 开始###############-->
         <meta-data
             android:name="UMENG_APPKEY"

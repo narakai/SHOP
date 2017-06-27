@@ -1,5 +1,7 @@
 package wiki.scene.shop.activity.view;
 
+import android.support.annotation.StringRes;
+
 import wiki.scene.shop.mvp.BaseView;
 
 /**
@@ -16,9 +18,9 @@ public interface ILoginView extends BaseView {
 
     void loginSuccess();
 
-    void showFailInfo(String failInfo);
+    void showFailInfo(String msg);
 
-    void showFailInfo(int failInfo);
+    void showFailInfo(@StringRes int resId);
 
     void enterRegisterActivity();
 

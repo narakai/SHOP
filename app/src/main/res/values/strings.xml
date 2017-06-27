@@ -34,5 +34,12 @@
     <string name="user_use_agreement">《用户使用协议》</string>
     <string name="is_get_verification">正在获取验证码，请稍候...</string>
 
+    <string name="set_password">设置密码</string>
+    <string name="confirm_password">确认密码</string>
+    <string name="password_hint">请设置6-20位数字或字母</string>
+    <string name="complete">完成</string>
+    <string name="twice_password_different">两次输入的密码不一致</string>
+    <string name="is_registing">正在注册，请稍候...</string>
+    <string name="password_length_6_20">密码长度为6-20位之间</string>
 
 </resources>
