@@ -70,5 +70,5 @@ dependencies {
     compile files('libs/umeng_shareboard_widget.jar')
     compile files('libs/umeng_social_shareboard.jar')
     //json解析
-    compile files('libs/fastjson-1.2.33.jar')
+    compile 'com.google.code.gson:gson:2.8.1'
 }

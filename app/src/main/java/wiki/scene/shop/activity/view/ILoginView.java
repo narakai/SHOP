@@ -9,6 +9,7 @@ import wiki.scene.shop.mvp.BaseView;
  */
 
 public interface ILoginView extends BaseView {
+
     void clearUserName();
 
     void clearPassword();

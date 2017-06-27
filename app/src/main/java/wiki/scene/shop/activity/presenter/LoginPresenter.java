@@ -1,5 +1,6 @@
 package wiki.scene.shop.activity.presenter;
 
+import wiki.scene.shop.activity.model.LoginModel;
 import wiki.scene.shop.activity.view.ILoginView;
 import wiki.scene.shop.mvp.BasePresenter;
 
@@ -11,9 +12,11 @@ import wiki.scene.shop.mvp.BasePresenter;
 
 public class LoginPresenter extends BasePresenter<ILoginView> {
     private ILoginView loginView;
+    private LoginModel loginModel;
 
     public LoginPresenter(ILoginView loginView) {
         this.loginView = loginView;
+        loginModel = new LoginModel();
     }
 
     /**
@@ -32,7 +35,7 @@ public class LoginPresenter extends BasePresenter<ILoginView> {
     public void login() {
         if (loginView != null) {
             loginView.showLoading();
-
+            loginModel.login(loginView.getUserName(), loginView.getPassword());
         }
     }
 

@@ -2,8 +2,174 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/bg_color_gray"
     android:orientation="vertical">
 
     <include layout="@layout/toolbar_back" />
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:background="@color/white"
+                android:drawableLeft="@drawable/ic_username"
+                android:drawablePadding="20dp"
+                android:gravity="center_vertical"
+                android:hint="@string/please_edit_phone_munber"
+                android:inputType="number"
+                android:lines="1"
+                android:maxLines="1"
+                android:padding="15dp"
+                android:textSize="@dimen/text_size_big" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:background="@color/white"
+                android:drawableLeft="@drawable/ic_password"
+                android:drawablePadding="20dp"
+                android:gravity="center_vertical"
+                android:hint="@string/please_edit_password"
+                android:inputType="textPassword"
+                android:lines="1"
+                android:maxLines="1"
+                android:padding="15dp"
+                android:textSize="@dimen/text_size_big" />
+
+            <Button
+                android:id="@+id/login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:background="@drawable/bg_btn_login"
+                android:text="@string/login"
+                android:textColor="@color/white"
+                android:textSize="@dimen/btn_text_size" />
+
+            <Button
+                android:id="@+id/register"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bg_btn_rigister"
+                android:text="@string/fast_register"
+                android:textColor="@color/text_color_title"
+                android:textSize="@dimen/btn_text_size" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_weight="1"
+                    android:background="@color/line_color" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/use_others_way_login"
+                    android:textColor="@color/text_color_des"
+                    android:textSize="@dimen/text_size_small" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_weight="1"
+                    android:background="@color/line_color" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
+                    android:drawablePadding="10dp"
+                    android:drawableTop="@drawable/ic_wechat"
+                    android:text="@string/wechat_login"
+                    android:textColor="@color/text_color_des"
+                    android:textSize="@dimen/text_size_xsmall" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:drawablePadding="10dp"
+                    android:drawableTop="@drawable/ic_qq"
+                    android:text="@string/qq_login"
+                    android:textColor="@color/text_color_des"
+                    android:textSize="@dimen/text_size_xsmall" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="45dp"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/app_des"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/what_is_app"
+                    android:textColor="@color/text_color_des"
+                    android:textSize="@dimen/text_size_xsmall" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="2dp"
+                    android:paddingRight="2dp"
+                    android:text="|"
+                    android:textColor="@color/text_color_des"
+                    android:textSize="@dimen/text_size_xsmall" />
+
+                <TextView
+                    android:id="@+id/agreement"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/service_agreement"
+                    android:textColor="@color/text_color_title"
+                    android:textSize="@dimen/text_size_xsmall" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/app_copyright"
+                android:textSize="@dimen/text_size_xsmall" />
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

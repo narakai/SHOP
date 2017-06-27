@@ -1,5 +1,6 @@
 package wiki.scene.shop.fragment.mine;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import wiki.scene.shop.R;
+import wiki.scene.shop.activity.LoginActivity;
 import wiki.scene.shop.base.BaseMainFragment;
 
 /**
@@ -45,6 +47,6 @@ public class MineFragment extends BaseMainFragment {
 
     @OnClick(R.id.btn)
     public void onClickLogin() {
-
+        startActivity(new Intent(_mActivity, LoginActivity.class));
     }
 }

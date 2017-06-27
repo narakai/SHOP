@@ -2,4 +2,11 @@
 <resources>
     <dimen name="bottombar_wechat_height">52dp</dimen>
     <dimen name="toolbar_title_size">18sp</dimen>
+
+    <dimen name="text_size_big">16sp</dimen>
+    <dimen name="text_size_middle">14sp</dimen>
+    <dimen name="text_size_small">12sp</dimen>
+    <dimen name="text_size_xsmall">11sp</dimen>
+
+    <dimen name="btn_text_size">17sp</dimen>
 </resources>
