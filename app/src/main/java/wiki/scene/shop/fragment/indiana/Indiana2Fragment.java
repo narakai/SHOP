@@ -29,6 +29,7 @@ import wiki.scene.shop.fragment.indiana.mvpview.IIndianaView;
 import wiki.scene.shop.fragment.indiana.presenter.IndianaPresenter;
 import wiki.scene.shop.itemDecoration.IndianaItemDecoration;
 import wiki.scene.shop.mvp.BaseMainMvpFragment;
+import wiki.scene.shop.widgets.CustomeGridView;
 
 /**
  * Case By:
@@ -74,18 +75,16 @@ public class Indiana2Fragment extends BaseMainMvpFragment<IIndianaView, IndianaP
     @BindView(R.id.layout_price)
     RelativeLayout layoutPrice;
     //headerView
-    TextView textPopular1;
-    View linePopular1;
-    RelativeLayout layoutPopular1;
-    TextView textNewest1;
-    View lineNewest1;
-    RelativeLayout layoutNewest1;
-    TextView textFastest1;
-    View lineFastest1;
-    RelativeLayout layoutFastest1;
-    TextView textPrice1;
-    View linePrice1;
-    RelativeLayout layoutPrice1;
+    private TextView textPopular1;
+    private View linePopular1;
+    private TextView textNewest1;
+    private View lineNewest1;
+    private TextView textFastest1;
+    private View lineFastest1;
+    private TextView textPrice1;
+    private View linePrice1;
+
+    private CustomeGridView newestGridView;
     //adapter
     private List<String> list = new ArrayList<>();
     private RecyclerAdapterWithHF mAdapter;
@@ -180,10 +179,10 @@ public class Indiana2Fragment extends BaseMainMvpFragment<IIndianaView, IndianaP
         lineNewest1 = headerView.findViewById(R.id.line_newest1);
         lineFastest1 = headerView.findViewById(R.id.line_fastest1);
         linePrice1 = headerView.findViewById(R.id.line_price1);
-        layoutPopular1 = (RelativeLayout) headerView.findViewById(R.id.layout_popular1);
-        layoutNewest1 = (RelativeLayout) headerView.findViewById(R.id.layout_newest1);
-        layoutFastest1 = (RelativeLayout) headerView.findViewById(R.id.layout_fastest1);
-        layoutPrice1 = (RelativeLayout) headerView.findViewById(R.id.layout_price1);
+        RelativeLayout layoutPopular1 = (RelativeLayout) headerView.findViewById(R.id.layout_popular1);
+        RelativeLayout layoutNewest1 = (RelativeLayout) headerView.findViewById(R.id.layout_newest1);
+        RelativeLayout layoutFastest1 = (RelativeLayout) headerView.findViewById(R.id.layout_fastest1);
+        RelativeLayout layoutPrice1 = (RelativeLayout) headerView.findViewById(R.id.layout_price1);
 
         layoutPopular1.setOnClickListener(this);
         layoutNewest1.setOnClickListener(this);
