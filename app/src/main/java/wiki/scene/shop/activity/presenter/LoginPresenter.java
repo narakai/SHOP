@@ -5,6 +5,8 @@ import android.text.TextUtils;
 import wiki.scene.shop.R;
 import wiki.scene.shop.activity.model.LoginModel;
 import wiki.scene.shop.activity.view.ILoginView;
+import wiki.scene.shop.entity.UserInfo;
+import wiki.scene.shop.mvp.BaseHttpResultListener;
 import wiki.scene.shop.mvp.BasePresenter;
 
 /**
@@ -37,7 +39,25 @@ public class LoginPresenter extends BasePresenter<ILoginView> {
             }
 
             loginView.showLoading();
-            loginModel.login(loginView.getPhoneNumber(), loginView.getPassword());
+            loginModel.login(loginView.getPhoneNumber(), loginView.getPassword(), new BaseHttpResultListener<UserInfo>() {
+                @Override
+                public void onSuccess(UserInfo data) {
+                    if (loginView != null) {
+                        loginView.loginSuccess();
+                    }
+                }
+
+                @Override
+                public void onError(String msg) {
+                    if (loginView != null) {
+                        loginView.showFailInfo(msg);
+                    }
+                }
+
+                @Override
+                public void onFinish() {
+                }
+            });
         }
     }
 

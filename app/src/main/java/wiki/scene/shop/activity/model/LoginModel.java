@@ -10,6 +10,7 @@ import wiki.scene.shop.entity.UserInfo;
 import wiki.scene.shop.http.api.ApiUtil;
 import wiki.scene.shop.http.base.LzyResponse;
 import wiki.scene.shop.http.callback.JsonCallback;
+import wiki.scene.shop.mvp.BaseHttpResultListener;
 
 /**
  * Case By:登录界面
@@ -19,7 +20,7 @@ import wiki.scene.shop.http.callback.JsonCallback;
 
 public class LoginModel {
 
-    public void login(String username, String password) {
+    public void login(String username, String password, final BaseHttpResultListener<UserInfo> resultListener) {
         Map<String, String> params = new HashMap<>();
         params.put("username", username);
         params.put("password", password);
@@ -28,16 +29,19 @@ public class LoginModel {
             public void onSuccess(Response<LzyResponse<UserInfo>> response) {
                 LzyResponse<UserInfo> userInfoLzyResponse = response.body();
                 UserInfo userInfo = userInfoLzyResponse.data;
+                resultListener.onSuccess(userInfo);
             }
 
             @Override
             public void onError(Response<LzyResponse<UserInfo>> response) {
                 super.onError(response);
+                resultListener.onError(response.message());
             }
 
             @Override
             public void onFinish() {
                 super.onFinish();
+                resultListener.onFinish();
             }
         });
     }

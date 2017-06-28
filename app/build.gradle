@@ -71,4 +71,6 @@ dependencies {
     compile files('libs/umeng_social_shareboard.jar')
     //json解析
     compile 'com.google.code.gson:gson:2.8.1'
+    //banner
+    compile 'com.youth.banner:banner:1.4.9'
 }

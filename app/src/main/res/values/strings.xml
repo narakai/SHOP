@@ -42,4 +42,14 @@
     <string name="is_registing">正在注册，请稍候...</string>
     <string name="password_length_6_20">密码长度为6-20位之间</string>
 
+    <string name="popular">人气</string>
+    <string name="newest">最新</string>
+    <string name="fastest">最快</string>
+    <string name="price">价格</string>
+
+    <string name="indiana_price_10">10元夺宝</string>
+    <string name="indiana_fast">秒开夺宝</string>
+    <string name="indiana_red88">88元红包</string>
+    <string name="invite_money">邀请赚钱</string>
+    <string name="indiana_headline">夺宝头条</string>
 </resources>
