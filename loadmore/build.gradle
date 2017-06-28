@@ -22,4 +22,5 @@ dependencies {
     compile 'com.android.support:appcompat-v7:' + rootProject.appcompat_v7
     compile 'com.android.support:recyclerview-v7:' + rootProject.appcompat_v7
     compile 'me.zhanghai.android.materialprogressbar:library:1.4.1'
+    compile 'com.github.castorflex.smoothprogressbar:library-circular:1.2.0'
 }

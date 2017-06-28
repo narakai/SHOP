@@ -54,4 +54,6 @@
     <string name="indiana_headline">夺宝头条</string>
     <string name="newest_announced">最新揭晓</string>
     <string name="more">更多</string>
+    <string name="lottery_progress">开奖进度</string>
+    <string name="immediately_indiana">立即夺宝</string>
 </resources>

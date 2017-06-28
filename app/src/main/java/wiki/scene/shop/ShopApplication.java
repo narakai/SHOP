@@ -18,6 +18,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 
 import okhttp3.OkHttpClient;
+import wiki.scene.loadmore.utils.PtrLocalDisplay;
 
 
 /**
@@ -31,6 +32,7 @@ public class ShopApplication extends Application {
     public void onCreate() {
         super.onCreate();
         initOKhttp();
+        PtrLocalDisplay.init(this);
     }
 
     /**

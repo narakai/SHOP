@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,9 @@ import android.widget.TextView;
 
 import com.youth.banner.Banner;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -20,9 +25,12 @@ import wiki.scene.loadmore.PtrClassicFrameLayout;
 import wiki.scene.loadmore.PtrDefaultHandler;
 import wiki.scene.loadmore.PtrFrameLayout;
 import wiki.scene.loadmore.StatusViewLayout;
+import wiki.scene.loadmore.utils.PtrLocalDisplay;
 import wiki.scene.shop.R;
+import wiki.scene.shop.adapter.IndianaAdapter;
 import wiki.scene.shop.fragment.indiana.mvpview.IIndianaView;
 import wiki.scene.shop.fragment.indiana.presenter.IndianaPresenter;
+import wiki.scene.shop.itemDecoration.GridSpacingItemDecoration;
 import wiki.scene.shop.mvp.BaseMainMvpFragment;
 import wiki.scene.shop.widgets.verticalrollingtextview.VerticalRollingTextView;
 
@@ -112,6 +120,15 @@ public class IndianaFragment extends BaseMainMvpFragment<IIndianaView, IndianaPr
     CoordinatorLayout coordinatorLayout;
     @BindView(R.id.appbarlayout)
     AppBarLayout appBarLayout;
+    @BindView(R.id.recyclerView)
+    RecyclerView recyclerView;
+
+    //appbar滑动的距离
+    private int verticalOffset = 0;
+    //adapter
+    private List<String> list = new ArrayList<>();
+    private GridLayoutManager layoutManager;
+    private IndianaAdapter adapter;
 
     public static IndianaFragment newInstance() {
         IndianaFragment fragment = new IndianaFragment();
@@ -133,11 +150,12 @@ public class IndianaFragment extends BaseMainMvpFragment<IIndianaView, IndianaPr
         super.onLazyInitView(savedInstanceState);
         hideLoading();
         initView();
+        initRecyclerView();
     }
 
-    private int verticalOffset = 0;
-
     private void initView() {
+        ptrLayout.setLastUpdateTimeRelateObject(this);
+
         appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int offset) {
@@ -154,7 +172,21 @@ public class IndianaFragment extends BaseMainMvpFragment<IIndianaView, IndianaPr
             public void onRefreshBegin(PtrFrameLayout frame) {
 
             }
+
         });
+
+    }
+
+    private void initRecyclerView() {
+        for (int i = 0; i < 30; i++) {
+            list.add("数据：" + (i + 1));
+        }
+        adapter = new IndianaAdapter(_mActivity, list);
+        layoutManager = new GridLayoutManager(_mActivity, 2);
+        recyclerView.setLayoutManager(layoutManager);
+        int space=PtrLocalDisplay.dp2px(1);
+        recyclerView.addItemDecoration(new GridSpacingItemDecoration(2,space,false));
+        recyclerView.setAdapter(adapter);
     }
 
     @Override

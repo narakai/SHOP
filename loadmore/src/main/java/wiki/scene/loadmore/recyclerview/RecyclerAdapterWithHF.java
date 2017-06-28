@@ -1,5 +1,6 @@
 package wiki.scene.loadmore.recyclerview;
 
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.AdapterDataObserver;
 import android.support.v7.widget.RecyclerView.ViewHolder;
@@ -29,6 +30,8 @@ public class RecyclerAdapterWithHF extends RecyclerView.Adapter<ViewHolder> {
     private List<View> mFooters = new ArrayList<View>();
 
     private int mManagerType;
+
+
 
     public int getHeadSize() {
         return mHeaders.size();

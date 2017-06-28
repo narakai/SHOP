@@ -15,14 +15,13 @@
         <android.support.design.widget.CoordinatorLayout
             android:id="@+id/coordinatorLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#ffffff">
+            android:layout_height="match_parent">
             <!-- 第二部分:缩放控件-->
             <android.support.design.widget.AppBarLayout
                 android:id="@+id/appbarlayout"
                 android:layout_width="match_parent"
-                app:layout_behavior="wiki.scene.shop.widgets.FlingBehavior"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                app:layout_behavior="wiki.scene.shop.widgets.FlingBehavior">
 
                 <android.support.design.widget.CollapsingToolbarLayout
                     android:id="@+id/collapsing_tool_bar_test_ctl"
@@ -31,7 +30,7 @@
                     android:fitsSystemWindows="true"
                     app:expandedTitleMarginEnd="64dp"
                     app:expandedTitleMarginStart="48dp"
-                    app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed">
+                    app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
                     <RelativeLayout
                         android:id="@+id/userScroreRe"
@@ -59,39 +58,12 @@
             </android.support.design.widget.AppBarLayout>
 
 
-            <!-- 第三部分:Your Scroll View-->
-            <android.support.v4.widget.NestedScrollView
-                android:id="@+id/myMainScrollView"
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:overScrollMode="always"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-                <LinearLayout
-                    android:id="@+id/mainLinearLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="50dp"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:text="测试gem测试测试测试测试测试测试测试测试测
-                        试测测试测试测试测试测试测试测试测试测试测测试测试测试
-                        测试测试测试测试测试测试测测试测试测试测试测试测试测试
-                        测试测试测测试测试测试测试测试测试测试测试测试测测试测
-                        试测试测试测试测试测试测试测试测测试测试测试测试测试测
-                        试测试测试测试测测试测试测试测试测试测试测试测试测试测
-                        试测试测试测试gem测试测试测试测试测试测试测试测试测试测
-                        测试测试测试测试测试测试测试测试测试测测试测试测试测试测
-                        试测试测试测试测试测测试测试测试测试测试测试测试测试测试
-                        测测试测试测试测试测试测试测试测试测试测测试测试测试测试
-                        测试测试测试测试测试测测试测试测试测试测试测试测试测试测
-                        试测测试测试测试测试测试测试测试测试测试测试测试测试" />
-
-                </LinearLayout>
-            </android.support.v4.widget.NestedScrollView>
+                android:background="@color/line_color_2"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
         </android.support.design.widget.CoordinatorLayout>
     </wiki.scene.loadmore.PtrClassicFrameLayout>

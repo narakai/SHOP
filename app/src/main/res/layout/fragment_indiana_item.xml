@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:padding="5dp">
+
+    <wiki.scene.shop.widgets.RatioImageView
+        android:id="@+id/goods_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:base="horizontal"
+        app:horizontal_weight="492"
+        app:vertical_weight="281" />
+
+    <TextView
+        android:id="@+id/goods_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/goods_image"
+        android:layout_marginTop="9dp"
+        android:ellipsize="end"
+        android:lines="1"
+        android:text="ipone7"
+        android:textColor="@color/text_color_content"
+        android:textSize="@dimen/text_size_small" />
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/goods_name"
+        android:layout_marginTop="5dp"
+        android:text="@string/lottery_progress"
+        android:textColor="@color/text_color_des"
+        android:textSize="@dimen/text_size_small" />
+
+    <TextView
+        android:id="@+id/progress_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/goods_name"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@+id/text"
+        android:text="50%"
+        android:textColor="@color/text_color_red"
+        android:textSize="@dimen/text_size_small" />
+
+    <TextView
+        android:id="@+id/immddiately_indiana"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/progressBar"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/btn_immediately_indiana"
+        android:gravity="center"
+        android:paddingBottom="2dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="2dp"
+        android:text="@string/immediately_indiana"
+        android:textColor="@color/text_color_red"
+        android:textSize="@dimen/text_size_small" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="@style/Widget.MaterialProgressBar.ProgressBar.Horizontal.Small"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/progress_text"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="7dp"
+        android:layout_toLeftOf="@+id/immddiately_indiana"
+        android:progress="10"
+        android:progressDrawable="@drawable/progressbar_color" />
+
+</RelativeLayout>

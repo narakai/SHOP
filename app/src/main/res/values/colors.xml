@@ -21,4 +21,8 @@
     <color name="line_color">#AAAAAA</color>
     <color name="line_color_2">#F6F6F6</color>
     <color name="transparent">#00000000</color>
+    <color name="text_color_red">#EA5F76</color>
+
+    <color name="progressbar_bg">#EBEBEB</color>
+    <color name="progressbar_progress">#FFDA81</color>
 </resources>

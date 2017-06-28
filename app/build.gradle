@@ -75,4 +75,6 @@ dependencies {
     compile 'com.youth.banner:banner:1.4.9'
     //倒计时
     compile 'com.github.iwgang:countdownview:2.1.5'
+    //AppbarLayout兼容包
+    compile 'me.henrytao:smooth-app-bar-layout:25.3.1.0'
 }
