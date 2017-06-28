@@ -10,7 +10,7 @@
         android:id="@+id/banner"
         android:layout_width="match_parent"
         android:layout_height="130dp"
-        android:background="#4444" />
+        android:background="#444444" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -84,6 +84,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="5dp"
+            android:contentDescription="@string/app_name"
             android:src="@drawable/ic_indiana_notice" />
 
         <TextView
@@ -97,7 +98,7 @@
         <wiki.scene.shop.widgets.verticalrollingtextview.VerticalRollingTextView
             android:id="@+id/notice_textView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="20dp"
             android:textSize="@dimen/text_size_xsmall"
             app:animInterval="5000" />
     </LinearLayout>
@@ -106,4 +107,170 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#313131" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/newest_title_image_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_indiana_newest_title"
+            android:drawableLeft="@drawable/ic_indiana_newest_title"
+            android:drawablePadding="2dp"
+            android:gravity="center"
+            android:paddingLeft="5dp"
+            android:paddingRight="10dp"
+            android:text="@string/newest_announced"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_middle" />
+
+        <TextView
+            android:id="@+id/more_newest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/newest_title_image_text"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:drawablePadding="5dp"
+            android:drawableRight="@drawable/ic_more"
+            android:gravity="bottom"
+            android:text="@string/more"
+            android:textColor="@color/text_color_content"
+            android:textSize="@dimen/text_size_xsmall" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="@color/line_color_2" />
+
+    <LinearLayout
+        android:id="@+id/title_bar1"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/white"
+        android:baselineAligned="false"
+        android:visibility="gone"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:id="@+id/layout_popular1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/text_popular1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:padding="10dp"
+                android:text="@string/popular"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/text_size_small" />
+
+            <View
+                android:id="@+id/line_popular1"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_alignLeft="@+id/text_popular1"
+                android:layout_alignRight="@+id/text_popular1"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:background="@color/colorPrimary" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layout_newest1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/text_newest1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:padding="10dp"
+                android:text="@string/newest"
+                android:textColor="@color/text_color_title"
+                android:textSize="@dimen/text_size_small" />
+
+            <View
+                android:id="@+id/line_newest1"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_alignLeft="@+id/text_newest1"
+                android:layout_alignRight="@+id/text_newest1"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:background="@color/transparent" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layout_fastest1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/text_fastest1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:padding="10dp"
+                android:text="@string/fastest"
+                android:textColor="@color/text_color_title"
+                android:textSize="@dimen/text_size_small" />
+
+            <View
+                android:id="@+id/line_fastest1"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_alignLeft="@+id/text_fastest1"
+                android:layout_alignRight="@+id/text_fastest1"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:background="@color/transparent" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layout_price1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/text_price1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:padding="10dp"
+                android:text="@string/price"
+                android:textColor="@color/text_color_title"
+                android:textSize="@dimen/text_size_small" />
+
+            <View
+                android:id="@+id/line_price1"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_alignLeft="@+id/text_price1"
+                android:layout_alignRight="@+id/text_price1"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:background="@color/transparent" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/line_color_2" />
 </LinearLayout>

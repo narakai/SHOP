@@ -18,7 +18,7 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import wiki.scene.shop.R;
 import wiki.scene.shop.activity.presenter.LoginPresenter;
-import wiki.scene.shop.activity.view.ILoginView;
+import wiki.scene.shop.activity.mvpview.ILoginView;
 import wiki.scene.shop.event.RegisterSuccessEvent;
 import wiki.scene.shop.mvp.BaseMvpActivity;
 import wiki.scene.shop.utils.ToastUtils;

@@ -1,4 +1,4 @@
-package wiki.scene.shop.activity.view;
+package wiki.scene.shop.activity.mvpview;
 
 import wiki.scene.shop.mvp.BaseView;
 

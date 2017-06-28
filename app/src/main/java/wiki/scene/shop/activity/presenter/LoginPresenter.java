@@ -4,7 +4,7 @@ import android.text.TextUtils;
 
 import wiki.scene.shop.R;
 import wiki.scene.shop.activity.model.LoginModel;
-import wiki.scene.shop.activity.view.ILoginView;
+import wiki.scene.shop.activity.mvpview.ILoginView;
 import wiki.scene.shop.entity.UserInfo;
 import wiki.scene.shop.mvp.BaseHttpResultListener;
 import wiki.scene.shop.mvp.BasePresenter;

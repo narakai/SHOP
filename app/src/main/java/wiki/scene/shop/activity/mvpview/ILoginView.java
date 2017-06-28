@@ -1,4 +1,4 @@
-package wiki.scene.shop.activity.view;
+package wiki.scene.shop.activity.mvpview;
 
 import android.support.annotation.StringRes;
 

@@ -1,6 +1,6 @@
 package wiki.scene.shop.activity.presenter;
 
-import wiki.scene.shop.activity.view.IRegister1View;
+import wiki.scene.shop.activity.mvpview.IRegister1View;
 import wiki.scene.shop.mvp.BasePresenter;
 
 /**

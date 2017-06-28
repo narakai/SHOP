@@ -2,15 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/title_bar"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="40dp"
     android:background="@color/white"
-    android:orientation="horizontal"
-    android:visibility="gone">
+    android:baselineAligned="false"
+    android:orientation="horizontal">
 
     <RelativeLayout
         android:id="@+id/layout_popular"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_weight="1"
         android:orientation="vertical">
 
@@ -30,7 +30,7 @@
             android:layout_height="2dp"
             android:layout_alignLeft="@+id/text_popular"
             android:layout_alignRight="@+id/text_popular"
-            android:layout_below="@+id/text_popular"
+            android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:background="@color/colorPrimary" />
     </RelativeLayout>
@@ -38,7 +38,7 @@
     <RelativeLayout
         android:id="@+id/layout_newest"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_weight="1"
         android:orientation="vertical">
 
@@ -58,7 +58,7 @@
             android:layout_height="2dp"
             android:layout_alignLeft="@+id/text_newest"
             android:layout_alignRight="@+id/text_newest"
-            android:layout_below="@+id/text_newest"
+            android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:background="@color/transparent" />
     </RelativeLayout>
@@ -66,7 +66,7 @@
     <RelativeLayout
         android:id="@+id/layout_fastest"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_weight="1"
         android:orientation="vertical">
 
@@ -86,7 +86,7 @@
             android:layout_height="2dp"
             android:layout_alignLeft="@+id/text_fastest"
             android:layout_alignRight="@+id/text_fastest"
-            android:layout_below="@+id/text_fastest"
+            android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:background="@color/transparent" />
     </RelativeLayout>
@@ -94,7 +94,7 @@
     <RelativeLayout
         android:id="@+id/layout_price"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_weight="1"
         android:orientation="vertical">
 
@@ -114,7 +114,7 @@
             android:layout_height="2dp"
             android:layout_alignLeft="@+id/text_price"
             android:layout_alignRight="@+id/text_price"
-            android:layout_below="@+id/text_price"
+            android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:background="@color/transparent" />
     </RelativeLayout>

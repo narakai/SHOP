@@ -19,5 +19,6 @@
     <color name="text_color_des">#999999</color>
     <color name="text_color_blue">#2FACFF</color>
     <color name="line_color">#AAAAAA</color>
+    <color name="line_color_2">#F6F6F6</color>
     <color name="transparent">#00000000</color>
 </resources>

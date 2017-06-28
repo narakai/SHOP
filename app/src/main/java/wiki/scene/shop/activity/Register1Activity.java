@@ -19,7 +19,7 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import wiki.scene.shop.R;
 import wiki.scene.shop.activity.presenter.Register1Presenter;
-import wiki.scene.shop.activity.view.IRegister1View;
+import wiki.scene.shop.activity.mvpview.IRegister1View;
 import wiki.scene.shop.event.RegisterSuccessEvent;
 import wiki.scene.shop.mvp.BaseMvpActivity;
 

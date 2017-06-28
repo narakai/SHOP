@@ -3,7 +3,7 @@ package wiki.scene.shop.activity.presenter;
 import android.text.TextUtils;
 
 import wiki.scene.shop.R;
-import wiki.scene.shop.activity.view.IRegister2View;
+import wiki.scene.shop.activity.mvpview.IRegister2View;
 import wiki.scene.shop.mvp.BasePresenter;
 
 /**

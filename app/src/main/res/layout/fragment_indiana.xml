@@ -1,20 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<wiki.scene.loadmore.StatusViewLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/status_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_color_gray"
+    android:background="@color/white"
     android:orientation="vertical">
 
-    <wiki.scene.loadmore.StatusViewLayout
-        android:id="@+id/status_layout"
+    <wiki.scene.loadmore.PtrClassicFrameLayout
+        android:id="@+id/ptrLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerView"
+        <android.support.design.widget.CoordinatorLayout
+            android:id="@+id/coordinatorLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </wiki.scene.loadmore.StatusViewLayout>
+            android:layout_height="match_parent"
+            android:background="#ffffff">
+            <!-- 第二部分:缩放控件-->
+            <android.support.design.widget.AppBarLayout
+                android:id="@+id/appbarlayout"
+                android:layout_width="match_parent"
+                app:layout_behavior="wiki.scene.shop.widgets.FlingBehavior"
+                android:layout_height="wrap_content">
 
-    <include layout="@layout/fragment_indiana_title_bar" />
-</RelativeLayout>
+                <android.support.design.widget.CollapsingToolbarLayout
+                    android:id="@+id/collapsing_tool_bar_test_ctl"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fitsSystemWindows="true"
+                    app:expandedTitleMarginEnd="64dp"
+                    app:expandedTitleMarginStart="48dp"
+                    app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed">
+
+                    <RelativeLayout
+                        android:id="@+id/userScroreRe"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <include layout="@layout/fragment_indiana_header_view" />
+
+                    </RelativeLayout>
+                </android.support.design.widget.CollapsingToolbarLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <include layout="@layout/fragment_indiana_title_bar" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/line_color_2" />
+                </LinearLayout>
+            </android.support.design.widget.AppBarLayout>
+
+
+            <!-- 第三部分:Your Scroll View-->
+            <android.support.v4.widget.NestedScrollView
+                android:id="@+id/myMainScrollView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:overScrollMode="always"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+                <LinearLayout
+                    android:id="@+id/mainLinearLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="50dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:text="测试gem测试测试测试测试测试测试测试测试测
+                        试测测试测试测试测试测试测试测试测试测试测测试测试测试
+                        测试测试测试测试测试测试测测试测试测试测试测试测试测试
+                        测试测试测测试测试测试测试测试测试测试测试测试测测试测
+                        试测试测试测试测试测试测试测试测测试测试测试测试测试测
+                        试测试测试测试测测试测试测试测试测试测试测试测试测试测
+                        试测试测试测试gem测试测试测试测试测试测试测试测试测试测
+                        测试测试测试测试测试测试测试测试测试测测试测试测试测试测
+                        试测试测试测试测试测测试测试测试测试测试测试测试测试测试
+                        测测试测试测试测试测试测试测试测试测试测测试测试测试测试
+                        测试测试测试测试测试测测试测试测试测试测试测试测试测试测
+                        试测测试测试测试测试测试测试测试测试测试测试测试测试" />
+
+                </LinearLayout>
+            </android.support.v4.widget.NestedScrollView>
+
+        </android.support.design.widget.CoordinatorLayout>
+    </wiki.scene.loadmore.PtrClassicFrameLayout>
+
+</wiki.scene.loadmore.StatusViewLayout>
