@@ -2,20 +2,31 @@ package wiki.scene.shop.fragment.share;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import wiki.scene.shop.R;
-import wiki.scene.shop.base.BaseMainFragment;
+import wiki.scene.shop.adapter.SharePagerFragmentAdapter;
+import wiki.scene.shop.fragment.share.mvpview.IShareView;
+import wiki.scene.shop.fragment.share.presenter.SharePrsenter;
+import wiki.scene.shop.mvp.BaseMainMvpFragment;
 
 /**
  * Case By:晒单
  * package:wiki.scene.shop.fragment.indiana
  * Author：scene on 2017/6/26 14:13
  */
-public class ShareFragment extends BaseMainFragment {
+public class ShareFragment extends BaseMainMvpFragment<IShareView, SharePrsenter> implements IShareView {
+
+    @BindView(R.id.tab)
+    TabLayout tab;
+    @BindView(R.id.viewPager)
+    ViewPager viewPager;
 
     public static ShareFragment newInstance() {
         ShareFragment fragment = new ShareFragment();
@@ -35,11 +46,30 @@ public class ShareFragment extends BaseMainFragment {
     @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
+        tab.addTab(tab.newTab().setText(R.string.most_new));
+        tab.addTab(tab.newTab().setText(R.string.most_hot));
+        viewPager.setAdapter(new SharePagerFragmentAdapter(getChildFragmentManager()));
+        tab.setupWithViewPager(viewPager);
+    }
+
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void hideLoading() {
+
+    }
+
+    @Override
+    public SharePrsenter initPresenter() {
+        return new SharePrsenter(this);
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
     }
-
 }
