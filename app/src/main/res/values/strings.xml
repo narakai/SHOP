@@ -92,4 +92,13 @@
     <string name="join_person_time">参与人次：</string>
     <string name="luck_code">幸运号码：</string>
     <string name="announced_time">揭晓时间：</string>
+    <string name="person_data">个人资料</string>
+    <string name="click_update_avater">点击更改头像</string>
+    <string name="username">用户昵称</string>
+    <string name="phone_number2">手机号码</string>
+    <string name="mine_receiver_name">收货地址</string>
+    <string name="sex">性别</string>
+    <string name="save">保存</string>
+    <string name="male">男</string>
+    <string name="female">女</string>
 </resources>
