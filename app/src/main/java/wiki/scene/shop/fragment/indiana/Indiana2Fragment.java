@@ -271,7 +271,7 @@ public class Indiana2Fragment extends BaseMainMvpFragment<IIndianaView, IndianaP
         super.onDestroyView();
     }
 
-    public class IndianaHeaderView {
+    class IndianaHeaderView {
         @BindView(R.id.banner)
         Banner banner;
         @BindView(R.id.indiana_price_10)

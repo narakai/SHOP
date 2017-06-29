@@ -6,9 +6,15 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import jp.wasabeef.glide.transformations.CropCircleTransformation;
 import wiki.scene.shop.R;
 import wiki.scene.shop.activity.LoginActivity;
 import wiki.scene.shop.fragment.mine.mvpview.IMineView;
@@ -21,6 +27,19 @@ import wiki.scene.shop.mvp.BaseMainMvpFragment;
  * Author：scene on 2017/6/26 14:13
  */
 public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> implements IMineView {
+
+    @BindView(R.id.user_avater)
+    ImageView userAvater;
+    @BindView(R.id.image_level)
+    TextView imageLevel;
+    @BindView(R.id.username)
+    TextView username;
+    @BindView(R.id.level)
+    TextView level;
+    @BindView(R.id.score)
+    TextView score;
+    @BindView(R.id.coin_number)
+    TextView coinNumber;
 
     public static MineFragment newInstance() {
         MineFragment fragment = new MineFragment();
@@ -40,6 +59,10 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
     @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
+        // http://img1.imgtn.bdimg.com/it/u=3795770905,4042765228&fm=26&gp=0.jpg
+        Glide.with(this).load("http://img1.imgtn.bdimg.com/it/u=3795770905,4042765228&fm=26&gp=0.jpg")
+                .bitmapTransform(new CropCircleTransformation(_mActivity))
+                .into(userAvater);
     }
 
     @OnClick(R.id.user_avater)
@@ -157,5 +180,10 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
     @Override
     public void enterSetting() {
 
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
     }
 }

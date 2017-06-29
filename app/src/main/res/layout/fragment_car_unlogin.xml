@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_unlogin"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingBottom="40dp">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="33.33dp"
+        android:src="@drawable/ic_car_none" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="22dp"
+        android:text="@string/car_is_none"
+        android:textColor="@color/text_color_content"
+        android:textSize="@dimen/text_size_xsmall" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6.66dp"
+        android:text="@string/no_pain_no_gain"
+        android:textColor="@color/text_color_content"
+        android:textSize="@dimen/text_size_xsmall" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="22dp"
+        android:background="@drawable/btn_theme"
+        android:paddingBottom="3dp"
+        android:paddingLeft="7dp"
+        android:paddingRight="7dp"
+        android:paddingTop="3dp"
+        android:text="@string/immediately_indiana"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_xsmall" />
+</LinearLayout>

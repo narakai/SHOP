@@ -1,7 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<wiki.scene.loadmore.StatusViewLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/status_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-</LinearLayout>
+    <wiki.scene.loadmore.PtrClassicFrameLayout
+        android:id="@+id/ptrLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:background="@color/bg_color_gray2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </wiki.scene.loadmore.PtrClassicFrameLayout>
+</wiki.scene.loadmore.StatusViewLayout>

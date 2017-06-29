@@ -5,7 +5,9 @@ import android.util.AttributeSet;
 import android.widget.GridView;
 
 /**
- * 解决嵌套GridView高度不正常
+ * Case By: 解决嵌套GridView高度不正常
+ * package:wiki.scene.shop.widgets
+ * Author：scene on 2017/6/29 13:37
  */
 public class CustomeGridView extends GridView {
 

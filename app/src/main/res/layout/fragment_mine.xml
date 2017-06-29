@@ -16,7 +16,7 @@
             android:background="@color/colorPrimary"
             android:paddingBottom="20dp">
 
-            <wiki.scene.shop.widgets.RatioImageView
+            <ImageView
                 android:id="@+id/user_avater"
                 android:layout_width="79dp"
                 android:layout_height="79dp"
