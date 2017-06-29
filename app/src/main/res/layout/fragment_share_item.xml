@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/bg_color_gray2"
+    android:orientation="horizontal"
+    android:paddingBottom="13.3dp"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp"
+    android:paddingTop="13.3dp">
+
+    <LinearLayout
+        android:id="@+id/layout_userInfo"
+        android:layout_width="66.67dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <wiki.scene.shop.widgets.RatioImageView
+            android:id="@+id/user_avater"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/ic_default_avater" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:background="@drawable/bg_btn_login"
+            android:gravity="center_horizontal"
+            android:paddingBottom="1dp"
+            android:paddingTop="1dp">
+
+            <ImageView
+                android:id="@+id/image_level"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_share_level" />
+
+            <TextView
+                android:id="@+id/user_level"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/image_level"
+                android:layout_toRightOf="@+id/image_level"
+                android:text="11"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_8sp" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="13.3dp"
+        android:layout_toRightOf="@+id/layout_userInfo"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="135****1234"
+            android:textColor="@color/colorPrimary"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/username"
+            android:layout_alignParentRight="true"
+            android:text="4小时前"
+            android:textColor="@color/text_color_des"
+            android:textSize="11sp" />
+
+        <TextView
+            android:id="@+id/content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/username"
+            android:layout_marginTop="10dp"
+            android:text="真好，中了"
+            android:textColor="@color/text_color_title"
+            android:textSize="@dimen/text_size_small" />
+
+        <wiki.scene.shop.widgets.RatioImageView
+            android:id="@+id/goods_image"
+            android:layout_width="133dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/content"
+            android:layout_marginTop="10dp"
+            android:background="#FF0000"
+            app:base="horizontal"
+            app:horizontal_weight="5"
+            app:vertical_weight="3" />
+
+        <LinearLayout
+            android:id="@+id/layout_goodsInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/goods_image"
+            android:layout_marginTop="10dp"
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <TextView
+                android:id="@+id/goods_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="话费实时到账"
+                android:textColor="@color/text_color_des"
+                android:textSize="@dimen/text_size_xsmall" />
+
+            <TextView
+                android:id="@+id/goods_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/share_goods_times"
+                android:textColor="@color/text_color_des"
+                android:textSize="@dimen/text_size_xsmall" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/image_zan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/layout_goodsInfo"
+            android:layout_marginTop="6.66dp"
+            android:src="@drawable/ic_zan_d" />
+
+        <TextView
+            android:id="@+id/str_zan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/image_zan"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/image_zan"
+            android:text="@string/zan"
+            android:textColor="@color/text_color_des"
+            android:textSize="@dimen/text_size_xsmall" />
+
+        <TextView
+            android:id="@+id/zan_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/image_zan"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/str_zan"
+            android:text="10"
+            android:textColor="@color/text_color_des"
+            android:textSize="@dimen/text_size_xsmall" />
+
+        <TextView
+            android:id="@+id/try_luck"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/image_zan"
+            android:layout_alignParentRight="true"
+            android:drawablePadding="6.66dp"
+            android:drawableRight="@drawable/ic_share_try_luck_arrow"
+            android:gravity="center_vertical"
+            android:text="试试手气"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/text_size_xsmall" />
+    </RelativeLayout>
+</RelativeLayout>
