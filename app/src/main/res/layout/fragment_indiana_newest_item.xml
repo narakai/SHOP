@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="horizontal"
+    android:padding="10dp">
+
+    <LinearLayout
+        android:id="@+id/newest_goods1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <wiki.scene.shop.widgets.RatioImageView
+            android:id="@+id/newest_goods_image1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            app:base="horizontal"
+            app:horizontal_weight="3"
+            app:vertical_weight="2" />
+
+        <TextView
+            android:id="@+id/newest_goods_name1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:lines="2"
+            android:text=""
+            android:textColor="@color/text_color_content"
+            android:textSize="@dimen/text_size_8sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/text1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/count_down"
+                android:textColor="@color/text_color_content"
+                android:textSize="@dimen/text_size_8sp" />
+
+            <cn.iwgang.countdownview.CountdownView
+                android:id="@+id/newest_countDownView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                app:isHideTimeBackground="true"
+                app:isShowDay="false"
+                app:isShowMillisecond="false"
+                app:suffixGravity="bottom"
+                app:suffixTextColor="@color/text_color_content"
+                app:suffixTextSize="@dimen/text_size_8sp"
+                app:timeTextColor="@color/text_color_content"
+                app:timeTextSize="@dimen/text_size_8sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="10dp"
+        android:layout_height="10dp" />
+
+    <LinearLayout
+        android:id="@+id/newest_goods2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <wiki.scene.shop.widgets.RatioImageView
+            android:id="@+id/newest_goods_image2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            app:base="horizontal"
+            app:horizontal_weight="3"
+            app:vertical_weight="2" />
+
+        <TextView
+            android:id="@+id/newest_goods_name2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:lines="2"
+            android:text=""
+            android:textColor="@color/text_color_content"
+            android:textSize="@dimen/text_size_8sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/text2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/count_down"
+                android:textColor="@color/text_color_content"
+                android:textSize="@dimen/text_size_8sp" />
+
+            <cn.iwgang.countdownview.CountdownView
+                android:id="@+id/newest_countDownView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                app:isHideTimeBackground="true"
+                app:isShowDay="false"
+                app:isShowMillisecond="false"
+                app:suffixGravity="bottom"
+                app:suffixTextColor="@color/text_color_content"
+                app:suffixTextSize="@dimen/text_size_8sp"
+                app:timeTextColor="@color/text_color_content"
+                app:timeTextSize="@dimen/text_size_8sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="10dp"
+        android:layout_height="10dp" />
+
+    <LinearLayout
+        android:id="@+id/newest_goods3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <wiki.scene.shop.widgets.RatioImageView
+            android:id="@+id/newest_goods_image3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            app:base="horizontal"
+            app:horizontal_weight="3"
+            app:vertical_weight="2" />
+
+        <TextView
+            android:id="@+id/newest_goods_name3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:lines="2"
+            android:text=""
+            android:textColor="@color/text_color_content"
+            android:textSize="@dimen/text_size_8sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/text3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/count_down"
+                android:textColor="@color/text_color_content"
+                android:textSize="@dimen/text_size_8sp" />
+
+            <cn.iwgang.countdownview.CountdownView
+                android:id="@+id/newest_countDownView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                app:isHideTimeBackground="true"
+                app:isShowDay="false"
+                app:isShowMillisecond="false"
+                app:suffixGravity="bottom"
+                app:suffixTextColor="@color/text_color_content"
+                app:suffixTextSize="@dimen/text_size_8sp"
+                app:timeTextColor="@color/text_color_content"
+                app:timeTextSize="@dimen/text_size_8sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

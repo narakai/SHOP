@@ -131,7 +131,7 @@
             android:id="@+id/more_newest"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/newest_title_image_text"
+            android:layout_alignBottom="@id/newest_title_image_text"
             android:layout_alignParentRight="true"
             android:layout_marginRight="10dp"
             android:drawablePadding="5dp"
@@ -142,13 +142,7 @@
             android:textSize="@dimen/text_size_xsmall" />
     </RelativeLayout>
 
-    <wiki.scene.shop.widgets.CustomeGridView
-        android:id="@+id/newest_gridView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:horizontalSpacing="20dp"
-        android:verticalSpacing="1dp"
-        android:numColumns="3" />
+    <include layout="@layout/fragment_indiana_newest_item" />
 
     <View
         android:layout_width="match_parent"

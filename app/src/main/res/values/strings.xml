@@ -56,4 +56,20 @@
     <string name="more">更多</string>
     <string name="lottery_progress">开奖进度</string>
     <string name="immediately_indiana">立即夺宝</string>
+    <string name="count_down">倒计时</string>
+    <string name="mine_level">等级：V%1$d</string>
+    <string name="mine_score">积分：%1$d分</string>
+    <string name="indiana_coin">夺宝币：</string>
+    <string name="coin_number">%1$d个</string>
+    <string name="recharge">充值</string>
+    <string name="indiana_record">夺宝记录</string>
+    <string name="win_record">中奖记录</string>
+    <string name="indiana_raiders">夺宝攻略</string>
+    <string name="mine_share">我的晒单</string>
+    <string name="receiver_address">我的收货地址</string>
+    <string name="service_center">客服中心</string>
+    <string name="share_app">分享一元夺宝</string>
+    <string name="mine_red">我的红包</string>
+
+    <string name="setting">设置</string>
 </resources>
