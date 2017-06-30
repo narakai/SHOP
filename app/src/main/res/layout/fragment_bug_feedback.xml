@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar_back" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:text="@string/bug_describe"
+        android:textColor="@color/text_color_title"
+        android:textSize="@dimen/text_size_middle" />
+
+    <EditText
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:background="@color/white"
+        android:gravity="top"
+        android:hint="@string/edit_you_want_say"
+        android:lines="6"
+        android:padding="8dp"
+        android:textColor="@color/text_color_title"
+        android:textColorHint="@color/text_color_des"
+        android:textSize="@dimen/text_size_middle" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5.33dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:text="@string/contact_information"
+        android:textColor="@color/text_color_title"
+        android:textSize="@dimen/text_size_middle" />
+
+    <EditText
+        android:id="@+id/contact_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:background="@color/white"
+        android:gravity="top"
+        android:hint="@string/please_edit_contact_info"
+        android:lines="1"
+        android:padding="8dp"
+        android:textColor="@color/text_color_title"
+        android:textColorHint="@color/text_color_des"
+        android:textSize="@dimen/text_size_middle" />
+
+    <Button
+        android:id="@+id/submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="33.33dp"
+        android:background="@drawable/bg_btn_login"
+        android:text="@string/submit"
+        android:textColor="@color/white"
+        android:textSize="@dimen/btn_text_size" />
+</LinearLayout>

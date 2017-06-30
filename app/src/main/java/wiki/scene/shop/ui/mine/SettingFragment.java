@@ -86,6 +86,15 @@ public class SettingFragment extends BaseBackMvpFragment<ISettingView, SettingPr
         cacheSize.setText(GlideCacheUtil.getInstance().getCacheSize(_mActivity));
     }
 
+    @OnClick(R.id.add_wish_goods)
+    public void onClickAddWishGoods() {
+        start(new AddWishGoodsFragment());
+    }
+    @OnClick(R.id.bug_feedback)
+    public void onClickBugFeedback() {
+        start(new BugFeedbackFragment());
+    }
+
 
     @Override
     public void showLoading() {

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_color_gray2"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar_back" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:gravity="center"
+        android:paddingBottom="15dp"
+        android:paddingTop="15dp"
+        android:text="@string/send_your_wish_to_us_we_can_realize"
+        android:textColor="#FB5185"
+        android:textSize="@dimen/text_size_middle" />
+
+    <EditText
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:layout_marginTop="13.33dp"
+        android:background="@color/white"
+        android:gravity="top"
+        android:hint="@string/please_edit_goods_name"
+        android:lines="8"
+        android:padding="8dp"
+        android:textColor="@color/text_color_title"
+        android:textColorHint="@color/text_color_des" />
+
+    <Button
+        android:id="@+id/submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="33.33dp"
+        android:background="@drawable/bg_btn_login"
+        android:text="@string/submit"
+        android:textColor="@color/white"
+        android:textSize="@dimen/btn_text_size" />
+</LinearLayout>

@@ -45,7 +45,7 @@
                 android:layout_marginTop="5dp"
                 android:text="scene"
                 android:textColor="@color/white"
-                android:textSize="@dimen/text_size_big" />
+                android:textSize="@dimen/text_size_small" />
 
             <TextView
                 android:id="@+id/level"
@@ -84,8 +84,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="22dp"
                 android:text="@string/indiana_coin"
+                android:layout_centerVertical="true"
                 android:textColor="@color/text_color_content"
-                android:textSize="15sp" />
+                android:textSize="@dimen/text_size_middle" />
 
             <TextView
                 android:id="@+id/coin_number"
@@ -93,15 +94,21 @@
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/text1"
                 android:text="@string/coin_number"
+                android:layout_centerVertical="true"
                 android:textColor="@color/text_color_red_deep"
-                android:textSize="15sp" />
+                android:textSize="18sp" />
 
-            <Button
+            <TextView
                 android:id="@+id/recharge"
-                android:layout_width="47dp"
-                android:layout_height="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="10dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:layout_centerVertical="true"
                 android:background="@drawable/btn_recharge"
                 android:text="@string/recharge"
                 android:textColor="@color/white"

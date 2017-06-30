@@ -19,7 +19,7 @@
         android:layout_marginTop="22dp"
         android:text="@string/car_is_none"
         android:textColor="@color/text_color_content"
-        android:textSize="@dimen/text_size_xsmall" />
+        android:textSize="@dimen/text_size_small" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -27,7 +27,7 @@
         android:layout_marginTop="6.66dp"
         android:text="@string/no_pain_no_gain"
         android:textColor="@color/text_color_content"
-        android:textSize="@dimen/text_size_xsmall" />
+        android:textSize="@dimen/text_size_small" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -40,5 +40,5 @@
         android:paddingTop="3dp"
         android:text="@string/immediately_indiana"
         android:textColor="@color/white"
-        android:textSize="@dimen/text_size_xsmall" />
+        android:textSize="@dimen/text_size_middle" />
 </LinearLayout>

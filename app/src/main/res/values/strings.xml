@@ -119,4 +119,12 @@
     <string name="bug_feedback">问题反馈</string>
     <string name="user_agreement">用户协议</string>
     <string name="about_us">关于我们</string>
+    <string name="exit_login">退出登录</string>
+    <string name="send_your_wish_to_us_we_can_realize">把您希望上架的商品告诉我们，我们帮你实现愿望</string>
+    <string name="please_edit_goods_name">请输入商品名称</string>
+    <string name="submit">提交</string>
+    <string name="bug_describe">问题描述：</string>
+    <string name="edit_you_want_say">亲，在这里输入你想对我们说的话</string>
+    <string name="contact_information">联系方式：</string>
+    <string name="please_edit_contact_info">请输入联系方式，建议填写QQ号码</string>
 </resources>
