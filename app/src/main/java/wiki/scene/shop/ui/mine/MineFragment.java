@@ -108,6 +108,11 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
         presenter.clickMineReceiverAddress();
     }
 
+    @OnClick(R.id.mine_red)
+    public void onClickMineRed(){
+        presenter.clickMineRed();
+    }
+
     @Override
     public void showLoading() {
         if (progressDialog != null && !progressDialog.isShowing()) {
@@ -173,7 +178,7 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
      */
     @Override
     public void enterMineRed() {
-
+        EventBus.getDefault().post(new StartBrotherEvent(MineRedFragment.newInstance()));
     }
 
     /**

@@ -110,4 +110,7 @@
     <string name="receiver_phone">联系电话</string>
     <string name="set_default">设为默认</string>
     <string name="add_address">添加地址</string>
+    <string name="money_can_use">元可用</string>
+    <string name="expiry_date">有效期：%1$s</string>
+    <string name="now_use">立即使用</string>
 </resources>
