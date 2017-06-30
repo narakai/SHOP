@@ -65,7 +65,9 @@ public class MinePresenter extends BasePresenter<IMineView> {
     }
 
     public void clickSetting() {
-
+        if(mineView!=null){
+            mineView.enterSetting();
+        }
     }
 
     /**

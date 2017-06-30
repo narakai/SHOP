@@ -109,8 +109,13 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
     }
 
     @OnClick(R.id.mine_red)
-    public void onClickMineRed(){
+    public void onClickMineRed() {
         presenter.clickMineRed();
+    }
+
+    @OnClick(R.id.setting)
+    public void onClickSetting(){
+        presenter.clickSetting();
     }
 
     @Override
@@ -210,7 +215,7 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
      */
     @Override
     public void enterSetting() {
-
+        EventBus.getDefault().post(new StartBrotherEvent(SettingFragment.newInstance()));
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

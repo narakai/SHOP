@@ -40,7 +40,7 @@
         android:layout_below="@+id/goods_name"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="60dp"
-        android:layout_marginTop="13.33dp"
+        android:layout_marginTop="10dp"
         android:layout_toRightOf="@+id/goods_image"
         android:progress="90"
         android:progressDrawable="@drawable/progressbar_car_color" />
@@ -51,7 +51,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/progressBar"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="13.33dp"
+        android:layout_marginTop="10dp"
         android:layout_toRightOf="@+id/goods_image"
         android:text="@string/xx_times"
         android:textColor="@color/text_color_content"
@@ -67,7 +67,7 @@
         android:layout_toRightOf="@+id/goods_image"
         android:text="@string/total_person_count"
         android:textColor="@color/text_color_des"
-        android:textSize="9sp" />
+        android:textSize="@dimen/text_size_xsmall" />
 
     <TextView
         android:id="@+id/surplus"
@@ -79,7 +79,7 @@
         android:layout_toRightOf="@+id/total_need_count"
         android:text="@string/surplus"
         android:textColor="@color/text_color_des"
-        android:textSize="9sp" />
+        android:textSize="@dimen/text_size_xsmall" />
 
     <TextView
         android:id="@+id/surplus_person_times"
@@ -90,7 +90,7 @@
         android:layout_toRightOf="@+id/surplus"
         android:text="11"
         android:textColor="@color/text_color_red_deep"
-        android:textSize="9sp" />
+        android:textSize="@dimen/text_size_xsmall" />
 
     <TextView
         android:id="@+id/times"
@@ -101,7 +101,7 @@
         android:layout_toRightOf="@+id/surplus_person_times"
         android:text="@string/person_time"
         android:textColor="@color/text_color_des"
-        android:textSize="9sp" />
+        android:textSize="@dimen/text_size_xsmall" />
 
     <LinearLayout
         android:layout_width="wrap_content"

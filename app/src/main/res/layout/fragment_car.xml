@@ -36,7 +36,7 @@
                 android:padding="8dp"
                 android:text="@string/guess_you_like"
                 android:textColor="@color/text_color_des"
-                android:textSize="@dimen/text_size_small" />
+                android:textSize="@dimen/text_size_middle" />
 
             <wiki.scene.shop.widgets.CustomeGridView
                 android:id="@+id/like_gridView"

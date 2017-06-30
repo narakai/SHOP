@@ -113,4 +113,10 @@
     <string name="money_can_use">元可用</string>
     <string name="expiry_date">有效期：%1$s</string>
     <string name="now_use">立即使用</string>
+    <string name="message_notice">消息提醒</string>
+    <string name="clear_cache">清理缓存</string>
+    <string name="add_wish_goods">添加心愿商品</string>
+    <string name="bug_feedback">问题反馈</string>
+    <string name="user_agreement">用户协议</string>
+    <string name="about_us">关于我们</string>
 </resources>
