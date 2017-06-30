@@ -23,6 +23,7 @@ import jp.wasabeef.glide.transformations.CropCircleTransformation;
 import wiki.scene.shop.R;
 import wiki.scene.shop.activity.LoginActivity;
 import wiki.scene.shop.event.ChooseAvaterResultEvent;
+import wiki.scene.shop.event.StartBrotherEvent;
 import wiki.scene.shop.ui.mine.mvpview.IMineView;
 import wiki.scene.shop.ui.mine.presenter.MinePresenter;
 import wiki.scene.shop.mvp.BaseMainMvpFragment;
@@ -97,6 +98,11 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
         presenter.recharge();
     }
 
+    @OnClick(R.id.mine_share)
+    public void onClickMyShareOrder(){
+        presenter.clickMineShare();
+    }
+
     @Override
     public void showLoading() {
         if (progressDialog != null && !progressDialog.isShowing()) {
@@ -154,7 +160,7 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
      */
     @Override
     public void enterMineShare() {
-
+        EventBus.getDefault().post(new StartBrotherEvent(MyShareOrderFragment.newInstance()));
     }
 
     /**

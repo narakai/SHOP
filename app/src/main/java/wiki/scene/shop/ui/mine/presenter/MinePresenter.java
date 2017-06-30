@@ -39,7 +39,9 @@ public class MinePresenter extends BasePresenter<IMineView> {
     }
 
     public void clickMineShare() {
-
+        if (mineView != null) {
+            mineView.enterMineShare();
+        }
     }
 
     public void clickMineRed() {

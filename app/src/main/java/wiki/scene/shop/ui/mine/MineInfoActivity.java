@@ -95,17 +95,17 @@ public class MineInfoActivity extends BaseMvpActivity<IMineInfoView, MineInfoPre
         ImgSelConfig config = new ImgSelConfig.Builder(MineInfoActivity.this, loader)
                 // 是否多选
                 .multiSelect(false)
-                .btnText("Confirm")
+                .btnText(getString(R.string.confirm))
                 // 确定按钮文字颜色
                 .btnTextColor(Color.WHITE)
                 // 使用沉浸式状态栏
                 .statusBarColor(getResources().getColor(R.color.colorPrimary))
                 // 返回图标ResId
                 .backResId(R.drawable.ic_toolbar_back)
-                .title("Images")
+                .title(getString(R.string.image))
                 .titleColor(Color.WHITE)
                 .titleBgColor(getResources().getColor(R.color.colorPrimary))
-                .allImagesText("全部图片")
+                .allImagesText(getString(R.string.all_images))
                 .needCrop(false)
                 .cropSize(1, 1, 200, 200)
                 // 第一个是否显示相机
