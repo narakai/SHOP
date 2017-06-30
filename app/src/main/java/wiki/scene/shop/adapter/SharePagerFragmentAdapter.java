@@ -4,8 +4,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import wiki.scene.shop.fragment.share.ShareHotestFragment;
-import wiki.scene.shop.fragment.share.ShareNewestFragment;
+import wiki.scene.shop.ui.share.ShareHotestFragment;
+import wiki.scene.shop.ui.share.ShareNewestFragment;
 
 /**
  * Case By:晒单

@@ -22,11 +22,11 @@ import me.yokeyword.fragmentation.SupportFragment;
 import wiki.scene.loadmore.utils.SceneLogUtil;
 import wiki.scene.shop.event.StartBrotherEvent;
 import wiki.scene.shop.event.TabSelectedEvent;
-import wiki.scene.shop.fragment.car.CarFragment;
-import wiki.scene.shop.fragment.indiana.Indiana2Fragment;
-import wiki.scene.shop.fragment.mine.MineFragment;
-import wiki.scene.shop.fragment.newest.NewestFragment;
-import wiki.scene.shop.fragment.share.ShareFragment;
+import wiki.scene.shop.ui.car.CarFragment;
+import wiki.scene.shop.ui.indiana.Indiana2Fragment;
+import wiki.scene.shop.ui.mine.MineFragment;
+import wiki.scene.shop.ui.newest.NewestFragment;
+import wiki.scene.shop.ui.share.ShareFragment;
 import wiki.scene.shop.view.BottomBar;
 import wiki.scene.shop.view.BottomBarTab;
 
