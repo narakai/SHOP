@@ -105,7 +105,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/mine_receiver_name"
+            android:text="@string/mine_receiver_address"
             android:textColor="@color/text_color_title"
             android:textSize="@dimen/text_size_small" />
 
@@ -161,8 +161,8 @@
                 android:layout_height="match_parent"
                 android:button="@drawable/bg_sex_radio_button_selector"
                 android:checked="true"
-                android:text="@string/male"
                 android:padding="5dp"
+                android:text="@string/male"
                 android:textColor="@drawable/bg_sex_radio_button_textcolor_selector"
                 android:textSize="@dimen/text_size_small" />
 

@@ -27,9 +27,10 @@ public abstract class BaseBackMvpFragment<V, T extends BasePresenter<V>> extends
     }
 
     @Override
-    public void onDestroy() {
+    public void onDestroyView() {
+        hideSoftInput();
         presenter.dettach();
-        super.onDestroy();
+        super.onDestroyView();
     }
 
     // 实例化presenter

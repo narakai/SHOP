@@ -16,9 +16,9 @@ public class IndianaPresenter extends BasePresenter<IIndianaView> {
         this.indianaView = indianaView;
     }
 
-    public void setChoosedTitleBar(int choosedPosition) {
+    public void setChoosedTitleBar(int choosedPosition,int oldChoosedPosition) {
         if (indianaView != null) {
-            indianaView.setTitlebarChoosed(choosedPosition);
+            indianaView.setTitlebarChoosed(choosedPosition,oldChoosedPosition);
         }
     }
 

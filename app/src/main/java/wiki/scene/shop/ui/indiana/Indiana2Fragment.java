@@ -89,6 +89,9 @@ public class Indiana2Fragment extends BaseMainMvpFragment<IIndianaView, IndianaP
     //滚动距离
     private int totalDy = 0;
 
+    private int currentChoosedPosition = TITLE_BAR_popular;
+    private boolean priceUp2Down = true;
+
     public static Indiana2Fragment newInstance() {
         Indiana2Fragment fragment = new Indiana2Fragment();
         Bundle args = new Bundle();
@@ -140,6 +143,8 @@ public class Indiana2Fragment extends BaseMainMvpFragment<IIndianaView, IndianaP
         int width = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
         int height = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
         headerView.measure(width, height);
+        titleBar.measure(width, height);
+
         final int headerViewHeight = headerView.getMeasuredHeight();
         ptrLayout.setLastUpdateTimeRelateObject(this);
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -147,7 +152,7 @@ public class Indiana2Fragment extends BaseMainMvpFragment<IIndianaView, IndianaP
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 totalDy += dy;
-                if (totalDy >= headerViewHeight - PtrLocalDisplay.dp2px(41)) {
+                if (totalDy >= headerViewHeight + PtrLocalDisplay.dp2px(31)) {
                     titleBar.setVisibility(View.VISIBLE);
                 } else {
                     titleBar.setVisibility(View.GONE);
@@ -172,16 +177,16 @@ public class Indiana2Fragment extends BaseMainMvpFragment<IIndianaView, IndianaP
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.layout_popular1:
-                presenter.setChoosedTitleBar(TITLE_BAR_popular);
+                presenter.setChoosedTitleBar(TITLE_BAR_popular, currentChoosedPosition);
                 break;
             case R.id.layout_newest1:
-                presenter.setChoosedTitleBar(TITLE_BAR_NEWEST);
+                presenter.setChoosedTitleBar(TITLE_BAR_NEWEST, currentChoosedPosition);
                 break;
             case R.id.layout_fastest1:
-                presenter.setChoosedTitleBar(TITLE_BAR_FASTEST);
+                presenter.setChoosedTitleBar(TITLE_BAR_FASTEST, currentChoosedPosition);
                 break;
             case R.id.layout_price1:
-                presenter.setChoosedTitleBar(TITLE_BAR_PRICE);
+                presenter.setChoosedTitleBar(TITLE_BAR_PRICE, currentChoosedPosition);
                 break;
         }
     }
@@ -200,22 +205,36 @@ public class Indiana2Fragment extends BaseMainMvpFragment<IIndianaView, IndianaP
     public void onClickTitleBarItem(View view) {
         switch (view.getId()) {
             case R.id.layout_popular:
-                presenter.setChoosedTitleBar(TITLE_BAR_popular);
+                presenter.setChoosedTitleBar(TITLE_BAR_popular, currentChoosedPosition);
                 break;
             case R.id.layout_newest:
-                presenter.setChoosedTitleBar(TITLE_BAR_NEWEST);
+                presenter.setChoosedTitleBar(TITLE_BAR_NEWEST, currentChoosedPosition);
                 break;
             case R.id.layout_fastest:
-                presenter.setChoosedTitleBar(TITLE_BAR_FASTEST);
+                presenter.setChoosedTitleBar(TITLE_BAR_FASTEST, currentChoosedPosition);
                 break;
             case R.id.layout_price:
-                presenter.setChoosedTitleBar(TITLE_BAR_PRICE);
+                presenter.setChoosedTitleBar(TITLE_BAR_PRICE, currentChoosedPosition);
                 break;
         }
     }
 
     @Override
-    public void setTitlebarChoosed(int choosedPosition) {
+    public void setTitlebarChoosed(int choosedPosition, int oldChoosedPosition) {
+        if (choosedPosition == oldChoosedPosition && choosedPosition != TITLE_BAR_PRICE) {
+            return;
+        }
+        if (choosedPosition == oldChoosedPosition && choosedPosition == TITLE_BAR_PRICE) {
+            if (priceUp2Down) {
+                textPrice.setCompoundDrawablesWithIntrinsicBounds(null, null, getResources().getDrawable(R.drawable.ic_price_up), null);
+                indianaHeaderView.textPrice1.setCompoundDrawablesWithIntrinsicBounds(null, null, getResources().getDrawable(R.drawable.ic_price_up), null);
+            } else {
+                textPrice.setCompoundDrawablesWithIntrinsicBounds(null, null, getResources().getDrawable(R.drawable.ic_price_down), null);
+                indianaHeaderView.textPrice1.setCompoundDrawablesWithIntrinsicBounds(null, null, getResources().getDrawable(R.drawable.ic_price_down), null);
+            }
+            priceUp2Down = !priceUp2Down;
+            return;
+        }
         textPopular.setTextColor(getResources().getColor(R.color.text_color_title));
         linePopular.setBackgroundColor(getResources().getColor(R.color.transparent));
         textNewest.setTextColor(getResources().getColor(R.color.text_color_title));
@@ -259,6 +278,7 @@ public class Indiana2Fragment extends BaseMainMvpFragment<IIndianaView, IndianaP
                 indianaHeaderView.linePrice1.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
                 break;
         }
+        currentChoosedPosition = choosedPosition;
     }
 
     @Override
@@ -372,16 +392,16 @@ public class Indiana2Fragment extends BaseMainMvpFragment<IIndianaView, IndianaP
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.layout_popular1:
-                    presenter.setChoosedTitleBar(TITLE_BAR_popular);
+                    presenter.setChoosedTitleBar(TITLE_BAR_popular, currentChoosedPosition);
                     break;
                 case R.id.layout_newest1:
-                    presenter.setChoosedTitleBar(TITLE_BAR_NEWEST);
+                    presenter.setChoosedTitleBar(TITLE_BAR_NEWEST, currentChoosedPosition);
                     break;
                 case R.id.layout_fastest1:
-                    presenter.setChoosedTitleBar(TITLE_BAR_FASTEST);
+                    presenter.setChoosedTitleBar(TITLE_BAR_FASTEST, currentChoosedPosition);
                     break;
                 case R.id.layout_price1:
-                    presenter.setChoosedTitleBar(TITLE_BAR_PRICE);
+                    presenter.setChoosedTitleBar(TITLE_BAR_PRICE, currentChoosedPosition);
                     break;
             }
         }

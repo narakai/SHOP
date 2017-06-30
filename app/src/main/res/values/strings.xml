@@ -96,10 +96,18 @@
     <string name="click_update_avater">点击更改头像</string>
     <string name="username">用户昵称</string>
     <string name="phone_number2">手机号码</string>
-    <string name="mine_receiver_name">收货地址</string>
+    <string name="mine_receiver_address">收货地址</string>
     <string name="sex">性别</string>
     <string name="save">保存</string>
     <string name="male">男</string>
     <string name="female">女</string>
     <string name="my_share_order">我的晒单</string>
+    <string name="add_new_address">添加新地址</string>
+    <string name="default_address">默认地址</string>
+    <string name="edit">编辑</string>
+    <string name="delete">删除</string>
+    <string name="receiver_person">收货人</string>
+    <string name="receiver_phone">联系电话</string>
+    <string name="set_default">设为默认</string>
+    <string name="add_address">添加地址</string>
 </resources>

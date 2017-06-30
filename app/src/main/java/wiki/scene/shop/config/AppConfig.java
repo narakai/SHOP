@@ -8,4 +8,5 @@ package wiki.scene.shop.config;
 
 public class AppConfig {
     public static final int CHOOSE_AVATER_REQUEST_CODE = 1001;
+    public static final int ADD_ADDRESS_REQUEST_CODE = 1002;
 }

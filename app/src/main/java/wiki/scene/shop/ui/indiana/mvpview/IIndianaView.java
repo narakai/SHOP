@@ -9,6 +9,6 @@ import wiki.scene.shop.mvp.BaseView;
  */
 
 public interface IIndianaView extends BaseView {
-    void setTitlebarChoosed(int choosedPosition);
+    void setTitlebarChoosed(int choosedPosition,int oldChoosedPosition);
 
 }

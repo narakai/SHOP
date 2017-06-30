@@ -24,9 +24,9 @@ import wiki.scene.shop.R;
 import wiki.scene.shop.activity.LoginActivity;
 import wiki.scene.shop.event.ChooseAvaterResultEvent;
 import wiki.scene.shop.event.StartBrotherEvent;
+import wiki.scene.shop.mvp.BaseMainMvpFragment;
 import wiki.scene.shop.ui.mine.mvpview.IMineView;
 import wiki.scene.shop.ui.mine.presenter.MinePresenter;
-import wiki.scene.shop.mvp.BaseMainMvpFragment;
 
 /**
  * Case By:我的
@@ -99,8 +99,13 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
     }
 
     @OnClick(R.id.mine_share)
-    public void onClickMyShareOrder(){
+    public void onClickMyShareOrder() {
         presenter.clickMineShare();
+    }
+
+    @OnClick(R.id.receiver_address)
+    public void onClickReceiverAddress() {
+        presenter.clickMineReceiverAddress();
     }
 
     @Override
@@ -176,7 +181,7 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
      */
     @Override
     public void enterReceiverAddress() {
-
+        EventBus.getDefault().post(new StartBrotherEvent(MineReceiverAddressFragment.newInstance()));
     }
 
     /**

@@ -29,7 +29,7 @@
             android:gravity="center_horizontal"
             android:text="@string/indiana_price_10"
             android:textColor="@color/text_color_des"
-            android:textSize="@dimen/text_size_xsmall" />
+            android:textSize="@dimen/text_size_small" />
 
         <TextView
             android:id="@+id/indiana_fast"
@@ -41,7 +41,7 @@
             android:gravity="center_horizontal"
             android:text="@string/indiana_fast"
             android:textColor="@color/text_color_des"
-            android:textSize="@dimen/text_size_xsmall" />
+            android:textSize="@dimen/text_size_small" />
 
         <TextView
             android:id="@+id/indiana_red88"
@@ -53,7 +53,7 @@
             android:gravity="center_horizontal"
             android:text="@string/indiana_red88"
             android:textColor="@color/text_color_des"
-            android:textSize="@dimen/text_size_xsmall" />
+            android:textSize="@dimen/text_size_small" />
 
         <TextView
             android:id="@+id/invite_money"
@@ -65,7 +65,7 @@
             android:gravity="center_horizontal"
             android:text="@string/invite_money"
             android:textColor="@color/text_color_des"
-            android:textSize="@dimen/text_size_xsmall" />
+            android:textSize="@dimen/text_size_small" />
     </LinearLayout>
 
     <View
@@ -139,7 +139,7 @@
             android:gravity="bottom"
             android:text="@string/more"
             android:textColor="@color/text_color_content"
-            android:textSize="@dimen/text_size_xsmall" />
+            android:textSize="@dimen/text_size_small" />
     </RelativeLayout>
 
     <include layout="@layout/fragment_indiana_newest_item" />
@@ -172,7 +172,7 @@
                 android:padding="10dp"
                 android:text="@string/popular"
                 android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/text_size_small" />
+                android:textSize="@dimen/text_size_middle" />
 
             <View
                 android:id="@+id/line_popular1"
@@ -200,7 +200,7 @@
                 android:padding="10dp"
                 android:text="@string/newest"
                 android:textColor="@color/text_color_title"
-                android:textSize="@dimen/text_size_small" />
+                android:textSize="@dimen/text_size_middle" />
 
             <View
                 android:id="@+id/line_newest1"
@@ -228,7 +228,7 @@
                 android:padding="10dp"
                 android:text="@string/fastest"
                 android:textColor="@color/text_color_title"
-                android:textSize="@dimen/text_size_small" />
+                android:textSize="@dimen/text_size_middle" />
 
             <View
                 android:id="@+id/line_fastest1"
@@ -255,8 +255,10 @@
                 android:layout_centerHorizontal="true"
                 android:padding="10dp"
                 android:text="@string/price"
+                android:drawablePadding="4dp"
+                android:drawableRight="@drawable/ic_price_down"
                 android:textColor="@color/text_color_title"
-                android:textSize="@dimen/text_size_small" />
+                android:textSize="@dimen/text_size_middle" />
 
             <View
                 android:id="@+id/line_price1"

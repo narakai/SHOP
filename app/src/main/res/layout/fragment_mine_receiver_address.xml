@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar_back" />
+
+    <wiki.scene.loadmore.StatusViewLayout
+        android:id="@+id/status_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <wiki.scene.loadmore.PtrClassicFrameLayout
+                android:id="@+id/ptrLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/bg_color_gray2" />
+            </wiki.scene.loadmore.PtrClassicFrameLayout>
+
+            <Button
+                android:id="@+id/add_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:text="@string/add_new_address"
+                android:textColor="@color/white"
+                android:textSize="16.66dp" />
+        </LinearLayout>
+    </wiki.scene.loadmore.StatusViewLayout>
+
+</LinearLayout>

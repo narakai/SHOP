@@ -27,7 +27,7 @@
                 android:padding="10dp"
                 android:text="@string/popular"
                 android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/text_size_small" />
+                android:textSize="@dimen/text_size_middle" />
 
             <View
                 android:id="@+id/line_popular"
@@ -55,7 +55,7 @@
                 android:padding="10dp"
                 android:text="@string/newest"
                 android:textColor="@color/text_color_title"
-                android:textSize="@dimen/text_size_small" />
+                android:textSize="@dimen/text_size_middle" />
 
             <View
                 android:id="@+id/line_newest"
@@ -83,7 +83,7 @@
                 android:padding="10dp"
                 android:text="@string/fastest"
                 android:textColor="@color/text_color_title"
-                android:textSize="@dimen/text_size_small" />
+                android:textSize="@dimen/text_size_middle" />
 
             <View
                 android:id="@+id/line_fastest"
@@ -108,10 +108,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
+                android:drawablePadding="3dp"
+                android:drawableRight="@drawable/ic_price_down"
                 android:padding="10dp"
                 android:text="@string/price"
                 android:textColor="@color/text_color_title"
-                android:textSize="@dimen/text_size_small" />
+                android:textSize="@dimen/text_size_middle" />
 
             <View
                 android:id="@+id/line_price"

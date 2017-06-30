@@ -27,8 +27,13 @@ public abstract class BaseMainMvpFragment<V, T extends BasePresenter<V>> extends
 
     @Override
     public void onDestroy() {
-        presenter.dettach();
         super.onDestroy();
+    }
+
+    @Override
+    public void onDestroyView() {
+        presenter.dettach();
+        super.onDestroyView();
     }
 
     // 实例化presenter

@@ -31,8 +31,8 @@
             android:lines="1"
             android:ellipsize="end"
             android:text=""
-            android:textColor="@color/text_color_content"
-            android:textSize="@dimen/text_size_8sp" />
+            android:textColor="@color/text_color_title"
+            android:textSize="@dimen/text_size_small" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -48,7 +48,7 @@
                 android:layout_gravity="center_vertical"
                 android:text="@string/count_down"
                 android:textColor="@color/text_color_content"
-                android:textSize="@dimen/text_size_8sp" />
+                android:textSize="@dimen/text_size_xsmall" />
 
             <cn.iwgang.countdownview.CountdownView
                 android:id="@+id/newest_countDownView1"
@@ -60,9 +60,9 @@
                 app:isShowMillisecond="false"
                 app:suffixGravity="bottom"
                 app:suffixTextColor="@color/text_color_content"
-                app:suffixTextSize="@dimen/text_size_8sp"
+                app:suffixTextSize="@dimen/text_size_xsmall"
                 app:timeTextColor="@color/text_color_content"
-                app:timeTextSize="@dimen/text_size_8sp" />
+                app:timeTextSize="@dimen/text_size_xsmall" />
         </LinearLayout>
 
     </LinearLayout>
@@ -95,8 +95,8 @@
             android:lines="1"
             android:ellipsize="end"
             android:text=""
-            android:textColor="@color/text_color_content"
-            android:textSize="@dimen/text_size_8sp" />
+            android:textColor="@color/text_color_title"
+            android:textSize="@dimen/text_size_small" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -112,7 +112,7 @@
                 android:layout_gravity="center_vertical"
                 android:text="@string/count_down"
                 android:textColor="@color/text_color_content"
-                android:textSize="@dimen/text_size_8sp" />
+                android:textSize="@dimen/text_size_xsmall" />
 
             <cn.iwgang.countdownview.CountdownView
                 android:id="@+id/newest_countDownView2"
@@ -124,9 +124,9 @@
                 app:isShowMillisecond="false"
                 app:suffixGravity="bottom"
                 app:suffixTextColor="@color/text_color_content"
-                app:suffixTextSize="@dimen/text_size_8sp"
+                app:suffixTextSize="@dimen/text_size_xsmall"
                 app:timeTextColor="@color/text_color_content"
-                app:timeTextSize="@dimen/text_size_8sp" />
+                app:timeTextSize="@dimen/text_size_xsmall" />
         </LinearLayout>
 
     </LinearLayout>
@@ -159,8 +159,8 @@
             android:lines="1"
             android:ellipsize="end"
             android:text=""
-            android:textColor="@color/text_color_content"
-            android:textSize="@dimen/text_size_8sp" />
+            android:textColor="@color/text_color_title"
+            android:textSize="@dimen/text_size_small" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -176,7 +176,7 @@
                 android:layout_gravity="center_vertical"
                 android:text="@string/count_down"
                 android:textColor="@color/text_color_content"
-                android:textSize="@dimen/text_size_8sp" />
+                android:textSize="@dimen/text_size_xsmall" />
 
             <cn.iwgang.countdownview.CountdownView
                 android:id="@+id/newest_countDownView3"
@@ -188,9 +188,9 @@
                 app:isShowMillisecond="false"
                 app:suffixGravity="bottom"
                 app:suffixTextColor="@color/text_color_content"
-                app:suffixTextSize="@dimen/text_size_8sp"
+                app:suffixTextSize="@dimen/text_size_xsmall"
                 app:timeTextColor="@color/text_color_content"
-                app:timeTextSize="@dimen/text_size_8sp" />
+                app:timeTextSize="@dimen/text_size_xsmall" />
         </LinearLayout>
 
     </LinearLayout>

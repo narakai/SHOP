@@ -209,23 +209,23 @@ public class IndianaFragment extends BaseMainMvpFragment<IIndianaView, IndianaPr
     public void onClickTitleBarItem(View view) {
         switch (view.getId()) {
             case R.id.layout_popular:
-                presenter.setChoosedTitleBar(TITLE_BAR_popular);
+                presenter.setChoosedTitleBar(TITLE_BAR_popular,0);
                 break;
             case R.id.layout_newest:
-                presenter.setChoosedTitleBar(TITLE_BAR_NEWEST);
+                presenter.setChoosedTitleBar(TITLE_BAR_NEWEST,0);
                 break;
             case R.id.layout_fastest:
-                presenter.setChoosedTitleBar(TITLE_BAR_FASTEST);
+                presenter.setChoosedTitleBar(TITLE_BAR_FASTEST,0);
                 break;
             case R.id.layout_price:
-                presenter.setChoosedTitleBar(TITLE_BAR_PRICE);
+                presenter.setChoosedTitleBar(TITLE_BAR_PRICE,0);
                 break;
         }
     }
 
 
     @Override
-    public void setTitlebarChoosed(int choosedPosition) {
+    public void setTitlebarChoosed(int choosedPosition,int oldChoosedPosition) {
         textPopular.setTextColor(getResources().getColor(R.color.text_color_title));
         linePopular.setBackgroundColor(getResources().getColor(R.color.transparent));
         textNewest.setTextColor(getResources().getColor(R.color.text_color_title));
