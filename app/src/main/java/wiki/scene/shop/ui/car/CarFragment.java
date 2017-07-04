@@ -8,14 +8,18 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import wiki.scene.shop.R;
 import wiki.scene.shop.adapter.CarGoodsAdapter;
 import wiki.scene.shop.adapter.GuessLikeAdapter;
+import wiki.scene.shop.event.StartBrotherEvent;
 import wiki.scene.shop.ui.car.mvpview.ICarView;
 import wiki.scene.shop.ui.car.presenter.CarPresenter;
 import wiki.scene.shop.mvp.BaseMainMvpFragment;
@@ -77,6 +81,14 @@ public class CarFragment extends BaseMainMvpFragment<ICarView, CarPresenter> imp
         goodsAdapter = new CarGoodsAdapter(_mActivity, goodsList);
         goodsListview.setAdapter(goodsAdapter);
         layoutUnlogin.setVisibility(View.GONE);
+    }
+
+    /**
+     * 立即夺宝
+     */
+    @OnClick(R.id.immediately_indiana)
+    public void onClickImmediatelyIndiana() {
+        EventBus.getDefault().post(new StartBrotherEvent(PayOrderFragment.newInstance()));
     }
 
 

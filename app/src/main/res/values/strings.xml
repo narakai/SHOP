@@ -128,4 +128,17 @@
     <string name="contact_information">联系方式：</string>
     <string name="please_edit_contact_info">请输入联系方式，建议填写QQ号码</string>
     <string name="delete_address">删除地址</string>
+
+    <string name="total_xx_goods">共%1$d件商品</string>
+    <string name="comfire_pay">确认支付</string>
+    <string name="total1">合计</string>
+    <string name="indiana_coin1">夺宝币</string>
+    <string name="red_envelope">红包抵扣：</string>
+    <string name="still_need_pay">还需支付：</string>
+    <string name="balance_pay">余额支付</string>
+    <string name="account_balance">账户余额：</string>
+    <string name="other_pay_way">其他支付方式</string>
+    <string name="wechat_pay">微信支付</string>
+    <string name="alipay_pay">支付宝支付</string>
+    <string name="pay_order">支付订单</string>
 </resources>
