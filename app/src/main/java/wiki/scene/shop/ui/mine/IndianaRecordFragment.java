@@ -68,9 +68,9 @@ public class IndianaRecordFragment extends BaseBackMvpFragment<IIdianaRecordView
     private void initView() {
         String tabTitle[] = {getString(R.string.all), getString(R.string.gooning), getString(R.string.announced)};
         List<Fragment> fragmentList = new ArrayList<>();
-        fragmentList.add(IndianaRecordTypeFragment.newInstance());
-        fragmentList.add(IndianaRecordTypeFragment.newInstance());
-        fragmentList.add(IndianaRecordTypeFragment.newInstance());
+        fragmentList.add(IndianaRecordTypeFragment.newInstance(IndianaRecordTypeFragment.INDIANA_RECORD_TYPE_ALL));
+        fragmentList.add(IndianaRecordTypeFragment.newInstance(IndianaRecordTypeFragment.INDIANA_RECORD_TYPE_ONGOING));
+        fragmentList.add(IndianaRecordTypeFragment.newInstance(IndianaRecordTypeFragment.INDIANA_RECORD_TYPE_ANNOUNDCED));
         tab.addTab(tab.newTab().setText(tabTitle[0]));
         tab.addTab(tab.newTab().setText(tabTitle[1]));
         tab.addTab(tab.newTab().setText(tabTitle[2]));

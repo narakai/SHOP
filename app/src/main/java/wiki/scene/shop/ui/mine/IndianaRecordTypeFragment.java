@@ -34,6 +34,10 @@ import wiki.scene.shop.ui.mine.presenter.IndianaRecordTypePresenter;
  */
 
 public class IndianaRecordTypeFragment extends BaseMvpFragment<IIndianaRecordTypeView, IndianaRecordTypePresenter> implements IIndianaRecordTypeView {
+    private final static String ARG_INDIANA_RECORD_TYPE = "arg_indiana_record_type";
+    public final static int INDIANA_RECORD_TYPE_ALL = 0;
+    public final static int INDIANA_RECORD_TYPE_ONGOING = 1;
+    public final static int INDIANA_RECORD_TYPE_ANNOUNDCED = 2;
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
     @BindView(R.id.ptrLayout)
@@ -42,16 +46,27 @@ public class IndianaRecordTypeFragment extends BaseMvpFragment<IIndianaRecordTyp
     StatusViewLayout statusLayout;
     Unbinder unbinder;
 
+    private int type = INDIANA_RECORD_TYPE_ALL;
     //adapter
     private List<String> list = new ArrayList<>();
     private IndianaRecordAdapter adapter;
     private RecyclerAdapterWithHF mAdapter;
 
-    public static IndianaRecordTypeFragment newInstance() {
+    public static IndianaRecordTypeFragment newInstance(int type) {
         Bundle args = new Bundle();
+        args.putInt(ARG_INDIANA_RECORD_TYPE, type);
         IndianaRecordTypeFragment fragment = new IndianaRecordTypeFragment();
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Bundle args = getArguments();
+        if (args != null) {
+            type = args.getInt(ARG_INDIANA_RECORD_TYPE);
+        }
     }
 
     @Nullable
