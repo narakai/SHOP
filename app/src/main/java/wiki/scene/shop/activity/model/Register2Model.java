@@ -32,6 +32,11 @@ public class Register2Model {
                 resultListener.onRegisterFail(response.getException().getMessage());
             }
 
+            @Override
+            public void onFinish() {
+                super.onFinish();
+                resultListener.onRegisterFinish();
+            }
         });
     }
 }

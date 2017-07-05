@@ -12,4 +12,6 @@ public interface OnRegisterResultListener {
     void onRegisterSuccess(UserInfo userInfo);
 
     void onRegisterFail(String message);
+
+    void onRegisterFinish();
 }
