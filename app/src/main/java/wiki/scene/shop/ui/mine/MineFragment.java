@@ -97,6 +97,10 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
     public void onClickIndianaRecord() {
         presenter.recharge();
     }
+    @OnClick(R.id.win_record)
+    public void onClickWinRecord(){
+        presenter.clickWinRecord();
+    }
 
     @OnClick(R.id.mine_share)
     public void onClickMyShareOrder() {
@@ -159,7 +163,7 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
      */
     @Override
     public void enterWinRecord() {
-
+        EventBus.getDefault().post(new StartBrotherEvent(WinRecordFragment.newInstance()));
     }
 
     /**

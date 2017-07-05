@@ -168,4 +168,10 @@
     <string name="joined">参与了</string>
     <string name="user_info">%1$s（%2$s&#160;&#160;&#160;&#160;%3$s）</string>
     <string name="join_xx_times">参与了%1$s人次</string>
+    <string name="your_join">您参与：</string>
+    <string name="see_indiana_code">查看夺宝号</string>
+    <string name="winner">获得者：</string>
+    <string name="join_times">参与份数：</string>
+    <string name="xx_fen">%1$d份</string>
+
 </resources>
