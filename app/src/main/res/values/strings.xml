@@ -14,7 +14,7 @@
     <string name="please_edit_password">请输入密码</string>
     <string name="lose_password">忘记密码？</string>
 
-    <string name="is_logining">正在登录，请稍候...</string>
+    <string name="is_logining">正在登录，请稍候&#8230;</string>
 
     <string name="login">登录</string>
     <string name="register">注册</string>
@@ -32,15 +32,15 @@
     <string name="next_step">下一步</string>
     <string name="i_has_read_and_agree">我已阅读并同意</string>
     <string name="user_use_agreement">《用户使用协议》</string>
-    <string name="is_get_verification">正在获取验证码，请稍候...</string>
+    <string name="is_get_verification">正在获取验证码，请稍候&#8230;</string>
 
     <string name="set_password">设置密码</string>
     <string name="confirm_password">确认密码</string>
-    <string name="password_hint">请设置6-20位数字或字母</string>
+    <string name="password_hint">请设置6&#8211;20位数字或字母</string>
     <string name="complete">完成</string>
     <string name="twice_password_different">两次输入的密码不一致</string>
-    <string name="is_registing">正在注册，请稍候...</string>
-    <string name="password_length_6_20">密码长度为6-20位之间</string>
+    <string name="is_registing">正在注册，请稍候&#8230;</string>
+    <string name="password_length_6_20">密码长度为6&#8211;20位之间</string>
 
     <string name="popular">人气</string>
     <string name="newest">最新</string>
@@ -141,4 +141,31 @@
     <string name="wechat_pay">微信支付</string>
     <string name="alipay_pay">支付宝支付</string>
     <string name="pay_order">支付订单</string>
+    <string name="goods_times_code">期号：%1$d</string>
+    <string name="pending_count_down">揭晓倒计时</string>
+    <string name="reckon_detail">计算详情</string>
+    <string name="your_has_no_join">您还没参与，快去参与吧~</string>
+    <string name="your_joined">您参与了</string>
+    <string name="luck_code_xx">幸运号码：%1$d</string>
+    <string name="see_all">查看全部</string>
+    <string name="total_need_xx_person_times">总需%1$d人次</string>
+    <string name="surplus_xx_person_times">剩余：%1$d人次</string>
+    <string name="winner_xx">获奖者：%1$s</string>
+    <string name="user_ip_xx">用户IP：%1$s</string>
+    <string name="user_id_xx">用户ID：%1$s</string>
+    <string name="this_time_join_xx_person_times">本期参与：%1$d人次</string>
+    <string name="announced_time_xx">揭晓时间：%1$s</string>
+    <string name="share_order_share">晒单分享</string>
+    <string name="old_announced">往期揭晓</string>
+    <string name="trend">趋势分析</string>
+    <string name="image_text_detail">图文详情</string>
+    <string name="collection">收藏</string>
+    <string name="has_collection">已收藏</string>
+    <string name="join_car">加入购物车</string>
+    <string name="tuhao_rank">土豪榜</string>
+    <string name="list_rules">上榜规则</string>
+    <string name="join_record">参与记录</string>
+    <string name="joined">参与了</string>
+    <string name="user_info">%1$s（%2$s&#160;&#160;&#160;&#160;%3$s）</string>
+    <string name="join_xx_times">参与了%1$s人次</string>
 </resources>

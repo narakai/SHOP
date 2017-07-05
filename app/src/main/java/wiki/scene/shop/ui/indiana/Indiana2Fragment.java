@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 import com.youth.banner.Banner;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +30,7 @@ import wiki.scene.loadmore.recyclerview.RecyclerAdapterWithHF;
 import wiki.scene.loadmore.utils.PtrLocalDisplay;
 import wiki.scene.shop.R;
 import wiki.scene.shop.adapter.IndianaAdapter;
+import wiki.scene.shop.event.StartBrotherEvent;
 import wiki.scene.shop.ui.indiana.mvpview.IIndianaView;
 import wiki.scene.shop.ui.indiana.presenter.IndianaPresenter;
 import wiki.scene.shop.itemDecoration.IndianaItemDecoration;
@@ -171,6 +174,12 @@ public class Indiana2Fragment extends BaseMainMvpFragment<IIndianaView, IndianaP
             }
         });
         indianaHeaderView.bindNewestGoods();
+        mAdapter.setOnItemClickListener(new RecyclerAdapterWithHF.OnItemClickListener() {
+            @Override
+            public void onItemClick(RecyclerAdapterWithHF adapter, RecyclerView.ViewHolder vh, int position) {
+                EventBus.getDefault().post(new StartBrotherEvent(GoodsDetailFragment.newInstance()));
+            }
+        });
     }
 
     @Override

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layout_goods_status_pending_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#FF0000"
+    android:orientation="horizontal"
+    android:padding="8dp">
+
+    <TextView
+        android:id="@+id/pending_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:text="@string/pending_count_down"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_small" />
+
+    <cn.iwgang.countdownview.CountdownView
+        android:id="@+id/pending_count_down"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="18dp"
+        android:layout_toRightOf="@+id/pending_text"
+        app:isShowDay="false"
+        app:suffixTextColor="@color/white"
+        app:suffixTextSize="@dimen/text_size_big"
+        app:timeTextColor="@color/white"
+        app:timeTextSize="@dimen/text_size_big" />
+
+    <TextView
+        android:id="@+id/pending_reckon_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/bg_reckon_detail"
+        android:padding="5dp"
+        android:text="@string/reckon_detail"
+        android:textColor="@color/white"
+        android:textSize="13sp" />
+</RelativeLayout>

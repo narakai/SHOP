@@ -27,4 +27,6 @@
 
     <color name="progressbar_bg">#EBEBEB</color>
     <color name="progressbar_progress">#FFDA81</color>
+    <color name="goods_status_wait">#00A0E9</color>
+    <color name="goods_status_ongoing">#F9543E</color>
 </resources>
