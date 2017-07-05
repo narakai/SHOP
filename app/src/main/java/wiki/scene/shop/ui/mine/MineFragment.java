@@ -95,7 +95,7 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
      */
     @OnClick(R.id.indiana_record)
     public void onClickIndianaRecord() {
-        presenter.recharge();
+        presenter.clickIndianaRecord();
     }
     @OnClick(R.id.win_record)
     public void onClickWinRecord(){
@@ -155,7 +155,7 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
      */
     @Override
     public void enterIndianaRecord() {
-
+        EventBus.getDefault().post(new StartBrotherEvent(IndianaRecordFragment.newInstance()));
     }
 
     /**

@@ -3,10 +3,14 @@ package wiki.scene.shop.ui.share;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -46,9 +50,13 @@ public class ShareFragment extends BaseMainMvpFragment<IShareView, SharePrsenter
     @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
-        tab.addTab(tab.newTab().setText(R.string.most_new));
-        tab.addTab(tab.newTab().setText(R.string.most_hot));
-        viewPager.setAdapter(new SharePagerFragmentAdapter(getChildFragmentManager()));
+        String tabTitle[] = {getString(R.string.most_new), getString(R.string.most_hot)};
+        List<Fragment> fragmentList=new ArrayList<>();
+        fragmentList.add(ShareNewestFragment.newInstance());
+        fragmentList.add(ShareHotestFragment.newInstance());
+        tab.addTab(tab.newTab().setText(tabTitle[0]));
+        tab.addTab(tab.newTab().setText(tabTitle[1]));
+        viewPager.setAdapter(new SharePagerFragmentAdapter(getChildFragmentManager(),tabTitle,fragmentList));
         tab.setupWithViewPager(viewPager);
     }
 

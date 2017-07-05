@@ -27,7 +27,9 @@ public class MinePresenter extends BasePresenter<IMineView> {
     }
 
     public void clickIndianaRecord() {
-
+        if(mineView!=null){
+            mineView.enterIndianaRecord();
+        }
     }
 
     public void clickWinRecord() {

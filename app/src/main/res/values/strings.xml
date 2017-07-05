@@ -173,5 +173,9 @@
     <string name="winner">获得者：</string>
     <string name="join_times">参与份数：</string>
     <string name="xx_fen">%1$d份</string>
+    <string name="goon_indiana">继续夺宝</string>
 
+    <string name="all">全部</string>
+    <string name="gooning">进行中</string>
+    <string name="announced">已揭晓</string>
 </resources>
