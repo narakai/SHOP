@@ -19,6 +19,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 import cn.iwgang.countdownview.CountdownView;
 import wiki.scene.loadmore.PtrClassicFrameLayout;
@@ -191,6 +192,11 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
 
         guessLikeAdapter = new GuessLikeAdapter(_mActivity, guessLiskList);
         guesslikeGridView.setAdapter(guessLikeAdapter);
+    }
+
+    @OnClick(R.id.old_announced)
+    public void onClickOldAnnounced(){
+        start(OldAnnouncedFragment.newInstance());
     }
 
     @Override
