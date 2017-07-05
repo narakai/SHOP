@@ -17,6 +17,7 @@ import butterknife.Unbinder;
 import wiki.scene.shop.R;
 import wiki.scene.shop.activity.presenter.Register2Presenter;
 import wiki.scene.shop.activity.mvpview.IRegister2View;
+import wiki.scene.shop.entity.UserInfo;
 import wiki.scene.shop.event.RegisterSuccessEvent;
 import wiki.scene.shop.mvp.BaseMvpActivity;
 import wiki.scene.shop.utils.ToastUtils;
@@ -41,6 +42,8 @@ public class Register2Activity extends BaseMvpActivity<IRegister2View, Register2
     private Unbinder unbinder;
 
     private ProgressDialog progressDialog;
+
+    private String phoneNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,11 +73,12 @@ public class Register2Activity extends BaseMvpActivity<IRegister2View, Register2
     private void initView() {
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage(getString(R.string.is_registing));
+        phoneNumber=getIntent().getStringExtra("phone");
     }
 
     @OnClick(R.id.complete)
     public void onClickComplete() {
-        presenter.setPassword();
+        presenter.setPassword(phoneNumber);
     }
 
 
@@ -114,8 +118,8 @@ public class Register2Activity extends BaseMvpActivity<IRegister2View, Register2
     }
 
     @Override
-    public void registerSuccess() {
-        EventBus.getDefault().post(new RegisterSuccessEvent());
+    public void registerSuccess(UserInfo userInfo) {
+        EventBus.getDefault().post(new RegisterSuccessEvent(userInfo));
         onBackPressed();
     }
 

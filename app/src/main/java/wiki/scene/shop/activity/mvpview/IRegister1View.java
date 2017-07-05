@@ -10,4 +10,5 @@ import wiki.scene.shop.mvp.BaseView;
 
 public interface IRegister1View extends BaseView {
     void enterNextStep();
+    String getPhoneNumber();
 }

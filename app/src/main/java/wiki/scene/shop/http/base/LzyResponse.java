@@ -8,6 +8,6 @@ package wiki.scene.shop.http.base;
 
 public class LzyResponse<T> {
     public int code;
-    public String msg;
+    public String message;
     public T data;
 }

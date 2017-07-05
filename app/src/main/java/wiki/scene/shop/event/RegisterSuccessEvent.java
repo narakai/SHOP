@@ -1,5 +1,7 @@
 package wiki.scene.shop.event;
 
+import wiki.scene.shop.entity.UserInfo;
+
 /**
  * Case By:
  * package:wiki.scene.shop.event
@@ -7,4 +9,13 @@ package wiki.scene.shop.event;
  */
 
 public class RegisterSuccessEvent {
+    private UserInfo userInfo;
+
+    public RegisterSuccessEvent(UserInfo userInfo) {
+        this.userInfo = userInfo;
+    }
+
+    public UserInfo getUserInfo() {
+        return userInfo;
+    }
 }

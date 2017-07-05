@@ -23,10 +23,12 @@ import jp.wasabeef.glide.transformations.CropCircleTransformation;
 import wiki.scene.shop.R;
 import wiki.scene.shop.activity.LoginActivity;
 import wiki.scene.shop.event.ChooseAvaterResultEvent;
+import wiki.scene.shop.event.RegisterSuccessEvent;
 import wiki.scene.shop.event.StartBrotherEvent;
 import wiki.scene.shop.mvp.BaseMainMvpFragment;
 import wiki.scene.shop.ui.mine.mvpview.IMineView;
 import wiki.scene.shop.ui.mine.presenter.MinePresenter;
+import wiki.scene.shop.utils.ToastUtils;
 
 /**
  * Case By:我的
@@ -97,8 +99,9 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
     public void onClickIndianaRecord() {
         presenter.clickIndianaRecord();
     }
+
     @OnClick(R.id.win_record)
-    public void onClickWinRecord(){
+    public void onClickWinRecord() {
         presenter.clickWinRecord();
     }
 
@@ -118,7 +121,7 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
     }
 
     @OnClick(R.id.setting)
-    public void onClickSetting(){
+    public void onClickSetting() {
         presenter.clickSetting();
     }
 
@@ -227,6 +230,13 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
         Glide.with(this).load("file://" + event.avaterPath)
                 .bitmapTransform(new CropCircleTransformation(_mActivity))
                 .into(userAvater);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onRegisterSuccess(RegisterSuccessEvent event) {
+        if (event != null) {
+            ToastUtils.getInstance(_mActivity).showToast(event.getUserInfo().getUser_id()+"");
+        }
     }
 
     @Override

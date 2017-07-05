@@ -100,7 +100,13 @@ public class Register1Activity extends BaseMvpActivity<IRegister1View, Register1
     @Override
     public void enterNextStep() {
         Intent intent = new Intent(Register1Activity.this, Register2Activity.class);
+        intent.putExtra("phone", getPhoneNumber());
         startActivity(intent);
+    }
+
+    @Override
+    public String getPhoneNumber() {
+        return phoneNumber.getText().toString().trim();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

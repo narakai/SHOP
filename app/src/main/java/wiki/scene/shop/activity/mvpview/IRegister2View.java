@@ -2,6 +2,7 @@ package wiki.scene.shop.activity.mvpview;
 
 import android.support.annotation.StringRes;
 
+import wiki.scene.shop.entity.UserInfo;
 import wiki.scene.shop.mvp.BaseView;
 
 /**
@@ -20,5 +21,5 @@ public interface IRegister2View extends BaseView {
 
     void showFail(String msg);
 
-    void registerSuccess();
+    void registerSuccess(UserInfo userInfo);
 }

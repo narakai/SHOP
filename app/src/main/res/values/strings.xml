@@ -41,6 +41,7 @@
     <string name="twice_password_different">两次输入的密码不一致</string>
     <string name="is_registing">正在注册，请稍候&#8230;</string>
     <string name="password_length_6_20">密码长度为6&#8211;20位之间</string>
+    <string name="register_fail_retry">注册失败，请重试</string>
 
     <string name="popular">人气</string>
     <string name="newest">最新</string>

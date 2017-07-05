@@ -5,12 +5,12 @@ import java.io.Serializable;
 public class SimpleResponse implements Serializable {
 
     public int code;
-    public String msg;
+    public String message;
 
     public LzyResponse toBaseResponse() {
         LzyResponse lzyResponse = new LzyResponse();
         lzyResponse.code = code;
-        lzyResponse.msg = msg;
+        lzyResponse.message = message;
         return lzyResponse;
     }
 }

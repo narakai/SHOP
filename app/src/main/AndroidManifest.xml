@@ -102,10 +102,10 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <!--###########UMeng分享相关 结束###############-->
-
-        <!--#########选择图片 开始##########-->
-
-        <!--##########选择图片 结束#########-->
+        <!--配置渠道-->
+        <meta-data
+            android:name="CHANNEL"
+            android:value="${CHANNEL_ID}" />
     </application>
 
 </manifest>
