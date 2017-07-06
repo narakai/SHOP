@@ -78,7 +78,8 @@
             android:textColor="@color/text_color_title"
             android:textSize="@dimen/text_size_small" />
 
-        <EditText
+        <TextView
+            android:id="@+id/phone_number"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="16dp"
@@ -88,37 +89,6 @@
             android:lines="1"
             android:maxLines="1"
             android:text="13500000000"
-            android:textColor="@color/text_color_des"
-            android:textSize="@dimen/text_size_small" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginTop="1dp"
-        android:background="@color/white"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/mine_receiver_address"
-            android:textColor="@color/text_color_title"
-            android:textSize="@dimen/text_size_small" />
-
-        <EditText
-            android:id="@+id/receiver_address"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="16dp"
-            android:background="@null"
-            android:gravity="center_vertical"
-            android:lines="1"
-            android:maxLines="1"
-            android:text="scene"
             android:textColor="@color/text_color_des"
             android:textSize="@dimen/text_size_small" />
     </LinearLayout>

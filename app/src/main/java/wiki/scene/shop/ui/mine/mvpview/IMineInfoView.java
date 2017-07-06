@@ -1,5 +1,7 @@
 package wiki.scene.shop.ui.mine.mvpview;
 
+import android.support.annotation.StringRes;
+
 import wiki.scene.shop.mvp.BaseView;
 
 /**
@@ -9,4 +11,15 @@ import wiki.scene.shop.mvp.BaseView;
  */
 
 public interface IMineInfoView extends BaseView {
+    void showLoading(String msg);
+
+    void showLoading(@StringRes int resId);
+
+    String getNickName();
+
+    int getSex();
+
+    void showSuccess();
+
+    void showFail(String str);
 }

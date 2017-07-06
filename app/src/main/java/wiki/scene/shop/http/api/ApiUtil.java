@@ -19,12 +19,14 @@ public class ApiUtil {
     public static final String REGISTER_TAG = "REGISTER_TAG";
     public static final String GET_VERIFICATION_CODE_TAG = "GET_VERIFICATION_CODE_TAG";
     public static final String CHECK_CODE_TAG = "CHECK_CODE_TAG";
+    public static final String UPDATE_USERINFO_TAG = "UPDATE_USERINFO_TAG";
 
 
     public static final String LOGIN = "/user/login";
     public static final String REGISTER = "/user/reg";
     public static final String GET_VERIFICATION_CODE = "/user/code";
     public static final String CHECK_CODE = "/user/check_code";
+    public static final String UPDATE_USERINFO = "/personal/profile/edit";
 
 
     /**

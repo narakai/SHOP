@@ -1,9 +1,11 @@
 package wiki.scene.shop.ui.mine;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.StringRes;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
@@ -31,11 +33,13 @@ import top.zibin.luban.Luban;
 import top.zibin.luban.OnCompressListener;
 import wiki.scene.loadmore.utils.SceneLogUtil;
 import wiki.scene.shop.R;
+import wiki.scene.shop.ShopApplication;
 import wiki.scene.shop.config.AppConfig;
 import wiki.scene.shop.event.ChooseAvaterResultEvent;
+import wiki.scene.shop.mvp.BaseMvpActivity;
 import wiki.scene.shop.ui.mine.mvpview.IMineInfoView;
 import wiki.scene.shop.ui.mine.presenter.MineInfoPresenter;
-import wiki.scene.shop.mvp.BaseMvpActivity;
+import wiki.scene.shop.utils.ToastUtils;
 
 /**
  * Case By:个人资料
@@ -53,8 +57,6 @@ public class MineInfoActivity extends BaseMvpActivity<IMineInfoView, MineInfoPre
     ImageView userAvater;
     @BindView(R.id.username)
     EditText username;
-    @BindView(R.id.receiver_address)
-    EditText receiverAddress;
     @BindView(R.id.sex_male)
     RadioButton sexMale;
     @BindView(R.id.sex_female)
@@ -63,6 +65,10 @@ public class MineInfoActivity extends BaseMvpActivity<IMineInfoView, MineInfoPre
     RadioGroup sexRadiogroup;
     @BindView(R.id.save)
     Button save;
+    @BindView(R.id.phone_number)
+    TextView phoneNumber;
+
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +76,7 @@ public class MineInfoActivity extends BaseMvpActivity<IMineInfoView, MineInfoPre
         setContentView(R.layout.activity_mine_info);
         ButterKnife.bind(this);
         initToolbar();
+        initView();
     }
 
     private void initToolbar() {
@@ -83,6 +90,12 @@ public class MineInfoActivity extends BaseMvpActivity<IMineInfoView, MineInfoPre
         });
     }
 
+    private void initView() {
+        Glide.with(this).load(ShopApplication.userInfo.getAvatar()).error(R.drawable.ic_default_avater).into(userAvater);
+        username.setText(ShopApplication.userInfo.getNickname());
+        phoneNumber.setText(ShopApplication.userInfo.getMobile());
+        sexRadiogroup.check(ShopApplication.userInfo.getSex() == 1 ? R.id.sex_male : R.id.sex_female);
+    }
 
     private ImageLoader loader = new ImageLoader() {
         @Override
@@ -120,14 +133,22 @@ public class MineInfoActivity extends BaseMvpActivity<IMineInfoView, MineInfoPre
         chooseAvater();
     }
 
+    @OnClick(R.id.save)
+    public void onClickSave(){
+        presenter.updateInfo();
+    }
+
     @Override
     public void showLoading() {
 
     }
 
+
     @Override
     public void hideLoading() {
-
+        if (progressDialog != null) {
+            progressDialog.cancel();
+        }
     }
 
     @Override
@@ -143,6 +164,7 @@ public class MineInfoActivity extends BaseMvpActivity<IMineInfoView, MineInfoPre
                 try {
                     List<String> pathList = data.getStringArrayListExtra(ImgSelActivity.INTENT_RESULT);
                     if (pathList != null && pathList.size() > 0) {
+
                         EventBus.getDefault().post(new ChooseAvaterResultEvent(pathList.get(0)));
                         changeUserAvater(pathList.get(0));
                     }
@@ -180,5 +202,43 @@ public class MineInfoActivity extends BaseMvpActivity<IMineInfoView, MineInfoPre
                 hideLoading();
             }
         }).launch();
+    }
+
+    @Override
+    public void showLoading(String msg) {
+        if (progressDialog == null) {
+            progressDialog = new ProgressDialog(MineInfoActivity.this);
+        }
+        progressDialog.setMessage(msg);
+        progressDialog.show();
+    }
+
+    @Override
+    public void showLoading(@StringRes int resId) {
+        if (progressDialog == null) {
+            progressDialog = new ProgressDialog(MineInfoActivity.this);
+        }
+        progressDialog.setMessage(getString(resId));
+        progressDialog.show();
+    }
+
+    @Override
+    public String getNickName() {
+        return username.getText().toString().trim();
+    }
+
+    @Override
+    public int getSex() {
+        return sexMale.isChecked() ? 1 : 2;
+    }
+
+    @Override
+    public void showSuccess() {
+
+    }
+
+    @Override
+    public void showFail(String str) {
+        ToastUtils.getInstance(MineInfoActivity.this).showToast(str);
     }
 }
