@@ -3,12 +3,14 @@ package wiki.scene.shop.http.callback;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 import com.lzy.okgo.callback.AbsCallback;
+import com.lzy.okgo.request.Request;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
 import okhttp3.Response;
 import okhttp3.ResponseBody;
+import wiki.scene.shop.http.api.ApiUtil;
 import wiki.scene.shop.http.base.LzyResponse;
 import wiki.scene.shop.http.base.SimpleResponse;
 
@@ -19,6 +21,12 @@ import wiki.scene.shop.http.base.SimpleResponse;
  */
 
 public abstract class JsonCallback<T> extends AbsCallback<T> {
+    @Override
+    public void onStart(Request<T, ? extends Request> request) {
+        super.onStart(request);
+        request.getParams().put(ApiUtil.createParams());
+    }
+
     @Override
     public T convertResponse(Response response) throws Throwable {
         Type genType = getClass().getGenericSuperclass();

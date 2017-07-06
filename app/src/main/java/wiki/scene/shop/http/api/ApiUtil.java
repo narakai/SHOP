@@ -13,10 +13,19 @@ import wiki.scene.shop.utils.MD5Util;
 
 public class ApiUtil {
     private static final String SIGN_KEY = "045448f765b0c0592563123a2652fb63";
-    public static final String API_PRE="http://119.23.110.78:8082";
-    public static final String LOGIN_TAG="login_tag";
-    public static final String REGISTER_TAG="register_tag";
-    public static final String REGISTER="/user/reg";
+    public static final String API_PRE = "http://119.23.110.78:8082";
+
+    public static final String LOGIN_TAG = "LOGIN_TAG";
+    public static final String REGISTER_TAG = "REGISTER_TAG";
+    public static final String GET_VERIFICATION_CODE_TAG = "GET_VERIFICATION_CODE_TAG";
+    public static final String CHECK_CODE_TAG = "CHECK_CODE_TAG";
+
+
+    public static final String LOGIN = "/user/login";
+    public static final String REGISTER = "/user/reg";
+    public static final String GET_VERIFICATION_CODE = "/user/code";
+    public static final String CHECK_CODE = "/user/check_code";
+
 
     /**
      * Case By:创建参数基础信息

@@ -11,6 +11,7 @@ import wiki.scene.shop.http.api.ApiUtil;
 import wiki.scene.shop.http.base.LzyResponse;
 import wiki.scene.shop.http.callback.JsonCallback;
 import wiki.scene.shop.mvp.BaseHttpResultListener;
+import wiki.scene.shop.utils.MD5Util;
 
 /**
  * Case By:登录界面
@@ -20,11 +21,11 @@ import wiki.scene.shop.mvp.BaseHttpResultListener;
 
 public class LoginModel {
 
-    public void login(String username, String password, final BaseHttpResultListener<UserInfo> resultListener) {
+    public void login(String phoneNumber, String password, final BaseHttpResultListener<UserInfo> resultListener) {
         Map<String, String> params = new HashMap<>();
-        params.put("username", username);
-        params.put("password", password);
-        OkGo.<LzyResponse<UserInfo>>get("http://www.baidu.com").tag(ApiUtil.LOGIN_TAG).params(params).execute(new JsonCallback<LzyResponse<UserInfo>>() {
+        params.put("mobile", phoneNumber);
+        params.put("password", MD5Util.string2Md5(password, "UTF-8"));
+        OkGo.<LzyResponse<UserInfo>>post(ApiUtil.API_PRE + ApiUtil.LOGIN).tag(ApiUtil.LOGIN_TAG).params(params).execute(new JsonCallback<LzyResponse<UserInfo>>() {
             @Override
             public void onSuccess(Response<LzyResponse<UserInfo>> response) {
                 LzyResponse<UserInfo> userInfoLzyResponse = response.body();
@@ -35,7 +36,7 @@ public class LoginModel {
             @Override
             public void onError(Response<LzyResponse<UserInfo>> response) {
                 super.onError(response);
-                resultListener.onError(response.message());
+                resultListener.onError(response.getException().getMessage());
             }
 
             @Override

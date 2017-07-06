@@ -43,7 +43,7 @@ public class LoginPresenter extends BasePresenter<ILoginView> {
                 @Override
                 public void onSuccess(UserInfo data) {
                     if (loginView != null) {
-                        loginView.loginSuccess();
+                        loginView.loginSuccess(data);
                     }
                 }
 
@@ -56,6 +56,9 @@ public class LoginPresenter extends BasePresenter<ILoginView> {
 
                 @Override
                 public void onFinish() {
+                    if(loginView!=null){
+                        loginView.hideLoading();
+                    }
                 }
             });
         }

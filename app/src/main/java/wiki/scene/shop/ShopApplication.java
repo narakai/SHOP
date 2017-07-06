@@ -15,7 +15,6 @@ import com.lzy.okgo.cookie.CookieJarImpl;
 import com.lzy.okgo.cookie.store.MemoryCookieStore;
 import com.lzy.okgo.https.HttpsUtils;
 import com.lzy.okgo.interceptor.HttpLoggingInterceptor;
-import com.lzy.okgo.model.HttpParams;
 
 import java.io.InputStream;
 import java.util.concurrent.TimeUnit;
@@ -23,7 +22,7 @@ import java.util.logging.Level;
 
 import okhttp3.OkHttpClient;
 import wiki.scene.loadmore.utils.PtrLocalDisplay;
-import wiki.scene.shop.http.api.ApiUtil;
+import wiki.scene.shop.entity.UserInfo;
 import wiki.scene.shop.utils.SharedPreferencesUtil;
 
 
@@ -34,10 +33,13 @@ import wiki.scene.shop.utils.SharedPreferencesUtil;
  */
 
 public class ShopApplication extends Application {
+    public static final String USER_INFO_KEY = "user_info_key";
     private static final String UUID_KEY = "uuid";
     public static String UUID = "";
     public static int CHANNEL_ID = 0;
     public static int versionCode = 0;
+    public static boolean hasLogin = false;
+    public static UserInfo userInfo;
 
     @Override
     public void onCreate() {
@@ -59,9 +61,6 @@ public class ShopApplication extends Application {
      * Author：scene on 2017/6/26 11:55
      */
     private void initOKhttp() {
-        HttpParams params = new HttpParams();
-        params.put(ApiUtil.createParams());
-
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor("OkGo");
         //log打印级别，决定了log显示的详细程度
@@ -81,7 +80,6 @@ public class ShopApplication extends Application {
         HttpsUtils.SSLParams sslParams1 = HttpsUtils.getSslSocketFactory();
         builder.sslSocketFactory(sslParams1.sSLSocketFactory, sslParams1.trustManager);
         OkGo.getInstance().init(this)                            //必须调用初始化
-                .addCommonParams(params)
                 .setOkHttpClient(builder.build())               //必须设置OkHttpClient
                 .setCacheMode(CacheMode.NO_CACHE)               //全局统一缓存模式，默认不使用缓存，可以不传
                 .setCacheTime(CacheEntity.CACHE_NEVER_EXPIRE)   //全局统一缓存时间，默认永不过期，可以不传

@@ -1,5 +1,6 @@
 package wiki.scene.shop.ui.mine.presenter;
 
+import wiki.scene.shop.ShopApplication;
 import wiki.scene.shop.ui.mine.mvpview.IMineView;
 import wiki.scene.shop.mvp.BasePresenter;
 
@@ -21,19 +22,22 @@ public class MinePresenter extends BasePresenter<IMineView> {
      */
     public void recharge() {
         if (mineView != null) {
-            //需要判断是否登录
-            mineView.enterLogin();
+            if (ShopApplication.hasLogin) {
+                return;
+            } else {
+                mineView.enterLogin();
+            }
         }
     }
 
     public void clickIndianaRecord() {
-        if(mineView!=null){
+        if (mineView != null) {
             mineView.enterIndianaRecord();
         }
     }
 
     public void clickWinRecord() {
-        if(mineView!=null){
+        if (mineView != null) {
             mineView.enterWinRecord();
         }
     }
@@ -49,13 +53,13 @@ public class MinePresenter extends BasePresenter<IMineView> {
     }
 
     public void clickMineRed() {
-        if(mineView!=null){
+        if (mineView != null) {
             mineView.enterMineRed();
         }
     }
 
     public void clickMineReceiverAddress() {
-        if(mineView!=null){
+        if (mineView != null) {
             mineView.enterReceiverAddress();
         }
     }
@@ -69,7 +73,7 @@ public class MinePresenter extends BasePresenter<IMineView> {
     }
 
     public void clickSetting() {
-        if(mineView!=null){
+        if (mineView != null) {
             mineView.enterSetting();
         }
     }

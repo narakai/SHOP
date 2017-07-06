@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -21,6 +22,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 import wiki.scene.shop.R;
+import wiki.scene.shop.ShopApplication;
 import wiki.scene.shop.activity.LoginActivity;
 import wiki.scene.shop.event.ChooseAvaterResultEvent;
 import wiki.scene.shop.event.RegisterSuccessEvent;
@@ -28,7 +30,7 @@ import wiki.scene.shop.event.StartBrotherEvent;
 import wiki.scene.shop.mvp.BaseMainMvpFragment;
 import wiki.scene.shop.ui.mine.mvpview.IMineView;
 import wiki.scene.shop.ui.mine.presenter.MinePresenter;
-import wiki.scene.shop.utils.ToastUtils;
+import wiki.scene.shop.utils.SharedPreferencesUtil;
 
 /**
  * Case By:我的
@@ -77,11 +79,22 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
     private void initView() {
         progressDialog = new ProgressDialog(_mActivity);
         progressDialog.setMessage("正在上传");
+
+        if (ShopApplication.hasLogin) {
+            hasLogin();
+        } else {
+            hasNoLogin();
+        }
+
     }
 
     @OnClick(R.id.user_avater)
     public void onClickUserAvater() {
-        startActivity(new Intent(_mActivity, MineInfoActivity.class));
+        if (ShopApplication.hasLogin) {
+            startActivity(new Intent(_mActivity, MineInfoActivity.class));
+        } else {
+            enterLogin();
+        }
     }
 
     /**
@@ -225,6 +238,28 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
         EventBus.getDefault().post(new StartBrotherEvent(SettingFragment.newInstance()));
     }
 
+    @Override
+    public void hasNoLogin() {
+        level.setVisibility(View.GONE);
+        score.setVisibility(View.GONE);
+        username.setText(R.string.please_login);
+        Glide.with(_mActivity).load(R.drawable.ic_default_avater).bitmapTransform(new CropCircleTransformation(_mActivity)).into(userAvater);
+        imageLevel.setText(String.valueOf(1));
+        coinNumber.setText(String.format(getString(R.string.coin_number), 0));
+    }
+
+    @Override
+    public void hasLogin() {
+        level.setVisibility(View.VISIBLE);
+        score.setVisibility(View.VISIBLE);
+        level.setText(String.format(getString(R.string.mine_level), ShopApplication.userInfo.getLevel()));
+        score.setText(String.format(getString(R.string.mine_score), ShopApplication.userInfo.getScore()));
+        imageLevel.setText(String.valueOf(ShopApplication.userInfo.getLevel()));
+        username.setText(ShopApplication.userInfo.getNickname().isEmpty() ? ShopApplication.userInfo.getMobile() : ShopApplication.userInfo.getNickname());
+        Glide.with(_mActivity).load(ShopApplication.userInfo.getAvatar()).bitmapTransform(new CropCircleTransformation(_mActivity)).error(R.drawable.ic_default_avater).into(userAvater);
+        coinNumber.setText(String.format(getString(R.string.coin_number), ShopApplication.userInfo.getMoney()));
+    }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void changeUserAvater(ChooseAvaterResultEvent event) {
         Glide.with(this).load("file://" + event.avaterPath)
@@ -235,7 +270,10 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onRegisterSuccess(RegisterSuccessEvent event) {
         if (event != null) {
-            ToastUtils.getInstance(_mActivity).showToast(event.getUserInfo().getUser_id()+"");
+            SharedPreferencesUtil.putString(_mActivity, ShopApplication.USER_INFO_KEY, new Gson().toJson(event.getUserInfo()));
+            ShopApplication.userInfo = event.getUserInfo();
+            ShopApplication.hasLogin = true;
+            hasLogin();
         }
     }
 

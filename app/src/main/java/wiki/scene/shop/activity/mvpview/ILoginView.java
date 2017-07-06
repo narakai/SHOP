@@ -2,6 +2,7 @@ package wiki.scene.shop.activity.mvpview;
 
 import android.support.annotation.StringRes;
 
+import wiki.scene.shop.entity.UserInfo;
 import wiki.scene.shop.mvp.BaseView;
 
 /**
@@ -16,7 +17,7 @@ public interface ILoginView extends BaseView {
 
     String getPassword();
 
-    void loginSuccess();
+    void loginSuccess(UserInfo userInfo);
 
     void showFailInfo(String msg);
 

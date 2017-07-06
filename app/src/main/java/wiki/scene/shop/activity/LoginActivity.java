@@ -19,8 +19,10 @@ import butterknife.Unbinder;
 import wiki.scene.shop.R;
 import wiki.scene.shop.activity.presenter.LoginPresenter;
 import wiki.scene.shop.activity.mvpview.ILoginView;
+import wiki.scene.shop.entity.UserInfo;
 import wiki.scene.shop.event.RegisterSuccessEvent;
 import wiki.scene.shop.mvp.BaseMvpActivity;
+import wiki.scene.shop.utils.SharedPreferencesUtil;
 import wiki.scene.shop.utils.ToastUtils;
 
 /**
@@ -98,8 +100,8 @@ public class LoginActivity extends BaseMvpActivity<ILoginView, LoginPresenter> i
     }
 
     @Override
-    public void loginSuccess() {
-
+    public void loginSuccess(UserInfo userInfo) {
+        EventBus.getDefault().post(new RegisterSuccessEvent(userInfo));
     }
 
     @Override

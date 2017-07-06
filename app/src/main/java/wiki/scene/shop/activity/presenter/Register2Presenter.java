@@ -27,7 +27,7 @@ public class Register2Presenter extends BasePresenter<IRegister2View> {
         model = new Register2Model();
     }
 
-    public void setPassword(String mobile) {
+    public void setPassword(String mobile, String code) {
         if (register2View != null) {
             if (TextUtils.isEmpty(register2View.getPassword())) {
                 register2View.showFail(R.string.please_edit_password);
@@ -45,7 +45,7 @@ public class Register2Presenter extends BasePresenter<IRegister2View> {
             HttpParams params = new HttpParams();
             params.put("mobile", mobile);
             params.put("password", MD5Util.string2Md5(register2View.getRePassword(), "UTF-8"));
-            params.put("code", "123456");
+            params.put("code", code);
             model.register(params, new OnRegisterResultListener() {
                 @Override
                 public void onRegisterSuccess(UserInfo userInfo) {
@@ -59,7 +59,7 @@ public class Register2Presenter extends BasePresenter<IRegister2View> {
 
                 @Override
                 public void onRegisterFinish() {
-                    if(register2View!=null){
+                    if (register2View != null) {
                         register2View.hideLoading();
                     }
                 }

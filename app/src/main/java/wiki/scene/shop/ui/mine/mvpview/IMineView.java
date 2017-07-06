@@ -28,4 +28,9 @@ public interface IMineView extends BaseView {
     void enterShareApp();
 
     void enterSetting();
+
+    void hasLogin();
+
+    void hasNoLogin();
+
 }

@@ -179,4 +179,10 @@
     <string name="all">全部</string>
     <string name="gooning">进行中</string>
     <string name="announced">已揭晓</string>
+    <string name="please_edit_right_phone_number">请输入正确的手机号码</string>
+    <string name="retry_xx">重试（%1$d）</string>
+    <string name="please_edit_verification">请输入验证码</string>
+    <string name="loading">加载中&#8230;</string>
+    <string name="code_has_send">验证码已发送，请注意查收</string>
+    <string name="please_login">请登录</string>
 </resources>

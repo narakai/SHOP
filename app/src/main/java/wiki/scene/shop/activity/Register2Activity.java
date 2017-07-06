@@ -44,6 +44,7 @@ public class Register2Activity extends BaseMvpActivity<IRegister2View, Register2
     private ProgressDialog progressDialog;
 
     private String phoneNumber;
+    private String code;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,12 +74,13 @@ public class Register2Activity extends BaseMvpActivity<IRegister2View, Register2
     private void initView() {
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage(getString(R.string.is_registing));
-        phoneNumber=getIntent().getStringExtra("phone");
+        phoneNumber = getIntent().getStringExtra("phone");
+        code = getIntent().getStringExtra("code");
     }
 
     @OnClick(R.id.complete)
     public void onClickComplete() {
-        presenter.setPassword(phoneNumber);
+        presenter.setPassword(phoneNumber,code);
     }
 
 
