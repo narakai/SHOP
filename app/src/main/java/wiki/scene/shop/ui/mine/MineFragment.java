@@ -27,6 +27,7 @@ import wiki.scene.shop.activity.LoginActivity;
 import wiki.scene.shop.event.ChooseAvaterResultEvent;
 import wiki.scene.shop.event.RegisterSuccessEvent;
 import wiki.scene.shop.event.StartBrotherEvent;
+import wiki.scene.shop.event.UserInfoUpdateSuccessEvent;
 import wiki.scene.shop.mvp.BaseMainMvpFragment;
 import wiki.scene.shop.ui.mine.mvpview.IMineView;
 import wiki.scene.shop.ui.mine.presenter.MinePresenter;

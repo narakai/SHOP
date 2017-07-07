@@ -36,12 +36,13 @@ public class LauncherActivity extends BaseMvpActivity<ILauncherView, LauncherPre
                     @Override
                     public void run() {
                         startActivity(new Intent(LauncherActivity.this, MainActivity.class));
+                        LauncherActivity.this.finish();
                     }
                 });
             }
         }, 2000);
 
-        this.finish();
+
     }
 
 

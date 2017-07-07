@@ -7,9 +7,11 @@ import com.lzy.okgo.request.Request;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.HashMap;
 
 import okhttp3.Response;
 import okhttp3.ResponseBody;
+import wiki.scene.shop.ShopApplication;
 import wiki.scene.shop.http.api.ApiUtil;
 import wiki.scene.shop.http.base.LzyResponse;
 import wiki.scene.shop.http.base.SimpleResponse;
@@ -24,7 +26,11 @@ public abstract class JsonCallback<T> extends AbsCallback<T> {
     @Override
     public void onStart(Request<T, ? extends Request> request) {
         super.onStart(request);
-        request.getParams().put(ApiUtil.createParams());
+        HashMap<String, String> params = ApiUtil.createParams();
+        if (ShopApplication.hasLogin && ShopApplication.userInfo != null && !ShopApplication.userInfo.getAccess_token().isEmpty()) {
+            params.put("access_token", ShopApplication.userInfo.getAccess_token());
+        }
+        request.getParams().put(params);
     }
 
     @Override
@@ -61,8 +67,6 @@ public abstract class JsonCallback<T> extends AbsCallback<T> {
                 if (code == 200) {
                     //成功
                     return (T) baseResponse;
-                } else if (code == 1) {
-                    throw new IllegalStateException(baseResponse.message);
                 } else {
                     throw new IllegalStateException(baseResponse.message);
                 }

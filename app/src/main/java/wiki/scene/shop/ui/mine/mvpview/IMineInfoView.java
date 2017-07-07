@@ -22,4 +22,9 @@ public interface IMineInfoView extends BaseView {
     void showSuccess();
 
     void showFail(String str);
+
+    void updateUserAvaterSuccess(String filePath);
+
+    void updateUserInfoSuccess();
+
 }

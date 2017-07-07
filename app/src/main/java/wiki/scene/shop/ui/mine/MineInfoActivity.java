@@ -35,7 +35,9 @@ import wiki.scene.loadmore.utils.SceneLogUtil;
 import wiki.scene.shop.R;
 import wiki.scene.shop.ShopApplication;
 import wiki.scene.shop.config.AppConfig;
+import wiki.scene.shop.entity.UserInfo;
 import wiki.scene.shop.event.ChooseAvaterResultEvent;
+import wiki.scene.shop.event.RegisterSuccessEvent;
 import wiki.scene.shop.mvp.BaseMvpActivity;
 import wiki.scene.shop.ui.mine.mvpview.IMineInfoView;
 import wiki.scene.shop.ui.mine.presenter.MineInfoPresenter;
@@ -91,7 +93,7 @@ public class MineInfoActivity extends BaseMvpActivity<IMineInfoView, MineInfoPre
     }
 
     private void initView() {
-        Glide.with(this).load(ShopApplication.userInfo.getAvatar()).error(R.drawable.ic_default_avater).into(userAvater);
+        Glide.with(this).load(ShopApplication.userInfo.getAvatar()).error(R.drawable.ic_default_avater).bitmapTransform(new CropCircleTransformation(MineInfoActivity.this)).into(userAvater);
         username.setText(ShopApplication.userInfo.getNickname());
         phoneNumber.setText(ShopApplication.userInfo.getMobile());
         sexRadiogroup.check(ShopApplication.userInfo.getSex() == 1 ? R.id.sex_male : R.id.sex_female);
@@ -134,7 +136,7 @@ public class MineInfoActivity extends BaseMvpActivity<IMineInfoView, MineInfoPre
     }
 
     @OnClick(R.id.save)
-    public void onClickSave(){
+    public void onClickSave() {
         presenter.updateInfo();
     }
 
@@ -164,8 +166,6 @@ public class MineInfoActivity extends BaseMvpActivity<IMineInfoView, MineInfoPre
                 try {
                     List<String> pathList = data.getStringArrayListExtra(ImgSelActivity.INTENT_RESULT);
                     if (pathList != null && pathList.size() > 0) {
-
-                        EventBus.getDefault().post(new ChooseAvaterResultEvent(pathList.get(0)));
                         changeUserAvater(pathList.get(0));
                     }
                 } catch (Exception e) {
@@ -178,28 +178,23 @@ public class MineInfoActivity extends BaseMvpActivity<IMineInfoView, MineInfoPre
 
     public void changeUserAvater(String filePath) {
         SceneLogUtil.e("changeUserAvater");
-        Glide.with(this).load("file://" + filePath)
-                .bitmapTransform(new CropCircleTransformation(MineInfoActivity.this))
-                .into(userAvater);
         Luban.with(MineInfoActivity.this).load(new File(filePath)).setCompressListener(new OnCompressListener() {
             @Override
             public void onStart() {
-                showLoading();
+                showLoading("正在上传头像...");
             }
 
             @Override
             public void onSuccess(File file) {
                 SceneLogUtil.e("压缩完成");
-                hideLoading();
-                Glide.with(MineInfoActivity.this).load(file.getAbsolutePath())
-                        .bitmapTransform(new CropCircleTransformation(MineInfoActivity.this))
-                        .into(userAvater);
+                presenter.updateUserAvater(file.getAbsolutePath());
             }
 
             @Override
             public void onError(Throwable e) {
                 SceneLogUtil.e("压缩失败");
                 hideLoading();
+                showFail("头像上传失败");
             }
         }).launch();
     }
@@ -208,6 +203,7 @@ public class MineInfoActivity extends BaseMvpActivity<IMineInfoView, MineInfoPre
     public void showLoading(String msg) {
         if (progressDialog == null) {
             progressDialog = new ProgressDialog(MineInfoActivity.this);
+            progressDialog.setCanceledOnTouchOutside(false);
         }
         progressDialog.setMessage(msg);
         progressDialog.show();
@@ -217,6 +213,7 @@ public class MineInfoActivity extends BaseMvpActivity<IMineInfoView, MineInfoPre
     public void showLoading(@StringRes int resId) {
         if (progressDialog == null) {
             progressDialog = new ProgressDialog(MineInfoActivity.this);
+            progressDialog.setCanceledOnTouchOutside(false);
         }
         progressDialog.setMessage(getString(resId));
         progressDialog.show();
@@ -241,4 +238,24 @@ public class MineInfoActivity extends BaseMvpActivity<IMineInfoView, MineInfoPre
     public void showFail(String str) {
         ToastUtils.getInstance(MineInfoActivity.this).showToast(str);
     }
+
+    @Override
+    public void updateUserAvaterSuccess(String filePath) {
+        EventBus.getDefault().post(new ChooseAvaterResultEvent(filePath));
+        Glide.with(MineInfoActivity.this).load(filePath)
+                .bitmapTransform(new CropCircleTransformation(MineInfoActivity.this))
+                .into(userAvater);
+        UserInfo userInfo = ShopApplication.userInfo;
+        userInfo.setAvatar(filePath);
+        EventBus.getDefault().post(new RegisterSuccessEvent(userInfo));
+    }
+
+    @Override
+    public void updateUserInfoSuccess() {
+        UserInfo userInfo = ShopApplication.userInfo;
+        userInfo.setNickname(getNickName());
+        userInfo.setSex(getSex());
+        EventBus.getDefault().post(new RegisterSuccessEvent(userInfo));
+    }
+
 }

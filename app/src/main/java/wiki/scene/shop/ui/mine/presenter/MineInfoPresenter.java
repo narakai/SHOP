@@ -3,9 +3,9 @@ package wiki.scene.shop.ui.mine.presenter;
 import com.lzy.okgo.model.HttpParams;
 
 import wiki.scene.shop.http.listener.HttpResultListener;
+import wiki.scene.shop.mvp.BasePresenter;
 import wiki.scene.shop.ui.mine.model.MineInfoModel;
 import wiki.scene.shop.ui.mine.mvpview.IMineInfoView;
-import wiki.scene.shop.mvp.BasePresenter;
 
 /**
  * Case By:个人资料
@@ -35,22 +35,55 @@ public class MineInfoPresenter extends BasePresenter<IMineInfoView> {
             model.updateUserInfo(params, new HttpResultListener<String>() {
                 @Override
                 public void onSuccess(String data) {
-                    mineInfoView.showFail(data);
+                    if(mineInfoView!=null){
+                        mineInfoView.showFail("资料修改成功");
+                        mineInfoView.updateUserInfoSuccess();
+                    }
                 }
 
                 @Override
                 public void onFail(String message) {
-                    if (mineInfoView != null)
+                    if (mineInfoView != null) {
+
                         mineInfoView.showFail(message);
+                    }
+
                 }
 
                 @Override
                 public void onFinish() {
-                    if(mineInfoView!=null)
+                    if (mineInfoView != null)
                         mineInfoView.hideLoading();
                 }
             });
         }
+    }
 
+    public void updateUserAvater(String avaterFilePath) {
+        if (mineInfoView != null) {
+            model.updateUserAvater(avaterFilePath, new HttpResultListener<String>() {
+                @Override
+                public void onSuccess(String data) {
+                    if (mineInfoView != null) {
+                        mineInfoView.updateUserAvaterSuccess(data);
+                        mineInfoView.showFail("头像修改成功");
+                    }
+                }
+
+                @Override
+                public void onFail(String message) {
+                    if (mineInfoView != null) {
+                        mineInfoView.showFail(message);
+                    }
+                }
+
+                @Override
+                public void onFinish() {
+                    if (mineInfoView != null) {
+                        mineInfoView.hideLoading();
+                    }
+                }
+            });
+        }
     }
 }

@@ -20,6 +20,7 @@ public class ApiUtil {
     public static final String GET_VERIFICATION_CODE_TAG = "GET_VERIFICATION_CODE_TAG";
     public static final String CHECK_CODE_TAG = "CHECK_CODE_TAG";
     public static final String UPDATE_USERINFO_TAG = "UPDATE_USERINFO_TAG";
+    public static final String UPDATE_USER_AVATER_TAG = "UPDATE_USER_AVATER_TAG";
 
 
     public static final String LOGIN = "/user/login";
@@ -27,6 +28,7 @@ public class ApiUtil {
     public static final String GET_VERIFICATION_CODE = "/user/code";
     public static final String CHECK_CODE = "/user/check_code";
     public static final String UPDATE_USERINFO = "/personal/profile/edit";
+    public static final String UPDATE_USER_AVATER = "/personal/profile/upload_avatar/";
 
 
     /**
