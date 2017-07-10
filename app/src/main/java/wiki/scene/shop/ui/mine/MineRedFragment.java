@@ -20,6 +20,7 @@ import wiki.scene.loadmore.PtrClassicFrameLayout;
 import wiki.scene.loadmore.PtrDefaultHandler;
 import wiki.scene.loadmore.PtrFrameLayout;
 import wiki.scene.loadmore.StatusViewLayout;
+import wiki.scene.loadmore.loadmore.OnLoadMoreListener;
 import wiki.scene.loadmore.utils.PtrLocalDisplay;
 import wiki.scene.shop.R;
 import wiki.scene.shop.adapter.MineRedAdapter;
@@ -94,6 +95,13 @@ public class MineRedFragment extends BaseBackMvpFragment<IMineRedView, MineRedPr
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.addItemDecoration(new SpacesItemDecoration(PtrLocalDisplay.dp2px(1)));
         recyclerView.setAdapter(adapter);
+        
+        ptrLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void loadMore() {
+
+            }
+        });
     }
 
     @Override

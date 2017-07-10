@@ -5,7 +5,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -13,6 +12,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import wiki.scene.shop.R;
+import wiki.scene.shop.entity.AddressInfo;
 
 /**
  * Case By:收货地址
@@ -22,11 +22,16 @@ import wiki.scene.shop.R;
 
 public class MineReceiverAddressAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context context;
-    private List<String> list;
+    private List<AddressInfo> list;
+    private OnReceiverAddressListener receiverAddressListener;
 
-    public MineReceiverAddressAdapter(Context context, List<String> list) {
+    public MineReceiverAddressAdapter(Context context, List<AddressInfo> list) {
         this.context = context;
         this.list = list;
+    }
+
+    public void setReceiverAddressListener(OnReceiverAddressListener receiverAddressListener) {
+        this.receiverAddressListener = receiverAddressListener;
     }
 
     @Override
@@ -35,9 +40,36 @@ public class MineReceiverAddressAdapter extends RecyclerView.Adapter<RecyclerVie
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         MineReceiverAddressViewHolder viewHolder = (MineReceiverAddressViewHolder) holder;
-        viewHolder.receiverName.setText(list.get(position));
+        AddressInfo info = list.get(position);
+        viewHolder.receiverName.setText(info.getName());
+        viewHolder.receiverPhone.setText(info.getMobile());
+        viewHolder.receiverAddress.setText(info.getAddress());
+        viewHolder.defaultStatus.setText(info.getIs_default() == 0 ? R.string.set_default : R.string.default_address);
+        viewHolder.defaultStatus.setCompoundDrawablesWithIntrinsicBounds(context.getResources().getDrawable(info.getIs_default() == 0
+                ? R.drawable.ic_address_choosed_d : R.drawable.ic_address_choosed_s), null, null, null);
+        viewHolder.defaultStatus.setTextColor(context.getResources().getColor(info.getIs_default() == 0 ? R.color.text_color_content : R.color.address_default_color));
+        if (receiverAddressListener != null) {
+            viewHolder.defaultStatus.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    receiverAddressListener.onItemClickSetDefaultAddress(position);
+                }
+            });
+            viewHolder.edit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    receiverAddressListener.onItemClickEdit(position);
+                }
+            });
+            viewHolder.delete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    receiverAddressListener.onItemClickDelete(position);
+                }
+            });
+        }
     }
 
     @Override
@@ -55,7 +87,7 @@ public class MineReceiverAddressAdapter extends RecyclerView.Adapter<RecyclerVie
         @BindView(R.id.line)
         View line;
         @BindView(R.id.default_status)
-        ImageView defaultStatus;
+        TextView defaultStatus;
         @BindView(R.id.edit)
         TextView edit;
         @BindView(R.id.delete)
@@ -65,5 +97,13 @@ public class MineReceiverAddressAdapter extends RecyclerView.Adapter<RecyclerVie
             super(view);
             ButterKnife.bind(this, view);
         }
+    }
+
+    public interface OnReceiverAddressListener {
+        void onItemClickSetDefaultAddress(int position);
+
+        void onItemClickEdit(int position);
+
+        void onItemClickDelete(int position);
     }
 }

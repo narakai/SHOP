@@ -44,7 +44,6 @@ public class MineInfoPresenter extends BasePresenter<IMineInfoView> {
                 @Override
                 public void onFail(String message) {
                     if (mineInfoView != null) {
-
                         mineInfoView.showFail(message);
                     }
 

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg_color_gray2"
@@ -109,7 +110,9 @@
             android:layout_toRightOf="@+id/text"
             android:background="@null"
             android:gravity="top"
-            android:lines="2" />
+            android:lines="2"
+            android:textColor="@color/text_color_title"
+            android:textSize="@dimen/text_size_small" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -117,17 +120,29 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="13.33dp"
         android:background="@color/white"
-        android:paddingBottom="20dp"
+        android:paddingBottom="10dp"
         android:paddingLeft="12dp"
         android:paddingRight="12dp"
-        android:paddingTop="20dp">
+        android:paddingTop="10dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
             android:text="@string/set_default"
             android:textColor="@color/text_color_title"
             android:textSize="@dimen/text_size_small" />
+
+        <com.suke.widget.SwitchButton
+            android:id="@+id/default_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="8dp"
+            app:sb_button_color="@color/white"
+            app:sb_checked="false"
+            app:sb_show_indicator="false" />
     </RelativeLayout>
 
     <Button

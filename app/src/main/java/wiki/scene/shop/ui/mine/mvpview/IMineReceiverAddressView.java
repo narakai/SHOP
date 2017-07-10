@@ -1,5 +1,10 @@
 package wiki.scene.shop.ui.mine.mvpview;
 
+import android.support.annotation.StringRes;
+
+import java.util.List;
+
+import wiki.scene.shop.entity.AddressInfo;
 import wiki.scene.shop.mvp.BaseView;
 
 /**
@@ -9,5 +14,21 @@ import wiki.scene.shop.mvp.BaseView;
  */
 
 public interface IMineReceiverAddressView extends BaseView {
+    void getAddressSuccess(List<AddressInfo> list, boolean isRefresh);
 
+    void refreshFail();
+
+    void loadFail();
+
+    void deleteFail();
+
+    void deleteSuccess(int position);
+
+    void showProgressDialog(@StringRes int resId);
+
+    void hideProgressDialog();
+
+    void setDefaultFail();
+
+    void setDefaultSuccess(int position);
 }

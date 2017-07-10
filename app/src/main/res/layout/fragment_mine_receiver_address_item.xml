@@ -46,28 +46,23 @@
         android:layout_marginTop="15.33dp"
         android:background="@color/bg_color_gray2" />
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/line"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginTop="15.33dp"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
-        <ImageView
+        <TextView
             android:id="@+id/default_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_address_choosed_s" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="6.66dp"
-            android:layout_weight="1"
+            android:drawableLeft="@drawable/ic_address_choosed_s"
+            android:drawablePadding="6.66dp"
             android:gravity="center_vertical"
+            android:paddingTop="15.33dp"
             android:text="@string/default_address"
             android:textColor="#F74C4B"
             android:textSize="@dimen/text_size_xsmall" />
@@ -76,9 +71,11 @@
             android:id="@+id/edit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/delete"
             android:drawableLeft="@drawable/ic_address_edit"
             android:drawablePadding="6.66dp"
             android:gravity="center_vertical"
+            android:paddingTop="15.33dp"
             android:text="@string/edit"
             android:textColor="@color/text_color_content"
             android:textSize="@dimen/text_size_xsmall" />
@@ -87,14 +84,16 @@
             android:id="@+id/delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
             android:layout_marginLeft="10dp"
             android:drawableLeft="@drawable/ic_address_delete"
             android:drawablePadding="6.66dp"
             android:gravity="center_vertical"
+            android:paddingTop="15.33dp"
             android:text="@string/delete"
             android:textColor="@color/text_color_content"
             android:textSize="@dimen/text_size_xsmall" />
-    </LinearLayout>
+    </RelativeLayout>
 
 
 </RelativeLayout>

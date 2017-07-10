@@ -185,4 +185,15 @@
     <string name="loading">加载中&#8230;</string>
     <string name="code_has_send">验证码已发送，请注意查收</string>
     <string name="please_login">请登录</string>
+    <string name="edit_address">编辑地址</string>
+    <string name="please_edit_receiver_name">请输入收货人</string>
+    <string name="please_edit_receiver_phone">请输入联系电话</string>
+    <string name="please_edit_receiver_address">请输入收货地址</string>
+    <string name="update_success">修改成功</string>
+    <string name="add_success">添加成功</string>
+    <string name="add_fail">添加失败</string>
+    <string name="update_fail">修改失败</string>
+    <string name="deleting">正在删除&#8230;</string>
+    <string name="delete_success">删除成功</string>
+    <string name="delete_fail">删除失败</string>
 </resources>

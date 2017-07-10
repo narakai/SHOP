@@ -1,7 +1,5 @@
 package wiki.scene.shop.mvp;
 
-import android.view.View;
-
 /**
  * Case By: presenter基类
  * package:
