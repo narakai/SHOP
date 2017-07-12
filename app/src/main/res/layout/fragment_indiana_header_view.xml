@@ -96,13 +96,19 @@
             android:textColor="@color/text_color_des"
             android:textSize="@dimen/text_size_xsmall" />
 
-        <wiki.scene.shop.widgets.verticalrollingtextview.VerticalRollingTextView
+        <!--<wiki.scene.shop.widgets.verticalrollingtextview.VerticalRollingTextView-->
+        <!--android:id="@+id/notice_textView"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="20dp"-->
+        <!--android:textSize="@dimen/text_size_xsmall"-->
+        <!--android:textColor="@color/text_color_des"-->
+        <!--app:animInterval="5000" />-->
+        <wiki.scene.shop.widgets.VerticalTextview
             android:id="@+id/notice_textView"
             android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:textSize="@dimen/text_size_xsmall"
-            android:textColor="@color/text_color_des"
-            app:animInterval="5000" />
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="10dp" />
     </LinearLayout>
 
     <View

@@ -1,13 +1,9 @@
 package wiki.scene.shop.ui.indiana;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Spannable;
-import android.text.SpannableStringBuilder;
-import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,8 +44,7 @@ import wiki.scene.shop.ui.indiana.presenter.IndianaPresenter;
 import wiki.scene.shop.utils.GlideImageLoader;
 import wiki.scene.shop.utils.ToastUtils;
 import wiki.scene.shop.widgets.RatioImageView;
-import wiki.scene.shop.widgets.verticalrollingtextview.DataSetAdapter;
-import wiki.scene.shop.widgets.verticalrollingtextview.VerticalRollingTextView;
+import wiki.scene.shop.widgets.VerticalTextview;
 
 /**
  * Case By:
@@ -353,19 +348,10 @@ public class IndianaFragment extends BaseMainMvpFragment<IIndianaView, IndianaPr
         return new IndianaPresenter(this);
     }
 
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (indianaHeaderView != null && indianaHeaderView.noticeTextView != null) {
-            indianaHeaderView.noticeTextView.run();
-        }
-    }
-
     @Override
     public void onDestroyView() {
         if (indianaHeaderView != null && indianaHeaderView.noticeTextView != null) {
-            indianaHeaderView.noticeTextView.stop();
+            indianaHeaderView.noticeTextView.stopAutoScroll();
         }
         super.onDestroyView();
     }
@@ -382,7 +368,7 @@ public class IndianaFragment extends BaseMainMvpFragment<IIndianaView, IndianaPr
         @BindView(R.id.invite_money)
         TextView inviteMoney;
         @BindView(R.id.notice_textView)
-        VerticalRollingTextView noticeTextView;
+        VerticalTextview noticeTextView;
         @BindView(R.id.newest_title_image_text)
         TextView newestTitleImageText;
         @BindView(R.id.more_newest)
@@ -486,23 +472,17 @@ public class IndianaFragment extends BaseMainMvpFragment<IIndianaView, IndianaPr
         }
 
         void bindIndianaNotice(List<WinningNoticeInfo> list) {
-            List<SpannableStringBuilder> stringList = new ArrayList<>();
-            ForegroundColorSpan colorSpan = new ForegroundColorSpan(Color.parseColor("#2FACFF"));
+            List<String> stringList = new ArrayList<>();
             for (WinningNoticeInfo info : list) {
-                String str = String.format(getString(R.string.notice_item), info.getNickname(), info.getCost(), info.getCycle_code(), info.getProduct_name());
-                SpannableStringBuilder builder = new SpannableStringBuilder(str);
-                builder.setSpan(colorSpan, 2, 2 + info.getNickname().length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                builder.setSpan(colorSpan, 4 + info.getNickname().length(), 4 + info.getNickname().length() + String.valueOf(info.getCost()).length() + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                builder.setSpan(colorSpan, str.length() - info.getProduct_name().length(), str.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                stringList.add(builder);
+                String str = "恭喜<font color='#2FACFF'>" + info.getNickname() + "</font>花费" +
+                        "<font color='#2FACFF'>" + info.getCost() + "元</font>" + "夺得<font color='#2FACFF'>" + info.getProduct_name() + "</font>";
+                stringList.add(str);
             }
-            noticeTextView.setDataSetAdapter(new DataSetAdapter<SpannableStringBuilder>(stringList) {
-                @Override
-                protected String text(SpannableStringBuilder stringBuilder) {
-                    return stringBuilder.toString();
-                }
-            });
-            noticeTextView.run();
+            noticeTextView.setTextList(stringList);//加入显示内容,集合类型
+            noticeTextView.setText(11, 0, getResources().getColor(R.color.text_color_des));//设置属性,具体跟踪源码
+            noticeTextView.setTextStillTime(5000);//设置停留时长间隔
+            noticeTextView.setAnimTime(300);//设置进入和退出的时间间隔
+            noticeTextView.startAutoScroll();
         }
 
     }
