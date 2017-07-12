@@ -61,7 +61,7 @@ public class Register2Activity extends BaseMvpActivity<IRegister2View, Register2
     }
 
     private void initToolbar() {
-        toolbarTitle.setText("注册");
+        toolbarTitle.setText(getString(R.string.register));
         toolbar.setNavigationIcon(R.drawable.ic_toolbar_back);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

@@ -8,11 +8,15 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import wiki.scene.shop.R;
+import wiki.scene.shop.ShopApplication;
+import wiki.scene.shop.entity.ListGoodsInfo;
 import wiki.scene.shop.widgets.RatioImageView;
 
 /**
@@ -23,9 +27,9 @@ import wiki.scene.shop.widgets.RatioImageView;
 
 public class IndianaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context context;
-    private List<String> list;
+    private List<ListGoodsInfo> list;
 
-    public IndianaAdapter(Context context, List<String> list) {
+    public IndianaAdapter(Context context, List<ListGoodsInfo> list) {
         this.context = context;
         this.list = list;
     }
@@ -38,7 +42,12 @@ public class IndianaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         IndianaViewHolder viewHolder = (IndianaViewHolder) holder;
-        viewHolder.goodsName.setText(list.get(position));
+        ListGoodsInfo info = list.get(position);
+        viewHolder.goodsName.setText(info.getTitle());
+        Glide.with(context).load(ShopApplication.configInfo.getFile_domain() + info.getThumb()).into(viewHolder.goodsImage);
+        int precent = info.getCurrent_source() * 100 / info.getNeed_source();
+        viewHolder.progressText.setText(precent+"%");
+        viewHolder.progressBar.setProgress(precent);
     }
 
     @Override

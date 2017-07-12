@@ -23,7 +23,7 @@ import wiki.scene.loadmore.utils.SceneLogUtil;
 import wiki.scene.shop.event.StartBrotherEvent;
 import wiki.scene.shop.event.TabSelectedEvent;
 import wiki.scene.shop.ui.car.CarFragment;
-import wiki.scene.shop.ui.indiana.Indiana2Fragment;
+import wiki.scene.shop.ui.indiana.IndianaFragment;
 import wiki.scene.shop.ui.mine.MineFragment;
 import wiki.scene.shop.ui.newest.NewestFragment;
 import wiki.scene.shop.ui.share.ShareFragment;
@@ -82,14 +82,14 @@ public class MainFragment extends SupportFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        SupportFragment firstFragment = findChildFragment(Indiana2Fragment.class);
+        SupportFragment firstFragment = findChildFragment(IndianaFragment.class);
         tabNames.add(getString(R.string.indiana_toolbar_text));
         tabNames.add(getString(R.string.bottom_tab_newest));
         tabNames.add(getString(R.string.bottom_tab_share));
         tabNames.add(getString(R.string.bottom_tab_car));
         tabNames.add(getString(R.string.bottom_tab_mine));
         if (firstFragment == null) {
-            mFragments[FIRST] = Indiana2Fragment.newInstance();
+            mFragments[FIRST] = IndianaFragment.newInstance();
             mFragments[SECOND] = NewestFragment.newInstance();
             mFragments[THIRD] = ShareFragment.newInstance();
             mFragments[FOUR] = CarFragment.newInstance();

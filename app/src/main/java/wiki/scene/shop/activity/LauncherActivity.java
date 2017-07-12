@@ -7,15 +7,16 @@ import android.support.annotation.Nullable;
 
 import com.google.gson.Gson;
 
-import wiki.scene.loadmore.utils.SceneLogUtil;
 import wiki.scene.shop.MainActivity;
 import wiki.scene.shop.R;
 import wiki.scene.shop.ShopApplication;
 import wiki.scene.shop.activity.mvpview.ILauncherView;
 import wiki.scene.shop.activity.presenter.LauncherPresenter;
+import wiki.scene.shop.entity.ConfigInfo;
 import wiki.scene.shop.entity.UserInfo;
 import wiki.scene.shop.mvp.BaseMvpActivity;
 import wiki.scene.shop.utils.SharedPreferencesUtil;
+import wiki.scene.shop.utils.ToastUtils;
 
 /**
  * Case By:
@@ -24,25 +25,16 @@ import wiki.scene.shop.utils.SharedPreferencesUtil;
  */
 
 public class LauncherActivity extends BaseMvpActivity<ILauncherView, LauncherPresenter> implements ILauncherView {
+    private long beginTime = 0;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launcher);
+
+        beginTime = System.currentTimeMillis();
+        presenter.getAppConfig();
         checkHasLogin();
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        startActivity(new Intent(LauncherActivity.this, MainActivity.class));
-                        LauncherActivity.this.finish();
-                    }
-                });
-            }
-        }, 2000);
-
-
     }
 
 
@@ -73,5 +65,29 @@ public class LauncherActivity extends BaseMvpActivity<ILauncherView, LauncherPre
     @Override
     public void onBackPressedSupport() {
 
+    }
+
+    @Override
+    public void getConfigSuccess(ConfigInfo configInfo) {
+        ShopApplication.configInfo = configInfo;
+        long delayTime = 2000 - (System.currentTimeMillis() - beginTime);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        startActivity(new Intent(LauncherActivity.this, MainActivity.class));
+                        LauncherActivity.this.finish();
+                    }
+                });
+            }
+        }, delayTime > 0 ? delayTime : 0);
+    }
+
+    @Override
+    public void getConfigFail(String res) {
+        ToastUtils.getInstance(LauncherActivity.this).showToast(res);
+        finish();
     }
 }

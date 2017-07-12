@@ -1,5 +1,7 @@
 package wiki.scene.shop.entity;
 
+import wiki.scene.shop.ShopApplication;
+
 /**
  * Case By:头像
  * package:wiki.scene.shop.entity
@@ -10,7 +12,11 @@ public class AvaterInfo {
     private String url;
 
     public String getUrl() {
-        return url;
+        if (url.startsWith("http:")) {
+            return url;
+        } else {
+            return ShopApplication.configInfo.getFile_domain() + url;
+        }
     }
 
     public void setUrl(String url) {

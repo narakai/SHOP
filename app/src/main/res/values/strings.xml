@@ -196,4 +196,6 @@
     <string name="deleting">正在删除&#8230;</string>
     <string name="delete_success">删除成功</string>
     <string name="delete_fail">删除失败</string>
+    <string name="xx_precent">%1$d&#037;</string>
+    <string name="notice_item">恭喜%1$s花费%2$d元夺得【%3$d期】%4$s</string>
 </resources>

@@ -22,6 +22,7 @@ import java.util.logging.Level;
 
 import okhttp3.OkHttpClient;
 import wiki.scene.loadmore.utils.PtrLocalDisplay;
+import wiki.scene.shop.entity.ConfigInfo;
 import wiki.scene.shop.entity.UserInfo;
 import wiki.scene.shop.utils.SharedPreferencesUtil;
 
@@ -40,6 +41,7 @@ public class ShopApplication extends Application {
     public static int versionCode = 0;
     public static boolean hasLogin = false;
     public static UserInfo userInfo;
+    public static ConfigInfo configInfo;
 
     @Override
     public void onCreate() {

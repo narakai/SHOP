@@ -2,6 +2,8 @@ package wiki.scene.shop.entity;
 
 import java.io.Serializable;
 
+import wiki.scene.shop.ShopApplication;
+
 /**
  * Case By:用户登录返回的信息
  * package:wiki.scene.shop.entity
@@ -65,7 +67,7 @@ public class UserInfo implements Serializable {
     }
 
     public long getCreate_time() {
-        return create_time*1000;
+        return create_time * 1000;
     }
 
     public void setCreate_time(long create_time) {
@@ -73,7 +75,7 @@ public class UserInfo implements Serializable {
     }
 
     public long getExpired_time() {
-        return expired_time*1000;
+        return expired_time * 1000;
     }
 
     public void setExpired_time(long expired_time) {
@@ -129,7 +131,11 @@ public class UserInfo implements Serializable {
     }
 
     public String getAvatar() {
-        return avatar;
+        if (avatar.startsWith("http:")) {
+            return avatar;
+        } else {
+            return ShopApplication.configInfo.getFile_domain() + avatar;
+        }
     }
 
     public void setAvatar(String avatar) {

@@ -10,7 +10,8 @@
         android:id="@+id/banner"
         android:layout_width="match_parent"
         android:layout_height="133.33dp"
-        android:background="#444444" />
+        app:indicator_drawable_selected="@drawable/ic_banner_s"
+        app:indicator_drawable_unselected="@drawable/ic_banner_d" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -100,6 +101,7 @@
             android:layout_width="match_parent"
             android:layout_height="20dp"
             android:textSize="@dimen/text_size_xsmall"
+            android:textColor="@color/text_color_des"
             app:animInterval="5000" />
     </LinearLayout>
 
@@ -253,10 +255,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:padding="10dp"
-                android:text="@string/price"
                 android:drawablePadding="4dp"
                 android:drawableRight="@drawable/ic_price_down"
+                android:padding="10dp"
+                android:text="@string/price"
                 android:textColor="@color/text_color_title"
                 android:textSize="@dimen/text_size_middle" />
 

@@ -15,7 +15,9 @@ public class ApiUtil {
     private static final String SIGN_KEY = "045448f765b0c0592563123a2652fb63";
     public static final String API_PRE = "http://119.23.110.78:8082";
 
-
+    //获取APP的配置文件
+    public static final String APP_CONFIG="/user/setting";
+    public static final String APP_CONFIG_TAG="APP_CONFIG_TAG";
     //登录
     public static final String LOGIN = "/user/login";
     public static final String LOGIN_TAG = "LOGIN_TAG";
@@ -46,6 +48,10 @@ public class ApiUtil {
     //设置默认收货地址
     public static final String SET_DEFAULT_ADDRESS="/personal/address/default";
     public static final String SET_DEFAULT_ADDRESS_TAG="SET_DEFAULT_ADDRESS_TAG";
+    //夺宝首页
+    public static final String INDEX="/index";
+    public static final String INDEX_TAG="INDEX_TAG";
+
 
 
     /**
