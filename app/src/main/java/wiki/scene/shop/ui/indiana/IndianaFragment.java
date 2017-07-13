@@ -177,7 +177,7 @@ public class IndianaFragment extends BaseMainMvpFragment<IIndianaView, IndianaPr
         mAdapter.setOnItemClickListener(new RecyclerAdapterWithHF.OnItemClickListener() {
             @Override
             public void onItemClick(RecyclerAdapterWithHF adapter, RecyclerView.ViewHolder vh, int position) {
-                EventBus.getDefault().post(new StartBrotherEvent(GoodsDetailFragment.newInstance()));
+                EventBus.getDefault().post(new StartBrotherEvent(GoodsDetailFragment.newInstance(list.get(position).getId())));
             }
         });
     }

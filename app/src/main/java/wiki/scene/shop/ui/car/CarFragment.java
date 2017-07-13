@@ -5,10 +5,13 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,13 +19,23 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import wiki.scene.loadmore.PtrClassicFrameLayout;
+import wiki.scene.loadmore.PtrDefaultHandler;
+import wiki.scene.loadmore.PtrFrameLayout;
+import wiki.scene.loadmore.StatusViewLayout;
+import wiki.scene.loadmore.utils.SceneLogUtil;
 import wiki.scene.shop.R;
 import wiki.scene.shop.adapter.CarGoodsAdapter;
 import wiki.scene.shop.adapter.GuessLikeAdapter;
+import wiki.scene.shop.entity.CartInfo;
+import wiki.scene.shop.entity.ListGoodsInfo;
+import wiki.scene.shop.event.AddGoods2CartEvent;
 import wiki.scene.shop.event.StartBrotherEvent;
+import wiki.scene.shop.mvp.BaseMainMvpFragment;
 import wiki.scene.shop.ui.car.mvpview.ICarView;
 import wiki.scene.shop.ui.car.presenter.CarPresenter;
-import wiki.scene.shop.mvp.BaseMainMvpFragment;
+import wiki.scene.shop.ui.indiana.GoodsDetailFragment;
+import wiki.scene.shop.utils.ToastUtils;
 import wiki.scene.shop.widgets.CustomListView;
 import wiki.scene.shop.widgets.CustomeGridView;
 
@@ -31,7 +44,7 @@ import wiki.scene.shop.widgets.CustomeGridView;
  * package:wiki.scene.shop.fragment.indiana
  * Author：scene on 2017/6/26 14:13
  */
-public class CarFragment extends BaseMainMvpFragment<ICarView, CarPresenter> implements ICarView {
+public class CarFragment extends BaseMainMvpFragment<ICarView, CarPresenter> implements ICarView, CarGoodsAdapter.OnCarItemClickListener {
 
     @BindView(R.id.layout_unlogin)
     LinearLayout layoutUnlogin;
@@ -40,12 +53,22 @@ public class CarFragment extends BaseMainMvpFragment<ICarView, CarPresenter> imp
     @BindView(R.id.like_gridView)
     CustomeGridView likeGridView;
     @BindView(R.id.total_price)
-    TextView totalPrice;
+    TextView tvTotalPrice;
+    @BindView(R.id.immediately_indiana)
+    TextView immediatelyIndiana;
+    @BindView(R.id.layout_bottom)
+    LinearLayout layoutBottom;
+    @BindView(R.id.ptrLayout)
+    PtrClassicFrameLayout ptrLayout;
+    @BindView(R.id.status_layout)
+    StatusViewLayout statusLayout;
+    @BindView(R.id.scrollView)
+    ScrollView scrollView;
     //猜你喜欢adapter
-    private List<String> guessLikeList = new ArrayList<>();
+    private List<ListGoodsInfo> guessLikeList = new ArrayList<>();
     private GuessLikeAdapter guessLikeAdapter;
     //购物车商品
-    private List<String> goodsList = new ArrayList<>();
+    private List<CartInfo> goodsList = new ArrayList<>();
     private CarGoodsAdapter goodsAdapter;
 
     public static CarFragment newInstance() {
@@ -53,6 +76,12 @@ public class CarFragment extends BaseMainMvpFragment<ICarView, CarPresenter> imp
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
     }
 
     @Nullable
@@ -66,21 +95,41 @@ public class CarFragment extends BaseMainMvpFragment<ICarView, CarPresenter> imp
     @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
+        EventBus.getDefault().register(this);
         initView();
+        presenter.showTotalPrice(goodsList);
     }
 
     private void initView() {
-        for (int i = 0; i < 10; i++) {
-            guessLikeList.add("猜你喜欢商品" + (i + 1));
-            if (goodsList.size() < 4)
-                goodsList.add("购物车商品" + (i + 1));
-        }
+        presenter.getCarList(true);
         guessLikeAdapter = new GuessLikeAdapter(_mActivity, guessLikeList);
         likeGridView.setAdapter(guessLikeAdapter);
 
         goodsAdapter = new CarGoodsAdapter(_mActivity, goodsList);
         goodsListview.setAdapter(goodsAdapter);
         layoutUnlogin.setVisibility(View.GONE);
+
+        ptrLayout.setLastUpdateTimeRelateObject(this);
+        ptrLayout.setPtrHandler(new PtrDefaultHandler() {
+            @Override
+            public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
+                return super.checkCanDoRefresh(frame, content, header) && scrollView.getScrollY() == 0;
+            }
+
+            @Override
+            public void onRefreshBegin(PtrFrameLayout frame) {
+                presenter.getCarList(false);
+            }
+        });
+
+        likeGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                EventBus.getDefault().post(new StartBrotherEvent(GoodsDetailFragment.newInstance(guessLikeList.get(position).getId())));
+            }
+        });
+
+        goodsAdapter.setOnCarItemClickListener(this);
     }
 
     /**
@@ -91,24 +140,126 @@ public class CarFragment extends BaseMainMvpFragment<ICarView, CarPresenter> imp
         EventBus.getDefault().post(new StartBrotherEvent(PayOrderFragment.newInstance()));
     }
 
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-    }
-
     @Override
     public void showLoading() {
-
+        statusLayout.showLoading();
     }
 
     @Override
     public void hideLoading() {
-
+        statusLayout.showContent();
     }
 
     @Override
     public CarPresenter initPresenter() {
         return new CarPresenter(this);
+    }
+
+
+    @Override
+    public void refreshComplete() {
+        ptrLayout.refreshComplete();
+    }
+
+    @Override
+    public void loadDataFail() {
+        statusLayout.showFailed(retryListener);
+    }
+
+    @Override
+    public void showMessage(String message) {
+        ToastUtils.getInstance(_mActivity).showToast(message);
+    }
+
+    @Override
+    public void bindCartData(List<CartInfo> list) {
+        layoutUnlogin.setVisibility(View.GONE);
+        goodsListview.setVisibility(View.VISIBLE);
+        layoutBottom.setVisibility(View.VISIBLE);
+
+        goodsList.clear();
+        goodsList.addAll(list);
+        goodsAdapter.notifyDataSetChanged();
+        presenter.showTotalPrice(goodsList);
+    }
+
+    @Override
+    public void bindGuessLikeData(List<ListGoodsInfo> list) {
+        guessLikeList.clear();
+        guessLikeList.addAll(list);
+        guessLikeAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void showTotalPrice(int totalPrice) {
+        tvTotalPrice.setText(String.format(getString(R.string.price_number), totalPrice));
+    }
+
+    @Override
+    public void loadDataSuccess() {
+        ptrLayout.refreshComplete();
+        statusLayout.showContent();
+    }
+
+    @Override
+    public void showEmptyCart() {
+        layoutUnlogin.setVisibility(View.VISIBLE);
+        goodsListview.setVisibility(View.GONE);
+        layoutBottom.setVisibility(View.GONE);
+    }
+
+    View.OnClickListener retryListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            presenter.getCarList(true);
+        }
+    };
+
+    @Subscribe
+    public void onNeedRefresh(AddGoods2CartEvent event) {
+        try {
+            presenter.getCarList(false);
+        } catch (Exception e) {
+            SceneLogUtil.e("界面未加载");
+        }
+    }
+
+    @Override
+    public void onDestroyView() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroyView();
+    }
+
+    @Override
+    public void onItemClickStatus(int position) {
+        goodsList.get(position).setChecked(!goodsList.get(position).isChecked());
+        presenter.showTotalPrice(goodsList);
+        goodsAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onItemClickAdd(int position) {
+        int number = goodsList.get(position).getNumber();
+        int shengyuNumber = goodsList.get(position).getNeed_source() - goodsList.get(position).getCurrent_source();
+        if (number < shengyuNumber) {
+            goodsList.get(position).setNumber(number + 1);
+        }
+        presenter.showTotalPrice(goodsList);
+        goodsAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onItemClickLess(int position) {
+        int number = goodsList.get(position).getNumber();
+        if (number > 1) {
+            goodsList.get(position).setNumber(number - 1);
+        }
+        presenter.showTotalPrice(goodsList);
+        goodsAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onItemClickGoodsImage(int position) {
+        EventBus.getDefault().post(new StartBrotherEvent(GoodsDetailFragment.newInstance(goodsList.get(position).getProduct_id())));
     }
 }

@@ -13,25 +13,26 @@ import wiki.scene.shop.mvp.BasePresenter;
  */
 
 public class LauncherPresenter extends BasePresenter<ILauncherView> {
-    private ILauncherView launcherView;
     private LauncherModel model;
 
     public LauncherPresenter(ILauncherView launcherView) {
-        this.launcherView = launcherView;
-        model=new LauncherModel();
+        this.mView = launcherView;
+        model = new LauncherModel();
     }
-    public void getAppConfig(){
+
+    public void getAppConfig() {
         model.getUserSetting(new HttpResultListener<ConfigInfo>() {
             @Override
             public void onSuccess(ConfigInfo data) {
-                if(mView!=null){
+                if (mView != null) {
                     mView.getConfigSuccess(data);
                 }
             }
 
             @Override
             public void onFail(String message) {
-                mView.getConfigFail(message);
+                if (mView != null)
+                    mView.getConfigFail(message);
             }
 
             @Override

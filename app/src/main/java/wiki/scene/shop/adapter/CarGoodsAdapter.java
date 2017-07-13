@@ -9,11 +9,17 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
+import wiki.scene.loadmore.utils.PtrLocalDisplay;
 import wiki.scene.shop.R;
+import wiki.scene.shop.ShopApplication;
+import wiki.scene.shop.entity.CartInfo;
 
 /**
  * Case By:购物车商品
@@ -24,13 +30,23 @@ import wiki.scene.shop.R;
 public class CarGoodsAdapter extends BaseAdapter {
 
     private Context context;
-    private List<String> list;
+    private List<CartInfo> list;
     private LayoutInflater inflater;
 
-    public CarGoodsAdapter(Context context, List<String> list) {
+    private OnCarItemClickListener onCarItemClickListener;
+
+    public CarGoodsAdapter(Context context, List<CartInfo> list) {
         this.context = context;
         this.list = list;
         inflater = LayoutInflater.from(context);
+    }
+
+    public OnCarItemClickListener getOnCarItemClickListener() {
+        return onCarItemClickListener;
+    }
+
+    public void setOnCarItemClickListener(OnCarItemClickListener onCarItemClickListener) {
+        this.onCarItemClickListener = onCarItemClickListener;
     }
 
     @Override
@@ -49,7 +65,7 @@ public class CarGoodsAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         CarGoodsViewHolder viewHolder;
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.fragment_car_goods_item, parent, false);
@@ -58,6 +74,47 @@ public class CarGoodsAdapter extends BaseAdapter {
         } else {
             viewHolder = (CarGoodsViewHolder) convertView.getTag();
         }
+        CartInfo info = list.get(position);
+        viewHolder.status.setImageResource(info.isChecked() ? R.drawable.ic_address_choosed_s : R.drawable.ic_address_choosed_d);
+        Glide.with(context).load(ShopApplication.configInfo.getFile_domain() + info.getThumb()).bitmapTransform(new RoundedCornersTransformation(context, PtrLocalDisplay.dp2px(10), 0)).into(viewHolder.goodsImage);
+        viewHolder.goodsName.setText(info.getTitle());
+        viewHolder.progressBar.setProgress(info.getCurrent_source() * 100 / info.getNeed_source());
+        viewHolder.goodsTime.setText(String.format(context.getString(R.string.xx_times), info.getCycle_id()));
+        viewHolder.totalNeedCount.setText(String.format(context.getString(R.string.need_xx_person_count), info.getNeed_source()));
+        viewHolder.surplusPersonTimes.setText(String.valueOf((info.getNeed_source() - info.getCurrent_source())));
+        viewHolder.number.setText(String.valueOf(info.getNumber()));
+        viewHolder.status.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onCarItemClickListener != null) {
+                    onCarItemClickListener.onItemClickStatus(position);
+                }
+            }
+        });
+        viewHolder.numberAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onCarItemClickListener != null) {
+                    onCarItemClickListener.onItemClickAdd(position);
+                }
+            }
+        });
+        viewHolder.numberLess.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onCarItemClickListener != null) {
+                    onCarItemClickListener.onItemClickLess(position);
+                }
+            }
+        });
+        viewHolder.goodsImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onCarItemClickListener != null) {
+                    onCarItemClickListener.onItemClickGoodsImage(position);
+                }
+            }
+        });
         return convertView;
     }
 
@@ -80,9 +137,22 @@ public class CarGoodsAdapter extends BaseAdapter {
         TextView numberLess;
         @BindView(R.id.number_add)
         TextView numberAdd;
+        @BindView(R.id.number)
+        TextView number;
 
         CarGoodsViewHolder(View view) {
             ButterKnife.bind(this, view);
         }
     }
+
+    public interface OnCarItemClickListener {
+        void onItemClickStatus(int position);
+
+        void onItemClickAdd(int position);
+
+        void onItemClickLess(int position);
+
+        void onItemClickGoodsImage(int position);
+    }
+
 }

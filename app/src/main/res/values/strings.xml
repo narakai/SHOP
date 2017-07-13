@@ -79,12 +79,13 @@
     <string name="share_goods_times">商品期数：第%1$s期</string>
     <string name="zan">赞</string>
     <string name="total">合计：</string>
-    <string name="price_number">￥%1$s</string>
+    <string name="price_number">￥%1$d</string>
     <string name="car_is_none">购物车竟然空空的~</string>
     <string name="no_pain_no_gain">爱拼才会赢</string>
     <string name="guess_you_like">猜你喜欢</string>
     <string name="xx_times">第%1$d期</string>
     <string name="total_person_count">需%1$s人次</string>
+    <string name="need_xx_person_count">需%1$d人次</string>
     <string name="surplus">剩余</string>
     <string name="person_time">人次</string>
     <string name="times_code">期号： 第%1$s期</string>
@@ -197,4 +198,5 @@
     <string name="delete_success">删除成功</string>
     <string name="delete_fail">删除失败</string>
     <string name="xx_precent">%1$d&#037;</string>
+    <string name="goods_has_added_cart">商品已经添加到购物车</string>
 </resources>

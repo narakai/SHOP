@@ -8,8 +8,9 @@
 
     <ImageView
         android:id="@+id/status"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:scaleType="centerInside"
         android:layout_centerVertical="true"
         android:layout_gravity="center_vertical"
         android:src="@drawable/ic_address_choosed_d" />
@@ -20,7 +21,8 @@
         android:layout_height="80dp"
         android:layout_marginLeft="8dp"
         android:layout_toRightOf="@+id/status"
-        android:background="@drawable/bg_car_goods" />
+        android:background="@drawable/bg_car_goods"
+        android:padding="1dp" />
 
     <TextView
         android:id="@+id/goods_name"
@@ -121,6 +123,7 @@
             android:textSize="@dimen/text_size_big" />
 
         <TextView
+            android:id="@+id/number"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:background="@drawable/bg_number"

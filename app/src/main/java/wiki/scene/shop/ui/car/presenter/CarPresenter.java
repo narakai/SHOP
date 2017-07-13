@@ -1,7 +1,17 @@
 package wiki.scene.shop.ui.car.presenter;
 
-import wiki.scene.shop.ui.car.mvpview.ICarView;
+import com.lzy.okgo.model.HttpParams;
+
+import java.util.List;
+
+import wiki.scene.loadmore.utils.SceneLogUtil;
+import wiki.scene.shop.ShopApplication;
+import wiki.scene.shop.entity.CartInfo;
+import wiki.scene.shop.entity.CartResultInfo;
+import wiki.scene.shop.http.listener.HttpResultListener;
 import wiki.scene.shop.mvp.BasePresenter;
+import wiki.scene.shop.ui.car.model.CarModel;
+import wiki.scene.shop.ui.car.mvpview.ICarView;
 
 /**
  * Case By:购物车
@@ -10,9 +20,63 @@ import wiki.scene.shop.mvp.BasePresenter;
  */
 
 public class CarPresenter extends BasePresenter<ICarView> {
-    private ICarView carView;
+    private CarModel model;
 
     public CarPresenter(ICarView carView) {
-        this.carView = carView;
+        this.mView = carView;
+        model = new CarModel();
+    }
+
+    public void getCarList(final boolean isFirst) {
+        try {
+            if (isFirst) {
+                mView.showLoading();
+            }
+            HttpParams params = new HttpParams();
+            params.put("user_id", ShopApplication.userInfo.getUser_id());
+            model.getCarDataList(params, new HttpResultListener<CartResultInfo>() {
+                @Override
+                public void onSuccess(CartResultInfo data) {
+                    mView.loadDataSuccess();
+                    mView.bindGuessLikeData(data.getLike());
+                    if (data.getCycles().size() > 0) {
+                        mView.bindCartData(data.getCycles());
+                    } else {
+                        mView.showEmptyCart();
+                    }
+                }
+
+                @Override
+                public void onFail(String message) {
+                    if (isFirst) {
+                        mView.loadDataFail();
+                    } else {
+                        mView.showMessage(message);
+                    }
+                }
+
+                @Override
+                public void onFinish() {
+
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+            SceneLogUtil.e("出异常了");
+        }
+    }
+
+    public void showTotalPrice(List<CartInfo> list) {
+        int totalPrice = 0;
+        if (list != null) {
+            for (int i = 0; i < list.size(); i++) {
+                if (list.get(i).isChecked()) {
+                    totalPrice += (list.get(i).getPrice() * list.get(i).getNumber());
+                }
+            }
+        }
+        if (mView != null) {
+            mView.showTotalPrice(totalPrice);
+        }
     }
 }

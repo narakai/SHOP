@@ -1,5 +1,7 @@
 package wiki.scene.shop.ui.indiana.mvpview;
 
+import android.support.annotation.StringRes;
+
 import wiki.scene.shop.mvp.BaseView;
 
 /**
@@ -9,4 +11,11 @@ import wiki.scene.shop.mvp.BaseView;
  */
 
 public interface IGoodsDetailView extends BaseView {
+    void showMessage(String message);
+
+    void addCartSuccess();
+
+    void showProgressDialog(@StringRes int resId);
+
+    void hideProgressDialog();
 }

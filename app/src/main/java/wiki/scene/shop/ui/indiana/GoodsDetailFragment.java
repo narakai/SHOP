@@ -1,7 +1,9 @@
 package wiki.scene.shop.ui.indiana;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +15,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.youth.banner.Banner;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,9 +34,12 @@ import wiki.scene.shop.R;
 import wiki.scene.shop.adapter.GoodsDetailJoinRecordAdapter;
 import wiki.scene.shop.adapter.GoodsDetailTuhaoRankAdapter;
 import wiki.scene.shop.adapter.GuessLikeAdapter;
+import wiki.scene.shop.entity.ListGoodsInfo;
+import wiki.scene.shop.event.AddGoods2CartEvent;
 import wiki.scene.shop.mvp.BaseBackMvpFragment;
 import wiki.scene.shop.ui.indiana.mvpview.IGoodsDetailView;
 import wiki.scene.shop.ui.indiana.presenter.GoodsDetailPresenter;
+import wiki.scene.shop.utils.ToastUtils;
 import wiki.scene.shop.widgets.CustomListView;
 import wiki.scene.shop.widgets.CustomeGridView;
 
@@ -43,6 +50,7 @@ import wiki.scene.shop.widgets.CustomeGridView;
  */
 
 public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, GoodsDetailPresenter> implements IGoodsDetailView {
+    private static final String ARG_CYCLE_ID = "cycle_id";
     @BindView(R.id.toolbar_how_to_play)
     TextView toolbarHowToPlay;
     @BindView(R.id.toolbar_share)
@@ -144,14 +152,28 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
     private List<String> joinRecordList = new ArrayList<>();
     private GoodsDetailJoinRecordAdapter joinRecordAdapter;
     //猜你喜欢
-    private List<String> guessLiskList = new ArrayList<>();
+    private List<ListGoodsInfo> guessLiskList = new ArrayList<>();
     private GuessLikeAdapter guessLikeAdapter;
+    //期数id 相当于产品id
+    private int cycleId;
 
-    public static GoodsDetailFragment newInstance() {
+    //加载框
+    private ProgressDialog progressDialog;
+
+    public static GoodsDetailFragment newInstance(int cycle_id) {
         Bundle args = new Bundle();
+        args.putInt(ARG_CYCLE_ID, cycle_id);
         GoodsDetailFragment fragment = new GoodsDetailFragment();
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            cycleId = getArguments().getInt(ARG_CYCLE_ID, 0);
+        }
     }
 
     @Nullable
@@ -182,7 +204,6 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
         for (int i = 0; i < 3; i++) {
             tuhaoRankList.add("土豪" + (i + 1));
             joinRecordList.add("参与记录" + (i + 1));
-            guessLiskList.add("猜你喜欢" + (i + 1));
         }
         tuhaoRankAdapter = new GoodsDetailTuhaoRankAdapter(_mActivity, tuhaoRankList);
         tuhaoRankGridView.setAdapter(tuhaoRankAdapter);
@@ -195,8 +216,17 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
     }
 
     @OnClick(R.id.old_announced)
-    public void onClickOldAnnounced(){
+    public void onClickOldAnnounced() {
         start(OldAnnouncedFragment.newInstance());
+    }
+
+    /**
+     * Case By:加入购物车
+     * Author: scene on 2017/7/13 14:39
+     */
+    @OnClick(R.id.join_car)
+    public void onClickJoinCar() {
+        presenter.addGoods2Car(cycleId);
     }
 
     @Override
@@ -218,5 +248,31 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @Override
+    public void showMessage(String message) {
+        ToastUtils.getInstance(_mActivity).showToast(message);
+    }
+
+    @Override
+    public void addCartSuccess() {
+        ToastUtils.getInstance(_mActivity).showToast(R.string.goods_has_added_cart);
+        EventBus.getDefault().post(new AddGoods2CartEvent());
+    }
+
+    @Override
+    public void showProgressDialog(@StringRes int resId) {
+        if (progressDialog == null)
+            progressDialog = new ProgressDialog(_mActivity);
+        progressDialog.setMessage(getString(resId));
+        if (!progressDialog.isShowing())
+            progressDialog.show();
+    }
+
+    @Override
+    public void hideProgressDialog() {
+        if (progressDialog != null)
+            progressDialog.cancel();
     }
 }
