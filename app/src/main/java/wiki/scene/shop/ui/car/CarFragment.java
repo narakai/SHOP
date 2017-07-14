@@ -1,7 +1,9 @@
 package wiki.scene.shop.ui.car;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +26,7 @@ import wiki.scene.loadmore.PtrDefaultHandler;
 import wiki.scene.loadmore.PtrFrameLayout;
 import wiki.scene.loadmore.StatusViewLayout;
 import wiki.scene.loadmore.utils.SceneLogUtil;
+import wiki.scene.shop.MainFragment;
 import wiki.scene.shop.R;
 import wiki.scene.shop.adapter.CarGoodsAdapter;
 import wiki.scene.shop.adapter.GuessLikeAdapter;
@@ -31,6 +34,7 @@ import wiki.scene.shop.entity.CartInfo;
 import wiki.scene.shop.entity.ListGoodsInfo;
 import wiki.scene.shop.event.AddGoods2CartEvent;
 import wiki.scene.shop.event.StartBrotherEvent;
+import wiki.scene.shop.event.TabSelectedEvent;
 import wiki.scene.shop.mvp.BaseMainMvpFragment;
 import wiki.scene.shop.ui.car.mvpview.ICarView;
 import wiki.scene.shop.ui.car.presenter.CarPresenter;
@@ -70,6 +74,8 @@ public class CarFragment extends BaseMainMvpFragment<ICarView, CarPresenter> imp
     //购物车商品
     private List<CartInfo> goodsList = new ArrayList<>();
     private CarGoodsAdapter goodsAdapter;
+    //加载框
+    private ProgressDialog progressDialog;
 
     public static CarFragment newInstance() {
         CarFragment fragment = new CarFragment();
@@ -140,6 +146,15 @@ public class CarFragment extends BaseMainMvpFragment<ICarView, CarPresenter> imp
         EventBus.getDefault().post(new StartBrotherEvent(PayOrderFragment.newInstance()));
     }
 
+    /**
+     * Case By:跳转到首页
+     * Author: scene on 2017/7/14 10:11
+     */
+    @OnClick(R.id.toIndexPage)
+    public void onClickToIndexPage() {
+        EventBus.getDefault().post(new TabSelectedEvent(MainFragment.FIRST));
+    }
+
     @Override
     public void showLoading() {
         statusLayout.showLoading();
@@ -193,6 +208,34 @@ public class CarFragment extends BaseMainMvpFragment<ICarView, CarPresenter> imp
     @Override
     public void showTotalPrice(int totalPrice) {
         tvTotalPrice.setText(String.format(getString(R.string.price_number), totalPrice));
+    }
+
+    @Override
+    public void onDeleteSuccess(int position) {
+        goodsList.remove(position);
+        goodsAdapter.notifyDataSetChanged();
+        presenter.showTotalPrice(goodsList);
+        if (goodsList.size() == 0) {
+            showEmptyCart();
+        }
+    }
+
+    @Override
+    public void showProgress(@StringRes int resId) {
+        if (progressDialog == null) {
+            progressDialog = new ProgressDialog(_mActivity);
+        }
+        progressDialog.setMessage(getString(resId));
+        if (!progressDialog.isShowing()) {
+            progressDialog.show();
+        }
+    }
+
+    @Override
+    public void hideProgress() {
+        if (progressDialog != null) {
+            progressDialog.cancel();
+        }
     }
 
     @Override
@@ -261,5 +304,10 @@ public class CarFragment extends BaseMainMvpFragment<ICarView, CarPresenter> imp
     @Override
     public void onItemClickGoodsImage(int position) {
         EventBus.getDefault().post(new StartBrotherEvent(GoodsDetailFragment.newInstance(goodsList.get(position).getProduct_id())));
+    }
+
+    @Override
+    public void onItemClickDelete(int position) {
+        presenter.deleteCartGoods(goodsList.get(position).getId(), position);
     }
 }

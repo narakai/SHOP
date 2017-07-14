@@ -5,6 +5,7 @@ import com.lzy.okgo.model.HttpParams;
 import java.util.List;
 
 import wiki.scene.loadmore.utils.SceneLogUtil;
+import wiki.scene.shop.R;
 import wiki.scene.shop.ShopApplication;
 import wiki.scene.shop.entity.CartInfo;
 import wiki.scene.shop.entity.CartResultInfo;
@@ -64,6 +65,35 @@ public class CarPresenter extends BasePresenter<ICarView> {
             e.printStackTrace();
             SceneLogUtil.e("出异常了");
         }
+    }
+
+    public void deleteCartGoods(int cartId, final int position) {
+        try {
+            mView.showProgress(R.string.loading);
+            HttpParams httpParams = new HttpParams();
+            httpParams.put("user_id", ShopApplication.userInfo.getUser_id());
+            httpParams.put("cart_id", cartId);
+            model.deleteCartGoods(httpParams, new HttpResultListener<String>() {
+                @Override
+                public void onSuccess(String data) {
+                    mView.onDeleteSuccess(position);
+                }
+
+                @Override
+                public void onFail(String message) {
+                    mView.showMessage(message);
+                }
+
+                @Override
+                public void onFinish() {
+                    mView.hideProgress();
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+            SceneLogUtil.e("出异常了");
+        }
+
     }
 
     public void showTotalPrice(List<CartInfo> list) {

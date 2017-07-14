@@ -4,12 +4,12 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.daimajia.swipe.adapters.BaseSwipeAdapter;
 
 import java.util.List;
 
@@ -27,7 +27,7 @@ import wiki.scene.shop.entity.CartInfo;
  * Author：scene on 2017/6/29 14:49
  */
 
-public class CarGoodsAdapter extends BaseAdapter {
+public class CarGoodsAdapter extends BaseSwipeAdapter {
 
     private Context context;
     private List<CartInfo> list;
@@ -65,15 +65,19 @@ public class CarGoodsAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
+    public int getSwipeLayoutResourceId(int position) {
+        return R.id.swipe;
+    }
+
+    @Override
+    public View generateView(int position, ViewGroup parent) {
+        return inflater.inflate(R.layout.fragment_car_goods_item, parent, false);
+    }
+
+    @Override
+    public void fillValues(final int position, View convertView) {
         CarGoodsViewHolder viewHolder;
-        if (convertView == null) {
-            convertView = inflater.inflate(R.layout.fragment_car_goods_item, parent, false);
-            viewHolder = new CarGoodsViewHolder(convertView);
-            convertView.setTag(viewHolder);
-        } else {
-            viewHolder = (CarGoodsViewHolder) convertView.getTag();
-        }
+        viewHolder = new CarGoodsViewHolder(convertView);
         CartInfo info = list.get(position);
         viewHolder.status.setImageResource(info.isChecked() ? R.drawable.ic_address_choosed_s : R.drawable.ic_address_choosed_d);
         Glide.with(context).load(ShopApplication.configInfo.getFile_domain() + info.getThumb()).bitmapTransform(new RoundedCornersTransformation(context, PtrLocalDisplay.dp2px(10), 0)).into(viewHolder.goodsImage);
@@ -115,7 +119,14 @@ public class CarGoodsAdapter extends BaseAdapter {
                 }
             }
         });
-        return convertView;
+        viewHolder.delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onCarItemClickListener != null) {
+                    onCarItemClickListener.onItemClickDelete(position);
+                }
+            }
+        });
     }
 
     static class CarGoodsViewHolder {
@@ -139,6 +150,8 @@ public class CarGoodsAdapter extends BaseAdapter {
         TextView numberAdd;
         @BindView(R.id.number)
         TextView number;
+        @BindView(R.id.delete)
+        TextView delete;
 
         CarGoodsViewHolder(View view) {
             ButterKnife.bind(this, view);
@@ -153,6 +166,8 @@ public class CarGoodsAdapter extends BaseAdapter {
         void onItemClickLess(int position);
 
         void onItemClickGoodsImage(int position);
+
+        void onItemClickDelete(int position);
     }
 
 }

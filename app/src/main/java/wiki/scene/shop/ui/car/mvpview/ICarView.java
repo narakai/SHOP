@@ -1,5 +1,7 @@
 package wiki.scene.shop.ui.car.mvpview;
 
+import android.support.annotation.StringRes;
+
 import java.util.List;
 
 import wiki.scene.shop.entity.CartInfo;
@@ -28,4 +30,10 @@ public interface ICarView extends BaseView {
     void bindGuessLikeData(List<ListGoodsInfo> list);
 
     void showTotalPrice(int totalPrice);
+
+    void onDeleteSuccess(int position);
+
+    void showProgress(@StringRes int resId);
+
+    void hideProgress();
 }

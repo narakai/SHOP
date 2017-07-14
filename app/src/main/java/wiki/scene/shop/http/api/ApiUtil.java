@@ -57,6 +57,9 @@ public class ApiUtil {
     //加入或者修改购物车
     public static final String JOIN_CAR = "/cart/edit";
     public static final String JOIN_CAR_TAG = "JOIN_CAR_TAG";
+    //删除购物车商品
+    public static final String CART_DELETE="/cart/delete";
+    public static final String CART_DELETE_TAG="CART_DELETE_TAG";
 
 
     /**

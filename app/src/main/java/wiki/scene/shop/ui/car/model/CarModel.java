@@ -4,6 +4,8 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.model.HttpParams;
 import com.lzy.okgo.model.Response;
 
+import java.util.List;
+
 import wiki.scene.shop.entity.CartResultInfo;
 import wiki.scene.shop.http.api.ApiUtil;
 import wiki.scene.shop.http.base.LzyResponse;
@@ -33,10 +35,38 @@ public class CarModel {
                     @Override
                     public void onError(Response<LzyResponse<CartResultInfo>> response) {
                         super.onError(response);
-                        if(response.getException()!=null){
+                        if (response.getException() != null) {
                             resultListener.onFail(response.getException().getMessage());
-                        }else{
+                        } else {
                             resultListener.onFail(response.message());
+                        }
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        super.onFinish();
+                        resultListener.onFinish();
+                    }
+                });
+    }
+
+    public void deleteCartGoods(HttpParams params, final HttpResultListener<String> resultListener) {
+        OkGo.<LzyResponse<List<String>>>post(ApiUtil.API_PRE + ApiUtil.CART_DELETE)
+                .tag(ApiUtil.CART_DELETE_TAG)
+                .params(params)
+                .execute(new JsonCallback<LzyResponse<List<String>>>() {
+                    @Override
+                    public void onSuccess(Response<LzyResponse<List<String>>> response) {
+                        resultListener.onSuccess("");
+                    }
+
+                    @Override
+                    public void onError(Response<LzyResponse<List<String>>> response) {
+                        super.onError(response);
+                        if (response.getException().getMessage().isEmpty()) {
+                            resultListener.onFail(response.message());
+                        } else {
+                            resultListener.onFail(response.getException().getMessage());
                         }
                     }
 

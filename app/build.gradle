@@ -172,4 +172,6 @@ dependencies {
     compile 'top.zibin:Luban:1.1.2'
     //类似ios的滑动选中
     compile 'com.github.zcweng:switch-button:0.0.3@aar'
+    //列表侧滑删除
+    compile "com.daimajia.swipelayout:library:1.2.0@aar"
 }
