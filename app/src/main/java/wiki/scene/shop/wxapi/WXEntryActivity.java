@@ -1,6 +1,7 @@
 package wiki.scene.shop.wxapi;
 
-import com.umeng.weixin.callback.WXCallbackActivity;
+
+import com.umeng.socialize.weixin.view.WXCallbackActivity;
 
 /**
  * Case By: 微信回调

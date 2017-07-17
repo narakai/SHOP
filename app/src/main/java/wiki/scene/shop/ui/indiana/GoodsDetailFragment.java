@@ -13,7 +13,15 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.umeng.socialize.ShareAction;
+import com.umeng.socialize.UMShareListener;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.media.UMImage;
+import com.umeng.socialize.media.UMWeb;
+import com.umeng.socialize.shareboard.SnsPlatform;
+import com.umeng.socialize.utils.ShareBoardlistener;
 import com.youth.banner.Banner;
 
 import org.greenrobot.eventbus.EventBus;
@@ -31,6 +39,7 @@ import wiki.scene.loadmore.PtrDefaultHandler;
 import wiki.scene.loadmore.PtrFrameLayout;
 import wiki.scene.loadmore.StatusViewLayout;
 import wiki.scene.shop.R;
+import wiki.scene.shop.ShopApplication;
 import wiki.scene.shop.adapter.GoodsDetailJoinRecordAdapter;
 import wiki.scene.shop.adapter.GoodsDetailTuhaoRankAdapter;
 import wiki.scene.shop.adapter.GuessLikeAdapter;
@@ -39,9 +48,11 @@ import wiki.scene.shop.event.AddGoods2CartEvent;
 import wiki.scene.shop.mvp.BaseBackMvpFragment;
 import wiki.scene.shop.ui.indiana.mvpview.IGoodsDetailView;
 import wiki.scene.shop.ui.indiana.presenter.GoodsDetailPresenter;
+import wiki.scene.shop.umeng.share.ShareUtil;
 import wiki.scene.shop.utils.ToastUtils;
 import wiki.scene.shop.widgets.CustomListView;
 import wiki.scene.shop.widgets.CustomeGridView;
+import wiki.scene.shop.widgets.LoadingDialog;
 
 /**
  * Case By:
@@ -158,7 +169,7 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
     private int cycleId;
 
     //加载框
-    private ProgressDialog progressDialog;
+    private LoadingDialog loadingDialog;
 
     public static GoodsDetailFragment newInstance(int cycle_id) {
         Bundle args = new Bundle();
@@ -193,6 +204,7 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
     }
 
     private void initView() {
+        loadingDialog = LoadingDialog.getInstance(_mActivity);
         ptrLayout.setLastUpdateTimeRelateObject(this);
         ptrLayout.setPtrHandler(new PtrDefaultHandler() {
             @Override
@@ -219,6 +231,72 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
     public void onClickOldAnnounced() {
         start(OldAnnouncedFragment.newInstance());
     }
+
+    @OnClick(R.id.toolbar_share)
+    public void onClickToolbarShare() {
+        new ShareAction(_mActivity)
+                .setDisplayList(SHARE_MEDIA.WEIXIN, SHARE_MEDIA.SINA, SHARE_MEDIA.QQ)
+                .setShareboardclickCallback(new ShareBoardlistener() {
+                    @Override
+                    public void onclick(SnsPlatform snsPlatform, SHARE_MEDIA share_media) {
+                        if (share_media == SHARE_MEDIA.SINA) {
+                            UMImage image = new UMImage(_mActivity, ShopApplication.userInfo.getAvatar());
+                            new ShareAction(_mActivity).withText("测试的标题<a href='http://www.baidu.com'>链接</a>").withMedia(image)
+                                    .setPlatform(share_media)
+                                    .setCallback(shareListener)
+                                    .share();
+                        } else {
+                            UMWeb web = new UMWeb("http://www.baidu.com");
+                            web.setTitle("来自分享面板标题");
+                            web.setDescription("来自分享面板内容");
+                            web.setThumb(new UMImage(_mActivity, "https://mobile.umeng.com/images/pic/home/social/img-1.png"));
+                            new ShareAction(_mActivity).withMedia(web)
+                                    .setPlatform(share_media)
+                                    .setCallback(shareListener)
+                                    .share();
+                        }
+                    }
+                })
+                .open();
+    }
+
+    private UMShareListener shareListener = new UMShareListener() {
+        /**
+         *  分享开始的回调
+         * @param platform 平台类型
+         */
+        @Override
+        public void onStart(SHARE_MEDIA platform) {
+
+        }
+
+        /**
+         *  分享成功的回调
+         * @param platform 平台类型
+         */
+        @Override
+        public void onResult(SHARE_MEDIA platform) {
+            ToastUtils.getInstance(_mActivity).showToast("分享成功");
+        }
+
+        /**
+         *  分享失败的回调
+         * @param platform 平台类型
+         * @param t 错误原因
+         */
+        @Override
+        public void onError(SHARE_MEDIA platform, Throwable t) {
+            ToastUtils.getInstance(_mActivity).showToast("分享失败，请重试");
+        }
+
+        /**
+         *  分享取消的回调
+         * @param platform 平台类型
+         */
+        @Override
+        public void onCancel(SHARE_MEDIA platform) {
+        }
+    };
 
     /**
      * Case By:加入购物车
@@ -263,16 +341,11 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
 
     @Override
     public void showProgressDialog(@StringRes int resId) {
-        if (progressDialog == null)
-            progressDialog = new ProgressDialog(_mActivity);
-        progressDialog.setMessage(getString(resId));
-        if (!progressDialog.isShowing())
-            progressDialog.show();
+        loadingDialog.showLoadingDialog(getString(resId));
     }
 
     @Override
     public void hideProgressDialog() {
-        if (progressDialog != null)
-            progressDialog.cancel();
+        loadingDialog.cancelLoadingDialog();
     }
 }

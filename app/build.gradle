@@ -150,12 +150,14 @@ dependencies {
     //权限适配
     compile 'com.yanzhenjie:permission:1.0.8'
     //umeng分享和登录
-    compile files('libs/umeng_social_tool.jar')
     compile files('libs/SocialSDK_QQ_Simplify.jar')
     compile files('libs/SocialSDK_Sina_Simplify.jar')
-    compile files('libs/SocialSDK_WeChat_Simplify.jar')
+    compile files('libs/SocialSDK_WeiXin_Full.jar')
     compile files('libs/umeng_social_api.jar')
     compile files('libs/umeng_social_net.jar')
+    compile files('libs/umeng_social_shareview.jar')
+    compile files('libs/umeng_social_tool.jar')
+    compile files('libs/wechat-sdk-android-with-mta-1.1.6.jar')
     compile files('libs/umeng_shareboard_widget.jar')
     compile files('libs/umeng_social_shareboard.jar')
     //json解析
@@ -173,7 +175,7 @@ dependencies {
     //类似ios的滑动选中
     compile 'com.github.zcweng:switch-button:0.0.3@aar'
     //列表侧滑删除
-    compile "com.daimajia.swipelayout:library:1.2.0@aar"
+    compile 'com.daimajia.swipelayout:library:1.2.0@aar'
     //对话框
     compile 'com.github.yilylong:CBDialog:V1.0.1'
 }

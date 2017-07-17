@@ -167,7 +167,7 @@ public class ShopApplication extends Application {
         Config.DEBUG = true;
         PlatformConfig.setWeixin("wx967daebe835fbeac", "5bb696d9ccd75a38c8a0bfe0675559b3");
         PlatformConfig.setQQZone("1106258470", "YED2DoxyDzJGlmVX");
-        PlatformConfig.setSinaWeibo("3921700954", "04b48b094faeb16683c32669824ebdad", "http://sns.whalecloud.com");
+        PlatformConfig.setSinaWeibo("4230088431", "18af9d20dddaffd4217940a8b407469b", "http://sns.whalecloud.com");
         UMShareAPI.get(this);
     }
 
