@@ -34,7 +34,9 @@ public class CarPresenter extends BasePresenter<ICarView> {
                 mView.showLoading();
             }
             HttpParams params = new HttpParams();
-            params.put("user_id", ShopApplication.userInfo.getUser_id());
+            if (ShopApplication.hasLogin) {
+                params.put("user_id", ShopApplication.userInfo.getUser_id());
+            }
             model.getCarDataList(params, new HttpResultListener<CartResultInfo>() {
                 @Override
                 public void onSuccess(CartResultInfo data) {

@@ -1,6 +1,5 @@
 package wiki.scene.shop.ui.car;
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
@@ -42,6 +41,7 @@ import wiki.scene.shop.ui.indiana.GoodsDetailFragment;
 import wiki.scene.shop.utils.ToastUtils;
 import wiki.scene.shop.widgets.CustomListView;
 import wiki.scene.shop.widgets.CustomeGridView;
+import wiki.scene.shop.widgets.LoadingDialog;
 
 /**
  * Case By:购物车
@@ -75,7 +75,7 @@ public class CarFragment extends BaseMainMvpFragment<ICarView, CarPresenter> imp
     private List<CartInfo> goodsList = new ArrayList<>();
     private CarGoodsAdapter goodsAdapter;
     //加载框
-    private ProgressDialog progressDialog;
+    private LoadingDialog loadingDialog;
 
     public static CarFragment newInstance() {
         CarFragment fragment = new CarFragment();
@@ -107,7 +107,8 @@ public class CarFragment extends BaseMainMvpFragment<ICarView, CarPresenter> imp
     }
 
     private void initView() {
-        presenter.getCarList(true);
+        loadingDialog = LoadingDialog.getInstance(_mActivity);
+
         guessLikeAdapter = new GuessLikeAdapter(_mActivity, guessLikeList);
         likeGridView.setAdapter(guessLikeAdapter);
 
@@ -136,6 +137,8 @@ public class CarFragment extends BaseMainMvpFragment<ICarView, CarPresenter> imp
         });
 
         goodsAdapter.setOnCarItemClickListener(this);
+
+        presenter.getCarList(true);
     }
 
     /**
@@ -222,20 +225,12 @@ public class CarFragment extends BaseMainMvpFragment<ICarView, CarPresenter> imp
 
     @Override
     public void showProgress(@StringRes int resId) {
-        if (progressDialog == null) {
-            progressDialog = new ProgressDialog(_mActivity);
-        }
-        progressDialog.setMessage(getString(resId));
-        if (!progressDialog.isShowing()) {
-            progressDialog.show();
-        }
+        loadingDialog.showLoadingDialog(getString(resId));
     }
 
     @Override
     public void hideProgress() {
-        if (progressDialog != null) {
-            progressDialog.cancel();
-        }
+        loadingDialog.cancelLoadingDialog();
     }
 
     @Override

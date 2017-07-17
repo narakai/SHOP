@@ -102,9 +102,9 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/use_others_way_login"
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
+                    android:text="@string/use_others_way_login"
                     android:textColor="@color/text_color_des"
                     android:textSize="@dimen/text_size_small" />
 
@@ -123,21 +123,23 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/wechat_login"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="20dp"
                     android:drawablePadding="10dp"
-                    android:drawableTop="@drawable/ic_wechat"
+                    android:drawableTop="@drawable/ic_wechat_login"
                     android:text="@string/wechat_login"
                     android:textColor="@color/text_color_des"
                     android:textSize="@dimen/text_size_xsmall" />
 
                 <TextView
+                    android:id="@+id/qq_login"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:drawablePadding="10dp"
-                    android:drawableTop="@drawable/ic_qq"
+                    android:drawableTop="@drawable/ic_qq_login"
                     android:text="@string/qq_login"
                     android:textColor="@color/text_color_des"
                     android:textSize="@dimen/text_size_xsmall" />

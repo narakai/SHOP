@@ -174,4 +174,6 @@ dependencies {
     compile 'com.github.zcweng:switch-button:0.0.3@aar'
     //列表侧滑删除
     compile "com.daimajia.swipelayout:library:1.2.0@aar"
+    //对话框
+    compile 'com.github.yilylong:CBDialog:V1.0.1'
 }
