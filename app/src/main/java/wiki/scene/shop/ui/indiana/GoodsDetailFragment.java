@@ -15,7 +15,6 @@ import android.widget.TextView;
 
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareListener;
-import com.umeng.socialize.UmengTool;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.media.UMImage;
 import com.umeng.socialize.media.UMWeb;
@@ -241,7 +240,7 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
         config.setCancelButtonText(getString(R.string.cancel));
         config.setCancelButtonTextColor(getResources().getColor(R.color.url_color));
         new ShareAction(_mActivity)
-                .setDisplayList(SHARE_MEDIA.WEIXIN, SHARE_MEDIA.SINA, SHARE_MEDIA.QQ)
+                .setDisplayList(SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE, SHARE_MEDIA.SINA, SHARE_MEDIA.QQ)
                 .setShareboardclickCallback(new ShareBoardlistener() {
                     @Override
                     public void onclick(SnsPlatform snsPlatform, SHARE_MEDIA share_media) {
