@@ -41,7 +41,7 @@ public class Register2Presenter extends BasePresenter<IRegister2View> {
                 register2View.showFail(R.string.twice_password_different);
                 return;
             }
-            register2View.showLoading();
+            register2View.showLoading(R.string.is_registing);
             HttpParams params = new HttpParams();
             params.put("mobile", mobile);
             params.put("password", MD5Util.string2Md5(register2View.getRePassword(), "UTF-8"));

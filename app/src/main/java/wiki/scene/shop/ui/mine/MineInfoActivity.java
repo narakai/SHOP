@@ -1,6 +1,5 @@
 package wiki.scene.shop.ui.mine;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -42,6 +41,7 @@ import wiki.scene.shop.mvp.BaseMvpActivity;
 import wiki.scene.shop.ui.mine.mvpview.IMineInfoView;
 import wiki.scene.shop.ui.mine.presenter.MineInfoPresenter;
 import wiki.scene.shop.utils.ToastUtils;
+import wiki.scene.shop.widgets.LoadingDialog;
 
 /**
  * Case By:个人资料
@@ -70,7 +70,7 @@ public class MineInfoActivity extends BaseMvpActivity<IMineInfoView, MineInfoPre
     @BindView(R.id.phone_number)
     TextView phoneNumber;
 
-    private ProgressDialog progressDialog;
+    private LoadingDialog loadingDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +93,7 @@ public class MineInfoActivity extends BaseMvpActivity<IMineInfoView, MineInfoPre
     }
 
     private void initView() {
+        loadingDialog = LoadingDialog.getInstance(this);
         Glide.with(this).load(ShopApplication.userInfo.getAvatar()).error(R.drawable.ic_default_avater).bitmapTransform(new CropCircleTransformation(MineInfoActivity.this)).into(userAvater);
         username.setText(ShopApplication.userInfo.getNickname());
         phoneNumber.setText(ShopApplication.userInfo.getMobile());
@@ -141,16 +142,8 @@ public class MineInfoActivity extends BaseMvpActivity<IMineInfoView, MineInfoPre
     }
 
     @Override
-    public void showLoading() {
-
-    }
-
-
-    @Override
     public void hideLoading() {
-        if (progressDialog != null) {
-            progressDialog.cancel();
-        }
+        loadingDialog.cancelLoadingDialog();
     }
 
     @Override
@@ -201,22 +194,12 @@ public class MineInfoActivity extends BaseMvpActivity<IMineInfoView, MineInfoPre
 
     @Override
     public void showLoading(String msg) {
-        if (progressDialog == null) {
-            progressDialog = new ProgressDialog(MineInfoActivity.this);
-            progressDialog.setCanceledOnTouchOutside(false);
-        }
-        progressDialog.setMessage(msg);
-        progressDialog.show();
+        loadingDialog.showLoadingDialog(msg);
     }
 
     @Override
     public void showLoading(@StringRes int resId) {
-        if (progressDialog == null) {
-            progressDialog = new ProgressDialog(MineInfoActivity.this);
-            progressDialog.setCanceledOnTouchOutside(false);
-        }
-        progressDialog.setMessage(getString(resId));
-        progressDialog.show();
+        showLoading(getString(resId));
     }
 
     @Override

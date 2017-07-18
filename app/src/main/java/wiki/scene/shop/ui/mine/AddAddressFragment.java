@@ -127,7 +127,7 @@ public class AddAddressFragment extends BaseBackMvpFragment<IAddAddressView, Add
     }
 
     @Override
-    public void showLoading() {
+    public void showLoading(@StringRes int resId) {
     }
 
     @Override

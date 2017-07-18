@@ -35,7 +35,7 @@ public class Register1Presenter extends BasePresenter<IRegister1View> {
                 register1View.showFail(R.string.please_edit_right_phone_number);
                 return;
             }
-            register1View.showLoading();
+            register1View.showLoading(R.string.is_get_verification);
             HttpParams params = new HttpParams();
             params.put("mobile", phoneNumber);
             model.getVerificationCode(params, new HttpResultListener<String>() {

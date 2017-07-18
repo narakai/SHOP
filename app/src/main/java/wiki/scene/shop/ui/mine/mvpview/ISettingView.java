@@ -9,4 +9,5 @@ import wiki.scene.shop.mvp.BaseView;
  */
 
 public interface ISettingView extends BaseView {
+    void loginOut();
 }

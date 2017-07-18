@@ -31,7 +31,7 @@ public class CarPresenter extends BasePresenter<ICarView> {
     public void getCarList(final boolean isFirst) {
         try {
             if (isFirst) {
-                mView.showLoading();
+                mView.showLoading(R.string.loading);
             }
             HttpParams params = new HttpParams();
             if (ShopApplication.hasLogin) {

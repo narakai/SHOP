@@ -3,6 +3,7 @@ package wiki.scene.shop.ui.indiana.presenter;
 import java.util.ArrayList;
 import java.util.List;
 
+import wiki.scene.shop.R;
 import wiki.scene.shop.entity.IndianaIndexInfo;
 import wiki.scene.shop.entity.WinningNoticeInfo;
 import wiki.scene.shop.http.listener.HttpResultListener;
@@ -34,7 +35,7 @@ public class IndianaPresenter extends BasePresenter<IIndianaView> {
     public void getIndianaData(final boolean isRefresh) {
         if (indianaView != null) {
             if (!isRefresh) {
-                indianaView.showLoading();
+                indianaView.showLoading(R.string.loading);
             }
             model.getIndianaIndexData(new HttpResultListener<IndianaIndexInfo>() {
                 @Override

@@ -33,6 +33,7 @@ import wiki.scene.shop.adapter.GuessLikeAdapter;
 import wiki.scene.shop.entity.CartInfo;
 import wiki.scene.shop.entity.ListGoodsInfo;
 import wiki.scene.shop.event.AddGoods2CartEvent;
+import wiki.scene.shop.event.LoginOutEvent;
 import wiki.scene.shop.event.RegisterSuccessEvent;
 import wiki.scene.shop.event.StartBrotherEvent;
 import wiki.scene.shop.event.TabSelectedEvent;
@@ -161,7 +162,7 @@ public class CarFragment extends BaseMainMvpFragment<ICarView, CarPresenter> imp
     }
 
     @Override
-    public void showLoading() {
+    public void showLoading(@StringRes int resId) {
         statusLayout.showLoading();
     }
 
@@ -313,5 +314,9 @@ public class CarFragment extends BaseMainMvpFragment<ICarView, CarPresenter> imp
         if (event != null) {
             presenter.getCarList(true);
         }
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onLoginOut(LoginOutEvent event) {
+        showEmptyCart();
     }
 }

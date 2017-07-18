@@ -1,8 +1,8 @@
 package wiki.scene.shop.ui.mine;
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,15 +11,19 @@ import android.widget.TextView;
 
 import com.suke.widget.SwitchButton;
 
+import org.greenrobot.eventbus.EventBus;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import wiki.scene.shop.R;
+import wiki.scene.shop.event.LoginOutEvent;
 import wiki.scene.shop.mvp.BaseBackMvpFragment;
 import wiki.scene.shop.ui.mine.mvpview.ISettingView;
 import wiki.scene.shop.ui.mine.presenter.SettingPresenter;
 import wiki.scene.shop.utils.GlideCacheUtil;
+import wiki.scene.shop.widgets.LoadingDialog;
 
 /**
  * Case By:设置
@@ -46,7 +50,7 @@ public class SettingFragment extends BaseBackMvpFragment<ISettingView, SettingPr
     @BindView(R.id.toolbar_title)
     TextView toolbarTitle;
 
-    private ProgressDialog progressDialog;
+    private LoadingDialog loadingDialog;
 
     public static SettingFragment newInstance() {
         Bundle args = new Bundle();
@@ -71,15 +75,14 @@ public class SettingFragment extends BaseBackMvpFragment<ISettingView, SettingPr
         initView();
     }
 
-    void initView() {
+    private void initView() {
         cacheSize.setText(GlideCacheUtil.getInstance().getCacheSize(_mActivity));
-        progressDialog = new ProgressDialog(_mActivity);
-        progressDialog.setMessage("正在清理");
+        loadingDialog = LoadingDialog.getInstance(_mActivity);
     }
 
     @OnClick(R.id.clear_cache)
     public void onClickClearCache() {
-        showLoading();
+        showLoading(R.string.clear_caching);
         GlideCacheUtil.getInstance().cleanCacheDisk(_mActivity);
         GlideCacheUtil.getInstance().clearCacheDiskSelf(_mActivity);
         hideLoading();
@@ -90,23 +93,26 @@ public class SettingFragment extends BaseBackMvpFragment<ISettingView, SettingPr
     public void onClickAddWishGoods() {
         start(new AddWishGoodsFragment());
     }
+
     @OnClick(R.id.bug_feedback)
     public void onClickBugFeedback() {
         start(new BugFeedbackFragment());
     }
 
+    @OnClick(R.id.exit_login)
+    public void onClickExitLogin() {
+        presenter.loginOut(_mActivity);
+    }
+
 
     @Override
-    public void showLoading() {
-        if (progressDialog != null && progressDialog.isShowing()) {
-            progressDialog.show();
-        }
+    public void showLoading(@StringRes int resId) {
+        loadingDialog.showLoadingDialog(getString(resId));
     }
 
     @Override
     public void hideLoading() {
-        if (progressDialog != null)
-            progressDialog.cancel();
+        loadingDialog.cancelLoadingDialog();
     }
 
     @Override
@@ -118,5 +124,11 @@ public class SettingFragment extends BaseBackMvpFragment<ISettingView, SettingPr
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @Override
+    public void loginOut() {
+        EventBus.getDefault().post(new LoginOutEvent());
+        _mActivity.onBackPressed();
     }
 }

@@ -82,8 +82,8 @@ public class LoginActivity extends BaseMvpActivity<ILoginView, LoginPresenter> i
     }
 
     @Override
-    public void showLoading() {
-        loadingDialog.showLoadingDialog(getString(R.string.loading));
+    public void showLoading(@StringRes int resId) {
+        loadingDialog.showLoadingDialog(getString(resId));
     }
 
     @Override
@@ -194,7 +194,7 @@ public class LoginActivity extends BaseMvpActivity<ILoginView, LoginPresenter> i
      */
     @Override
     public void onStart(SHARE_MEDIA share_media) {
-        showLoading();
+        showLoading(R.string.loading);
     }
 
     /**

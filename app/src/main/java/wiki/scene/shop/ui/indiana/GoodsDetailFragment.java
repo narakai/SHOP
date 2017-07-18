@@ -318,7 +318,7 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
     }
 
     @Override
-    public void showLoading() {
+    public void showLoading(@StringRes int resId) {
         statusLayout.showLoading();
     }
 

@@ -109,7 +109,7 @@ public class MineReceiverAddressFragment extends BaseBackMvpFragment<IMineReceiv
     }
 
     @Override
-    public void showLoading() {
+    public void showLoading(@StringRes int resId) {
         statusLayout.showLoading();
     }
 

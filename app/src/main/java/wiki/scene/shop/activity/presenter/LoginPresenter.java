@@ -38,7 +38,7 @@ public class LoginPresenter extends BasePresenter<ILoginView> {
                 return;
             }
 
-            loginView.showLoading();
+            loginView.showLoading(R.string.loading);
             loginModel.login(loginView.getPhoneNumber(), loginView.getPassword(), new BaseHttpResultListener<UserInfo>() {
                 @Override
                 public void onSuccess(UserInfo data) {

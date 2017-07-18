@@ -117,6 +117,7 @@
     <string name="now_use">立即使用</string>
     <string name="message_notice">消息提醒</string>
     <string name="clear_cache">清理缓存</string>
+    <string name="clear_caching">正在清理缓存...</string>
     <string name="add_wish_goods">添加心愿商品</string>
     <string name="bug_feedback">问题反馈</string>
     <string name="user_agreement">用户协议</string>

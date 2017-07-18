@@ -1,6 +1,5 @@
 package wiki.scene.shop.activity;
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.StringRes;
 import android.support.v7.widget.Toolbar;
@@ -15,12 +14,13 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import wiki.scene.shop.R;
-import wiki.scene.shop.activity.presenter.Register2Presenter;
 import wiki.scene.shop.activity.mvpview.IRegister2View;
+import wiki.scene.shop.activity.presenter.Register2Presenter;
 import wiki.scene.shop.entity.UserInfo;
 import wiki.scene.shop.event.RegisterSuccessEvent;
 import wiki.scene.shop.mvp.BaseMvpActivity;
 import wiki.scene.shop.utils.ToastUtils;
+import wiki.scene.shop.widgets.LoadingDialog;
 
 /**
  * Case By:注册第二步
@@ -41,7 +41,7 @@ public class Register2Activity extends BaseMvpActivity<IRegister2View, Register2
 
     private Unbinder unbinder;
 
-    private ProgressDialog progressDialog;
+    private LoadingDialog loadingDialog;
 
     private String phoneNumber;
     private String code;
@@ -72,8 +72,7 @@ public class Register2Activity extends BaseMvpActivity<IRegister2View, Register2
     }
 
     private void initView() {
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage(getString(R.string.is_registing));
+        loadingDialog=LoadingDialog.getInstance(this);
         phoneNumber = getIntent().getStringExtra("phone");
         code = getIntent().getStringExtra("code");
     }
@@ -85,17 +84,13 @@ public class Register2Activity extends BaseMvpActivity<IRegister2View, Register2
 
 
     @Override
-    public void showLoading() {
-        if (progressDialog != null && !progressDialog.isShowing()) {
-            progressDialog.show();
-        }
+    public void showLoading(@StringRes int resId) {
+       loadingDialog.showLoadingDialog(getString(resId));
     }
 
     @Override
     public void hideLoading() {
-        if (progressDialog != null) {
-            progressDialog.cancel();
-        }
+      loadingDialog.cancelLoadingDialog();
     }
 
 

@@ -2,6 +2,7 @@ package wiki.scene.shop.ui.indiana;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -201,7 +202,7 @@ public class IndianaFragment extends BaseMainMvpFragment<IIndianaView, IndianaPr
     }
 
     @Override
-    public void showLoading() {
+    public void showLoading(@StringRes int resId) {
         statusLayout.showLoading();
     }
 

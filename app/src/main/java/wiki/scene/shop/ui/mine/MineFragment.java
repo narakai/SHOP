@@ -1,9 +1,9 @@
 package wiki.scene.shop.ui.mine;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,13 +25,14 @@ import wiki.scene.shop.R;
 import wiki.scene.shop.ShopApplication;
 import wiki.scene.shop.activity.LoginActivity;
 import wiki.scene.shop.event.ChooseAvaterResultEvent;
+import wiki.scene.shop.event.LoginOutEvent;
 import wiki.scene.shop.event.RegisterSuccessEvent;
 import wiki.scene.shop.event.StartBrotherEvent;
-import wiki.scene.shop.event.UserInfoUpdateSuccessEvent;
 import wiki.scene.shop.mvp.BaseMainMvpFragment;
 import wiki.scene.shop.ui.mine.mvpview.IMineView;
 import wiki.scene.shop.ui.mine.presenter.MinePresenter;
 import wiki.scene.shop.utils.SharedPreferencesUtil;
+import wiki.scene.shop.widgets.LoadingDialog;
 
 /**
  * Case By:我的
@@ -53,7 +54,7 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
     @BindView(R.id.coin_number)
     TextView coinNumber;
 
-    private ProgressDialog progressDialog;
+    private LoadingDialog loadingDialog;
 
     public static MineFragment newInstance() {
         MineFragment fragment = new MineFragment();
@@ -78,8 +79,7 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
     }
 
     private void initView() {
-        progressDialog = new ProgressDialog(_mActivity);
-        progressDialog.setMessage("正在上传");
+       loadingDialog=LoadingDialog.getInstance(_mActivity);
 
         if (ShopApplication.hasLogin) {
             hasLogin();
@@ -140,17 +140,13 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
     }
 
     @Override
-    public void showLoading() {
-        if (progressDialog != null && !progressDialog.isShowing()) {
-            progressDialog.show();
-        }
+    public void showLoading(@StringRes int resId) {
+        loadingDialog.showLoadingDialog(getString(resId));
     }
 
     @Override
     public void hideLoading() {
-        if (progressDialog != null) {
-            progressDialog.cancel();
-        }
+       loadingDialog.cancelLoadingDialog();
     }
 
     @Override
@@ -276,6 +272,11 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
             ShopApplication.hasLogin = true;
             hasLogin();
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onLoginOut(LoginOutEvent event) {
+        hasNoLogin();
     }
 
     @Override

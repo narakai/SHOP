@@ -2,6 +2,7 @@ package wiki.scene.shop.ui.car;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -64,7 +65,7 @@ public class PayOrderFragment extends BaseBackMvpFragment<IPayOrderView, PayOrde
     }
 
     @Override
-    public void showLoading() {
+    public void showLoading(@StringRes int resId) {
 
     }
 

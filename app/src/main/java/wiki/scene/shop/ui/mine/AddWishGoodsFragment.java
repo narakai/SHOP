@@ -2,6 +2,7 @@ package wiki.scene.shop.ui.mine;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -58,7 +59,7 @@ public class AddWishGoodsFragment extends BaseBackMvpFragment<IAddWishGoodsView,
     }
 
     @Override
-    public void showLoading() {
+    public void showLoading(@StringRes int resId) {
 
     }
 

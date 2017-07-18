@@ -1,6 +1,5 @@
 package wiki.scene.shop.activity;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.StringRes;
@@ -23,11 +22,12 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import wiki.scene.loadmore.utils.SceneLogUtil;
 import wiki.scene.shop.R;
-import wiki.scene.shop.activity.presenter.Register1Presenter;
 import wiki.scene.shop.activity.mvpview.IRegister1View;
+import wiki.scene.shop.activity.presenter.Register1Presenter;
 import wiki.scene.shop.event.RegisterSuccessEvent;
 import wiki.scene.shop.mvp.BaseMvpActivity;
 import wiki.scene.shop.utils.ToastUtils;
+import wiki.scene.shop.widgets.LoadingDialog;
 
 /**
  * Case By:注册第一步
@@ -52,7 +52,7 @@ public class Register1Activity extends BaseMvpActivity<IRegister1View, Register1
 
     private Unbinder unbinder;
 
-    private ProgressDialog progressDialog;
+    private LoadingDialog loadingDialog;
 
     private int countDowntime = 60;
     private Timer timer;
@@ -84,8 +84,7 @@ public class Register1Activity extends BaseMvpActivity<IRegister1View, Register1
     }
 
     private void initView() {
-        progressDialog = new ProgressDialog(Register1Activity.this);
-        progressDialog.setMessage(getString(R.string.is_get_verification));
+        loadingDialog = LoadingDialog.getInstance(this);
     }
 
     @OnClick(R.id.next_step)
@@ -99,17 +98,13 @@ public class Register1Activity extends BaseMvpActivity<IRegister1View, Register1
     }
 
     @Override
-    public void showLoading() {
-        if (progressDialog != null && !progressDialog.isShowing()) {
-            progressDialog.show();
-        }
+    public void showLoading(@StringRes int resId) {
+        loadingDialog.showLoadingDialog(getString(resId));
     }
 
     @Override
     public void hideLoading() {
-        if (progressDialog != null) {
-            progressDialog.cancel();
-        }
+        loadingDialog.cancelLoadingDialog();
     }
 
     @Override
@@ -166,19 +161,9 @@ public class Register1Activity extends BaseMvpActivity<IRegister1View, Register1
 
     @Override
     public void showLoading(String str) {
-        if (progressDialog != null) {
-            progressDialog.setMessage(str);
-            progressDialog.show();
-        }
+        loadingDialog.showLoadingDialog(str);
     }
 
-    @Override
-    public void showLoading(@StringRes int resId) {
-        if (progressDialog != null) {
-            progressDialog.setMessage(getString(resId));
-            progressDialog.show();
-        }
-    }
 
     @Override
     public void enterNextStep() {

@@ -2,6 +2,7 @@ package wiki.scene.shop.ui.mine;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -108,7 +109,7 @@ public class MyShareOrderFragment extends BaseBackMvpFragment<IShareHotestView, 
     }
 
     @Override
-    public void showLoading() {
+    public void showLoading(@StringRes int resId) {
 
     }
 

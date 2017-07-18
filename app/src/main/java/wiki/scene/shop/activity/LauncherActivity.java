@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.telephony.TelephonyManager;
 
 import com.google.gson.Gson;
@@ -45,7 +46,7 @@ public class LauncherActivity extends BaseMvpActivity<ILauncherView, LauncherPre
 
 
     @Override
-    public void showLoading() {
+    public void showLoading(@StringRes int resId) {
 
     }
 
@@ -129,7 +130,7 @@ public class LauncherActivity extends BaseMvpActivity<ILauncherView, LauncherPre
                                     .setMessage(R.string.permission_fail_notice)
                                     .setPositiveButton(R.string.go_to_setting)
                                     .show();
-                        }else{
+                        } else {
                             applyPermission();
                         }
                     }

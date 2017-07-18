@@ -2,6 +2,7 @@ package wiki.scene.shop.ui.newest;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -87,7 +88,7 @@ public class NewestFragment extends BaseMainMvpFragment<INewestView, NewestPrese
 
 
     @Override
-    public void showLoading() {
+    public void showLoading(@StringRes int resId) {
         statusLayout.showLoading();
     }
 

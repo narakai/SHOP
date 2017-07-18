@@ -33,7 +33,7 @@ public class MineReceiverAddressPresenter extends BasePresenter<IMineReceiverAdd
     public void getAddressList(final boolean isRefresh) {
         if (mView != null) {
             if (!isRefresh) {
-                mView.showLoading();
+                mView.showLoading(R.string.loading);
             }
             HttpParams params = new HttpParams();
             params.put("user_id", ShopApplication.userInfo.getUser_id());
