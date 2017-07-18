@@ -3,10 +3,16 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/SHOP.iml" filepath="$PROJECT_DIR$/SHOP.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SHOP.iml" filepath="$PROJECT_DIR$/SHOP.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/fragmentation/fragmentation.iml" filepath="$PROJECT_DIR$/fragmentation/fragmentation.iml" />
+      <module fileurl="file://$PROJECT_DIR$/fragmentation/fragmentation.iml" filepath="$PROJECT_DIR$/fragmentation/fragmentation.iml" />
+      <module fileurl="file://$PROJECT_DIR$/fragmentation_core/fragmentation_core.iml" filepath="$PROJECT_DIR$/fragmentation_core/fragmentation_core.iml" />
       <module fileurl="file://$PROJECT_DIR$/fragmentation_core/fragmentation_core.iml" filepath="$PROJECT_DIR$/fragmentation_core/fragmentation_core.iml" />
       <module fileurl="file://$PROJECT_DIR$/fragmentation_swipeback/fragmentation_swipeback.iml" filepath="$PROJECT_DIR$/fragmentation_swipeback/fragmentation_swipeback.iml" />
+      <module fileurl="file://$PROJECT_DIR$/fragmentation_swipeback/fragmentation_swipeback.iml" filepath="$PROJECT_DIR$/fragmentation_swipeback/fragmentation_swipeback.iml" />
+      <module fileurl="file://$PROJECT_DIR$/loadmore/loadmore.iml" filepath="$PROJECT_DIR$/loadmore/loadmore.iml" />
       <module fileurl="file://$PROJECT_DIR$/loadmore/loadmore.iml" filepath="$PROJECT_DIR$/loadmore/loadmore.iml" />
     </modules>
   </component>
