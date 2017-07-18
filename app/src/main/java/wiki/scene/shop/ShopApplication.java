@@ -25,6 +25,7 @@ import java.util.logging.Level;
 
 import okhttp3.OkHttpClient;
 import wiki.scene.loadmore.utils.PtrLocalDisplay;
+import wiki.scene.shop.config.AppConfig;
 import wiki.scene.shop.entity.ConfigInfo;
 import wiki.scene.shop.entity.UserInfo;
 import wiki.scene.shop.utils.SharedPreferencesUtil;
@@ -165,9 +166,9 @@ public class ShopApplication extends Application {
 
     private void initUmengShare() {
         Config.DEBUG = true;
-        PlatformConfig.setWeixin("wx967daebe835fbeac", "5bb696d9ccd75a38c8a0bfe0675559b3");
-        PlatformConfig.setQQZone("1106258470", "YED2DoxyDzJGlmVX");
-        PlatformConfig.setSinaWeibo("4230088431", "18af9d20dddaffd4217940a8b407469b", "http://sns.whalecloud.com");
+        PlatformConfig.setWeixin(AppConfig.WX_APPKEY, AppConfig.WX_APPSECRET);
+        PlatformConfig.setQQZone(AppConfig.QQ_APPKEY, AppConfig.QQ_APPSECRET);
+        PlatformConfig.setSinaWeibo(AppConfig.WEIBO_APPKEY, AppConfig.WEIBO_APPSECRET, AppConfig.WEIBO_REDIRECT_URL);
         UMShareAPI.get(this);
     }
 

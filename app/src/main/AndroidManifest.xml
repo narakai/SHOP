@@ -91,6 +91,7 @@
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
         <!--QQ精简版SDK-->
         <activity
             android:name="com.umeng.qq.tencent.AuthActivity"

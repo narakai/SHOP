@@ -30,4 +30,5 @@
     <color name="goods_status_wait">#00A0E9</color>
     <color name="goods_status_ongoing">#F9543E</color>
     <color name="address_default_color">#F74C4B</color>
+    <color name="url_color">#0C80FF</color>
 </resources>

@@ -1,6 +1,5 @@
 package wiki.scene.shop.ui.indiana;
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
@@ -13,13 +12,14 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareListener;
+import com.umeng.socialize.UmengTool;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.media.UMImage;
 import com.umeng.socialize.media.UMWeb;
+import com.umeng.socialize.shareboard.ShareBoardConfig;
 import com.umeng.socialize.shareboard.SnsPlatform;
 import com.umeng.socialize.utils.ShareBoardlistener;
 import com.youth.banner.Banner;
@@ -48,7 +48,6 @@ import wiki.scene.shop.event.AddGoods2CartEvent;
 import wiki.scene.shop.mvp.BaseBackMvpFragment;
 import wiki.scene.shop.ui.indiana.mvpview.IGoodsDetailView;
 import wiki.scene.shop.ui.indiana.presenter.GoodsDetailPresenter;
-import wiki.scene.shop.umeng.share.ShareUtil;
 import wiki.scene.shop.utils.ToastUtils;
 import wiki.scene.shop.widgets.CustomListView;
 import wiki.scene.shop.widgets.CustomeGridView;
@@ -234,6 +233,13 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
 
     @OnClick(R.id.toolbar_share)
     public void onClickToolbarShare() {
+        ShareBoardConfig config = new ShareBoardConfig();
+        config.setIndicatorVisibility(false);
+        config.setShareboardBackgroundColor(getResources().getColor(R.color.white));
+        config.setMenuItemBackgroundShape(ShareBoardConfig.BG_SHAPE_NONE);
+        config.setTitleText(getString(R.string.share_to));
+        config.setCancelButtonText(getString(R.string.cancel));
+        config.setCancelButtonTextColor(getResources().getColor(R.color.url_color));
         new ShareAction(_mActivity)
                 .setDisplayList(SHARE_MEDIA.WEIXIN, SHARE_MEDIA.SINA, SHARE_MEDIA.QQ)
                 .setShareboardclickCallback(new ShareBoardlistener() {
@@ -257,7 +263,7 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
                         }
                     }
                 })
-                .open();
+                .open(config);
     }
 
     private UMShareListener shareListener = new UMShareListener() {
