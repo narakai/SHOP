@@ -49,6 +49,7 @@ public class LoginActivity extends BaseMvpActivity<ILoginView, LoginPresenter> i
     TextView password;
 
     private LoadingDialog loadingDialog;
+    private UMShareAPI shareAPI;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +78,7 @@ public class LoginActivity extends BaseMvpActivity<ILoginView, LoginPresenter> i
 
     private void initView() {
         loadingDialog = LoadingDialog.getInstance(this);
+        shareAPI = UMShareAPI.get(this);
     }
 
     @Override
@@ -144,12 +146,20 @@ public class LoginActivity extends BaseMvpActivity<ILoginView, LoginPresenter> i
 
     @OnClick(R.id.wechat_login)
     public void onClickWechatLogin() {
-        UMShareAPI.get(this).getPlatformInfo(this, SHARE_MEDIA.WEIXIN, this);
+        if (shareAPI.isInstall(this, SHARE_MEDIA.WEIXIN)) {
+            shareAPI.getPlatformInfo(this, SHARE_MEDIA.WEIXIN, this);
+        } else {
+            showFailInfo(R.string.please_install_wechat);
+        }
     }
 
     @OnClick(R.id.qq_login)
     public void onClickQQLogin() {
-        UMShareAPI.get(this).getPlatformInfo(this, SHARE_MEDIA.QQ, this);
+        if (shareAPI.isInstall(this, SHARE_MEDIA.QQ)) {
+            shareAPI.getPlatformInfo(this, SHARE_MEDIA.QQ, this);
+        } else {
+            showFailInfo(R.string.please_install_qq);
+        }
     }
 
 
@@ -175,6 +185,7 @@ public class LoginActivity extends BaseMvpActivity<ILoginView, LoginPresenter> i
     protected void onDestroy() {
         super.onDestroy();
         unbinder.unbind();
+        UMShareAPI.get(this).release();
     }
 
     /**

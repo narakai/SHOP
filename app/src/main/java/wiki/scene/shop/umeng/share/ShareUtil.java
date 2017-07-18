@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import com.umeng.socialize.ShareAction;
+import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.media.UMWeb;
@@ -117,23 +118,36 @@ public class ShareUtil implements View.OnClickListener {
         ShareAction shareAction = new ShareAction(activity);
         switch (v.getId()) {
             case R.id.share_wechat:
-                shareAction.setPlatform(SHARE_MEDIA.WEIXIN)//传入平台
-                        .withMedia(umWeb)//分享内容
-                        .setCallback(shareListener)//回调监听器
-                        .share();
+                if (UMShareAPI.get(activity).isInstall(activity, SHARE_MEDIA.WEIXIN)) {
+                    shareAction.setPlatform(SHARE_MEDIA.WEIXIN)//传入平台
+                            .withMedia(umWeb)//分享内容
+                            .setCallback(shareListener)//回调监听器
+                            .share();
+                } else {
+                    ToastUtils.getInstance(activity).showToast(R.string.please_install_wechat);
+                }
+
                 break;
             case R.id.share_qq:
-                shareAction.setPlatform(SHARE_MEDIA.QQ)//传入平台
-                        .withMedia(umWeb)//分享内容
-                        .setCallback(shareListener)//回调监听器
-                        .share();
+                if (UMShareAPI.get(activity).isInstall(activity, SHARE_MEDIA.QQ)) {
+                    shareAction.setPlatform(SHARE_MEDIA.QQ)//传入平台
+                            .withMedia(umWeb)//分享内容
+                            .setCallback(shareListener)//回调监听器
+                            .share();
+                } else {
+                    ToastUtils.getInstance(activity).showToast(R.string.please_install_qq);
+                }
                 break;
             case R.id.share_weibo:
-                shareAction.setPlatform(SHARE_MEDIA.SINA)//传入平台
-                        .withText("")
-                        .withMedia(umWeb)//分享内容
-                        .setCallback(shareListener)//回调监听器
-                        .share();
+                if (UMShareAPI.get(activity).isInstall(activity, SHARE_MEDIA.SINA)) {
+                    shareAction.setPlatform(SHARE_MEDIA.SINA)//传入平台
+                            .withText("")
+                            .withMedia(umWeb)//分享内容
+                            .setCallback(shareListener)//回调监听器
+                            .share();
+                } else {
+                    ToastUtils.getInstance(activity).showToast(R.string.please_install_weibo);
+                }
                 break;
 
         }

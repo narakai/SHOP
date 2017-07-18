@@ -200,4 +200,7 @@
     <string name="xx_precent">%1$d&#037;</string>
     <string name="goods_has_added_cart">商品已经添加到购物车</string>
     <string name="login_fail_please_retry">登录失败，请重试</string>
+    <string name="please_install_wechat">请先安装微信</string>
+    <string name="please_install_qq">请先安装QQ</string>
+    <string name="please_install_weibo">请先安装新浪微博</string>
 </resources>
