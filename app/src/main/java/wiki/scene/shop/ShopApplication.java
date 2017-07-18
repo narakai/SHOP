@@ -39,7 +39,7 @@ import wiki.scene.shop.utils.SharedPreferencesUtil;
 
 public class ShopApplication extends Application {
     public static final String USER_INFO_KEY = "user_info_key";
-    private static final String UUID_KEY = "uuid";
+    public static final String UUID_KEY = "uuid";
     public static String UUID = "";
     public static int CHANNEL_ID = 0;
     public static int versionCode = 0;
@@ -51,13 +51,8 @@ public class ShopApplication extends Application {
     public void onCreate() {
         super.onCreate();
         PtrLocalDisplay.init(this);
-        UUID = getUUID();
         CHANNEL_ID = getChannelName();
-        try {
-            versionCode = this.getPackageManager().getPackageInfo(getPackageName(), 0).versionCode;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
         initOKhttp();
         initUmengShare();
     }
@@ -119,50 +114,7 @@ public class ShopApplication extends Application {
         return resultData;
     }
 
-    /**
-     * 获取UUID
-     *
-     * @return uuid
-     */
-    private String getUUID() {
-        String uuid;
-        TelephonyManager tm = (TelephonyManager) this.getSystemService(TELEPHONY_SERVICE);
-        uuid = tm.getDeviceId();
-        if (uuid.isEmpty()) {
-            uuid = SharedPreferencesUtil.getString(this, UUID_KEY, "");
-            if (uuid.isEmpty()) {
-                String imei = createRandomUUID(false, 64);
-                SharedPreferencesUtil.putString(this, UUID_KEY, imei);
-                uuid = imei;
-            }
-        }
-        return uuid;
-    }
 
-    private String createRandomUUID(boolean numberFlag, int length) {
-        String retStr;
-        String strTable = numberFlag ? "1234567890" : "1234567890abcdefghijkmnpqrstuvwxyz";
-        int len = strTable.length();
-        boolean bDone = true;
-        do {
-            retStr = "";
-            int count = 0;
-            for (int i = 0; i < length; i++) {
-                double dblR = Math.random() * len;
-                int intR = (int) Math.floor(dblR);
-                char c = strTable.charAt(intR);
-                if (('0' <= c) && (c <= '9')) {
-                    count++;
-                }
-                retStr += strTable.charAt(intR);
-            }
-            if (count >= 20) {
-                bDone = false;
-            }
-        } while (bDone);
-
-        return retStr;
-    }
 
     private void initUmengShare() {
         Config.DEBUG = true;

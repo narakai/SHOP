@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +33,7 @@ import wiki.scene.shop.adapter.GuessLikeAdapter;
 import wiki.scene.shop.entity.CartInfo;
 import wiki.scene.shop.entity.ListGoodsInfo;
 import wiki.scene.shop.event.AddGoods2CartEvent;
+import wiki.scene.shop.event.RegisterSuccessEvent;
 import wiki.scene.shop.event.StartBrotherEvent;
 import wiki.scene.shop.event.TabSelectedEvent;
 import wiki.scene.shop.mvp.BaseMainMvpFragment;
@@ -304,5 +306,12 @@ public class CarFragment extends BaseMainMvpFragment<ICarView, CarPresenter> imp
     @Override
     public void onItemClickDelete(int position) {
         presenter.deleteCartGoods(goodsList.get(position).getId(), position);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onRegisterSuccess(RegisterSuccessEvent event) {
+        if (event != null) {
+            presenter.getCarList(true);
+        }
     }
 }
