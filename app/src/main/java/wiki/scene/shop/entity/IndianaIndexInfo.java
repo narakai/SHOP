@@ -1,5 +1,6 @@
 package wiki.scene.shop.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -8,7 +9,7 @@ import java.util.List;
  * Author：scene on 2017/7/12 13:47
  */
 
-public class IndianaIndexInfo {
+public class IndianaIndexInfo implements Serializable {
     List<SliderInfo> slider;
     List<WinningNoticeInfo> winning_notice;
     List<NewWaitInfo> new_waiting;

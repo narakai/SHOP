@@ -1,12 +1,14 @@
 package wiki.scene.shop.entity;
 
+import java.io.Serializable;
+
 /**
  * Case By:
  * package:wiki.scene.shop.entity
  * Author：scene on 2017/7/12 14:17
  */
 
-public class ListGoodsInfo {
+public class ListGoodsInfo implements Serializable {
 
     /**
      * title : 秒开电信话费

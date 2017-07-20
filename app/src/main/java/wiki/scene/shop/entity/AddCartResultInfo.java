@@ -1,12 +1,14 @@
 package wiki.scene.shop.entity;
 
+import java.io.Serializable;
+
 /**
  * Case By:添加修改购物车返回
  * package:wiki.scene.shop.entity
  * Author：scene on 2017/7/13 15:08
  */
 
-public class AddCartResultInfo {
+public class AddCartResultInfo implements Serializable {
 
     /**
      * user_id : 5

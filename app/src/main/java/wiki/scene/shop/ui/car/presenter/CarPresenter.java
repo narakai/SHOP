@@ -1,5 +1,7 @@
 package wiki.scene.shop.ui.car.presenter;
 
+import android.content.Context;
+
 import com.lzy.okgo.model.HttpParams;
 
 import java.util.List;
@@ -9,6 +11,7 @@ import wiki.scene.shop.R;
 import wiki.scene.shop.ShopApplication;
 import wiki.scene.shop.entity.CartInfo;
 import wiki.scene.shop.entity.CartResultInfo;
+import wiki.scene.shop.entity.CreateOrderInfo;
 import wiki.scene.shop.http.listener.HttpResultListener;
 import wiki.scene.shop.mvp.BasePresenter;
 import wiki.scene.shop.ui.car.model.CarModel;
@@ -110,5 +113,38 @@ public class CarPresenter extends BasePresenter<ICarView> {
         if (mView != null) {
             mView.showTotalPrice(totalPrice);
         }
+    }
+
+    public void createOrder(Context context, String cartIds) {
+        try {
+            mView.showProgress(R.string.loading);
+            HttpParams params = new HttpParams();
+            if (ShopApplication.hasLogin) {
+                params.put("user_id", ShopApplication.userInfo.getUser_id());
+                params.put("cart_ids", cartIds);
+                model.createOrder(params, new HttpResultListener<CreateOrderInfo>() {
+                    @Override
+                    public void onSuccess(CreateOrderInfo data) {
+                        mView.createOrderSuccess(data);
+                    }
+
+                    @Override
+                    public void onFail(String message) {
+                        mView.showMessage(message);
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        mView.hideProgress();
+                    }
+                });
+            } else {
+                mView.showMessage(context.getString(R.string.permission_fail_notice));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
     }
 }

@@ -1,5 +1,6 @@
 package wiki.scene.shop.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -8,7 +9,7 @@ import java.util.List;
  * Author：scene on 2017/7/13 15:26
  */
 
-public class CartResultInfo {
+public class CartResultInfo implements Serializable {
     private List<CartInfo> cycles;
     private List<ListGoodsInfo> like;
 

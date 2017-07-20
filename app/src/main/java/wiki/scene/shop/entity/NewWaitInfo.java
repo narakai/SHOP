@@ -1,12 +1,14 @@
 package wiki.scene.shop.entity;
 
+import java.io.Serializable;
+
 /**
  * Case By:最新开奖
  * package:wiki.scene.shop.entity
  * Author：scene on 2017/7/12 14:15
  */
 
-public class NewWaitInfo {
+public class NewWaitInfo implements Serializable {
     private int cycle_id;
     private String thumb;
     private String title;

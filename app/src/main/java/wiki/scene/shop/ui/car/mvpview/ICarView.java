@@ -5,6 +5,7 @@ import android.support.annotation.StringRes;
 import java.util.List;
 
 import wiki.scene.shop.entity.CartInfo;
+import wiki.scene.shop.entity.CreateOrderInfo;
 import wiki.scene.shop.entity.ListGoodsInfo;
 import wiki.scene.shop.mvp.BaseView;
 
@@ -36,4 +37,6 @@ public interface ICarView extends BaseView {
     void showProgress(@StringRes int resId);
 
     void hideProgress();
+
+    void createOrderSuccess(CreateOrderInfo info);
 }

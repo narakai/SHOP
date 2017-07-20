@@ -1,5 +1,7 @@
 package wiki.scene.shop.entity;
 
+import java.io.Serializable;
+
 import wiki.scene.shop.ShopApplication;
 
 /**
@@ -8,7 +10,7 @@ import wiki.scene.shop.ShopApplication;
  * Author：scene on 2017/7/7 13:26
  */
 
-public class AvaterInfo {
+public class AvaterInfo implements Serializable {
     private String url;
 
     public String getUrl() {

@@ -1,12 +1,14 @@
 package wiki.scene.shop.entity;
 
+import java.io.Serializable;
+
 /**
  * Case By:购物车
  * package:wiki.scene.shop.entity
  * Author：scene on 2017/7/13 15:24
  */
 
-public class CartInfo {
+public class CartInfo  implements Serializable {
 
     /**
      * id : 8

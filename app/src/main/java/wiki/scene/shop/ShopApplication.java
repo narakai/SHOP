@@ -3,7 +3,6 @@ package wiki.scene.shop;
 import android.app.Application;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
-import android.telephony.TelephonyManager;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.integration.okhttp3.OkHttpUrlLoader;
@@ -28,7 +27,6 @@ import wiki.scene.loadmore.utils.PtrLocalDisplay;
 import wiki.scene.shop.config.AppConfig;
 import wiki.scene.shop.entity.ConfigInfo;
 import wiki.scene.shop.entity.UserInfo;
-import wiki.scene.shop.utils.SharedPreferencesUtil;
 
 
 /**

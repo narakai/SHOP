@@ -60,6 +60,9 @@ public class ApiUtil {
     //删除购物车商品
     public static final String CART_DELETE="/cart/delete";
     public static final String CART_DELETE_TAG="CART_DELETE_TAG";
+    //创建订单
+    public static final String CREATE_ORDER="/cycle/order";
+    public static final String CREATE_ORDER_TAG="CREATE_ORDER_TAG";
 
 
     /**

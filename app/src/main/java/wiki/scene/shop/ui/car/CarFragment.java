@@ -31,6 +31,7 @@ import wiki.scene.shop.R;
 import wiki.scene.shop.adapter.CarGoodsAdapter;
 import wiki.scene.shop.adapter.GuessLikeAdapter;
 import wiki.scene.shop.entity.CartInfo;
+import wiki.scene.shop.entity.CreateOrderInfo;
 import wiki.scene.shop.entity.ListGoodsInfo;
 import wiki.scene.shop.event.AddGoods2CartEvent;
 import wiki.scene.shop.event.LoginOutEvent;
@@ -61,8 +62,6 @@ public class CarFragment extends BaseMainMvpFragment<ICarView, CarPresenter> imp
     CustomeGridView likeGridView;
     @BindView(R.id.total_price)
     TextView tvTotalPrice;
-    @BindView(R.id.immediately_indiana)
-    TextView immediatelyIndiana;
     @BindView(R.id.layout_bottom)
     LinearLayout layoutBottom;
     @BindView(R.id.ptrLayout)
@@ -149,7 +148,16 @@ public class CarFragment extends BaseMainMvpFragment<ICarView, CarPresenter> imp
      */
     @OnClick(R.id.immediately_indiana)
     public void onClickImmediatelyIndiana() {
-        EventBus.getDefault().post(new StartBrotherEvent(PayOrderFragment.newInstance()));
+        String cartIds = "";
+        for (CartInfo info : goodsList) {
+            if (info.isChecked()) {
+                cartIds = cartIds + (info.getId() + ",");
+            }
+        }
+        if (cartIds.length() > 0 && cartIds.endsWith(",")) {
+            cartIds = cartIds.substring(0, cartIds.length() - 1);
+        }
+        presenter.createOrder(_mActivity, cartIds);
     }
 
     /**
@@ -237,6 +245,20 @@ public class CarFragment extends BaseMainMvpFragment<ICarView, CarPresenter> imp
     }
 
     @Override
+    public void createOrderSuccess(CreateOrderInfo createOrderInfo) {
+        for (CartInfo info : goodsList) {
+            if (info.isChecked()) {
+                goodsList.remove(info);
+            }
+        }
+        goodsAdapter.notifyDataSetChanged();
+        if (goodsList.size() == 0) {
+            showEmptyCart();
+        }
+        EventBus.getDefault().post(new StartBrotherEvent(PayOrderFragment.newInstance(createOrderInfo)));
+    }
+
+    @Override
     public void loadDataSuccess() {
         ptrLayout.refreshComplete();
         statusLayout.showContent();
@@ -315,6 +337,7 @@ public class CarFragment extends BaseMainMvpFragment<ICarView, CarPresenter> imp
             presenter.getCarList(true);
         }
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onLoginOut(LoginOutEvent event) {
         showEmptyCart();

@@ -1,12 +1,14 @@
 package wiki.scene.shop.entity;
 
+import java.io.Serializable;
+
 /**
  * Case By:App配置文件
  * package:wiki.scene.shop.entity
  * Author：scene on 2017/7/12 14:00
  */
 
-public class ConfigInfo {
+public class ConfigInfo implements Serializable {
 
     /**
      * user_agreement : 用户协议

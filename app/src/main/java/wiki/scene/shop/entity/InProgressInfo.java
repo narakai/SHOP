@@ -1,5 +1,6 @@
 package wiki.scene.shop.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -8,7 +9,7 @@ import java.util.List;
  * Author：scene on 2017/7/12 14:17
  */
 
-public class InProgressInfo {
+public class InProgressInfo implements Serializable {
     private List<ListGoodsInfo> hot;
     private List<ListGoodsInfo> newest;
     private List<ListGoodsInfo> price_asc;

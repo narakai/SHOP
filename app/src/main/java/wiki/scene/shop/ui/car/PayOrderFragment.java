@@ -15,10 +15,13 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import wiki.scene.shop.R;
+import wiki.scene.shop.adapter.PayOrderGoodsAdapter;
+import wiki.scene.shop.entity.CreateOrderInfo;
 import wiki.scene.shop.mvp.BaseBackMvpFragment;
 import wiki.scene.shop.ui.car.mvpview.IPayOrderView;
 import wiki.scene.shop.ui.car.presenter.PayOrderPresenter;
 import wiki.scene.shop.widgets.CustomListView;
+import wiki.scene.shop.widgets.LoadingDialog;
 
 /**
  * Case By:支付订单
@@ -27,6 +30,7 @@ import wiki.scene.shop.widgets.CustomListView;
  */
 
 public class PayOrderFragment extends BaseBackMvpFragment<IPayOrderView, PayOrderPresenter> implements IPayOrderView {
+    private static final String ARG_CREATE_ORDER_INFO = "arg_cart_order_info";
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -41,12 +45,30 @@ public class PayOrderFragment extends BaseBackMvpFragment<IPayOrderView, PayOrde
     @BindView(R.id.comfire_pay)
     Button comfirePay;
     Unbinder unbinder;
+    @BindView(R.id.total_goods_count)
+    TextView totalGoodsCount;
+    @BindView(R.id.total_price)
+    TextView totalPrice;
 
-    public static PayOrderFragment newInstance() {
+    private CreateOrderInfo createOrderInfo;
+
+    private LoadingDialog loadingDialog;
+
+    public static PayOrderFragment newInstance(CreateOrderInfo createOrderInfo) {
         Bundle args = new Bundle();
         PayOrderFragment fragment = new PayOrderFragment();
+        args.putSerializable(ARG_CREATE_ORDER_INFO, createOrderInfo);
         fragment.setArguments(args);
         return fragment;
+    }
+
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            createOrderInfo = (CreateOrderInfo) getArguments().getSerializable(ARG_CREATE_ORDER_INFO);
+        }
     }
 
     @Nullable
@@ -62,16 +84,26 @@ public class PayOrderFragment extends BaseBackMvpFragment<IPayOrderView, PayOrde
         super.onEnterAnimationEnd(savedInstanceState);
         toolbarTitle.setText(R.string.pay_order);
         initToolbarNav(toolbar);
+        initView();
+    }
+
+    private void initView() {
+        loadingDialog=LoadingDialog.getInstance(_mActivity);
+        PayOrderGoodsAdapter adapter = new PayOrderGoodsAdapter(_mActivity, createOrderInfo.getCycles());
+        goodsListview.setAdapter(adapter);
+        totalGoodsCount.setText(String.format(getString(R.string.total_xx_goods), createOrderInfo.getCycles().size()));
+        totalPrice.setText(String.valueOf(createOrderInfo.getCost()));
+
     }
 
     @Override
     public void showLoading(@StringRes int resId) {
-
+        loadingDialog.showLoadingDialog(getString(resId));
     }
 
     @Override
     public void hideLoading() {
-
+        loadingDialog.cancelLoadingDialog();
     }
 
     @Override

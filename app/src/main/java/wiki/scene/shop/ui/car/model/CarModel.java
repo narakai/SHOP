@@ -7,6 +7,7 @@ import com.lzy.okgo.model.Response;
 import java.util.List;
 
 import wiki.scene.shop.entity.CartResultInfo;
+import wiki.scene.shop.entity.CreateOrderInfo;
 import wiki.scene.shop.http.api.ApiUtil;
 import wiki.scene.shop.http.base.LzyResponse;
 import wiki.scene.shop.http.callback.JsonCallback;
@@ -50,6 +51,12 @@ public class CarModel {
                 });
     }
 
+    /**
+     * 删除购物车
+     *
+     * @param params         参数
+     * @param resultListener 回调
+     */
     public void deleteCartGoods(HttpParams params, final HttpResultListener<String> resultListener) {
         OkGo.<LzyResponse<List<String>>>post(ApiUtil.API_PRE + ApiUtil.CART_DELETE)
                 .tag(ApiUtil.CART_DELETE_TAG)
@@ -62,6 +69,37 @@ public class CarModel {
 
                     @Override
                     public void onError(Response<LzyResponse<List<String>>> response) {
+                        super.onError(response);
+                        if (response.getException().getMessage().isEmpty()) {
+                            resultListener.onFail(response.message());
+                        } else {
+                            resultListener.onFail(response.getException().getMessage());
+                        }
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        super.onFinish();
+                        resultListener.onFinish();
+                    }
+                });
+    }
+
+    /**
+     * 创建订单
+     */
+    public void createOrder(HttpParams params, final HttpResultListener<CreateOrderInfo> resultListener) {
+        OkGo.<LzyResponse<CreateOrderInfo>>post(ApiUtil.API_PRE + ApiUtil.CREATE_ORDER)
+                .tag(ApiUtil.CREATE_ORDER_TAG)
+                .params(params)
+                .execute(new JsonCallback<LzyResponse<CreateOrderInfo>>() {
+                    @Override
+                    public void onSuccess(Response<LzyResponse<CreateOrderInfo>> response) {
+                        resultListener.onSuccess(response.body().data);
+                    }
+
+                    @Override
+                    public void onError(Response<LzyResponse<CreateOrderInfo>> response) {
                         super.onError(response);
                         if (response.getException().getMessage().isEmpty()) {
                             resultListener.onFail(response.message());

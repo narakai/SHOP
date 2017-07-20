@@ -1,12 +1,14 @@
 package wiki.scene.shop.entity;
 
+import java.io.Serializable;
+
 /**
  * Case By:夺宝头条通知
  * package:wiki.scene.shop.entity
  * Author：scene on 2017/7/12 14:12
  */
 
-public class WinningNoticeInfo {
+public class WinningNoticeInfo implements Serializable {
     private String nickname;
     private int cycle_code;
     private int cost;
