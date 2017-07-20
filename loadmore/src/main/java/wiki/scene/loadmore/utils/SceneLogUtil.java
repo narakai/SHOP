@@ -3,14 +3,14 @@ package wiki.scene.loadmore.utils;
 import android.util.Log;
 
 /**
- * @FileName:com.scene.baselib.util.LogUtil.java
- * @功能描述：日志工具类
- * @author: scene
- * @date: 2016-07-19 11:04
+ * FileName:com.scene.baselib.util.LogUtil.java
+ * 功能描述：日志工具类
+ * author: scene
+ * date: 2016-07-19 11:04
  */
 public class SceneLogUtil {
-    public static boolean isShowLog = true;
-    public static final String DEFULT_TAG = "com.scene";
+    private static boolean isShowLog = true;
+    private static final String DEFULT_TAG = "com.scene";
 
     public static void v(String str) {
         if (isShowLog) {

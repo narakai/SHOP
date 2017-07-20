@@ -154,6 +154,9 @@ dependencies {
     compile files('libs/wechat-sdk-android-with-mta-1.1.6.jar')
     compile files('libs/umeng_shareboard_widget.jar')
     compile files('libs/umeng_social_shareboard.jar')
+    //umeng统计
+    compile files('libs/utdid4all-1.0.4.jar')
+    compile files('libs/umeng-analytics-v6.1.1.jar')
     //json解析
     compile 'com.google.code.gson:gson:2.8.1'
     //banner

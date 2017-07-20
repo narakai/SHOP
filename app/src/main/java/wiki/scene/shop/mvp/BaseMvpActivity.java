@@ -2,6 +2,8 @@ package wiki.scene.shop.mvp;
 
 import android.os.Bundle;
 
+import com.umeng.analytics.MobclickAgent;
+
 import me.yokeyword.fragmentation.SupportActivity;
 import me.yokeyword.fragmentation_swipeback.SwipeBackActivity;
 
@@ -23,14 +25,20 @@ public abstract class BaseMvpActivity<V, T extends BasePresenter<V>> extends Swi
     protected void onResume() {
         super.onResume();
         presenter.attach((V) this);
+        MobclickAgent.onResume(this);
+    }
+
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 
     @Override
     protected void onDestroy() {
-
         presenter.dettach();
         super.onDestroy();
     }
+
 
     // 实例化presenter
     public abstract T initPresenter();
