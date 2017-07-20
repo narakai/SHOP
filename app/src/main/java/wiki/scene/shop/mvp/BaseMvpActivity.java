@@ -4,7 +4,6 @@ import android.os.Bundle;
 
 import com.umeng.analytics.MobclickAgent;
 
-import me.yokeyword.fragmentation.SupportActivity;
 import me.yokeyword.fragmentation_swipeback.SwipeBackActivity;
 
 /**
