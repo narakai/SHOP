@@ -31,6 +31,7 @@ import wiki.scene.shop.event.StartBrotherEvent;
 import wiki.scene.shop.mvp.BaseMainMvpFragment;
 import wiki.scene.shop.ui.mine.mvpview.IMineView;
 import wiki.scene.shop.ui.mine.presenter.MinePresenter;
+import wiki.scene.shop.utils.PriceUtil;
 import wiki.scene.shop.utils.SharedPreferencesUtil;
 import wiki.scene.shop.widgets.LoadingDialog;
 
@@ -200,7 +201,7 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
      */
     @Override
     public void enterMineRed() {
-        EventBus.getDefault().post(new StartBrotherEvent(MineRedFragment.newInstance()));
+        EventBus.getDefault().post(new StartBrotherEvent(MineRedFragment.newInstance(true,null)));
     }
 
     /**
@@ -242,7 +243,7 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
         username.setText(R.string.please_login);
         Glide.with(_mActivity).load(R.drawable.ic_default_avater).bitmapTransform(new CropCircleTransformation(_mActivity)).into(userAvater);
         imageLevel.setText(String.valueOf(1));
-        coinNumber.setText(String.format(getString(R.string.coin_number), 0));
+        coinNumber.setText(String.format(getString(R.string.coin_number), String.valueOf(0)));
     }
 
     @Override
@@ -254,7 +255,7 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
         imageLevel.setText(String.valueOf(ShopApplication.userInfo.getLevel()));
         username.setText(ShopApplication.userInfo.getNickname().isEmpty() ? ShopApplication.userInfo.getMobile() : ShopApplication.userInfo.getNickname());
         Glide.with(_mActivity).load(ShopApplication.userInfo.getAvatar()).bitmapTransform(new CropCircleTransformation(_mActivity)).error(R.drawable.ic_default_avater).into(userAvater);
-        coinNumber.setText(String.format(getString(R.string.coin_number), ShopApplication.userInfo.getMoney()));
+        coinNumber.setText(String.format(getString(R.string.coin_number), PriceUtil.getPrice(ShopApplication.userInfo.getMoney())));
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

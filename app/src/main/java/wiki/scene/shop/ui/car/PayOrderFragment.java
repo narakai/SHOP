@@ -11,8 +11,11 @@ import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 import wiki.scene.shop.R;
 import wiki.scene.shop.adapter.PayOrderGoodsAdapter;
@@ -20,6 +23,8 @@ import wiki.scene.shop.entity.CreateOrderInfo;
 import wiki.scene.shop.mvp.BaseBackMvpFragment;
 import wiki.scene.shop.ui.car.mvpview.IPayOrderView;
 import wiki.scene.shop.ui.car.presenter.PayOrderPresenter;
+import wiki.scene.shop.ui.mine.MineRedFragment;
+import wiki.scene.shop.utils.PriceUtil;
 import wiki.scene.shop.widgets.CustomListView;
 import wiki.scene.shop.widgets.LoadingDialog;
 
@@ -49,10 +54,15 @@ public class PayOrderFragment extends BaseBackMvpFragment<IPayOrderView, PayOrde
     TextView totalGoodsCount;
     @BindView(R.id.total_price)
     TextView totalPrice;
+    @BindView(R.id.red_name)
+    TextView redName;
 
     private CreateOrderInfo createOrderInfo;
 
     private LoadingDialog loadingDialog;
+
+    //选中的红包
+    private CreateOrderInfo.CouponsBean choosedRed;
 
     public static PayOrderFragment newInstance(CreateOrderInfo createOrderInfo) {
         Bundle args = new Bundle();
@@ -88,12 +98,16 @@ public class PayOrderFragment extends BaseBackMvpFragment<IPayOrderView, PayOrde
     }
 
     private void initView() {
-        loadingDialog=LoadingDialog.getInstance(_mActivity);
+        loadingDialog = LoadingDialog.getInstance(_mActivity);
         PayOrderGoodsAdapter adapter = new PayOrderGoodsAdapter(_mActivity, createOrderInfo.getCycles());
         goodsListview.setAdapter(adapter);
         totalGoodsCount.setText(String.format(getString(R.string.total_xx_goods), createOrderInfo.getCycles().size()));
-        totalPrice.setText(String.valueOf(createOrderInfo.getCost()));
+        totalPrice.setText(String.valueOf(PriceUtil.getPrice(createOrderInfo.getCost())));
+    }
 
+    @OnClick(R.id.choose_red)
+    public void onClickChoosedRed() {
+        startForResult(MineRedFragment.newInstance(false, (ArrayList<CreateOrderInfo.CouponsBean>) createOrderInfo.getCoupons()), 200);
     }
 
     @Override
@@ -115,5 +129,18 @@ public class PayOrderFragment extends BaseBackMvpFragment<IPayOrderView, PayOrde
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @Override
+    public void onFragmentResult(int requestCode, int resultCode, Bundle data) {
+        super.onFragmentResult(requestCode, resultCode, data);
+        if (data != null && resultCode == RESULT_OK) {
+            if (requestCode == 200) {
+                choosedRed = (CreateOrderInfo.CouponsBean) data.getSerializable("red");
+                if (choosedRed != null) {
+                    redName.setText(choosedRed.getTitle());
+                }
+            }
+        }
     }
 }

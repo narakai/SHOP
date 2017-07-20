@@ -42,6 +42,7 @@ import wiki.scene.shop.mvp.BaseMainMvpFragment;
 import wiki.scene.shop.ui.car.mvpview.ICarView;
 import wiki.scene.shop.ui.car.presenter.CarPresenter;
 import wiki.scene.shop.ui.indiana.GoodsDetailFragment;
+import wiki.scene.shop.utils.PriceUtil;
 import wiki.scene.shop.utils.ToastUtils;
 import wiki.scene.shop.widgets.CustomListView;
 import wiki.scene.shop.widgets.CustomeGridView;
@@ -221,7 +222,7 @@ public class CarFragment extends BaseMainMvpFragment<ICarView, CarPresenter> imp
 
     @Override
     public void showTotalPrice(int totalPrice) {
-        tvTotalPrice.setText(String.format(getString(R.string.price_number), totalPrice));
+        tvTotalPrice.setText(String.format(getString(R.string.price_number), PriceUtil.getPrice(totalPrice)));
     }
 
     @Override

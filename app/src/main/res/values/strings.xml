@@ -61,7 +61,7 @@
     <string name="mine_level">等级：V%1$d</string>
     <string name="mine_score">积分：%1$d</string>
     <string name="indiana_coin">夺宝币：</string>
-    <string name="coin_number">%1$d个</string>
+    <string name="coin_number">%1$s个</string>
     <string name="recharge">充值</string>
     <string name="indiana_record">夺宝记录</string>
     <string name="win_record">中奖记录</string>
@@ -79,7 +79,7 @@
     <string name="share_goods_times">商品期数：第%1$s期</string>
     <string name="zan">赞</string>
     <string name="total">合计：</string>
-    <string name="price_number">￥%1$d</string>
+    <string name="price_number">￥%1$s</string>
     <string name="car_is_none">购物车竟然空空的~</string>
     <string name="no_pain_no_gain">爱拼才会赢</string>
     <string name="guess_you_like">猜你喜欢</string>

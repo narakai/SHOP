@@ -7,11 +7,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import wiki.scene.shop.R;
+import wiki.scene.shop.entity.CreateOrderInfo;
+import wiki.scene.shop.utils.DateUtil;
+import wiki.scene.shop.utils.PriceUtil;
 
 /**
  * Case By:我的红包
@@ -22,11 +25,16 @@ import wiki.scene.shop.R;
 public class MineRedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private Context context;
-    private List<String> list;
+    private ArrayList<CreateOrderInfo.CouponsBean> list;
+    private OnMineRedItemClickListener onMineRedItemClickListener;
 
-    public MineRedAdapter(Context context, List<String> list) {
+    public MineRedAdapter(Context context, ArrayList<CreateOrderInfo.CouponsBean> list) {
         this.context = context;
         this.list = list;
+    }
+
+    public void setOnMineRedItemClickListener(OnMineRedItemClickListener onMineRedItemClickListener) {
+        this.onMineRedItemClickListener = onMineRedItemClickListener;
     }
 
     @Override
@@ -35,9 +43,21 @@ public class MineRedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         MineRedViewHolder viewHolder = (MineRedViewHolder) holder;
-        viewHolder.redName.setText(list.get(position));
+        CreateOrderInfo.CouponsBean bean = list.get(position);
+        viewHolder.redName.setText(bean.getTitle());
+        viewHolder.needPrice.setText(PriceUtil.getPrice(bean.getMini_money()));
+        viewHolder.cost.setText(PriceUtil.getPrice(bean.getCost()));
+        viewHolder.expiryDate.setText(DateUtil.timeStampToFormat(bean.getExpired_time()));
+        viewHolder.immddiatelyIndiana.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(onMineRedItemClickListener!=null){
+                    onMineRedItemClickListener.onMineRedItemClick(position);
+                }
+            }
+        });
     }
 
     @Override
@@ -54,10 +74,16 @@ public class MineRedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         TextView expiryDate;
         @BindView(R.id.immddiately_indiana)
         TextView immddiatelyIndiana;
+        @BindView(R.id.cost)
+        TextView cost;
 
         MineRedViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
         }
+    }
+
+    public interface OnMineRedItemClickListener {
+        void onMineRedItemClick(int position);
     }
 }
