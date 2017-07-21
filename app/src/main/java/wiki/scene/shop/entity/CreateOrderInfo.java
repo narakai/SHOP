@@ -18,17 +18,17 @@ public class CreateOrderInfo implements Serializable {
      * user_money : 0
      */
 
-    private int order_id;
+    private String order_id;
     private int cost;
     private int user_money;
     private List<CyclesBean> cycles;
     private List<CouponsBean> coupons;
 
-    public int getOrder_id() {
+    public String getOrder_id() {
         return order_id;
     }
 
-    public void setOrder_id(int order_id) {
+    public void setOrder_id(String order_id) {
         this.order_id = order_id;
     }
 
@@ -64,7 +64,7 @@ public class CreateOrderInfo implements Serializable {
         this.coupons = coupons;
     }
 
-    public static class CyclesBean implements Serializable  {
+    public static class CyclesBean implements Serializable {
         /**
          * title : 秒开电信话费
          * number : 2
@@ -120,7 +120,7 @@ public class CreateOrderInfo implements Serializable {
         }
     }
 
-    public static class CouponsBean implements Serializable  {
+    public static class CouponsBean implements Serializable {
         /**
          * id : 2
          * title : 注册送88红包
@@ -130,18 +130,18 @@ public class CreateOrderInfo implements Serializable {
          * expired_time : 0
          */
 
-        private int id;
+        private String id;
         private String title;
         private int type;
         private int cost;
         private int mini_money;
         private int expired_time;
 
-        public int getId() {
+        public String getId() {
             return id;
         }
 
-        public void setId(int id) {
+        public void setId(String id) {
             this.id = id;
         }
 

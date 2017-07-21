@@ -40,7 +40,7 @@ public class LoadingDialog {
                     .showCancelButton(false)
                     .showConfirmButton(false)
                     .setDialogAnimation(CBDialogBuilder.DIALOG_ANIM_SLID_BOTTOM)
-                    .setOnProgressOutTimeListener(1, new CBDialogBuilder.onProgressOutTimeListener() {
+                    .setOnProgressOutTimeListener(1000, new CBDialogBuilder.onProgressOutTimeListener() {
                         @Override
                         public void onProgressOutTime(Dialog dialog, TextView dialogMsgTextView) {
                             cancelLoadingDialog();

@@ -1,5 +1,7 @@
 package wiki.scene.shop.ui.car.mvpview;
 
+import android.support.annotation.StringRes;
+
 import wiki.scene.shop.mvp.BaseView;
 
 /**
@@ -9,4 +11,11 @@ import wiki.scene.shop.mvp.BaseView;
  */
 
 public interface IPayOrderView extends BaseView {
+    void showMessage(@StringRes int resId);
+
+    void showMessage(String msg);
+
+    void hasNoLogin();
+
+    void getPayOrderInfoSuccess();
 }

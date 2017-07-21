@@ -63,6 +63,10 @@ public class ApiUtil {
     //创建订单
     public static final String CREATE_ORDER="/cycle/order";
     public static final String CREATE_ORDER_TAG="CREATE_ORDER_TAG";
+    //获取支付信息
+    public static final String PAY="/cycle/order/pay";
+    public static final String PAY_TAG="PAY_TAG";
+
 
 
     /**
