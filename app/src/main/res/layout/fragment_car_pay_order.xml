@@ -104,6 +104,7 @@
                     android:text="@string/still_need_pay" />
 
                 <TextView
+                    android:id="@+id/need_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="5"

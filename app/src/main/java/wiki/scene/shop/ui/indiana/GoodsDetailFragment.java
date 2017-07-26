@@ -14,6 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.lzy.okgo.OkGo;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
@@ -45,10 +46,14 @@ import wiki.scene.shop.ShopApplication;
 import wiki.scene.shop.adapter.GoodsDetailJoinRecordAdapter;
 import wiki.scene.shop.adapter.GoodsDetailTuhaoRankAdapter;
 import wiki.scene.shop.adapter.GuessLikeAdapter;
+import wiki.scene.shop.config.AppConfig;
+import wiki.scene.shop.entity.CreateOrderInfo;
 import wiki.scene.shop.entity.GoodsDetailInfo;
 import wiki.scene.shop.entity.ListGoodsInfo;
 import wiki.scene.shop.event.AddGoods2CartEvent;
+import wiki.scene.shop.http.api.ApiUtil;
 import wiki.scene.shop.mvp.BaseBackMvpFragment;
+import wiki.scene.shop.ui.car.PayOrderFragment;
 import wiki.scene.shop.ui.indiana.mvpview.IGoodsDetailView;
 import wiki.scene.shop.ui.indiana.presenter.GoodsDetailPresenter;
 import wiki.scene.shop.utils.DateUtil;
@@ -163,6 +168,22 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
     TextView surplusPersonTimes;
     @BindView(R.id.my_luck_code)
     TextView myLuckCode;
+    @BindView(R.id.layout_tuhaoRank)
+    RelativeLayout layoutTuhaoRank;
+    @BindView(R.id.layout_join_record)
+    LinearLayout layoutJoinRecord;
+    @BindView(R.id.layout_guess_like)
+    LinearLayout layoutGuessLike;
+    @BindView(R.id.danmu_avater)
+    ImageView danmuAvater;
+    @BindView(R.id.danmu_nickname)
+    TextView danmuNickname;
+    @BindView(R.id.danmu_person_time)
+    TextView danmuPersonTime;
+    @BindView(R.id.layout_danmu)
+    LinearLayout layoutDanmu;
+    @BindView(R.id.danmu_time)
+    TextView danmuTime;
 
     //土豪榜adapter
     private List<GoodsDetailInfo.BuyersInfo> tuhaoRankList = new ArrayList<>();
@@ -216,6 +237,7 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
         hideLoading();
         initView();
         presenter.getGoodsDetailInfo(true, cycleId);
+        getDanmu();
     }
 
     private void initView() {
@@ -254,6 +276,10 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
 
     @OnClick(R.id.toolbar_share)
     public void onClickToolbarShare() {
+        if (goodsInfo == null) {
+            return;
+        }
+
         ShareBoardConfig config = new ShareBoardConfig();
         config.setIndicatorVisibility(false);
         config.setShareboardBackgroundColor(getResources().getColor(R.color.white));
@@ -266,22 +292,17 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
                 .setShareboardclickCallback(new ShareBoardlistener() {
                     @Override
                     public void onclick(SnsPlatform snsPlatform, SHARE_MEDIA share_media) {
-                        if (share_media == SHARE_MEDIA.SINA) {
-                            UMImage image = new UMImage(_mActivity, ShopApplication.userInfo.getAvatar());
-                            new ShareAction(_mActivity).withText("测试的标题<a href='http://www.baidu.com'>链接</a>").withMedia(image)
-                                    .setPlatform(share_media)
-                                    .setCallback(shareListener)
-                                    .share();
-                        } else {
-                            UMWeb web = new UMWeb("http://www.baidu.com");
-                            web.setTitle("来自分享面板标题");
-                            web.setDescription("来自分享面板内容");
-                            web.setThumb(new UMImage(_mActivity, "https://mobile.umeng.com/images/pic/home/social/img-1.png"));
-                            new ShareAction(_mActivity).withMedia(web)
-                                    .setPlatform(share_media)
-                                    .setCallback(shareListener)
-                                    .share();
+                        UMWeb web = new UMWeb("http://www.baidu.com");
+                        web.setTitle(goodsInfo.getTitle());
+                        web.setDescription(goodsInfo.getSecond_title());
+                        if (goodsInfo.getImages() != null && goodsInfo.getImages().size() > 0) {
+                            web.setThumb(new UMImage(_mActivity, goodsInfo.getImages().get(0)));
                         }
+                        new ShareAction(_mActivity).withMedia(web)
+                                .setPlatform(share_media)
+                                .setCallback(shareListener)
+                                .share();
+
                     }
                 })
                 .open(config);
@@ -334,6 +355,11 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
         presenter.addGoods2Car(cycleId);
     }
 
+    @OnClick(R.id.immediately_indiana)
+    public void onClickImmeduatelyIndiana() {
+        presenter.createOrder(_mActivity);
+    }
+
     @Override
     public GoodsDetailPresenter initPresenter() {
         return new GoodsDetailPresenter(this);
@@ -353,6 +379,8 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
 
     @Override
     public void onDestroyView() {
+        danmuFlag = false;
+        OkGo.getInstance().cancelTag(ApiUtil.DANMU_TAG);
         super.onDestroyView();
         unbinder.unbind();
     }
@@ -433,13 +461,15 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
                 announcedWinnerIp.setText(String.format(getString(R.string.user_ip_xx), winnerInfo.getIp()));
                 winnerJoinTimes.setText(String.format(getString(R.string.this_time_join_xx_person_times), winnerInfo.getLucky_user_codes().size()));
                 announcedLuckCode.setText(String.format(getString(R.string.luck_code_xx), goodsInfo.getLucky_code()));
-                announcedTime.setText(String.format(getString(R.string.announced_time_xx), DateUtil.timeStampToStr(goodsInfo.getOpenTime())));
+                announcedTime.setText(String.format(getString(R.string.announced_time_xx), DateUtil.timeStampToStr(goodsInfo.getOpen_time())));
             }
 
             if (goodsInfo.getMy_source() == 0) {
                 hasJoin.setVisibility(View.GONE);
+                noJoin.setVisibility(View.VISIBLE);
             } else {
                 hasJoin.setVisibility(View.VISIBLE);
+                noJoin.setVisibility(View.GONE);
                 goinTimes.setText(String.valueOf(goodsInfo.getMy_source()));
                 myLuckCode.setText(String.format(getString(R.string.luck_code_xx), goodsInfo.getMy_codes().get(0)));
             }
@@ -455,15 +485,80 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
         statusLayout.showFailed(retryListener);
     }
 
+    private int currentDanmuPosition = 0;
+    private boolean danmuFlag = true;
+
     @Override
-    public void bindJoinRecord(List<GoodsDetailInfo.LogInfo> logInfoList) {
+    public void bindJoinRecord(final List<GoodsDetailInfo.LogInfo> logInfoList) {
         try {
             joinRecordList.clear();
             joinRecordList.addAll(logInfoList);
             joinRecordAdapter.notifyDataSetChanged();
+            layoutJoinRecord.setVisibility(joinRecordList.size() == 0 ? View.GONE : View.VISIBLE);
+            if (logInfoList.size() > 0) {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            while (danmuFlag) {
+                                Thread.sleep(AppConfig.SHOW_DANMU_DELAY);
+                                _mActivity.runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        try {
+                                            if (layoutDanmu.isShown()) {
+                                                layoutDanmu.setVisibility(View.GONE);
+                                            } else {
+                                                layoutDanmu.setVisibility(View.VISIBLE);
+                                                Glide.with(_mActivity).load(ShopApplication.configInfo.getFile_domain() + logInfoList.get(currentDanmuPosition % logInfoList.size()).getAvatar()).bitmapTransform(new CropCircleTransformation(_mActivity)).into(danmuAvater);
+                                                danmuNickname.setText(logInfoList.get(currentDanmuPosition % logInfoList.size()).getNickname());
+                                                danmuPersonTime.setText(String.valueOf(logInfoList.get(currentDanmuPosition % logInfoList.size()).getNumber()));
+                                                danmuTime.setText(DateUtil.convertTimeToFormat(logInfoList.get(currentDanmuPosition % logInfoList.size()).getCreate_time()));
+                                                currentDanmuPosition++;
+                                            }
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                });
+                            }
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }).start();
+            } else {
+                layoutDanmu.setVisibility(View.GONE);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void getDanmu() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(AppConfig.GET_DANMU_DELAY);
+                    _mActivity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                while (danmuFlag) {
+                                    presenter.getDanmu(cycleId);
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 
     @Override
@@ -472,6 +567,7 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
             tuhaoRankList.clear();
             tuhaoRankList.addAll(buyersInfoList);
             tuhaoRankAdapter.notifyDataSetChanged();
+            layoutTuhaoRank.setVisibility(tuhaoRankList.size() == 0 ? View.GONE : View.VISIBLE);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -479,9 +575,19 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
 
     @Override
     public void bindGuessLike(List<ListGoodsInfo> listGoodsInfoList) {
-        guessLiskList.clear();
-        guessLiskList.addAll(listGoodsInfoList);
-        guessLikeAdapter.notifyDataSetChanged();
+        try {
+            guessLiskList.clear();
+            guessLiskList.addAll(listGoodsInfoList);
+            guessLikeAdapter.notifyDataSetChanged();
+            layoutGuessLike.setVisibility(guessLiskList.size() == 0 ? View.GONE : View.VISIBLE);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void createOrderSuccess(CreateOrderInfo info) {
+        start(PayOrderFragment.newInstance(info));
     }
 
     private void bindBanner(List<String> images) {

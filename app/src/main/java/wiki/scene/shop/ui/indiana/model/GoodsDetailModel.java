@@ -4,7 +4,10 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.model.HttpParams;
 import com.lzy.okgo.model.Response;
 
+import java.util.List;
+
 import wiki.scene.shop.entity.AddCartResultInfo;
+import wiki.scene.shop.entity.CreateOrderInfo;
 import wiki.scene.shop.entity.GoodsDetailInfo;
 import wiki.scene.shop.http.api.ApiUtil;
 import wiki.scene.shop.http.base.LzyResponse;
@@ -68,6 +71,61 @@ public class GoodsDetailModel {
                     public void onFinish() {
                         super.onFinish();
                         resultListener.onFinish();
+                    }
+                });
+    }
+
+    /**
+     * 创建订单
+     */
+    public void createOrder(HttpParams params, final HttpResultListener<CreateOrderInfo> resultListener) {
+        OkGo.<LzyResponse<CreateOrderInfo>>post(ApiUtil.API_PRE + ApiUtil.CREATE_ORDER)
+                .tag(ApiUtil.CREATE_ORDER_TAG)
+                .params(params)
+                .execute(new JsonCallback<LzyResponse<CreateOrderInfo>>() {
+                    @Override
+                    public void onSuccess(Response<LzyResponse<CreateOrderInfo>> response) {
+                        resultListener.onSuccess(response.body().data);
+                    }
+
+                    @Override
+                    public void onError(Response<LzyResponse<CreateOrderInfo>> response) {
+                        super.onError(response);
+                        if (response.getException().getMessage().isEmpty()) {
+                            resultListener.onFail(response.message());
+                        } else {
+                            resultListener.onFail(response.getException().getMessage());
+                        }
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        super.onFinish();
+                        resultListener.onFinish();
+                    }
+                });
+    }
+
+
+    public void getDanmu(HttpParams params, final HttpResultListener<List<GoodsDetailInfo.LogInfo>> listener){
+        OkGo.<LzyResponse<List<GoodsDetailInfo.LogInfo>>>get(ApiUtil.API_PRE+ApiUtil.DANMU)
+                .tag(ApiUtil.DANMU_TAG)
+                .params(params)
+                .execute(new JsonCallback<LzyResponse<List<GoodsDetailInfo.LogInfo>>>() {
+                    @Override
+                    public void onSuccess(Response<LzyResponse<List<GoodsDetailInfo.LogInfo>>> response) {
+                        listener.onSuccess(response.body().data);
+                    }
+
+                    @Override
+                    public void onError(Response<LzyResponse<List<GoodsDetailInfo.LogInfo>>> response) {
+                        super.onError(response);
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        super.onFinish();
+                        listener.onFinish();
                     }
                 });
     }

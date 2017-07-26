@@ -72,7 +72,9 @@ public class ApiUtil {
     //产品详情
     public static final String GOODS_DETAIL="/cycle/overview";
     public static final String GOODS_DETAIL_TAG="GOODS_DETAIL_TAG";
-
+    //弹幕
+    public static final String DANMU="/cycle/danmu";
+    public static final String DANMU_TAG="DANMU_TAG";
 
     /**
      * Case By:创建参数基础信息

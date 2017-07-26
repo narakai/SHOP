@@ -357,8 +357,12 @@ public class DateUtil {
      */
     public static String convertTimeToFormat(long timeStamp) {
         long curTime = System.currentTimeMillis() / (long) 1000;
-        long time = curTime - timeStamp;
-
+        long time;
+        if (String.valueOf(timeStamp).length() > 10) {
+            time = curTime - timeStamp / 1000;
+        } else {
+            time = curTime - timeStamp;
+        }
         if (time < 60 && time >= 0) {
             return "刚刚";
         } else if (time >= 60 && time < 3600) {

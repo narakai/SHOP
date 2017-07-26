@@ -139,12 +139,10 @@ public class CarPresenter extends BasePresenter<ICarView> {
                     }
                 });
             } else {
-                mView.showMessage(context.getString(R.string.permission_fail_notice));
+                mView.showMessage(context.getString(R.string.you_has_no_login_please_login));
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
     }
 }

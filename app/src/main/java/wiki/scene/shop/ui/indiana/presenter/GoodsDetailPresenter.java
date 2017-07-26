@@ -1,11 +1,16 @@
 package wiki.scene.shop.ui.indiana.presenter;
 
+import android.content.Context;
+
 import com.lzy.okgo.model.HttpParams;
+
+import java.util.List;
 
 import wiki.scene.loadmore.utils.SceneLogUtil;
 import wiki.scene.shop.R;
 import wiki.scene.shop.ShopApplication;
 import wiki.scene.shop.entity.AddCartResultInfo;
+import wiki.scene.shop.entity.CreateOrderInfo;
 import wiki.scene.shop.entity.GoodsDetailInfo;
 import wiki.scene.shop.http.listener.HttpResultListener;
 import wiki.scene.shop.mvp.BasePresenter;
@@ -32,16 +37,16 @@ public class GoodsDetailPresenter extends BasePresenter<IGoodsDetailView> {
                 mView.showLoading(0);
             }
             HttpParams params = new HttpParams();
-            params.put("cycle_id", 1);
+            params.put("cycle_id", cycleId);
             if (ShopApplication.hasLogin && ShopApplication.userInfo != null) {
                 params.put("user_id", ShopApplication.userInfo.getUser_id());
             }
             model.getDetailInfo(params, new HttpResultListener<GoodsDetailInfo>() {
                 @Override
                 public void onSuccess(GoodsDetailInfo data) {
-                    if(isFirst){
+                    if (isFirst) {
                         mView.hideLoading();
-                    }else{
+                    } else {
                         mView.refreshComplete();
                     }
                     mView.bindGoodsInfo(data.getData());
@@ -52,9 +57,9 @@ public class GoodsDetailPresenter extends BasePresenter<IGoodsDetailView> {
 
                 @Override
                 public void onFail(String message) {
-                    if(isFirst){
+                    if (isFirst) {
                         mView.showFailPage();
-                    }else{
+                    } else {
                         mView.showMessage(message);
                         mView.refreshComplete();
                     }
@@ -99,5 +104,60 @@ public class GoodsDetailPresenter extends BasePresenter<IGoodsDetailView> {
                 mView.hideProgressDialog();
             }
         });
+    }
+
+    public void createOrder(Context context) {
+        try {
+            mView.showProgressDialog(R.string.loading);
+            HttpParams params = new HttpParams();
+            if (ShopApplication.hasLogin) {
+                params.put("user_id", ShopApplication.userInfo.getUser_id());
+                model.createOrder(params, new HttpResultListener<CreateOrderInfo>() {
+                    @Override
+                    public void onSuccess(CreateOrderInfo data) {
+                        mView.createOrderSuccess(data);
+                    }
+
+                    @Override
+                    public void onFail(String message) {
+                        mView.showMessage(message);
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        mView.hideProgressDialog();
+                    }
+                });
+            } else {
+                mView.showMessage(context.getString(R.string.you_has_no_login_please_login));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void getDanmu(String cycleId) {
+        try {
+            HttpParams params = new HttpParams();
+            params.put("cycle_id", cycleId);
+            model.getDanmu(params, new HttpResultListener<List<GoodsDetailInfo.LogInfo>>() {
+                @Override
+                public void onSuccess(List<GoodsDetailInfo.LogInfo> data) {
+                        mView.bindJoinRecord(data);
+                }
+
+                @Override
+                public void onFail(String message) {
+
+                }
+
+                @Override
+                public void onFinish() {
+
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

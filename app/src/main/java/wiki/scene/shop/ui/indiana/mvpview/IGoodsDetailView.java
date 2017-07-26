@@ -4,6 +4,7 @@ import android.support.annotation.StringRes;
 
 import java.util.List;
 
+import wiki.scene.shop.entity.CreateOrderInfo;
 import wiki.scene.shop.entity.GoodsDetailInfo;
 import wiki.scene.shop.entity.ListGoodsInfo;
 import wiki.scene.shop.mvp.BaseView;
@@ -34,4 +35,6 @@ public interface IGoodsDetailView extends BaseView {
     void bindTuhaoRank(List<GoodsDetailInfo.BuyersInfo> buyersInfo);
 
     void bindGuessLike(List<ListGoodsInfo> listGoodsInfoList);
+
+    void createOrderSuccess(CreateOrderInfo info);
 }

@@ -62,7 +62,7 @@ public class GoodsDetailInfo {
         private List<String> my_codes;
         private List<ListGoodsInfo> hot;
         private WinnerInfo winner;
-        private long openTime;
+        private long open_time;
 
         public String getId() {
             return id;
@@ -184,12 +184,12 @@ public class GoodsDetailInfo {
             this.winner = winner;
         }
 
-        public long getOpenTime() {
-            return openTime;
+        public long getOpen_time() {
+            return open_time;
         }
 
-        public void setOpenTime(long openTime) {
-            this.openTime = openTime;
+        public void setOpen_time(long open_time) {
+            this.open_time = open_time;
         }
     }
 

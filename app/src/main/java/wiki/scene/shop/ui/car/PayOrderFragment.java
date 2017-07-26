@@ -67,6 +67,8 @@ public class PayOrderFragment extends BaseBackMvpFragment<IPayOrderView, PayOrde
     ImageView radioBalancePayImage;
     @BindView(R.id.radio_balance_pay)
     LinearLayout radioBalancePay;
+    @BindView(R.id.need_price)
+    TextView needPrice;
 
     private CreateOrderInfo createOrderInfo;
 
@@ -115,17 +117,19 @@ public class PayOrderFragment extends BaseBackMvpFragment<IPayOrderView, PayOrde
         PayOrderGoodsAdapter adapter = new PayOrderGoodsAdapter(_mActivity, createOrderInfo.getCycles());
         goodsListview.setAdapter(adapter);
         totalGoodsCount.setText(String.format(getString(R.string.total_xx_goods), createOrderInfo.getCycles().size()));
-        totalPrice.setText(String.valueOf(PriceUtil.getPrice(createOrderInfo.getCost())));
-        userMoney.setText(String.valueOf(PriceUtil.getPrice(createOrderInfo.getUser_money())));
+        totalPrice.setText(PriceUtil.getPrice(createOrderInfo.getCost()));
+        userMoney.setText(PriceUtil.getPrice(createOrderInfo.getUser_money()));
         if (createOrderInfo.getUser_money() > createOrderInfo.getCost()) {
             isBalancePay(AppConfig.PAY_TYPE_BALANCE);
         } else {
             isBalancePay(AppConfig.DEFAULT_PAY_WAY);
         }
+
+        needPrice.setText(PriceUtil.getPrice(createOrderInfo.getCost()));
     }
 
     private void isBalancePay(int type) {
-        if(type==payType){
+        if (type == payType) {
             return;
         }
         if (type == AppConfig.PAY_TYPE_BALANCE) {
@@ -203,6 +207,7 @@ public class PayOrderFragment extends BaseBackMvpFragment<IPayOrderView, PayOrde
                 choosedRed = (CreateOrderInfo.CouponsBean) data.getSerializable("red");
                 if (choosedRed != null) {
                     redName.setText(choosedRed.getTitle());
+                    needPrice.setText(PriceUtil.getPrice(createOrderInfo.getCost() - choosedRed.getCost() < 0 ? 0 : createOrderInfo.getCost() - choosedRed.getCost()));
                 }
             }
         }

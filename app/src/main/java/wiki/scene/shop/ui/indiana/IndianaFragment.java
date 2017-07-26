@@ -34,6 +34,7 @@ import wiki.scene.loadmore.utils.PtrLocalDisplay;
 import wiki.scene.shop.R;
 import wiki.scene.shop.ShopApplication;
 import wiki.scene.shop.adapter.IndianaAdapter;
+import wiki.scene.shop.config.AppConfig;
 import wiki.scene.shop.entity.IndianaIndexInfo;
 import wiki.scene.shop.entity.ListGoodsInfo;
 import wiki.scene.shop.entity.SliderInfo;
@@ -196,7 +197,7 @@ public class IndianaFragment extends BaseMainMvpFragment<IIndianaView, IndianaPr
             public void run() {
                 try {
                     while (isWork) {
-                        Thread.sleep(10 * 1000);
+                        Thread.sleep(AppConfig.GET_WINNER_NOTICE_DELAY);
                         _mActivity.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {

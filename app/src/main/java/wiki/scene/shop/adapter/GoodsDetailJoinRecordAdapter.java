@@ -8,11 +8,15 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import jp.wasabeef.glide.transformations.CropCircleTransformation;
 import wiki.scene.shop.R;
+import wiki.scene.shop.ShopApplication;
 import wiki.scene.shop.entity.GoodsDetailInfo;
 import wiki.scene.shop.utils.DateUtil;
 
@@ -58,10 +62,11 @@ public class GoodsDetailJoinRecordAdapter extends BaseAdapter {
         } else {
             viewHolder = (JoinRecordViewHolder) convertView.getTag();
         }
-        GoodsDetailInfo.LogInfo info=list.get(position);
+        GoodsDetailInfo.LogInfo info = list.get(position);
         viewHolder.userInfo.setText(String.format(context.getString(R.string.user_info), info.getNickname(), info.getArea(), info.getIp()));
-        viewHolder.joinTimes.setText(String.format(context.getString(R.string.join_xx_times),info.getNumber()));
+        viewHolder.joinTimes.setText(String.format(context.getString(R.string.join_xx_times), info.getNumber()));
         viewHolder.joinTime.setText(DateUtil.timeStampToStr(info.getCreate_time()));
+        Glide.with(context).load(ShopApplication.configInfo.getFile_domain() + info.getAvatar()).bitmapTransform(new CropCircleTransformation(context)).into(viewHolder.userAvater);
         return convertView;
     }
 
