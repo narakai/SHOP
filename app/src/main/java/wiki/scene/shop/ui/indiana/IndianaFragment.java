@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.lzy.okgo.OkGo;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 
@@ -38,6 +39,7 @@ import wiki.scene.shop.entity.ListGoodsInfo;
 import wiki.scene.shop.entity.SliderInfo;
 import wiki.scene.shop.entity.WinningNoticeInfo;
 import wiki.scene.shop.event.StartBrotherEvent;
+import wiki.scene.shop.http.api.ApiUtil;
 import wiki.scene.shop.itemDecoration.IndianaItemDecoration;
 import wiki.scene.shop.mvp.BaseMainMvpFragment;
 import wiki.scene.shop.ui.indiana.mvpview.IIndianaView;
@@ -104,6 +106,8 @@ public class IndianaFragment extends BaseMainMvpFragment<IIndianaView, IndianaPr
     private boolean priceUp2Down = true;
     //数据
     private IndianaIndexInfo indianaIndexInfo;
+    //是否允许获取夺宝信息
+    private boolean isWork = true;
 
     public static IndianaFragment newInstance() {
         IndianaFragment fragment = new IndianaFragment();
@@ -181,6 +185,30 @@ public class IndianaFragment extends BaseMainMvpFragment<IIndianaView, IndianaPr
                 EventBus.getDefault().post(new StartBrotherEvent(GoodsDetailFragment.newInstance(list.get(position).getId())));
             }
         });
+        getWinnerNotice();
+
+    }
+
+    private void getWinnerNotice() {
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    while (isWork) {
+                        Thread.sleep(10 * 1000);
+                        _mActivity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                presenter.getWinnerNotice();
+                            }
+                        });
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        thread.start();
     }
 
     @Override
@@ -354,6 +382,9 @@ public class IndianaFragment extends BaseMainMvpFragment<IIndianaView, IndianaPr
         if (indianaHeaderView != null && indianaHeaderView.noticeTextView != null) {
             indianaHeaderView.noticeTextView.stopAutoScroll();
         }
+        isWork=false;
+        //取消请求
+        OkGo.getInstance().cancelTag(ApiUtil.WINNER_NOTICE_TAG);
         super.onDestroyView();
     }
 
@@ -473,17 +504,23 @@ public class IndianaFragment extends BaseMainMvpFragment<IIndianaView, IndianaPr
         }
 
         void bindIndianaNotice(List<WinningNoticeInfo> list) {
-            List<String> stringList = new ArrayList<>();
-            for (WinningNoticeInfo info : list) {
-                String str = "恭喜<font color='#2FACFF'>" + info.getNickname() + "</font>花费" +
-                        "<font color='#2FACFF'>" + info.getCost() + "元</font>" + "夺得<font color='#2FACFF'>" + info.getProduct_name() + "</font>";
-                stringList.add(str);
+            try{
+                noticeTextView.removeAllViews();
+                List<String> stringList = new ArrayList<>();
+                for (WinningNoticeInfo info : list) {
+                    String str = "恭喜<font color='#2FACFF'>" + info.getNickname() + "</font>花费" +
+                            "<font color='#2FACFF'>" + info.getCost() + "元</font>" + "夺得<font color='#2FACFF'>" + info.getProduct_name() + "</font>";
+                    stringList.add(str);
+                }
+                noticeTextView.setTextList(stringList);//加入显示内容,集合类型
+                noticeTextView.setText(11, 0, getResources().getColor(R.color.text_color_des));//设置属性,具体跟踪源码
+                noticeTextView.setTextStillTime(5000);//设置停留时长间隔
+                noticeTextView.setAnimTime(300);//设置进入和退出的时间间隔
+                noticeTextView.startAutoScroll();
+            }catch (Exception e){
+                e.printStackTrace();
             }
-            noticeTextView.setTextList(stringList);//加入显示内容,集合类型
-            noticeTextView.setText(11, 0, getResources().getColor(R.color.text_color_des));//设置属性,具体跟踪源码
-            noticeTextView.setTextStillTime(5000);//设置停留时长间隔
-            noticeTextView.setAnimTime(300);//设置进入和退出的时间间隔
-            noticeTextView.startAutoScroll();
+
         }
 
     }

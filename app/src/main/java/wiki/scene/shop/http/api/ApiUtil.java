@@ -66,6 +66,9 @@ public class ApiUtil {
     //获取支付信息
     public static final String PAY="/cycle/order/pay";
     public static final String PAY_TAG="PAY_TAG";
+    //首页的中奖提示
+    public static final String WINNER_NOTICE="/winning_notice";
+    public static final String WINNER_NOTICE_TAG="WINNER_NOTICE_TAG";
 
 
 

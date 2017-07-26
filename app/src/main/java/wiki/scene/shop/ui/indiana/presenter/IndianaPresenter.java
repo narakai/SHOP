@@ -1,6 +1,7 @@
 package wiki.scene.shop.ui.indiana.presenter;
 
-import java.util.ArrayList;
+import android.content.Context;
+
 import java.util.List;
 
 import wiki.scene.shop.R;
@@ -46,17 +47,6 @@ public class IndianaPresenter extends BasePresenter<IIndianaView> {
                         }
                         indianaView.getDataSuccess(data, isRefresh);
                         indianaView.bindBannerData(data.getSlider());
-                        //测试的
-                        List<WinningNoticeInfo> list = new ArrayList<>();
-                        for (int i = 0; i < 3; i++) {
-                            WinningNoticeInfo winningNoticeInfo = new WinningNoticeInfo();
-                            winningNoticeInfo.setCost(10 + i);
-                            winningNoticeInfo.setCycle_code(12345612);
-                            winningNoticeInfo.setNickname("南极仙人");
-                            winningNoticeInfo.setProduct_name("秒开话费50元");
-                            list.add(winningNoticeInfo);
-                        }
-                        data.setWinning_notice(list);
                         indianaView.bindWinnerNotice(data.getWinning_notice());
                     }
                 }
@@ -77,6 +67,32 @@ public class IndianaPresenter extends BasePresenter<IIndianaView> {
                 }
             });
         }
+    }
+
+    /**
+     * 获取中奖通知
+     */
+    public void getWinnerNotice() {
+        try {
+            model.getWinNotice(new HttpResultListener<List<WinningNoticeInfo>>() {
+                @Override
+                public void onSuccess(List<WinningNoticeInfo> data) {
+                    indianaView.bindWinnerNotice(data);
+                }
+
+                @Override
+                public void onFail(String message) {
+                }
+
+                @Override
+                public void onFinish() {
+
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
 }
