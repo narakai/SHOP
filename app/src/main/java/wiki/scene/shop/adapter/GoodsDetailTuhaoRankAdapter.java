@@ -9,11 +9,16 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import jp.wasabeef.glide.transformations.CropCircleTransformation;
 import wiki.scene.shop.R;
+import wiki.scene.shop.ShopApplication;
+import wiki.scene.shop.entity.GoodsDetailInfo;
 
 /**
  * Case By:商品详情土豪榜
@@ -24,10 +29,10 @@ import wiki.scene.shop.R;
 public class GoodsDetailTuhaoRankAdapter extends BaseAdapter {
 
     private Context context;
-    private List<String> list;
+    private List<GoodsDetailInfo.BuyersInfo> list;
     private LayoutInflater inflater;
 
-    public GoodsDetailTuhaoRankAdapter(Context context, List<String> list) {
+    public GoodsDetailTuhaoRankAdapter(Context context, List<GoodsDetailInfo.BuyersInfo> list) {
         this.context = context;
         this.list = list;
         inflater = LayoutInflater.from(context);
@@ -59,8 +64,10 @@ public class GoodsDetailTuhaoRankAdapter extends BaseAdapter {
             viewHolder = (TuhaoRankViewHolder) convertView.getTag();
         }
 
-        viewHolder.username.setText(list.get(position));
+        viewHolder.username.setText(list.get(position).getNickname());
         viewHolder.rank.setText("NO." + (position + 1));
+        viewHolder.personTimes.setText(String.valueOf(list.get(position).getNumber()));
+        Glide.with(context).load(ShopApplication.configInfo.getFile_domain()+list.get(position).getAvatar()).bitmapTransform(new CropCircleTransformation(context)).into(viewHolder.userAvater);
         if (position == 0) {
             viewHolder.rank.setTextColor(Color.parseColor("#F8B551"));
         } else if (position == 1) {

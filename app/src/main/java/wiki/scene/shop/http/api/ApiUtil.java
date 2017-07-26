@@ -69,7 +69,9 @@ public class ApiUtil {
     //首页的中奖提示
     public static final String WINNER_NOTICE="/winning_notice";
     public static final String WINNER_NOTICE_TAG="WINNER_NOTICE_TAG";
-
+    //产品详情
+    public static final String GOODS_DETAIL="/cycle/overview";
+    public static final String GOODS_DETAIL_TAG="GOODS_DETAIL_TAG";
 
 
     /**

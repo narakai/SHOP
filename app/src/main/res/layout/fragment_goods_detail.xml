@@ -130,11 +130,11 @@
                                 android:textColor="@color/text_color_des"
                                 android:textSize="@dimen/text_size_small" />
 
+                            <include layout="@layout/fragment_goods_detail_status_ongoing" />
+
                             <include
                                 layout="@layout/fragment_goods_detail_status_pending"
                                 android:visibility="gone" />
-
-                            <include layout="@layout/fragment_goods_detail_status_ongoing" />
 
                             <include
                                 layout="@layout/fragment_goods_detail_status_announced"
@@ -182,6 +182,7 @@
                                         android:textSize="@dimen/text_size_small" />
 
                                     <TextView
+                                        android:id="@+id/my_luck_code"
                                         android:layout_width="0dp"
                                         android:layout_height="wrap_content"
                                         android:layout_marginLeft="10dp"
@@ -326,9 +327,9 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_below="@+id/list_rules"
-                                android:numColumns="3"
                                 android:layout_marginTop="8dp"
                                 android:horizontalSpacing="0dp"
+                                android:numColumns="3"
                                 android:verticalSpacing="0dp" />
                         </RelativeLayout>
 
@@ -343,7 +344,7 @@
                                 style="@style/text_title_13sp_style"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:drawableLeft="@drawable/ic_tuhao_rank"
+                                android:drawableLeft="@drawable/ic_join_record"
                                 android:drawablePadding="8dp"
                                 android:gravity="center_vertical"
                                 android:padding="8dp"
@@ -366,14 +367,14 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="13.33dp"
+                                android:layout_marginLeft="50dp"
+                                android:layout_marginRight="50dp"
                                 android:layout_marginTop="20dp"
                                 android:background="@drawable/btn_theme"
                                 android:gravity="center"
                                 android:paddingBottom="10dp"
                                 android:paddingTop="10dp"
                                 android:text="@string/see_all"
-                                android:layout_marginRight="50dp"
-                                android:layout_marginLeft="50dp"
                                 android:textColor="@color/white"
                                 android:textSize="@dimen/text_size_big" />
                         </LinearLayout>

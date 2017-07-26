@@ -27,7 +27,7 @@ public class CartInfo  implements Serializable {
 
     private int id;
     private int user_id;
-    private int product_id;
+    private String product_id;
     private int cycle_id;
     private int number;
     private int status;
@@ -56,11 +56,11 @@ public class CartInfo  implements Serializable {
         this.user_id = user_id;
     }
 
-    public int getProduct_id() {
+    public String getProduct_id() {
         return product_id;
     }
 
-    public void setProduct_id(int product_id) {
+    public void setProduct_id(String product_id) {
         this.product_id = product_id;
     }
 

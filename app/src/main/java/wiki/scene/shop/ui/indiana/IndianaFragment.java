@@ -45,6 +45,7 @@ import wiki.scene.shop.mvp.BaseMainMvpFragment;
 import wiki.scene.shop.ui.indiana.mvpview.IIndianaView;
 import wiki.scene.shop.ui.indiana.presenter.IndianaPresenter;
 import wiki.scene.shop.utils.GlideImageLoader;
+import wiki.scene.shop.utils.PriceUtil;
 import wiki.scene.shop.utils.ToastUtils;
 import wiki.scene.shop.widgets.RatioImageView;
 import wiki.scene.shop.widgets.VerticalTextview;
@@ -361,7 +362,7 @@ public class IndianaFragment extends BaseMainMvpFragment<IIndianaView, IndianaPr
     @Override
     public void bindWinnerNotice(List<WinningNoticeInfo> noticeInfoList) {
         if (noticeInfoList != null && noticeInfoList.size() > 0)
-            indianaHeaderView.bindIndianaNotice(noticeInfoList);
+            indianaHeaderView.updateWinnerNotice(noticeInfoList);
     }
 
 
@@ -477,6 +478,7 @@ public class IndianaFragment extends BaseMainMvpFragment<IIndianaView, IndianaPr
             banner.setBannerTitles(bannerTitles);
             banner.setImages(bannerImageUrls);
             banner.start();
+            bindIndianaNotice();
         }
 
         void bindNewestGoods() {
@@ -503,15 +505,11 @@ public class IndianaFragment extends BaseMainMvpFragment<IIndianaView, IndianaPr
             banner.start();
         }
 
-        void bindIndianaNotice(List<WinningNoticeInfo> list) {
+        void bindIndianaNotice() {
             try{
                 noticeTextView.removeAllViews();
+                noticeTextView.clearAnimation();
                 List<String> stringList = new ArrayList<>();
-                for (WinningNoticeInfo info : list) {
-                    String str = "恭喜<font color='#2FACFF'>" + info.getNickname() + "</font>花费" +
-                            "<font color='#2FACFF'>" + info.getCost() + "元</font>" + "夺得<font color='#2FACFF'>" + info.getProduct_name() + "</font>";
-                    stringList.add(str);
-                }
                 noticeTextView.setTextList(stringList);//加入显示内容,集合类型
                 noticeTextView.setText(11, 0, getResources().getColor(R.color.text_color_des));//设置属性,具体跟踪源码
                 noticeTextView.setTextStillTime(5000);//设置停留时长间隔
@@ -521,6 +519,20 @@ public class IndianaFragment extends BaseMainMvpFragment<IIndianaView, IndianaPr
                 e.printStackTrace();
             }
 
+        }
+
+        void updateWinnerNotice(List<WinningNoticeInfo> list){
+            try{
+                List<String> stringList=new ArrayList<>();
+                for (WinningNoticeInfo info : list) {
+                    String str = "恭喜<font color='#2FACFF'>" + info.getNickname() + "</font>花费" +
+                            "<font color='#2FACFF'>" + PriceUtil.getPrice(info.getCost()) + "元</font>" + "夺得【"+info.getCycle_code()+"期】<font color='#2FACFF'>" + info.getProduct_name() + "</font>";
+                    stringList.add(str);
+                }
+                noticeTextView.setTextList(stringList);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
         }
 
     }

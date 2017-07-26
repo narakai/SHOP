@@ -144,12 +144,12 @@
     <string name="wechat_pay">微信支付</string>
     <string name="alipay_pay">支付宝支付</string>
     <string name="pay_order">支付订单</string>
-    <string name="goods_times_code">期号：%1$d</string>
+    <string name="goods_times_code">期号：%1$s</string>
     <string name="pending_count_down">揭晓倒计时</string>
     <string name="reckon_detail">计算详情</string>
     <string name="your_has_no_join">您还没参与，快去参与吧~</string>
     <string name="your_joined">您参与了</string>
-    <string name="luck_code_xx">幸运号码：%1$d</string>
+    <string name="luck_code_xx">幸运号码：%1$s</string>
     <string name="see_all">查看全部</string>
     <string name="total_need_xx_person_times">总需%1$d人次</string>
     <string name="surplus_xx_person_times">剩余：%1$d人次</string>
@@ -170,7 +170,7 @@
     <string name="join_record">参与记录</string>
     <string name="joined">参与了</string>
     <string name="user_info">%1$s（%2$s&#160;&#160;&#160;&#160;%3$s）</string>
-    <string name="join_xx_times">参与了%1$s人次</string>
+    <string name="join_xx_times">参与了%1$d人次</string>
     <string name="your_join">您参与：</string>
     <string name="see_indiana_code">查看夺宝号</string>
     <string name="winner">获得者：</string>

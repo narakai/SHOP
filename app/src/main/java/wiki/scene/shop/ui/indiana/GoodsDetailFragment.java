@@ -13,6 +13,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
@@ -22,6 +23,7 @@ import com.umeng.socialize.shareboard.ShareBoardConfig;
 import com.umeng.socialize.shareboard.SnsPlatform;
 import com.umeng.socialize.utils.ShareBoardlistener;
 import com.youth.banner.Banner;
+import com.youth.banner.BannerConfig;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -33,6 +35,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import cn.iwgang.countdownview.CountdownView;
+import jp.wasabeef.glide.transformations.CropCircleTransformation;
 import wiki.scene.loadmore.PtrClassicFrameLayout;
 import wiki.scene.loadmore.PtrDefaultHandler;
 import wiki.scene.loadmore.PtrFrameLayout;
@@ -42,11 +45,14 @@ import wiki.scene.shop.ShopApplication;
 import wiki.scene.shop.adapter.GoodsDetailJoinRecordAdapter;
 import wiki.scene.shop.adapter.GoodsDetailTuhaoRankAdapter;
 import wiki.scene.shop.adapter.GuessLikeAdapter;
+import wiki.scene.shop.entity.GoodsDetailInfo;
 import wiki.scene.shop.entity.ListGoodsInfo;
 import wiki.scene.shop.event.AddGoods2CartEvent;
 import wiki.scene.shop.mvp.BaseBackMvpFragment;
 import wiki.scene.shop.ui.indiana.mvpview.IGoodsDetailView;
 import wiki.scene.shop.ui.indiana.presenter.GoodsDetailPresenter;
+import wiki.scene.shop.utils.DateUtil;
+import wiki.scene.shop.utils.GlideImageLoader;
 import wiki.scene.shop.utils.ToastUtils;
 import wiki.scene.shop.widgets.CustomListView;
 import wiki.scene.shop.widgets.CustomeGridView;
@@ -153,25 +159,35 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
     TextView joinCar;
     @BindView(R.id.immediately_indiana)
     TextView immediatelyIndiana;
+    @BindView(R.id.surplus_person_times)
+    TextView surplusPersonTimes;
+    @BindView(R.id.my_luck_code)
+    TextView myLuckCode;
 
     //土豪榜adapter
-    private List<String> tuhaoRankList = new ArrayList<>();
+    private List<GoodsDetailInfo.BuyersInfo> tuhaoRankList = new ArrayList<>();
     private GoodsDetailTuhaoRankAdapter tuhaoRankAdapter;
     //参与记录
-    private List<String> joinRecordList = new ArrayList<>();
+    private List<GoodsDetailInfo.LogInfo> joinRecordList = new ArrayList<>();
     private GoodsDetailJoinRecordAdapter joinRecordAdapter;
     //猜你喜欢
     private List<ListGoodsInfo> guessLiskList = new ArrayList<>();
     private GuessLikeAdapter guessLikeAdapter;
     //期数id 相当于产品id
-    private int cycleId;
+    private String cycleId;
 
     //加载框
     private LoadingDialog loadingDialog;
+    //banner
+    List<String> bannerImageUrls = new ArrayList<>();
+    List<String> bannerTitles = new ArrayList<>();
+    //商品信息
+    private GoodsDetailInfo.GoodsDetailInfoData goodsInfo;
 
-    public static GoodsDetailFragment newInstance(int cycle_id) {
+
+    public static GoodsDetailFragment newInstance(String cycle_id) {
         Bundle args = new Bundle();
-        args.putInt(ARG_CYCLE_ID, cycle_id);
+        args.putString(ARG_CYCLE_ID, cycle_id);
         GoodsDetailFragment fragment = new GoodsDetailFragment();
         fragment.setArguments(args);
         return fragment;
@@ -181,7 +197,7 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            cycleId = getArguments().getInt(ARG_CYCLE_ID, 0);
+            cycleId = getArguments().getString(ARG_CYCLE_ID, "");
         }
     }
 
@@ -199,6 +215,7 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
         initToolbarNav(toolbar);
         hideLoading();
         initView();
+        presenter.getGoodsDetailInfo(true, cycleId);
     }
 
     private void initView() {
@@ -207,14 +224,10 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
         ptrLayout.setPtrHandler(new PtrDefaultHandler() {
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
-
+                presenter.getGoodsDetailInfo(false, cycleId);
             }
         });
 
-        for (int i = 0; i < 3; i++) {
-            tuhaoRankList.add("土豪" + (i + 1));
-            joinRecordList.add("参与记录" + (i + 1));
-        }
         tuhaoRankAdapter = new GoodsDetailTuhaoRankAdapter(_mActivity, tuhaoRankList);
         tuhaoRankGridView.setAdapter(tuhaoRankAdapter);
 
@@ -223,6 +236,15 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
 
         guessLikeAdapter = new GuessLikeAdapter(_mActivity, guessLiskList);
         guesslikeGridView.setAdapter(guessLikeAdapter);
+    }
+
+    private void initBanner() {
+        //banner
+        banner.setImageLoader(new GlideImageLoader());
+        banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
+        banner.setDelayTime(2000);
+        banner.setImages(bannerImageUrls);
+        banner.start();
     }
 
     @OnClick(R.id.old_announced)
@@ -319,12 +341,14 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
 
     @Override
     public void showLoading(@StringRes int resId) {
-        statusLayout.showLoading();
+        if (statusLayout != null)
+            statusLayout.showLoading();
     }
 
     @Override
     public void hideLoading() {
-        statusLayout.showContent();
+        if (statusLayout != null)
+            statusLayout.showContent();
     }
 
     @Override
@@ -346,11 +370,138 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
 
     @Override
     public void showProgressDialog(@StringRes int resId) {
-        loadingDialog.showLoadingDialog(getString(resId));
+        if (loadingDialog != null)
+            loadingDialog.showLoadingDialog(getString(resId));
     }
 
     @Override
     public void hideProgressDialog() {
-        loadingDialog.cancelLoadingDialog();
+        if (loadingDialog != null) {
+            loadingDialog.cancelLoadingDialog();
+        }
     }
+
+    @Override
+    public void refreshComplete() {
+        try {
+            ptrLayout.refreshComplete();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void bindGoodsInfo(GoodsDetailInfo.GoodsDetailInfoData goodsDetailInfo) {
+        try {
+            goodsInfo = goodsDetailInfo;
+            bindBanner(goodsInfo.getImages());
+            goodsName.setText(goodsInfo.getTitle());
+            goodsNameSubtitle.setText(goodsInfo.getSecond_title());
+            goodsTimes.setText(String.format(getString(R.string.goods_times_code), goodsInfo.getCycle_code()));
+            if (goodsInfo.getStatus() == 1) {
+                //进行中
+                layoutGoodsStatusOngoingView.setVisibility(View.VISIBLE);
+                layoutGoodsStatusAnnouncedView.setVisibility(View.GONE);
+                layoutGoodsStatusPendingView.setVisibility(View.GONE);
+                int progress = goodsInfo.getCurrent_source() * 100 / goodsInfo.getNeed_source();
+                ongoingProgressbar.setProgress(progress == 0 && goodsInfo.getCurrent_source() > 0 ? 1 : progress);
+                totalNeedPersonTimes.setText(String.format(getString(R.string.total_need_xx_person_times), goodsInfo.getNeed_source()));
+                surplusPersonTimes.setText(String.format(getString(R.string.surplus_xx_person_times), goodsInfo.getNeed_source() - goodsInfo.getCurrent_source()));
+                goodsStatus.setText("进行中");
+            } else if (goodsInfo.getStatus() == 2) {
+                //待揭晓
+                layoutGoodsStatusOngoingView.setVisibility(View.GONE);
+                layoutGoodsStatusAnnouncedView.setVisibility(View.GONE);
+                layoutGoodsStatusPendingView.setVisibility(View.VISIBLE);
+                goodsStatus.setText("待揭晓");
+            } else if (goodsInfo.getStatus() == 3) {
+                //揭晓中
+                layoutGoodsStatusOngoingView.setVisibility(View.VISIBLE);
+                layoutGoodsStatusAnnouncedView.setVisibility(View.GONE);
+                layoutGoodsStatusPendingView.setVisibility(View.GONE);
+                goodsStatus.setText("揭晓中");
+            } else {
+                //已揭晓
+                layoutGoodsStatusOngoingView.setVisibility(View.GONE);
+                layoutGoodsStatusAnnouncedView.setVisibility(View.VISIBLE);
+                layoutGoodsStatusPendingView.setVisibility(View.GONE);
+                goodsStatus.setText("已揭晓");
+                GoodsDetailInfo.WinnerInfo winnerInfo = goodsInfo.getWinner();
+                Glide.with(this).load(ShopApplication.configInfo.getFile_domain() + winnerInfo.getAvatar()).bitmapTransform(new CropCircleTransformation(_mActivity)).into(announcedUserAvater);
+                announcedWinnerName.setText(String.format(getString(R.string.winner_xx), winnerInfo.getNickname()));
+                announcedWinnerId.setText(String.format(getString(R.string.user_id_xx), goodsInfo.getLucky_user_id()));
+                announcedWinnerIp.setText(String.format(getString(R.string.user_ip_xx), winnerInfo.getIp()));
+                winnerJoinTimes.setText(String.format(getString(R.string.this_time_join_xx_person_times), winnerInfo.getLucky_user_codes().size()));
+                announcedLuckCode.setText(String.format(getString(R.string.luck_code_xx), goodsInfo.getLucky_code()));
+                announcedTime.setText(String.format(getString(R.string.announced_time_xx), DateUtil.timeStampToStr(goodsInfo.getOpenTime())));
+            }
+
+            if (goodsInfo.getMy_source() == 0) {
+                hasJoin.setVisibility(View.GONE);
+            } else {
+                hasJoin.setVisibility(View.VISIBLE);
+                goinTimes.setText(String.valueOf(goodsInfo.getMy_source()));
+                myLuckCode.setText(String.format(getString(R.string.luck_code_xx), goodsInfo.getMy_codes().get(0)));
+            }
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void showFailPage() {
+        statusLayout.showFailed(retryListener);
+    }
+
+    @Override
+    public void bindJoinRecord(List<GoodsDetailInfo.LogInfo> logInfoList) {
+        try {
+            joinRecordList.clear();
+            joinRecordList.addAll(logInfoList);
+            joinRecordAdapter.notifyDataSetChanged();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void bindTuhaoRank(List<GoodsDetailInfo.BuyersInfo> buyersInfoList) {
+        try {
+            tuhaoRankList.clear();
+            tuhaoRankList.addAll(buyersInfoList);
+            tuhaoRankAdapter.notifyDataSetChanged();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void bindGuessLike(List<ListGoodsInfo> listGoodsInfoList) {
+        guessLiskList.clear();
+        guessLiskList.addAll(listGoodsInfoList);
+        guessLikeAdapter.notifyDataSetChanged();
+    }
+
+    private void bindBanner(List<String> images) {
+        try {
+            bannerImageUrls.clear();
+            for (String str : images) {
+                bannerImageUrls.add(ShopApplication.configInfo.getFile_domain() + str);
+            }
+            banner.setImages(bannerImageUrls);
+            banner.start();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private View.OnClickListener retryListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            presenter.getGoodsDetailInfo(true, cycleId);
+        }
+    };
 }

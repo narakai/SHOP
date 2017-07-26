@@ -13,8 +13,6 @@
         style="@style/Widget.MaterialProgressBar.ProgressBar.Horizontal.Small"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/progress_text"
-        android:layout_toLeftOf="@+id/immddiately_indiana"
         android:progress="10"
         android:progressDrawable="@drawable/progressbar_color" />
     <TextView
@@ -27,6 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <TextView
+        android:id="@+id/surplus_person_times"
         android:textColor="@color/text_color_des"
         android:textSize="@dimen/text_size_small"
         android:layout_below="@+id/ongoing_progressbar"

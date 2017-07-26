@@ -29,7 +29,7 @@ public class ListGoodsInfo implements Serializable {
     private int cycle_code;
     private int need_source;
     private int current_source;
-    private int id;
+    private String id;
     private int price;
 
     public String getTitle() {
@@ -88,11 +88,11 @@ public class ListGoodsInfo implements Serializable {
         this.current_source = current_source;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

@@ -113,8 +113,14 @@ public class DateUtil {
      * @return
      */
     public static String timeStampToStr(long timeStamp) {
+
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String date = sdf.format(timeStamp * 1000);
+        String date;
+        if (String.valueOf(timeStamp).length() < 13) {
+            date = sdf.format(timeStamp * 1000);
+        } else {
+            date = sdf.format(timeStamp);
+        }
         return date;
     }
 

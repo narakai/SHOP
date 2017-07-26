@@ -13,6 +13,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import wiki.scene.shop.R;
+import wiki.scene.shop.entity.GoodsDetailInfo;
+import wiki.scene.shop.utils.DateUtil;
 
 /**
  * Case By:商品详情-->参与记录
@@ -22,10 +24,10 @@ import wiki.scene.shop.R;
 
 public class GoodsDetailJoinRecordAdapter extends BaseAdapter {
     private Context context;
-    private List<String> list;
+    private List<GoodsDetailInfo.LogInfo> list;
     private LayoutInflater inflater;
 
-    public GoodsDetailJoinRecordAdapter(Context context, List<String> list) {
+    public GoodsDetailJoinRecordAdapter(Context context, List<GoodsDetailInfo.LogInfo> list) {
         this.context = context;
         this.list = list;
         inflater = LayoutInflater.from(context);
@@ -56,8 +58,10 @@ public class GoodsDetailJoinRecordAdapter extends BaseAdapter {
         } else {
             viewHolder = (JoinRecordViewHolder) convertView.getTag();
         }
-
-        viewHolder.userInfo.setText(String.format(context.getString(R.string.user_info), list.get(position), "重庆南岸区", "192.168.1.1"));
+        GoodsDetailInfo.LogInfo info=list.get(position);
+        viewHolder.userInfo.setText(String.format(context.getString(R.string.user_info), info.getNickname(), info.getArea(), info.getIp()));
+        viewHolder.joinTimes.setText(String.format(context.getString(R.string.join_xx_times),info.getNumber()));
+        viewHolder.joinTime.setText(DateUtil.timeStampToStr(info.getCreate_time()));
         return convertView;
     }
 
