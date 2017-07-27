@@ -204,6 +204,12 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
     List<String> bannerTitles = new ArrayList<>();
     //商品信息
     private GoodsDetailInfo.GoodsDetailInfoData goodsInfo;
+    //显示的弹幕的Thread和获取数据的Thread
+    private int currentDanmuPosition = 0;
+    private boolean danmuFlag = true;
+    private Thread showDanmuThread;
+    private Thread getDanmuThread;
+    private boolean getDanmuFlag = true;
 
 
     public static GoodsDetailFragment newInstance(String cycle_id) {
@@ -379,7 +385,20 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
 
     @Override
     public void onDestroyView() {
-        danmuFlag = false;
+        if (danmuFlag) {
+            if (showDanmuThread != null && showDanmuThread.isAlive()) {
+                showDanmuThread.interrupt();
+                showDanmuThread = null;
+            }
+            danmuFlag = false;
+        }
+        if (getDanmuFlag) {
+            if (getDanmuThread != null && getDanmuThread.isAlive()) {
+                getDanmuThread.interrupt();
+                getDanmuThread = null;
+            }
+            getDanmuFlag = false;
+        }
         OkGo.getInstance().cancelTag(ApiUtil.DANMU_TAG);
         super.onDestroyView();
         unbinder.unbind();
@@ -485,8 +504,6 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
         statusLayout.showFailed(retryListener);
     }
 
-    private int currentDanmuPosition = 0;
-    private boolean danmuFlag = true;
 
     @Override
     public void bindJoinRecord(final List<GoodsDetailInfo.LogInfo> logInfoList) {
@@ -495,13 +512,17 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
             joinRecordList.addAll(logInfoList);
             joinRecordAdapter.notifyDataSetChanged();
             layoutJoinRecord.setVisibility(joinRecordList.size() == 0 ? View.GONE : View.VISIBLE);
+            if (showDanmuThread != null && showDanmuThread.isAlive()) {
+                showDanmuThread.interrupt();
+                showDanmuThread = null;
+            }
             if (logInfoList.size() > 0) {
-                new Thread(new Runnable() {
+                showDanmuThread = new Thread(new Runnable() {
                     @Override
                     public void run() {
                         try {
                             while (danmuFlag) {
-                                Thread.sleep(AppConfig.SHOW_DANMU_DELAY);
+                                Thread.sleep(layoutDanmu.isShown() ? AppConfig.HIDE_DANMU_DELAY : AppConfig.SHOW_DANMU_DELAY);
                                 _mActivity.runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
@@ -527,7 +548,8 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
                             e.printStackTrace();
                         }
                     }
-                }).start();
+                });
+                showDanmuThread.start();
             } else {
                 layoutDanmu.setVisibility(View.GONE);
             }
@@ -537,28 +559,20 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
     }
 
     private void getDanmu() {
-        new Thread(new Runnable() {
+        getDanmuThread = new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
-                    Thread.sleep(AppConfig.GET_DANMU_DELAY);
-                    _mActivity.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            try {
-                                while (danmuFlag) {
-                                    presenter.getDanmu(cycleId);
-                                }
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    });
+                    while (getDanmuFlag) {
+                        Thread.sleep(AppConfig.GET_DANMU_DELAY);
+                        presenter.getDanmu(cycleId);
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
-        }).start();
+        });
+        getDanmuThread.start();
     }
 
     @Override
@@ -604,6 +618,9 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
 
     }
 
+    /**
+     * 重试
+     */
     private View.OnClickListener retryListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {

@@ -143,7 +143,11 @@ public class GoodsDetailPresenter extends BasePresenter<IGoodsDetailView> {
             model.getDanmu(params, new HttpResultListener<List<GoodsDetailInfo.LogInfo>>() {
                 @Override
                 public void onSuccess(List<GoodsDetailInfo.LogInfo> data) {
+                    try {
                         mView.bindJoinRecord(data);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
 
                 @Override

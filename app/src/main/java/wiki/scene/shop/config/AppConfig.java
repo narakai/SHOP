@@ -24,5 +24,6 @@ public class AppConfig {
 
     public static final int GET_WINNER_NOTICE_DELAY = 60 * 1000;
     public static final int GET_DANMU_DELAY = 60 * 1000;
-    public static final int SHOW_DANMU_DELAY=5 * 1000;
+    public static final int SHOW_DANMU_DELAY=3 * 1000;
+    public static final int HIDE_DANMU_DELAY=10 * 1000;
 }
