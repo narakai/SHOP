@@ -210,7 +210,8 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
     private Thread showDanmuThread;
     private Thread getDanmuThread;
     private boolean getDanmuFlag = true;
-
+    //弹出窗
+    private ChooseGoodsNumberPopupWindow popupWindow;
 
     public static GoodsDetailFragment newInstance(String cycle_id) {
         Bundle args = new Bundle();
@@ -363,7 +364,11 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
 
     @OnClick(R.id.immediately_indiana)
     public void onClickImmeduatelyIndiana() {
-        presenter.createOrder(_mActivity);
+        //presenter.createOrder(_mActivity);
+        if (popupWindow == null) {
+            popupWindow = new ChooseGoodsNumberPopupWindow(getContext());
+        }
+        popupWindow.show(immediatelyIndiana);
     }
 
     @Override
@@ -627,4 +632,5 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
             presenter.getGoodsDetailInfo(true, cycleId);
         }
     };
+
 }

@@ -55,7 +55,9 @@ public class IndianaModel {
                     @Override
                     public void onError(Response<LzyResponse<List<WinningNoticeInfo>>> response) {
                         super.onError(response);
-                        listener.onFail(response.getException() != null ? response.getException().getMessage() : response.message());
+                        if (!response.getException().getMessage().equals("cancel")) {
+                            listener.onFail(response.getException() != null ? response.getException().getMessage() : response.message());
+                        }
                     }
 
                     @Override
