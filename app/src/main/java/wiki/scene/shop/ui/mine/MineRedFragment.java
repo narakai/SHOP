@@ -148,11 +148,6 @@ public class MineRedFragment extends BaseBackMvpFragment<IMineRedView, MineRedPr
     }
 
     @Override
-    public void showNoNetwork() {
-        statusLayout.showNetError(retryListener);
-    }
-
-    @Override
     public MineRedPresenter initPresenter() {
         return new MineRedPresenter(this);
     }

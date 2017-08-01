@@ -12,5 +12,4 @@ public interface BaseListView {
 
     void showFail();
 
-    void showNoNetwork();
 }

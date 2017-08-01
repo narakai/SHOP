@@ -115,11 +115,6 @@ public class WinRecordFragment extends BaseBackMvpFragment<IWinRecordView, WinRe
     }
 
     @Override
-    public void showNoNetwork() {
-
-    }
-
-    @Override
     public WinRecordPresenter initPresenter() {
         return new WinRecordPresenter(this);
     }

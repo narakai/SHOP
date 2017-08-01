@@ -1,5 +1,8 @@
 package wiki.scene.shop.ui.mine.mvpview;
 
+import android.support.annotation.StringRes;
+
+import wiki.scene.shop.entity.MineOrderResultInfo;
 import wiki.scene.shop.mvp.BaseListView;
 
 /**
@@ -9,4 +12,11 @@ import wiki.scene.shop.mvp.BaseListView;
  */
 
 public interface IIndianaRecordTypeView extends BaseListView {
+    void showMessage(String msg);
+
+    void showMessage(@StringRes int resId);
+
+    void refreshComplete();
+
+    void getDataSuccess(MineOrderResultInfo resultInfo);
 }

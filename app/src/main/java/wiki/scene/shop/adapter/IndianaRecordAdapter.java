@@ -9,12 +9,16 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.iwgang.countdownview.CountdownView;
 import wiki.scene.shop.R;
+import wiki.scene.shop.ShopApplication;
+import wiki.scene.shop.entity.MineOrderInfo;
 
 /**
  * Case By:夺宝记录
@@ -27,9 +31,9 @@ public class IndianaRecordAdapter extends RecyclerView.Adapter<RecyclerView.View
     private static final int TYPE_RENDING=1;
     private static final int TYPE_RESULT=2;
     private Context context;
-    private List<String> list;
+    private List<MineOrderInfo> list;
 
-    public IndianaRecordAdapter(Context context, List<String> list) {
+    public IndianaRecordAdapter(Context context, List<MineOrderInfo> list) {
         this.context = context;
         this.list = list;
     }
@@ -48,15 +52,20 @@ public class IndianaRecordAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        MineOrderInfo info=list.get(position);
         if(holder instanceof OnGoingViewHolder){
             OnGoingViewHolder onGoingViewHolder= (OnGoingViewHolder) holder;
-            onGoingViewHolder.goodsName.setText(list.get(position));
+            onGoingViewHolder.goodsName.setText(info.getTitle());
+            Glide.with(context).load(ShopApplication.configInfo.getFile_domain()+info.getThumb()).fitCenter().into(onGoingViewHolder.goodsImage);
         }else if(holder instanceof PendingViewHolder){
             PendingViewHolder pendingViewHolder= (PendingViewHolder) holder;
-            pendingViewHolder.goodsName.setText(list.get(position));
+            pendingViewHolder.goodsName.setText(info.getTitle());
+            Glide.with(context).load(ShopApplication.configInfo.getFile_domain()+info.getThumb()).fitCenter().into(pendingViewHolder.goodsImage);
+            pendingViewHolder.personTimes.setText(String.valueOf(info.getMy_buy_number()));
         }else{
             IndianaResultViewHolder indianaResultViewHolder= (IndianaResultViewHolder) holder;
-            indianaResultViewHolder.goodsName.setText(list.get(position));
+            indianaResultViewHolder.goodsName.setText(info.getTitle());
+            Glide.with(context).load(ShopApplication.configInfo.getFile_domain()+info.getThumb()).fitCenter().into(indianaResultViewHolder.goodsImage);
         }
 
     }
@@ -68,9 +77,9 @@ public class IndianaRecordAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     @Override
     public int getItemViewType(int position) {
-        if(position==0){
+        if(list.get(position).getStatus()==0){
             return TYPE_ONGOING;
-        }else if(position==1){
+        }else if(list.get(position).getStatus()==1){
             return TYPE_RENDING;
         }else {
             return TYPE_RESULT;

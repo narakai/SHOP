@@ -8,8 +8,7 @@
     <ImageView
         android:id="@+id/goods_image"
         android:layout_width="133.33dp"
-        android:layout_height="133.33dp"
-        android:background="#FFF000" />
+        android:layout_height="133.33dp" />
 
     <TextView
         android:id="@+id/goods_tag"

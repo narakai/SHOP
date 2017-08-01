@@ -75,6 +75,12 @@ public class ApiUtil {
     //弹幕
     public static final String DANMU="/cycle/danmu";
     public static final String DANMU_TAG="DANMU_TAG";
+    //夺宝记录
+    public static final String MINE_ORDER="/personal/order/log";
+    public static final String MINE_ORDER_TAG="MINE_ORDER_TAG";
+    //中奖记录
+    public static final String WIN_RECORD="/personal/order/win";
+    public static final String WIN_RECORD_TAG="WIN_RECORD_TAG";
 
     /**
      * Case By:创建参数基础信息

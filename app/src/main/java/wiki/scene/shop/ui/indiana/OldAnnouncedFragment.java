@@ -111,10 +111,6 @@ public class OldAnnouncedFragment extends BaseBackMvpFragment<IOldAnnouncedView,
 
     }
 
-    @Override
-    public void showNoNetwork() {
-
-    }
 
     @Override
     public OldAnnouncedPresenter initPresenter() {

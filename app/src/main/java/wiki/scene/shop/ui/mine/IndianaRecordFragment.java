@@ -76,6 +76,7 @@ public class IndianaRecordFragment extends BaseBackMvpFragment<IIdianaRecordView
         tab.addTab(tab.newTab().setText(tabTitle[1]));
         tab.addTab(tab.newTab().setText(tabTitle[2]));
         viewPager.setAdapter(new IndiaRecordPagerFragmentAdapter(getChildFragmentManager(), tabTitle, fragmentList));
+        viewPager.setOffscreenPageLimit(3);
         tab.setupWithViewPager(viewPager);
     }
 
