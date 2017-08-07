@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -114,9 +115,11 @@ public class PayOrderFragment extends BaseBackMvpFragment<IPayOrderView, PayOrde
 
     private void initView() {
         loadingDialog = LoadingDialog.getInstance(_mActivity);
-        PayOrderGoodsAdapter adapter = new PayOrderGoodsAdapter(_mActivity, createOrderInfo.getCycles());
+        List<CreateOrderInfo.CyclesBean> cyclesBeanList=new ArrayList<>();
+        cyclesBeanList.add(createOrderInfo.getCycle());
+        PayOrderGoodsAdapter adapter = new PayOrderGoodsAdapter(_mActivity, cyclesBeanList);
         goodsListview.setAdapter(adapter);
-        totalGoodsCount.setText(String.format(getString(R.string.total_xx_goods), createOrderInfo.getCycles().size()));
+        totalGoodsCount.setText(String.format(getString(R.string.total_xx_goods), cyclesBeanList.size()));
         totalPrice.setText(PriceUtil.getPrice(createOrderInfo.getCost()));
         userMoney.setText(PriceUtil.getPrice(createOrderInfo.getUser_money()));
         if (createOrderInfo.getUser_money() > createOrderInfo.getCost()) {

@@ -367,6 +367,12 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
         //presenter.createOrder(_mActivity);
         if (popupWindow == null) {
             popupWindow = new ChooseGoodsNumberPopupWindow(getContext());
+            popupWindow.setOnClickImmediatelyIndianaListener(new ChooseGoodsNumberPopupWindow.OnClickImmediatelyIndianaListener() {
+                @Override
+                public void onClickImmediatelyIndiana(int number) {
+                    presenter.createOrder(getContext(),goodsInfo.getId(),number);
+                }
+            });
         }
         popupWindow.show(immediatelyIndiana);
     }
@@ -405,6 +411,9 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
             getDanmuFlag = false;
         }
         OkGo.getInstance().cancelTag(ApiUtil.DANMU_TAG);
+        if(popupWindow!=null){
+            popupWindow=null;
+        }
         super.onDestroyView();
         unbinder.unbind();
     }
@@ -606,6 +615,9 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
 
     @Override
     public void createOrderSuccess(CreateOrderInfo info) {
+        if(popupWindow!=null){
+            popupWindow.dismiss();
+        }
         start(PayOrderFragment.newInstance(info));
     }
 

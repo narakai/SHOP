@@ -42,12 +42,12 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="5dp"
             android:layout_weight="1"
-            android:background="@drawable/bg_number_text"
+            android:background="@drawable/bg_number_text_choosed"
             android:gravity="center"
             android:paddingBottom="5dp"
             android:paddingTop="5dp"
             android:text="1份"
-            android:textColor="@color/text_color_title"
+            android:textColor="@color/white"
             android:textSize="@dimen/text_size_middle" />
 
         <TextView
@@ -156,6 +156,7 @@
             android:background="@drawable/bg_number_text"
             android:gravity="center"
             android:hint="其他份数"
+            android:inputType="number"
             android:paddingBottom="5dp"
             android:paddingTop="5dp"
             android:textColor="@color/text_color_title"
@@ -168,6 +169,7 @@
         android:background="#F6F6F6"
         android:padding="10dp"
         android:text="选择参与期数"
+        android:visibility="gone"
         android:textColor="@color/text_color_title"
         android:textSize="@dimen/text_size_big" />
 
@@ -176,6 +178,7 @@
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:gravity="center"
+        android:visibility="gone"
         android:orientation="horizontal"
         android:paddingBottom="18dp"
         android:paddingTop="18dp">

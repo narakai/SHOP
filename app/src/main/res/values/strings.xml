@@ -210,4 +210,6 @@
     <string name="permission_fail_notice">您拒绝了我们必要的一些权限，为保证您能正常使用app，请在设置中授权您！</string>
     <string name="go_to_setting">好，去设置！</string>
     <string name="you_has_no_login_please_login">您还未登录，请先登录</string>
+    <string name="input_right_number">请输入正确的数量</string>
+
 </resources>

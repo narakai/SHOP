@@ -21,7 +21,7 @@ public class CreateOrderInfo implements Serializable {
     private String order_id;
     private int cost;
     private int user_money;
-    private List<CyclesBean> cycles;
+    private CyclesBean cycle;
     private List<CouponsBean> coupons;
 
     public String getOrder_id() {
@@ -48,12 +48,12 @@ public class CreateOrderInfo implements Serializable {
         this.user_money = user_money;
     }
 
-    public List<CyclesBean> getCycles() {
-        return cycles;
+    public CyclesBean getCycle() {
+        return cycle;
     }
 
-    public void setCycles(List<CyclesBean> cycles) {
-        this.cycles = cycles;
+    public void setCycle(CyclesBean cycle) {
+        this.cycle = cycle;
     }
 
     public List<CouponsBean> getCoupons() {
