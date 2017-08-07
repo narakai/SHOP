@@ -14,16 +14,17 @@ public class MineOrderInfo implements Serializable {
     private String thumb;
     private String title;
     private String cycle_code;
-    private int status;
-    private String open_time;
+    private int cycle_status;
+    private long open_time;
     private String lucky_code;
     private String lucky_user_id;
     private int need_source;
     private int current_source;
-    private String order_id;
+    private String id;
     private String user_id;
     private List<String> my_codes;
     private int my_buy_number;
+    private int order_status; //1未支付  2已支付（完成） 3中奖   4过期
 
     public String getCycle_id() {
         return cycle_id;
@@ -65,19 +66,19 @@ public class MineOrderInfo implements Serializable {
         this.cycle_code = cycle_code;
     }
 
-    public int getStatus() {
-        return status;
+    public int getCycle_status() {
+        return cycle_status;
     }
 
-    public void setStatus(int status) {
-        this.status = status;
+    public void setCycle_status(int cycle_status) {
+        this.cycle_status = cycle_status;
     }
 
-    public String getOpen_time() {
+    public long getOpen_time() {
         return open_time;
     }
 
-    public void setOpen_time(String open_time) {
+    public void setOpen_time(long open_time) {
         this.open_time = open_time;
     }
 
@@ -113,12 +114,12 @@ public class MineOrderInfo implements Serializable {
         this.current_source = current_source;
     }
 
-    public String getOrder_id() {
-        return order_id;
+    public String getId() {
+        return id;
     }
 
-    public void setOrder_id(String order_id) {
-        this.order_id = order_id;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getUser_id() {
@@ -143,5 +144,13 @@ public class MineOrderInfo implements Serializable {
 
     public void setMy_buy_number(int my_buy_number) {
         this.my_buy_number = my_buy_number;
+    }
+
+    public int getOrder_status() {
+        return order_status;
+    }
+
+    public void setOrder_status(int order_status) {
+        this.order_status = order_status;
     }
 }

@@ -4,6 +4,7 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.model.HttpParams;
 import com.lzy.okgo.model.Response;
 
+import wiki.scene.shop.entity.CreateOrderInfo;
 import wiki.scene.shop.entity.MineOrderResultInfo;
 import wiki.scene.shop.http.api.ApiUtil;
 import wiki.scene.shop.http.base.LzyResponse;
@@ -33,6 +34,34 @@ public class IndianaRecordModel {
                             listener.onFail(response.getException().getMessage());
                         } else {
                             listener.onFail(response.message());
+                        }
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        super.onFinish();
+                        listener.onFinish();
+                    }
+                });
+    }
+
+    public void toPay(HttpParams params, final HttpResultListener<CreateOrderInfo> listener) {
+        OkGo.<LzyResponse<CreateOrderInfo>>get(ApiUtil.API_PRE + ApiUtil.ORDER_DETAIL_TO_PAY)
+                .tag(ApiUtil.ORDER_DETAIL_TO_PAY_TAG)
+                .params(params)
+                .execute(new JsonCallback<LzyResponse<CreateOrderInfo>>() {
+                    @Override
+                    public void onSuccess(Response<LzyResponse<CreateOrderInfo>> response) {
+                        listener.onSuccess(response.body().data);
+                    }
+
+                    @Override
+                    public void onError(Response<LzyResponse<CreateOrderInfo>> response) {
+                        super.onError(response);
+                        if (response.getException().getMessage().isEmpty()) {
+                            listener.onFail(response.message());
+                        } else {
+                            listener.onFail(response.getException().getMessage());
                         }
                     }
 

@@ -26,15 +26,20 @@ import wiki.scene.loadmore.recyclerview.RecyclerAdapterWithHF;
 import wiki.scene.loadmore.utils.PtrLocalDisplay;
 import wiki.scene.shop.R;
 import wiki.scene.shop.adapter.IndianaRecordAdapter;
+import wiki.scene.shop.config.AppConfig;
+import wiki.scene.shop.entity.CreateOrderInfo;
 import wiki.scene.shop.entity.MineOrderInfo;
 import wiki.scene.shop.entity.MineOrderResultInfo;
 import wiki.scene.shop.entity.ResultPageInfo;
 import wiki.scene.shop.http.api.ApiUtil;
 import wiki.scene.shop.itemDecoration.SpacesItemDecoration;
+import wiki.scene.shop.mvp.BaseBackMvpFragment;
 import wiki.scene.shop.mvp.BaseMvpFragment;
+import wiki.scene.shop.ui.car.PayOrderFragment;
 import wiki.scene.shop.ui.mine.mvpview.IIndianaRecordTypeView;
 import wiki.scene.shop.ui.mine.presenter.IndianaRecordTypePresenter;
 import wiki.scene.shop.utils.ToastUtils;
+import wiki.scene.shop.widgets.LoadingDialog;
 
 /**
  * Case By:夺宝记录
@@ -62,6 +67,8 @@ public class IndianaRecordTypeFragment extends BaseMvpFragment<IIndianaRecordTyp
     private IndianaRecordAdapter adapter;
 
     private ResultPageInfo resultPageInfo;
+
+    private LoadingDialog loadingDialog;
 
     public static IndianaRecordTypeFragment newInstance(int type) {
         Bundle args = new Bundle();
@@ -96,7 +103,7 @@ public class IndianaRecordTypeFragment extends BaseMvpFragment<IIndianaRecordTyp
     }
 
     private void initView() {
-        showContent();
+
         ptrLayout.setLastUpdateTimeRelateObject(this);
 
         ptrLayout.setPtrHandler(new PtrDefaultHandler() {
@@ -121,6 +128,12 @@ public class IndianaRecordTypeFragment extends BaseMvpFragment<IIndianaRecordTyp
         recyclerView.setAdapter(mAdapter);
         ptrLayout.setLoadMoreEnable(true);
         ptrLayout.setNoMoreData();
+        adapter.setIndianaRecordItemButtonClickListener(new IndianaRecordAdapter.IndianaRecordItemButtonClickListener() {
+            @Override
+            public void onClickItemPay(int position) {
+                presenter.toPay(list.get(position).getId());
+            }
+        });
     }
 
 
@@ -188,10 +201,37 @@ public class IndianaRecordTypeFragment extends BaseMvpFragment<IIndianaRecordTyp
         }
     }
 
+    @Override
+    public void showProgressDialog(@StringRes int resId) {
+        if (loadingDialog == null) {
+            loadingDialog = LoadingDialog.getInstance(_mActivity);
+        }
+        loadingDialog.showLoadingDialog(getString(resId));
+    }
+
+    @Override
+    public void hideProgessDialog() {
+        if (loadingDialog != null) {
+            loadingDialog.cancelLoadingDialog();
+        }
+    }
+
+    @Override
+    public void toPaySuccess(CreateOrderInfo createOrderInfo) {
+        if (getParentFragment() instanceof BaseBackMvpFragment) {
+            ((BaseBackMvpFragment) getParentFragment()).startForResult(PayOrderFragment.newInstance(createOrderInfo), AppConfig.ORDER_DETAIL_TO_PAY_REQUEST_CODE);
+        }
+    }
+
     private View.OnClickListener retryListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             presenter.getIndianaRecordData(type, page, true);
         }
     };
+
+    @Override
+    public void onFragmentResult(int requestCode, int resultCode, Bundle data) {
+        super.onFragmentResult(requestCode, resultCode, data);
+    }
 }

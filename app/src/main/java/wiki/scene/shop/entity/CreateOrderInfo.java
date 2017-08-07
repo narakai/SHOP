@@ -13,7 +13,7 @@ public class CreateOrderInfo implements Serializable {
     /**
      * order_id : 19
      * cost : 200
-     * cycles : [{"title":"秒开电信话费","number":2,"price":100,"cost":200,"cycle_code":2665460}]
+     * cycle : {"title":"秒开电信话费","number":2,"price":100,"cost":200,"cycle_code":2665460}
      * coupons : [{"id":2,"title":"注册送88红包","type":1,"cost":8800,"mini_money":1000,"expired_time":0}]
      * user_money : 0
      */

@@ -81,6 +81,9 @@ public class ApiUtil {
     //中奖记录
     public static final String WIN_RECORD="/personal/order/win";
     public static final String WIN_RECORD_TAG="WIN_RECORD_TAG";
+    //订单中去支付
+    public static final String ORDER_DETAIL_TO_PAY="/cycle/order/detail";
+    public static final String ORDER_DETAIL_TO_PAY_TAG="ORDER_DETAIL_TO_PAY_TAG";
 
     /**
      * Case By:创建参数基础信息

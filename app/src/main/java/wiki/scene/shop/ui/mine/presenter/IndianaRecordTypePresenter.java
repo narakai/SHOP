@@ -4,6 +4,7 @@ import com.lzy.okgo.model.HttpParams;
 
 import wiki.scene.shop.R;
 import wiki.scene.shop.ShopApplication;
+import wiki.scene.shop.entity.CreateOrderInfo;
 import wiki.scene.shop.entity.MineOrderResultInfo;
 import wiki.scene.shop.http.listener.HttpResultListener;
 import wiki.scene.shop.mvp.BasePresenter;
@@ -75,4 +76,48 @@ public class IndianaRecordTypePresenter extends BasePresenter<IIndianaRecordType
         }
     }
 
+
+    public void toPay(String orderId) {
+        try {
+            mView.showProgressDialog(R.string.loading);
+            HttpParams params = new HttpParams();
+            if (ShopApplication.hasLogin) {
+                params.put("user_id", ShopApplication.userInfo.getUser_id());
+                params.put("order_id", orderId);
+                model.toPay(params, new HttpResultListener<CreateOrderInfo>() {
+                    @Override
+                    public void onSuccess(CreateOrderInfo data) {
+                        try {
+                            mView.toPaySuccess(data);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFail(String message) {
+                        try {
+                            mView.showMessage(message);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        try {
+                            mView.hideProgessDialog();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                });
+            } else {
+                mView.showMessage(R.string.you_has_no_login_please_login);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

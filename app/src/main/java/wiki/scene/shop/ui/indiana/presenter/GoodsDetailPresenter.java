@@ -106,15 +106,19 @@ public class GoodsDetailPresenter extends BasePresenter<IGoodsDetailView> {
         });
     }
 
-    public void createOrder(Context context,String cycleId,int number) {
+    public void createOrder(Context context, String cycleId, int number) {
         try {
             mView.showProgressDialog(R.string.loading);
             HttpParams params = new HttpParams();
             if (ShopApplication.hasLogin) {
                 params.put("user_id", ShopApplication.userInfo.getUser_id());
-                params.put("cycle_id",cycleId);
-                params.put("mobile",ShopApplication.userInfo.getMobile());
-                params.put("number",number);
+                params.put("cycle_id", cycleId);
+                params.put("mobile", ShopApplication.userInfo.getMobile());
+                if (number != -1) {
+                    params.put("number", number);
+                } else {
+                    params.put("baowei", 1);
+                }
                 model.createOrder(params, new HttpResultListener<CreateOrderInfo>() {
                     @Override
                     public void onSuccess(CreateOrderInfo data) {

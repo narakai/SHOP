@@ -8,7 +8,7 @@
     <ImageView
         android:id="@+id/goods_image"
         android:layout_width="133.33dp"
-        android:layout_height="133.33dp"/>
+        android:layout_height="133.33dp" />
 
     <TextView
         android:id="@+id/goods_tag"
@@ -104,5 +104,10 @@
                 android:textSize="@dimen/text_size_small" />
         </LinearLayout>
 
+        <Button
+            android:id="@+id/pay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="立即支付" />
     </LinearLayout>
 </RelativeLayout>

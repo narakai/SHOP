@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -27,45 +28,66 @@ import wiki.scene.shop.entity.MineOrderInfo;
  */
 
 public class IndianaRecordAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private static final int TYPE_ONGOING=0;
-    private static final int TYPE_RENDING=1;
-    private static final int TYPE_RESULT=2;
+    private static final int TYPE_ONGOING = 0;
+    private static final int TYPE_RENDING = 1;
+    private static final int TYPE_RESULT = 2;
     private Context context;
     private List<MineOrderInfo> list;
+    private IndianaRecordItemButtonClickListener indianaRecordItemButtonClickListener;
 
     public IndianaRecordAdapter(Context context, List<MineOrderInfo> list) {
         this.context = context;
         this.list = list;
     }
 
+    public void setIndianaRecordItemButtonClickListener(IndianaRecordItemButtonClickListener indianaRecordItemButtonClickListener) {
+        this.indianaRecordItemButtonClickListener = indianaRecordItemButtonClickListener;
+    }
+
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        LayoutInflater inflater=LayoutInflater.from(context);
-        if(viewType==TYPE_ONGOING){
-            return new OnGoingViewHolder(inflater.inflate(R.layout.fragement_indiana_record_item_ongoing,parent,false));
-        }else if(viewType==TYPE_RENDING){
-            return new PendingViewHolder(inflater.inflate(R.layout.fragement_indiana_record_item_pending,parent,false));
-        }else{
-            return new IndianaResultViewHolder(inflater.inflate(R.layout.fragment_win_record_item,parent,false));
+        LayoutInflater inflater = LayoutInflater.from(context);
+        if (viewType == TYPE_ONGOING) {
+            return new OnGoingViewHolder(inflater.inflate(R.layout.fragement_indiana_record_item_ongoing, parent, false));
+        } else if (viewType == TYPE_RENDING) {
+            return new PendingViewHolder(inflater.inflate(R.layout.fragement_indiana_record_item_pending, parent, false));
+        } else {
+            return new IndianaResultViewHolder(inflater.inflate(R.layout.fragment_win_record_item, parent, false));
         }
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        MineOrderInfo info=list.get(position);
-        if(holder instanceof OnGoingViewHolder){
-            OnGoingViewHolder onGoingViewHolder= (OnGoingViewHolder) holder;
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
+        MineOrderInfo info = list.get(position);
+        if (holder instanceof OnGoingViewHolder) {
+            OnGoingViewHolder onGoingViewHolder = (OnGoingViewHolder) holder;
             onGoingViewHolder.goodsName.setText(info.getTitle());
-            Glide.with(context).load(ShopApplication.configInfo.getFile_domain()+info.getThumb()).fitCenter().into(onGoingViewHolder.goodsImage);
-        }else if(holder instanceof PendingViewHolder){
-            PendingViewHolder pendingViewHolder= (PendingViewHolder) holder;
+            Glide.with(context).load(ShopApplication.configInfo.getFile_domain() + info.getThumb()).fitCenter().into(onGoingViewHolder.goodsImage);
+            if (info.getOrder_status() == 1) {
+                //未支付的订单
+                onGoingViewHolder.pay.setVisibility(View.VISIBLE);
+            } else {
+                //已支付的订单
+                onGoingViewHolder.pay.setVisibility(View.GONE);
+            }
+            onGoingViewHolder.pay.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (indianaRecordItemButtonClickListener != null) {
+                        indianaRecordItemButtonClickListener.onClickItemPay(position);
+                    }
+                }
+            });
+        } else if (holder instanceof PendingViewHolder) {
+            PendingViewHolder pendingViewHolder = (PendingViewHolder) holder;
             pendingViewHolder.goodsName.setText(info.getTitle());
-            Glide.with(context).load(ShopApplication.configInfo.getFile_domain()+info.getThumb()).fitCenter().into(pendingViewHolder.goodsImage);
+            Glide.with(context).load(ShopApplication.configInfo.getFile_domain() + info.getThumb()).fitCenter().into(pendingViewHolder.goodsImage);
             pendingViewHolder.personTimes.setText(String.valueOf(info.getMy_buy_number()));
-        }else{
-            IndianaResultViewHolder indianaResultViewHolder= (IndianaResultViewHolder) holder;
+            pendingViewHolder.refreshTime(info.getOpen_time() - System.currentTimeMillis() / 1000);
+        } else {
+            IndianaResultViewHolder indianaResultViewHolder = (IndianaResultViewHolder) holder;
             indianaResultViewHolder.goodsName.setText(info.getTitle());
-            Glide.with(context).load(ShopApplication.configInfo.getFile_domain()+info.getThumb()).fitCenter().into(indianaResultViewHolder.goodsImage);
+            Glide.with(context).load(ShopApplication.configInfo.getFile_domain() + info.getThumb()).fitCenter().into(indianaResultViewHolder.goodsImage);
         }
 
     }
@@ -77,12 +99,34 @@ public class IndianaRecordAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     @Override
     public int getItemViewType(int position) {
-        if(list.get(position).getStatus()==0){
+        if (list.get(position).getCycle_status() == 1) {
+            //进行中
             return TYPE_ONGOING;
-        }else if(list.get(position).getStatus()==1){
+        } else if (list.get(position).getCycle_status() == 2) {
+            //待揭晓
             return TYPE_RENDING;
-        }else {
+        } else if (list.get(position).getCycle_status() == 3) {
+            //揭晓中
             return TYPE_RESULT;
+        } else {
+            //已揭晓
+            return TYPE_RESULT;
+        }
+    }
+
+    @Override
+    public void onViewAttachedToWindow(RecyclerView.ViewHolder holder) {
+        int pos = holder.getAdapterPosition();
+        MineOrderInfo mineOrderInfo = list.get(pos);
+        if (holder instanceof PendingViewHolder) {
+            ((PendingViewHolder) holder).refreshTime(mineOrderInfo.getOpen_time() - System.currentTimeMillis() / 1000);
+        }
+    }
+
+    @Override
+    public void onViewDetachedFromWindow(RecyclerView.ViewHolder holder) {
+        if (holder instanceof PendingViewHolder) {
+            ((PendingViewHolder) holder).newestCountDownView.stop();
         }
     }
 
@@ -103,6 +147,8 @@ public class IndianaRecordAdapter extends RecyclerView.Adapter<RecyclerView.View
         ProgressBar ongoingProgressbar;
         @BindView(R.id.goon_indiana)
         TextView goonIndiana;
+        @BindView(R.id.pay)
+        Button pay;
 
         OnGoingViewHolder(View view) {
             super(view);
@@ -126,6 +172,15 @@ public class IndianaRecordAdapter extends RecyclerView.Adapter<RecyclerView.View
         PendingViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
+        }
+
+        public void refreshTime(long leftTime) {
+            if (leftTime > 0) {
+                newestCountDownView.start(leftTime);
+            } else {
+                newestCountDownView.stop();
+                newestCountDownView.allShowZero();
+            }
         }
     }
 
@@ -151,5 +206,9 @@ public class IndianaRecordAdapter extends RecyclerView.Adapter<RecyclerView.View
             super(view);
             ButterKnife.bind(this, view);
         }
+    }
+
+    public interface IndianaRecordItemButtonClickListener {
+        void onClickItemPay(int position);
     }
 }
