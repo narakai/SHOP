@@ -66,8 +66,6 @@ public class IndianaRecordTypeFragment extends BaseMvpFragment<IIndianaRecordTyp
     private List<MineOrderInfo> list = new ArrayList<>();
     private IndianaRecordAdapter adapter;
 
-    private ResultPageInfo resultPageInfo;
-
     private LoadingDialog loadingDialog;
 
     public static IndianaRecordTypeFragment newInstance(int type) {
@@ -109,15 +107,13 @@ public class IndianaRecordTypeFragment extends BaseMvpFragment<IIndianaRecordTyp
         ptrLayout.setPtrHandler(new PtrDefaultHandler() {
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
-                page = 1;
-                presenter.getIndianaRecordData(type, page, false);
+                presenter.getIndianaRecordData(type, 1, false);
             }
         });
         ptrLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void loadMore() {
-                page += 1;
-                presenter.getIndianaRecordData(type, page, false);
+                presenter.getIndianaRecordData(type, page + 1, false);
             }
         });
 
@@ -186,13 +182,14 @@ public class IndianaRecordTypeFragment extends BaseMvpFragment<IIndianaRecordTyp
     @Override
     public void getDataSuccess(MineOrderResultInfo resultInfo) {
         try {
-            resultPageInfo = resultInfo.getInfo();
+            ResultPageInfo resultPageInfo = resultInfo.getInfo();
             if (page == 1) {
                 list.clear();
             }
             list.addAll(resultInfo.getData());
             adapter.notifyDataSetChanged();
             ptrLayout.loadMoreComplete(resultPageInfo.getPage_total() > page);
+            ptrLayout.setLoadMoreEnable(resultPageInfo.getPage_total() > page);
             if (list.size() == 0) {
                 statusLayout.showNone();
             }
@@ -221,6 +218,11 @@ public class IndianaRecordTypeFragment extends BaseMvpFragment<IIndianaRecordTyp
         if (getParentFragment() instanceof BaseBackMvpFragment) {
             ((BaseBackMvpFragment) getParentFragment()).startForResult(PayOrderFragment.newInstance(createOrderInfo), AppConfig.ORDER_DETAIL_TO_PAY_REQUEST_CODE);
         }
+    }
+
+    @Override
+    public void changePage(int page) {
+        this.page = page;
     }
 
     private View.OnClickListener retryListener = new View.OnClickListener() {

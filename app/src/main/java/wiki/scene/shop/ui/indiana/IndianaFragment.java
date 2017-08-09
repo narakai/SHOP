@@ -492,9 +492,9 @@ public class IndianaFragment extends BaseMainMvpFragment<IIndianaView, IndianaPr
             newestGoodsName1.setTag(R.id.newest_countDownView1);
             newestGoodsName2.setTag(R.id.newest_countDownView2);
             newestGoodsName3.setTag(R.id.newest_countDownView3);
-            newestCountDownView1.start(10 * 1000);
-            newestCountDownView2.start(20 * 1000);
-            newestCountDownView3.start(30 * 1000);
+            newestCountDownView1.start(1502270860000L-System.currentTimeMillis());
+            newestCountDownView2.start(1502290850000L-System.currentTimeMillis());
+            newestCountDownView3.start(1502280840000L-System.currentTimeMillis());
         }
 
         void bindBanner(List<SliderInfo> bannerList) {

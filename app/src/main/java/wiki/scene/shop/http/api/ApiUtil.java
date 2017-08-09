@@ -93,6 +93,9 @@ public class ApiUtil {
     //收藏列表
     public static final String COLLECTION_LIST="/personal/collection";
     public static final String COLLECTION_LIST_TAG="COLLECTION_LIST_TAG";
+    //最新揭晓
+    public static final String NEWEST_OPEN="/cycle/new_opened";
+    public static final String NEWEST_OPEN_TAG="NEWEST_OPEN_TAG";
     /**
      * Case By:创建参数基础信息
      * Author: scene on 2017/5/19 13:19

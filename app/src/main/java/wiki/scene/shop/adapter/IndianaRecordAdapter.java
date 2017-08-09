@@ -86,7 +86,7 @@ public class IndianaRecordAdapter extends RecyclerView.Adapter<RecyclerView.View
             pendingViewHolder.goodsName.setText(info.getTitle());
             Glide.with(context).load(ShopApplication.configInfo.getFile_domain() + info.getThumb()).fitCenter().into(pendingViewHolder.goodsImage);
             pendingViewHolder.personTimes.setText(String.valueOf(info.getNumber()));
-            pendingViewHolder.refreshTime(info.getOpen_time() - System.currentTimeMillis() / 1000);
+            pendingViewHolder.refreshTime(info.getOpen_time() * 1000 - System.currentTimeMillis());
             setGoodsTag(pendingViewHolder.goodsTag, info.getType());
         } else {
             IndianaResultViewHolder indianaResultViewHolder = (IndianaResultViewHolder) holder;
@@ -140,7 +140,7 @@ public class IndianaRecordAdapter extends RecyclerView.Adapter<RecyclerView.View
         int pos = holder.getAdapterPosition();
         MineOrderInfo mineOrderInfo = list.get(pos);
         if (holder instanceof PendingViewHolder) {
-            ((PendingViewHolder) holder).refreshTime(mineOrderInfo.getOpen_time() - System.currentTimeMillis() / 1000);
+            ((PendingViewHolder) holder).refreshTime(mineOrderInfo.getOpen_time() * 1000 - System.currentTimeMillis());
         }
     }
 
@@ -178,7 +178,7 @@ public class IndianaRecordAdapter extends RecyclerView.Adapter<RecyclerView.View
     }
 
 
-    static class PendingViewHolder extends RecyclerView.ViewHolder {
+    class PendingViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.goods_image)
         ImageView goodsImage;
         @BindView(R.id.goods_tag)
@@ -195,7 +195,7 @@ public class IndianaRecordAdapter extends RecyclerView.Adapter<RecyclerView.View
             ButterKnife.bind(this, view);
         }
 
-        public void refreshTime(long leftTime) {
+        private void refreshTime(long leftTime) {
             if (leftTime > 0) {
                 newestCountDownView.start(leftTime);
             } else {

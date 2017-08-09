@@ -8,12 +8,17 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.iwgang.countdownview.CountdownView;
 import wiki.scene.shop.R;
+import wiki.scene.shop.ShopApplication;
+import wiki.scene.shop.entity.NewestResultInfo;
+import wiki.scene.shop.utils.DateUtil;
 import wiki.scene.shop.widgets.RatioImageView;
 
 /**
@@ -24,9 +29,9 @@ import wiki.scene.shop.widgets.RatioImageView;
 
 public class NewestAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context context;
-    private List<String> list;
+    private List<NewestResultInfo.NewestInfo> list;
 
-    public NewestAdapter(Context context, List<String> list) {
+    public NewestAdapter(Context context, List<NewestResultInfo.NewestInfo> list) {
         this.context = context;
         this.list = list;
     }
@@ -38,14 +43,46 @@ public class NewestAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        NewestViewHolder viewHolder = (NewestViewHolder) holder;
-        viewHolder.goodsName.setText(list.get(position));
-        if (position == 0) {
+        final NewestViewHolder viewHolder = (NewestViewHolder) holder;
+        NewestResultInfo.NewestInfo info = list.get(position);
+        viewHolder.goodsName.setText(list.get(position).getTitle());
+        if (info.getStatus() == 2) {
             viewHolder.layoutHasTime.setVisibility(View.VISIBLE);
             viewHolder.layoutNoTime.setVisibility(View.GONE);
+            viewHolder.isAnnouncing.setVisibility(View.GONE);
+            viewHolder.refreshTime(info.getOpen_time() * 1000 - System.currentTimeMillis());
+        } else if (info.getStatus() == 3) {
+            viewHolder.layoutHasTime.setVisibility(View.GONE);
+            viewHolder.layoutNoTime.setVisibility(View.GONE);
+            viewHolder.isAnnouncing.setVisibility(View.VISIBLE);
         } else {
             viewHolder.layoutHasTime.setVisibility(View.GONE);
             viewHolder.layoutNoTime.setVisibility(View.VISIBLE);
+            viewHolder.isAnnouncing.setVisibility(View.GONE);
+            if (info.getWinner() != null) {
+                viewHolder.username.setText(info.getWinner().getNickname());
+                //viewHolder.personTimes.setText(info.get);
+                viewHolder.luckCode.setText(info.getLucky_code());
+                viewHolder.announcedTime.setText(DateUtil.timeStampToStr(info.getOpen_time()));
+            }
+        }
+        Glide.with(context).load(ShopApplication.configInfo.getFile_domain() + info.getThumb()).fitCenter().into(viewHolder.goodsImage);
+        viewHolder.goodsTime.setText(String.format(context.getString(R.string.times_code), info.getCycle_code()));
+    }
+
+    @Override
+    public void onViewAttachedToWindow(RecyclerView.ViewHolder holder) {
+        int pos = holder.getAdapterPosition();
+        NewestResultInfo.NewestInfo info = list.get(pos);
+        if (holder instanceof NewestViewHolder) {
+            ((NewestViewHolder) holder).refreshTime(info.getOpen_time() * 1000 - System.currentTimeMillis());
+        }
+    }
+
+    @Override
+    public void onViewDetachedFromWindow(RecyclerView.ViewHolder holder) {
+        if (holder instanceof NewestViewHolder) {
+            ((NewestViewHolder) holder).newestCountDownView.stop();
         }
     }
 
@@ -54,7 +91,7 @@ public class NewestAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         return list != null ? list.size() : 0;
     }
 
-    static class NewestViewHolder extends RecyclerView.ViewHolder {
+    class NewestViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.goods_image)
         RatioImageView goodsImage;
         @BindView(R.id.goods_name)
@@ -75,10 +112,21 @@ public class NewestAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         TextView announcedTime;
         @BindView(R.id.layout_no_time)
         LinearLayout layoutNoTime;
+        @BindView(R.id.is_announcing)
+        TextView isAnnouncing;
 
         NewestViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
+        }
+
+        private void refreshTime(long leftTime) {
+            if (leftTime > 0) {
+                newestCountDownView.start(leftTime);
+            } else {
+                newestCountDownView.stop();
+                newestCountDownView.allShowZero();
+            }
         }
     }
 }

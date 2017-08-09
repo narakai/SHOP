@@ -26,4 +26,6 @@ public interface IIndianaRecordTypeView extends BaseListView {
     void hideProgessDialog();
 
     void toPaySuccess(CreateOrderInfo createOrderInfo);
+
+    void changePage(int page);
 }

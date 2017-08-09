@@ -46,7 +46,7 @@ public class IndianaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         viewHolder.goodsName.setText(info.getTitle());
         Glide.with(context).load(ShopApplication.configInfo.getFile_domain() + info.getThumb()).into(viewHolder.goodsImage);
         int precent = info.getCurrent_source() * 100 / info.getNeed_source();
-        viewHolder.progressText.setText(precent+"%");
+        viewHolder.progressText.setText(precent + "%");
         viewHolder.progressBar.setProgress(precent);
     }
 

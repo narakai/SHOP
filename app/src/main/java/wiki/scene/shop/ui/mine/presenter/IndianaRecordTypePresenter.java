@@ -25,7 +25,7 @@ public class IndianaRecordTypePresenter extends BasePresenter<IIndianaRecordType
         model = new IndianaRecordModel();
     }
 
-    public void getIndianaRecordData(int type, int page, final boolean isLoading) {
+    public void getIndianaRecordData(int type, final int page, final boolean isLoading) {
         try {
             if (isLoading) {
                 mView.showLoading();
@@ -39,6 +39,7 @@ public class IndianaRecordTypePresenter extends BasePresenter<IIndianaRecordType
                     @Override
                     public void onSuccess(MineOrderResultInfo data) {
                         try {
+                            mView.changePage(page);
                             if (isLoading) {
                                 mView.showContent();
                             } else {
@@ -58,6 +59,9 @@ public class IndianaRecordTypePresenter extends BasePresenter<IIndianaRecordType
                             } else {
                                 mView.showMessage(message);
                                 mView.refreshComplete();
+                            }
+                            if (page > 1) {
+                                mView.changePage(page - 1);
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
