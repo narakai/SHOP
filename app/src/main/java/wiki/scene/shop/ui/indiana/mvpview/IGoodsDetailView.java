@@ -18,6 +18,8 @@ import wiki.scene.shop.mvp.BaseView;
 public interface IGoodsDetailView extends BaseView {
     void showMessage(String message);
 
+    void showMessage(@StringRes int resId);
+
     void addCartSuccess();
 
     void showProgressDialog(@StringRes int resId);
@@ -37,4 +39,10 @@ public interface IGoodsDetailView extends BaseView {
     void bindGuessLike(List<ListGoodsInfo> listGoodsInfoList);
 
     void createOrderSuccess(CreateOrderInfo info);
+
+    void hasCollected();
+
+    void noCollected();
+
+    void showCollectionStatus(boolean collectionStatus);
 }

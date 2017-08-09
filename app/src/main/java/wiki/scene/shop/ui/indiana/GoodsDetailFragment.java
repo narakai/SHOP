@@ -214,6 +214,8 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
     private boolean getDanmuFlag = true;
     //弹出窗
     private ChooseGoodsNumberPopupWindow popupWindow;
+    //
+    private boolean isCollectionStatus = false;
 
     public static GoodsDetailFragment newInstance(String cycle_id) {
         Bundle args = new Bundle();
@@ -281,6 +283,15 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
         banner.start();
     }
 
+    @OnClick(R.id.collection)
+    public void onClickCollection() {
+        if (isCollectionStatus) {
+            presenter.cancelCollection(goodsInfo.getId());
+        } else {
+            presenter.addCollection(goodsInfo.getId());
+        }
+    }
+
     @OnClick(R.id.old_announced)
     public void onClickOldAnnounced() {
         start(OldAnnouncedFragment.newInstance());
@@ -291,7 +302,6 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
         if (goodsInfo == null) {
             return;
         }
-
         ShareBoardConfig config = new ShareBoardConfig();
         config.setIndicatorVisibility(false);
         config.setShareboardBackgroundColor(getResources().getColor(R.color.white));
@@ -369,7 +379,6 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
 
     @OnClick(R.id.immediately_indiana)
     public void onClickImmeduatelyIndiana() {
-        //presenter.createOrder(_mActivity);
         if (popupWindow == null) {
             popupWindow = new ChooseGoodsNumberPopupWindow(getContext());
             popupWindow.setOnClickImmediatelyIndianaListener(new ChooseGoodsNumberPopupWindow.OnClickImmediatelyIndianaListener() {
@@ -416,6 +425,11 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
             getDanmuFlag = false;
         }
         OkGo.getInstance().cancelTag(ApiUtil.DANMU_TAG);
+        OkGo.getInstance().cancelTag(ApiUtil.CANCEL_COLLECTION_TAG);
+        OkGo.getInstance().cancelTag(ApiUtil.ADD_COLLECTION_TAG);
+        OkGo.getInstance().cancelTag(ApiUtil.CREATE_ORDER_TAG);
+        OkGo.getInstance().cancelTag(ApiUtil.JOIN_CAR_TAG);
+        OkGo.getInstance().cancelTag(ApiUtil.GOODS_DETAIL_TAG);
         if (popupWindow != null) {
             popupWindow = null;
         }
@@ -426,6 +440,11 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
     @Override
     public void showMessage(String message) {
         ToastUtils.getInstance(_mActivity).showToast(message);
+    }
+
+    @Override
+    public void showMessage(@StringRes int resId) {
+        ToastUtils.getInstance(_mActivity).showToast(resId);
     }
 
     @Override
@@ -624,6 +643,38 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
             popupWindow.dismiss();
         }
         start(PayOrderFragment.newInstance(info));
+    }
+
+    @Override
+    public void hasCollected() {
+        try {
+            isCollectionStatus = true;
+            collection.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.ic_collection_s), null, null);
+            collection.setText(R.string.has_collection);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void noCollected() {
+        try {
+            isCollectionStatus = false;
+            collection.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.ic_collection_d), null, null);
+            collection.setText(R.string.collection);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void showCollectionStatus(boolean collectionStatus) {
+        isCollectionStatus = collectionStatus;
+        if (collectionStatus) {
+            hasCollected();
+        } else {
+            noCollected();
+        }
     }
 
     private void bindBanner(List<String> images) {

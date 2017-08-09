@@ -84,7 +84,15 @@ public class ApiUtil {
     //订单中去支付
     public static final String ORDER_DETAIL_TO_PAY="/cycle/order/detail";
     public static final String ORDER_DETAIL_TO_PAY_TAG="ORDER_DETAIL_TO_PAY_TAG";
-
+    //收藏
+    public static final String ADD_COLLECTION="/personal/collection/add";
+    public static final String ADD_COLLECTION_TAG="ADD_COLLECTION_TAG";
+    //取消收藏
+    public static final String CANCEL_COLLECTION="/personal/collection/delete";
+    public static final String CANCEL_COLLECTION_TAG="CANCEL_COLLECTION_TAG";
+    //收藏列表
+    public static final String COLLECTION_LIST="/personal/collection";
+    public static final String COLLECTION_LIST_TAG="COLLECTION_LIST_TAG";
     /**
      * Case By:创建参数基础信息
      * Author: scene on 2017/5/19 13:19

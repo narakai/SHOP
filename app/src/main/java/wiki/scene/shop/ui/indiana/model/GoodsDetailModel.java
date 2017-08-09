@@ -21,8 +21,8 @@ import wiki.scene.shop.http.listener.HttpResultListener;
  */
 
 public class GoodsDetailModel {
-    public void getDetailInfo(HttpParams params, final HttpResultListener<GoodsDetailInfo> listener){
-        OkGo.<LzyResponse<GoodsDetailInfo>>get(ApiUtil.API_PRE+ApiUtil.GOODS_DETAIL)
+    public void getDetailInfo(HttpParams params, final HttpResultListener<GoodsDetailInfo> listener) {
+        OkGo.<LzyResponse<GoodsDetailInfo>>get(ApiUtil.API_PRE + ApiUtil.GOODS_DETAIL)
                 .tag(ApiUtil.GOODS_DETAIL_TAG)
                 .params(params)
                 .execute(new JsonCallback<LzyResponse<GoodsDetailInfo>>() {
@@ -34,7 +34,7 @@ public class GoodsDetailModel {
                     @Override
                     public void onError(Response<LzyResponse<GoodsDetailInfo>> response) {
                         super.onError(response);
-                        listener.onFail(response.getException()!=null?response.getException().getMessage():response.message());
+                        listener.onFail(response.getException() != null ? response.getException().getMessage() : response.message());
                     }
 
                     @Override
@@ -107,8 +107,8 @@ public class GoodsDetailModel {
     }
 
 
-    public void getDanmu(HttpParams params, final HttpResultListener<List<GoodsDetailInfo.LogInfo>> listener){
-        OkGo.<LzyResponse<List<GoodsDetailInfo.LogInfo>>>get(ApiUtil.API_PRE+ApiUtil.DANMU)
+    public void getDanmu(HttpParams params, final HttpResultListener<List<GoodsDetailInfo.LogInfo>> listener) {
+        OkGo.<LzyResponse<List<GoodsDetailInfo.LogInfo>>>get(ApiUtil.API_PRE + ApiUtil.DANMU)
                 .tag(ApiUtil.DANMU_TAG)
                 .params(params)
                 .execute(new JsonCallback<LzyResponse<List<GoodsDetailInfo.LogInfo>>>() {
@@ -120,6 +120,54 @@ public class GoodsDetailModel {
                     @Override
                     public void onError(Response<LzyResponse<List<GoodsDetailInfo.LogInfo>>> response) {
                         super.onError(response);
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        super.onFinish();
+                        listener.onFinish();
+                    }
+                });
+    }
+
+    public void addCollection(HttpParams params, final HttpResultListener<String> listener) {
+        OkGo.<LzyResponse<String>>post(ApiUtil.API_PRE + ApiUtil.ADD_COLLECTION)
+                .tag(ApiUtil.ADD_COLLECTION_TAG)
+                .params(params)
+                .execute(new JsonCallback<LzyResponse<String>>() {
+                    @Override
+                    public void onSuccess(Response<LzyResponse<String>> response) {
+                        listener.onSuccess("");
+                    }
+
+                    @Override
+                    public void onError(Response<LzyResponse<String>> response) {
+                        super.onError(response);
+                        listener.onFail(response.getException() == null ? response.message() : response.getException().getMessage());
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        super.onFinish();
+                        listener.onFinish();
+                    }
+                });
+    }
+
+    public void cancelCollection(HttpParams params, final HttpResultListener<String> listener) {
+        OkGo.<LzyResponse<String>>post(ApiUtil.API_PRE + ApiUtil.CANCEL_COLLECTION)
+                .tag(ApiUtil.CANCEL_COLLECTION_TAG)
+                .params(params)
+                .execute(new JsonCallback<LzyResponse<String>>() {
+                    @Override
+                    public void onSuccess(Response<LzyResponse<String>> response) {
+                        listener.onSuccess("");
+                    }
+
+                    @Override
+                    public void onError(Response<LzyResponse<String>> response) {
+                        super.onError(response);
+                        listener.onFail(response.getException() == null ? response.message() : response.getException().getMessage());
                     }
 
                     @Override

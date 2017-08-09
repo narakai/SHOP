@@ -22,7 +22,6 @@ import me.yokeyword.fragmentation.SupportFragment;
 import wiki.scene.loadmore.utils.SceneLogUtil;
 import wiki.scene.shop.event.StartBrotherEvent;
 import wiki.scene.shop.event.TabSelectedEvent;
-import wiki.scene.shop.ui.car.CarFragment;
 import wiki.scene.shop.ui.indiana.IndianaFragment;
 import wiki.scene.shop.ui.mine.MineFragment;
 import wiki.scene.shop.ui.newest.NewestFragment;
@@ -42,7 +41,7 @@ public class MainFragment extends SupportFragment {
     public static final int SECOND = 1;
     public static final int THIRD = 2;
     public static final int FOUR = 3;
-    public static final int FIVE = 4;
+    //public static final int FIVE = 4;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.toolbar_title)
@@ -86,28 +85,24 @@ public class MainFragment extends SupportFragment {
         tabNames.add(getString(R.string.indiana_toolbar_text));
         tabNames.add(getString(R.string.bottom_tab_newest));
         tabNames.add(getString(R.string.bottom_tab_share));
-        tabNames.add(getString(R.string.bottom_tab_car));
         tabNames.add(getString(R.string.bottom_tab_mine));
         if (firstFragment == null) {
             mFragments[FIRST] = IndianaFragment.newInstance();
             mFragments[SECOND] = NewestFragment.newInstance();
             mFragments[THIRD] = ShareFragment.newInstance();
-            mFragments[FOUR] = CarFragment.newInstance();
-            mFragments[FIVE] = MineFragment.newInstance();
+            mFragments[FOUR] = MineFragment.newInstance();
 
             loadMultipleRootFragment(R.id.fl_tab_container, FIRST,
                     mFragments[FIRST],
                     mFragments[SECOND],
                     mFragments[THIRD],
-                    mFragments[FOUR],
-                    mFragments[FIVE]);
+                    mFragments[FOUR]);
         } else {
             // 这里我们需要拿到mFragments的引用,也可以通过getChildFragmentManager.findFragmentByTag自行进行判断查找(效率更高些),用下面的方法查找更方便些
             mFragments[FIRST] = firstFragment;
             mFragments[SECOND] = findChildFragment(NewestFragment.class);
             mFragments[THIRD] = findChildFragment(ShareFragment.class);
-            mFragments[FOUR] = findChildFragment(CarFragment.class);
-            mFragments[FIVE] = findChildFragment(MineFragment.class);
+            mFragments[FOUR] = findChildFragment(MineFragment.class);
         }
         try {
             toolbarTitle.setText(tabNames.get(0));
@@ -123,7 +118,6 @@ public class MainFragment extends SupportFragment {
                 .addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottombar_indiana_d, R.drawable.ic_bottombar_indiana_s, getString(R.string.bottom_tab_indiana)))
                 .addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottombar_newest_d, R.drawable.ic_bottombar_newest_s, getString(R.string.bottom_tab_newest)))
                 .addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottombar_share_d, R.drawable.ic_bottombar_share_s, getString(R.string.bottom_tab_share)))
-                .addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottombar_car_d, R.drawable.ic_bottombar_car_s, getString(R.string.bottom_tab_car)))
                 .addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottombar_mine_d, R.drawable.ic_bottombar_mine_s, getString(R.string.bottom_tab_mine)));
 
 
@@ -132,7 +126,7 @@ public class MainFragment extends SupportFragment {
             public void onTabSelected(int position, int prePosition) {
                 showHideFragment(mFragments[position], mFragments[prePosition]);
                 toolbarTitle.setText(tabNames.get(position));
-                if (position == 0 || position == 1 || position == 3) {
+                if (position == 0 || position == 1) {
                     toolbarLayout.setVisibility(View.VISIBLE);
                     toolbarMessage.setVisibility(View.VISIBLE);
                     toolbarPublish.setVisibility(View.GONE);
@@ -172,8 +166,9 @@ public class MainFragment extends SupportFragment {
     public void startBrother(StartBrotherEvent event) {
         start(event.targetFragment);
     }
+
     @Subscribe
-    public void toIndexPage(TabSelectedEvent event){
+    public void toIndexPage(TabSelectedEvent event) {
         mBottomBar.setCurrentItem(event.position);
     }
 

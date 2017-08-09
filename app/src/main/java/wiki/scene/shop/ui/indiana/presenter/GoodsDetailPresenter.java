@@ -53,6 +53,7 @@ public class GoodsDetailPresenter extends BasePresenter<IGoodsDetailView> {
                     mView.bindTuhaoRank(data.getBuyers());
                     mView.bindJoinRecord(data.getLog());
                     mView.bindGuessLike(data.getData().getHot());
+                    mView.showCollectionStatus(data.isCollection());
                 }
 
                 @Override
@@ -167,6 +168,94 @@ public class GoodsDetailPresenter extends BasePresenter<IGoodsDetailView> {
 
                 }
             });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void addCollection(String cycleId) {
+        try {
+            mView.showProgressDialog(R.string.loading);
+            HttpParams params = new HttpParams();
+            if (ShopApplication.hasLogin && ShopApplication.userInfo != null) {
+                params.put("user_id", ShopApplication.userInfo.getUser_id());
+                params.put("cycle_id", cycleId);
+                model.addCollection(params, new HttpResultListener<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        try{
+                            mView.hasCollected();
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFail(String message) {
+                        try{
+                            mView.showMessage(message);
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        try{
+                            mView.hideProgressDialog();
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+                    }
+                });
+            } else {
+                mView.hideProgressDialog();
+                mView.showMessage(R.string.you_has_no_login_please_login);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void cancelCollection(String cycleId) {
+        try {
+            mView.showProgressDialog(R.string.loading);
+            HttpParams params = new HttpParams();
+            if (ShopApplication.hasLogin && ShopApplication.userInfo != null) {
+                params.put("user_id", ShopApplication.userInfo.getUser_id());
+                params.put("cycle_id", cycleId);
+                model.cancelCollection(params, new HttpResultListener<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        try{
+                            mView.noCollected();
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFail(String message) {
+                        try{
+                            mView.showMessage(message);
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        try{
+                            mView.hideProgressDialog();
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+                    }
+                });
+            } else {
+                mView.hideProgressDialog();
+                mView.showMessage(R.string.you_has_no_login_please_login);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

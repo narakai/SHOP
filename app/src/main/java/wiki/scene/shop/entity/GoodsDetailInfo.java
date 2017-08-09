@@ -13,6 +13,7 @@ public class GoodsDetailInfo {
     private List<LogInfo> log;
     private List<DanmuInfo> danmu;
     private List<BuyersInfo> buyers;
+    private boolean collection;
 
     public GoodsDetailInfoData getData() {
         return data;
@@ -44,6 +45,14 @@ public class GoodsDetailInfo {
 
     public void setBuyers(List<BuyersInfo> buyers) {
         this.buyers = buyers;
+    }
+
+    public boolean isCollection() {
+        return collection;
+    }
+
+    public void setCollection(boolean collection) {
+        this.collection = collection;
     }
 
     public class GoodsDetailInfoData {
