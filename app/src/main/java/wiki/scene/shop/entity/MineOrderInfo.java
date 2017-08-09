@@ -10,7 +10,7 @@ import java.util.List;
 
 public class MineOrderInfo implements Serializable {
     private String cycle_id;
-    private int type;
+    private int type;//1:秒开，2：1块，3：10块
     private String thumb;
     private String title;
     private String cycle_code;
@@ -23,7 +23,7 @@ public class MineOrderInfo implements Serializable {
     private String id;
     private String user_id;
     private List<String> my_codes;
-    private int my_buy_number;
+    private int number;
     private int order_status; //1未支付  2已支付（完成） 3中奖   4过期
 
     public String getCycle_id() {
@@ -138,19 +138,19 @@ public class MineOrderInfo implements Serializable {
         this.my_codes = my_codes;
     }
 
-    public int getMy_buy_number() {
-        return my_buy_number;
-    }
-
-    public void setMy_buy_number(int my_buy_number) {
-        this.my_buy_number = my_buy_number;
-    }
-
     public int getOrder_status() {
         return order_status;
     }
 
     public void setOrder_status(int order_status) {
         this.order_status = order_status;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
     }
 }

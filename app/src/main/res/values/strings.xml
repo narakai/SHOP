@@ -212,4 +212,6 @@
     <string name="you_has_no_login_please_login">您还未登录，请先登录</string>
     <string name="input_right_number">请输入正确的数量</string>
 
+    <string name="price_10_area">10元\n专区</string>
+    <string name="second_open">秒开\n专区</string>
 </resources>

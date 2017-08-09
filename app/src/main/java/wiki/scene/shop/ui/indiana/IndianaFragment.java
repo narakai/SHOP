@@ -48,6 +48,7 @@ import wiki.scene.shop.ui.indiana.presenter.IndianaPresenter;
 import wiki.scene.shop.utils.GlideImageLoader;
 import wiki.scene.shop.utils.PriceUtil;
 import wiki.scene.shop.utils.ToastUtils;
+import wiki.scene.shop.utils.ViewUtils;
 import wiki.scene.shop.widgets.RatioImageView;
 import wiki.scene.shop.widgets.VerticalTextview;
 
@@ -473,6 +474,8 @@ public class IndianaFragment extends BaseMainMvpFragment<IIndianaView, IndianaPr
             layoutFastest1.setOnClickListener(onClickListener);
             layoutPrice1.setOnClickListener(onClickListener);
             //banner
+            //设置banner高度
+            ViewUtils.setViewHeightByViewGroup(banner, (int) (PtrLocalDisplay.SCREEN_WIDTH_PIXELS * 10f / 27f));
             banner.setImageLoader(new GlideImageLoader());
             banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE);
             banner.setDelayTime(2000);

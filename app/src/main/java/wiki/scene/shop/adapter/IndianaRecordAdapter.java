@@ -56,6 +56,7 @@ public class IndianaRecordAdapter extends RecyclerView.Adapter<RecyclerView.View
         }
     }
 
+
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         MineOrderInfo info = list.get(position);
@@ -78,18 +79,38 @@ public class IndianaRecordAdapter extends RecyclerView.Adapter<RecyclerView.View
                     }
                 }
             });
+            onGoingViewHolder.personTimes.setText(String.valueOf(info.getNumber()));
+            setGoodsTag(onGoingViewHolder.goodsTag, info.getType());
         } else if (holder instanceof PendingViewHolder) {
             PendingViewHolder pendingViewHolder = (PendingViewHolder) holder;
             pendingViewHolder.goodsName.setText(info.getTitle());
             Glide.with(context).load(ShopApplication.configInfo.getFile_domain() + info.getThumb()).fitCenter().into(pendingViewHolder.goodsImage);
-            pendingViewHolder.personTimes.setText(String.valueOf(info.getMy_buy_number()));
+            pendingViewHolder.personTimes.setText(String.valueOf(info.getNumber()));
             pendingViewHolder.refreshTime(info.getOpen_time() - System.currentTimeMillis() / 1000);
+            setGoodsTag(pendingViewHolder.goodsTag, info.getType());
         } else {
             IndianaResultViewHolder indianaResultViewHolder = (IndianaResultViewHolder) holder;
             indianaResultViewHolder.goodsName.setText(info.getTitle());
             Glide.with(context).load(ShopApplication.configInfo.getFile_domain() + info.getThumb()).fitCenter().into(indianaResultViewHolder.goodsImage);
+            setGoodsTag(indianaResultViewHolder.goodsTag, info.getType());
         }
 
+    }
+
+    private void setGoodsTag(TextView tagView, int type) {
+        switch (type) {
+            case 1:
+                tagView.setText(context.getString(R.string.second_open));
+                tagView.setVisibility(View.VISIBLE);
+                break;
+            case 2:
+                tagView.setVisibility(View.GONE);
+                break;
+            case 3:
+                tagView.setVisibility(View.VISIBLE);
+                tagView.setText(context.getString(R.string.price_10_area));
+                break;
+        }
     }
 
     @Override

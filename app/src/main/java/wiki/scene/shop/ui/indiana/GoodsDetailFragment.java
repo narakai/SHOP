@@ -41,6 +41,7 @@ import wiki.scene.loadmore.PtrClassicFrameLayout;
 import wiki.scene.loadmore.PtrDefaultHandler;
 import wiki.scene.loadmore.PtrFrameLayout;
 import wiki.scene.loadmore.StatusViewLayout;
+import wiki.scene.loadmore.utils.PtrLocalDisplay;
 import wiki.scene.shop.R;
 import wiki.scene.shop.ShopApplication;
 import wiki.scene.shop.adapter.GoodsDetailJoinRecordAdapter;
@@ -59,6 +60,7 @@ import wiki.scene.shop.ui.indiana.presenter.GoodsDetailPresenter;
 import wiki.scene.shop.utils.DateUtil;
 import wiki.scene.shop.utils.GlideImageLoader;
 import wiki.scene.shop.utils.ToastUtils;
+import wiki.scene.shop.utils.ViewUtils;
 import wiki.scene.shop.widgets.CustomListView;
 import wiki.scene.shop.widgets.CustomeGridView;
 import wiki.scene.shop.widgets.LoadingDialog;
@@ -242,6 +244,7 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
         super.onEnterAnimationEnd(savedInstanceState);
         initToolbarNav(toolbar);
         hideLoading();
+        initBanner();
         initView();
         presenter.getGoodsDetailInfo(true, cycleId);
         getDanmu();
@@ -268,6 +271,8 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
     }
 
     private void initBanner() {
+        //设置banner高度
+        ViewUtils.setViewHeightByViewGroup(banner, (int) (PtrLocalDisplay.SCREEN_WIDTH_PIXELS * 10f / 27f));
         //banner
         banner.setImageLoader(new GlideImageLoader());
         banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
@@ -370,7 +375,7 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
             popupWindow.setOnClickImmediatelyIndianaListener(new ChooseGoodsNumberPopupWindow.OnClickImmediatelyIndianaListener() {
                 @Override
                 public void onClickImmediatelyIndiana(int number) {
-                    presenter.createOrder(getContext(),goodsInfo.getId(),number);
+                    presenter.createOrder(getContext(), goodsInfo.getId(), number);
                 }
             });
         }
@@ -411,8 +416,8 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
             getDanmuFlag = false;
         }
         OkGo.getInstance().cancelTag(ApiUtil.DANMU_TAG);
-        if(popupWindow!=null){
-            popupWindow=null;
+        if (popupWindow != null) {
+            popupWindow = null;
         }
         super.onDestroyView();
         unbinder.unbind();
@@ -615,7 +620,7 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
 
     @Override
     public void createOrderSuccess(CreateOrderInfo info) {
-        if(popupWindow!=null){
+        if (popupWindow != null) {
             popupWindow.dismiss();
         }
         start(PayOrderFragment.newInstance(info));
