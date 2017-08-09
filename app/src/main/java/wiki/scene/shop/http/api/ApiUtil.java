@@ -100,8 +100,12 @@ public class ApiUtil {
     public static final String MINE_SHARE_LIST = "/personal/show";
     public static final String MINE_SHARE_LIST_TAG = "MINE_SHARE_LIST_TAG";
     //晒单列表
-    public static final String SHARE_LIST="/cycle/show";
-    public static final String SHARE_LIST_TAG="SHARE_LIST_TAG";
+    public static final String SHARE_LIST = "/cycle/show";
+    public static final String SHARE_LIST_TAG = "SHARE_LIST_TAG";
+    //添加心愿产品
+    public static final String ADD_WISH_GOODS = "/personal/feedback/wish";
+    public static final String ADD_WISH_GOODS_TAG = "ADD_WISH_GOODS_TAG";
+
     /**
      * Case By:创建参数基础信息
      * Author: scene on 2017/5/19 13:19
