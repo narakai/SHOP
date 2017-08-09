@@ -19,14 +19,19 @@ import wiki.scene.loadmore.PtrClassicFrameLayout;
 import wiki.scene.loadmore.PtrDefaultHandler;
 import wiki.scene.loadmore.PtrFrameLayout;
 import wiki.scene.loadmore.StatusViewLayout;
+import wiki.scene.loadmore.loadmore.OnLoadMoreListener;
 import wiki.scene.loadmore.recyclerview.RecyclerAdapterWithHF;
 import wiki.scene.loadmore.utils.PtrLocalDisplay;
 import wiki.scene.shop.R;
 import wiki.scene.shop.adapter.ShareAdapter;
-import wiki.scene.shop.ui.share.mvpview.IShareNewestView;
-import wiki.scene.shop.ui.share.presenter.ShareNewestPrsenter;
+import wiki.scene.shop.entity.ResultPageInfo;
+import wiki.scene.shop.entity.ShareListResultInfo;
 import wiki.scene.shop.itemDecoration.SpacesItemDecoration;
 import wiki.scene.shop.mvp.BaseMvpFragment;
+import wiki.scene.shop.ui.share.mvpview.IShareTypeView;
+import wiki.scene.shop.ui.share.presenter.ShareTypePrsenter;
+import wiki.scene.shop.utils.ToastUtils;
+import wiki.scene.shop.widgets.LoadingDialog;
 
 /**
  * Case By:最新
@@ -34,7 +39,7 @@ import wiki.scene.shop.mvp.BaseMvpFragment;
  * Author：scene on 2017/6/29 11:57
  */
 
-public class ShareNewestFragment extends BaseMvpFragment<IShareNewestView, ShareNewestPrsenter> implements IShareNewestView {
+public class ShareNewestFragment extends BaseMvpFragment<IShareTypeView, ShareTypePrsenter> implements IShareTypeView {
 
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
@@ -44,10 +49,13 @@ public class ShareNewestFragment extends BaseMvpFragment<IShareNewestView, Share
     StatusViewLayout statusLayout;
     Unbinder unbinder;
 
+    private LoadingDialog loadingDialog;
 
-    private List<String> list = new ArrayList<>();
+    private List<ShareListResultInfo.ShareListInfo> list = new ArrayList<>();
     private ShareAdapter adapter;
-    private RecyclerAdapterWithHF mAdapter;
+    //分页
+    private int page = 1;
+    private final int TYPE = 1;
 
     public static ShareNewestFragment newInstance() {
         Bundle args = new Bundle();
@@ -71,32 +79,37 @@ public class ShareNewestFragment extends BaseMvpFragment<IShareNewestView, Share
     }
 
     @Override
-    public ShareNewestPrsenter initPresenter() {
-        return new ShareNewestPrsenter(this);
+    public ShareTypePrsenter initPresenter() {
+        return new ShareTypePrsenter(this);
     }
 
     @Override
     public void onEnterAnimationEnd(Bundle savedInstanceState) {
         super.onEnterAnimationEnd(savedInstanceState);
         initView();
-        hideLoading();
+        presenter.getShareListData(true, TYPE, page);
     }
 
     private void initView() {
         ptrLayout.setLastUpdateTimeRelateObject(this);
-        for (int i = 0; i < 10; i++) {
-            list.add(String.valueOf(i));
-        }
         adapter = new ShareAdapter(_mActivity, list);
-        mAdapter = new RecyclerAdapterWithHF(adapter);
+        RecyclerAdapterWithHF mAdapter = new RecyclerAdapterWithHF(adapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(_mActivity);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.addItemDecoration(new SpacesItemDecoration(PtrLocalDisplay.dp2px(1)));
         recyclerView.setAdapter(mAdapter);
+
+        ptrLayout.setLoadMoreEnable(true);
         ptrLayout.setPtrHandler(new PtrDefaultHandler() {
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
-
+                presenter.getShareListData(false, TYPE, 1);
+            }
+        });
+        ptrLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void loadMore() {
+                presenter.getShareListData(false, TYPE, page + 1);
             }
         });
     }
@@ -117,4 +130,109 @@ public class ShareNewestFragment extends BaseMvpFragment<IShareNewestView, Share
         super.onDestroyView();
         unbinder.unbind();
     }
+
+    @Override
+    public void showLoadingPage() {
+        try {
+            statusLayout.showLoading();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void showErrorPage() {
+        try {
+            statusLayout.showFailed(retryListener);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void showEmptyPage() {
+        try {
+            statusLayout.showNone();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void showContentPage() {
+        try {
+            statusLayout.showContent();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void showProgressDialog(@StringRes int resId) {
+        if (loadingDialog == null) {
+            loadingDialog = LoadingDialog.getInstance(getContext());
+        }
+        loadingDialog.showLoadingDialog(getString(resId));
+    }
+
+    @Override
+    public void hideProgressDialog() {
+        if (loadingDialog != null) {
+            loadingDialog.cancelLoadingDialog();
+        }
+    }
+
+    @Override
+    public void showMessage(@StringRes int resId) {
+        ToastUtils.getInstance(_mActivity).showToast(resId);
+    }
+
+    @Override
+    public void showMessage(String msg) {
+        ToastUtils.getInstance(_mActivity).showToast(msg);
+    }
+
+    @Override
+    public void getShareListDataSuccess(List<ShareListResultInfo.ShareListInfo> dataList) {
+        try {
+            if (page == 1) {
+                list.clear();
+            }
+            list.addAll(dataList);
+            adapter.notifyDataSetChanged();
+            if (list.size() == 0) {
+                showEmptyPage();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void changePageInfo(ResultPageInfo pageInfo, int page) {
+        try {
+            this.page = page;
+            ptrLayout.loadMoreComplete(pageInfo.getPage_total() > page);
+            ptrLayout.setLoadMoreEnable(pageInfo.getPage_total() > page);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void refreshCompile() {
+        try {
+            ptrLayout.refreshComplete();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    private View.OnClickListener retryListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            presenter.getShareListData(true, TYPE, page);
+        }
+    };
 }

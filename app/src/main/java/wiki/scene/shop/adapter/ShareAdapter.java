@@ -13,6 +13,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import wiki.scene.shop.R;
+import wiki.scene.shop.entity.ShareListResultInfo;
 import wiki.scene.shop.widgets.RatioImageView;
 
 /**
@@ -23,9 +24,9 @@ import wiki.scene.shop.widgets.RatioImageView;
 
 public class ShareAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context context;
-    private List<String> list;
+    private List<ShareListResultInfo.ShareListInfo> list;
 
-    public ShareAdapter(Context context, List<String> list) {
+    public ShareAdapter(Context context, List<ShareListResultInfo.ShareListInfo> list) {
         this.context = context;
         this.list = list;
     }

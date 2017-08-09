@@ -58,44 +58,50 @@ public class ApiUtil {
     public static final String JOIN_CAR = "/cart/edit";
     public static final String JOIN_CAR_TAG = "JOIN_CAR_TAG";
     //删除购物车商品
-    public static final String CART_DELETE="/cart/delete";
-    public static final String CART_DELETE_TAG="CART_DELETE_TAG";
+    public static final String CART_DELETE = "/cart/delete";
+    public static final String CART_DELETE_TAG = "CART_DELETE_TAG";
     //创建订单
-    public static final String CREATE_ORDER="/cycle/order";
-    public static final String CREATE_ORDER_TAG="CREATE_ORDER_TAG";
+    public static final String CREATE_ORDER = "/cycle/order";
+    public static final String CREATE_ORDER_TAG = "CREATE_ORDER_TAG";
     //获取支付信息
-    public static final String PAY="/cycle/order/pay";
-    public static final String PAY_TAG="PAY_TAG";
+    public static final String PAY = "/cycle/order/pay";
+    public static final String PAY_TAG = "PAY_TAG";
     //首页的中奖提示
-    public static final String WINNER_NOTICE="/winning_notice";
-    public static final String WINNER_NOTICE_TAG="WINNER_NOTICE_TAG";
+    public static final String WINNER_NOTICE = "/winning_notice";
+    public static final String WINNER_NOTICE_TAG = "WINNER_NOTICE_TAG";
     //产品详情
-    public static final String GOODS_DETAIL="/cycle/overview";
-    public static final String GOODS_DETAIL_TAG="GOODS_DETAIL_TAG";
+    public static final String GOODS_DETAIL = "/cycle/overview";
+    public static final String GOODS_DETAIL_TAG = "GOODS_DETAIL_TAG";
     //弹幕
-    public static final String DANMU="/cycle/danmu";
-    public static final String DANMU_TAG="DANMU_TAG";
+    public static final String DANMU = "/cycle/danmu";
+    public static final String DANMU_TAG = "DANMU_TAG";
     //夺宝记录
-    public static final String MINE_ORDER="/personal/order/log";
-    public static final String MINE_ORDER_TAG="MINE_ORDER_TAG";
+    public static final String MINE_ORDER = "/personal/order/log";
+    public static final String MINE_ORDER_TAG = "MINE_ORDER_TAG";
     //中奖记录
-    public static final String WIN_RECORD="/personal/order/win";
-    public static final String WIN_RECORD_TAG="WIN_RECORD_TAG";
+    public static final String WIN_RECORD = "/personal/order/win";
+    public static final String WIN_RECORD_TAG = "WIN_RECORD_TAG";
     //订单中去支付
-    public static final String ORDER_DETAIL_TO_PAY="/cycle/order/detail";
-    public static final String ORDER_DETAIL_TO_PAY_TAG="ORDER_DETAIL_TO_PAY_TAG";
+    public static final String ORDER_DETAIL_TO_PAY = "/cycle/order/detail";
+    public static final String ORDER_DETAIL_TO_PAY_TAG = "ORDER_DETAIL_TO_PAY_TAG";
     //收藏
-    public static final String ADD_COLLECTION="/personal/collection/add";
-    public static final String ADD_COLLECTION_TAG="ADD_COLLECTION_TAG";
+    public static final String ADD_COLLECTION = "/personal/collection/add";
+    public static final String ADD_COLLECTION_TAG = "ADD_COLLECTION_TAG";
     //取消收藏
-    public static final String CANCEL_COLLECTION="/personal/collection/delete";
-    public static final String CANCEL_COLLECTION_TAG="CANCEL_COLLECTION_TAG";
+    public static final String CANCEL_COLLECTION = "/personal/collection/delete";
+    public static final String CANCEL_COLLECTION_TAG = "CANCEL_COLLECTION_TAG";
     //收藏列表
-    public static final String COLLECTION_LIST="/personal/collection";
-    public static final String COLLECTION_LIST_TAG="COLLECTION_LIST_TAG";
+    public static final String COLLECTION_LIST = "/personal/collection";
+    public static final String COLLECTION_LIST_TAG = "COLLECTION_LIST_TAG";
     //最新揭晓
-    public static final String NEWEST_OPEN="/cycle/new_opened";
-    public static final String NEWEST_OPEN_TAG="NEWEST_OPEN_TAG";
+    public static final String NEWEST_OPEN = "/cycle/new_opened";
+    public static final String NEWEST_OPEN_TAG = "NEWEST_OPEN_TAG";
+    //我的晒单列表
+    public static final String MINE_SHARE_LIST = "/personal/show";
+    public static final String MINE_SHARE_LIST_TAG = "MINE_SHARE_LIST_TAG";
+    //晒单列表
+    public static final String SHARE_LIST="/cycle/show";
+    public static final String SHARE_LIST_TAG="SHARE_LIST_TAG";
     /**
      * Case By:创建参数基础信息
      * Author: scene on 2017/5/19 13:19
