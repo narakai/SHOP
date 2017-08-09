@@ -81,6 +81,7 @@ public class IndianaRecordAdapter extends RecyclerView.Adapter<RecyclerView.View
             });
             onGoingViewHolder.personTimes.setText(String.valueOf(info.getNumber()));
             setGoodsTag(onGoingViewHolder.goodsTag, info.getType());
+            onGoingViewHolder.ongoingProgressbar.setProgress(info.getCurrent_source() * 100 / info.getNeed_source());
         } else if (holder instanceof PendingViewHolder) {
             PendingViewHolder pendingViewHolder = (PendingViewHolder) holder;
             pendingViewHolder.goodsName.setText(info.getTitle());

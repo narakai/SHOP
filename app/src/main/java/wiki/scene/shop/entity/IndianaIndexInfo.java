@@ -10,10 +10,10 @@ import java.util.List;
  */
 
 public class IndianaIndexInfo implements Serializable {
-    List<SliderInfo> slider;
-    List<WinningNoticeInfo> winning_notice;
-    List<NewWaitInfo> new_waiting;
-    InProgressInfo in_progress;
+    private List<SliderInfo> slider;
+    private List<WinningNoticeInfo> winning_notice;
+    private List<NewWaitInfo> new_waiting;
+    private InProgressInfo in_progress;
 
     public List<SliderInfo> getSlider() {
         return slider;

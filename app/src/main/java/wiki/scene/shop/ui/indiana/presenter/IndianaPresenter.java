@@ -48,6 +48,7 @@ public class IndianaPresenter extends BasePresenter<IIndianaView> {
                         indianaView.getDataSuccess(data, isRefresh);
                         indianaView.bindBannerData(data.getSlider());
                         indianaView.bindWinnerNotice(data.getWinning_notice());
+                        indianaView.bindNewWaiting(data.getNew_waiting());
                     }
                 }
 

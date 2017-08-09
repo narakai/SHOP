@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.lzy.okgo.OkGo;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
@@ -37,6 +38,7 @@ import wiki.scene.shop.adapter.IndianaAdapter;
 import wiki.scene.shop.config.AppConfig;
 import wiki.scene.shop.entity.IndianaIndexInfo;
 import wiki.scene.shop.entity.ListGoodsInfo;
+import wiki.scene.shop.entity.NewWaitInfo;
 import wiki.scene.shop.entity.SliderInfo;
 import wiki.scene.shop.entity.WinningNoticeInfo;
 import wiki.scene.shop.event.StartBrotherEvent;
@@ -181,7 +183,6 @@ public class IndianaFragment extends BaseMainMvpFragment<IIndianaView, IndianaPr
                 presenter.getIndianaData(true);
             }
         });
-        indianaHeaderView.bindNewestGoods();
         mAdapter.setOnItemClickListener(new RecyclerAdapterWithHF.OnItemClickListener() {
             @Override
             public void onItemClick(RecyclerAdapterWithHF adapter, RecyclerView.ViewHolder vh, int position) {
@@ -189,7 +190,6 @@ public class IndianaFragment extends BaseMainMvpFragment<IIndianaView, IndianaPr
             }
         });
         getWinnerNotice();
-
     }
 
     private void getWinnerNotice() {
@@ -367,6 +367,13 @@ public class IndianaFragment extends BaseMainMvpFragment<IIndianaView, IndianaPr
             indianaHeaderView.updateWinnerNotice(noticeInfoList);
     }
 
+    @Override
+    public void bindNewWaiting(List<NewWaitInfo> newWaitInfoList) {
+        if (newWaitInfoList != null && newWaitInfoList.size() > 0) {
+            indianaHeaderView.bindNewestGoods(newWaitInfoList);
+        }
+    }
+
 
     private View.OnClickListener retryListener = new View.OnClickListener() {
         @Override
@@ -385,7 +392,7 @@ public class IndianaFragment extends BaseMainMvpFragment<IIndianaView, IndianaPr
         if (indianaHeaderView != null && indianaHeaderView.noticeTextView != null) {
             indianaHeaderView.noticeTextView.stopAutoScroll();
         }
-        isWork=false;
+        isWork = false;
         //取消请求
         OkGo.getInstance().cancelTag(ApiUtil.WINNER_NOTICE_TAG);
         super.onDestroyView();
@@ -466,9 +473,10 @@ public class IndianaFragment extends BaseMainMvpFragment<IIndianaView, IndianaPr
         LinearLayout titleBar1;
         List<String> bannerImageUrls = new ArrayList<>();
         List<String> bannerTitles = new ArrayList<>();
-
+        View mView;
         IndianaHeaderView(View view) {
             ButterKnife.bind(this, view);
+            mView=view;
             layoutPopular1.setOnClickListener(onClickListener);
             layoutNewest1.setOnClickListener(onClickListener);
             layoutFastest1.setOnClickListener(onClickListener);
@@ -485,16 +493,33 @@ public class IndianaFragment extends BaseMainMvpFragment<IIndianaView, IndianaPr
             bindIndianaNotice();
         }
 
-        void bindNewestGoods() {
-            newestGoodsName1.setText("最新揭晓1");
-            newestGoodsName2.setText("最新揭晓2");
-            newestGoodsName3.setText("最新揭晓3");
-            newestGoodsName1.setTag(R.id.newest_countDownView1);
-            newestGoodsName2.setTag(R.id.newest_countDownView2);
-            newestGoodsName3.setTag(R.id.newest_countDownView3);
-            newestCountDownView1.start(1502270860000L-System.currentTimeMillis());
-            newestCountDownView2.start(1502290850000L-System.currentTimeMillis());
-            newestCountDownView3.start(1502280840000L-System.currentTimeMillis());
+        void bindNewestGoods(List<NewWaitInfo> newWaitInfoList) {
+            newestGoods1.setVisibility(View.INVISIBLE);
+            newestGoods2.setVisibility(View.INVISIBLE);
+            newestGoods3.setVisibility(View.INVISIBLE);
+            switch (newWaitInfoList.size()) {
+                case 3:
+                    newestGoods3.setVisibility(View.VISIBLE);
+                    newestGoodsName1.setText(newWaitInfoList.get(2).getTitle());
+                    newestGoodsName3.setTag(R.id.newest_countDownView3);
+                    newestCountDownView3.updateShow(1502280840000L - System.currentTimeMillis());
+                    newestCountDownView3.restart();
+                    Glide.with(getContext()).load(ShopApplication.configInfo.getFile_domain() + newWaitInfoList.get(2).getThumb()).fitCenter().into(newestGoodsImage3);
+                case 2:
+                    newestGoods2.setVisibility(View.VISIBLE);
+                    newestGoodsName1.setText(newWaitInfoList.get(1).getTitle());
+                    newestGoodsName2.setTag(R.id.newest_countDownView2);
+                    newestCountDownView2.updateShow(1502290850000L - System.currentTimeMillis());
+                    newestCountDownView2.restart();
+                    Glide.with(getContext()).load(ShopApplication.configInfo.getFile_domain() + newWaitInfoList.get(1).getThumb()).fitCenter().into(newestGoodsImage2);
+                case 1:
+                    newestGoods1.setVisibility(View.VISIBLE);
+                    newestGoodsName1.setText(newWaitInfoList.get(0).getTitle());
+                    newestGoodsName1.setTag(R.id.newest_countDownView1);
+                    newestCountDownView1.start(1502270860000L - System.currentTimeMillis());
+                    Glide.with(getContext()).load(ShopApplication.configInfo.getFile_domain() + newWaitInfoList.get(0).getThumb()).fitCenter().into(newestGoodsImage1);
+                    break;
+            }
         }
 
         void bindBanner(List<SliderInfo> bannerList) {
@@ -510,7 +535,7 @@ public class IndianaFragment extends BaseMainMvpFragment<IIndianaView, IndianaPr
         }
 
         void bindIndianaNotice() {
-            try{
+            try {
                 noticeTextView.removeAllViews();
                 noticeTextView.clearAnimation();
                 List<String> stringList = new ArrayList<>();
@@ -519,22 +544,22 @@ public class IndianaFragment extends BaseMainMvpFragment<IIndianaView, IndianaPr
                 noticeTextView.setTextStillTime(5000);//设置停留时长间隔
                 noticeTextView.setAnimTime(300);//设置进入和退出的时间间隔
                 noticeTextView.startAutoScroll();
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 
         }
 
-        void updateWinnerNotice(List<WinningNoticeInfo> list){
-            try{
-                List<String> stringList=new ArrayList<>();
+        void updateWinnerNotice(List<WinningNoticeInfo> list) {
+            try {
+                List<String> stringList = new ArrayList<>();
                 for (WinningNoticeInfo info : list) {
                     String str = "恭喜<font color='#2FACFF'>" + info.getNickname() + "</font>花费" +
-                            "<font color='#2FACFF'>" + PriceUtil.getPrice(info.getCost()) + "元</font>" + "夺得【"+info.getCycle_code()+"期】<font color='#2FACFF'>" + info.getProduct_name() + "</font>";
+                            "<font color='#2FACFF'>" + PriceUtil.getPrice(info.getCost()) + "元</font>" + "夺得【" + info.getCycle_code() + "期】<font color='#2FACFF'>" + info.getProduct_name() + "</font>";
                     stringList.add(str);
                 }
                 noticeTextView.setTextList(stringList);
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }

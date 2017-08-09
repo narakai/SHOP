@@ -3,6 +3,7 @@ package wiki.scene.shop.ui.indiana.mvpview;
 import java.util.List;
 
 import wiki.scene.shop.entity.IndianaIndexInfo;
+import wiki.scene.shop.entity.NewWaitInfo;
 import wiki.scene.shop.entity.SliderInfo;
 import wiki.scene.shop.entity.WinningNoticeInfo;
 import wiki.scene.shop.mvp.BaseView;
@@ -25,4 +26,5 @@ public interface IIndianaView extends BaseView {
     void bindBannerData(List<SliderInfo> bannerList);
 
     void bindWinnerNotice(List<WinningNoticeInfo> noticeInfoList);
+    void bindNewWaiting(List<NewWaitInfo> newWaitInfoList);
 }
