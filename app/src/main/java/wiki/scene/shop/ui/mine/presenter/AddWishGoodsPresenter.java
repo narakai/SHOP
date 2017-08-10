@@ -1,5 +1,7 @@
 package wiki.scene.shop.ui.mine.presenter;
 
+import android.text.TextUtils;
+
 import com.lzy.okgo.model.HttpParams;
 
 import wiki.scene.shop.R;
@@ -26,6 +28,10 @@ public class AddWishGoodsPresenter extends BasePresenter<IAddWishGoodsView> {
 
     public void addWishGoods(String goodsName) {
         try {
+            if (TextUtils.isEmpty(goodsName)) {
+                mView.showMessage(R.string.please_edit_your_wish_goods);
+                return;
+            }
             if (ShopApplication.hasLogin && ShopApplication.userInfo != null) {
                 mView.showLoading(R.string.loading);
                 HttpParams params = new HttpParams();

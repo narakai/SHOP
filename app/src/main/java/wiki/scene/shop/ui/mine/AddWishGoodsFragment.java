@@ -83,12 +83,6 @@ public class AddWishGoodsFragment extends BaseBackMvpFragment<IAddWishGoodsView,
         return new AddWishGoodsPresenter(this);
     }
 
-    @Override
-    public void onDestroyView() {
-        OkGo.getInstance().cancelTag(ApiUtil.ADD_WISH_GOODS_TAG);
-        super.onDestroyView();
-        unbinder.unbind();
-    }
 
     @Override
     public void showMessage(@StringRes int resId) {
@@ -109,5 +103,12 @@ public class AddWishGoodsFragment extends BaseBackMvpFragment<IAddWishGoodsView,
     @OnClick(R.id.submit)
     public void onClickSubmit() {
         presenter.addWishGoods(content.getText().toString().trim());
+    }
+
+    @Override
+    public void onDestroyView() {
+        OkGo.getInstance().cancelTag(ApiUtil.ADD_WISH_GOODS_TAG);
+        super.onDestroyView();
+        unbinder.unbind();
     }
 }

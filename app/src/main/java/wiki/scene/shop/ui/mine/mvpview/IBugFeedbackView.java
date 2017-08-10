@@ -1,5 +1,7 @@
 package wiki.scene.shop.ui.mine.mvpview;
 
+import android.support.annotation.StringRes;
+
 import wiki.scene.shop.mvp.BaseView;
 
 /**
@@ -8,5 +10,10 @@ import wiki.scene.shop.mvp.BaseView;
  * Author：scene on 2017/6/30 15:19
  */
 
-public interface IBugFeedbackView extends BaseView{
+public interface IBugFeedbackView extends BaseView {
+    void showMessage(@StringRes int resId);
+
+    void showMessage(String message);
+
+    void bugFeedBackSuccess();
 }

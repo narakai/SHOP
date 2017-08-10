@@ -105,7 +105,9 @@ public class ApiUtil {
     //添加心愿产品
     public static final String ADD_WISH_GOODS = "/personal/feedback/wish";
     public static final String ADD_WISH_GOODS_TAG = "ADD_WISH_GOODS_TAG";
-
+    //问题反馈
+    public static final String BUG_FEED_BACK="/personal/feedback/question";
+    public static final String BUG_FEED_BACK_TAG="BUG_FEED_BACK_TAG";
     /**
      * Case By:创建参数基础信息
      * Author: scene on 2017/5/19 13:19

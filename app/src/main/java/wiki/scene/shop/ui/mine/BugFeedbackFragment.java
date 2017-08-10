@@ -7,17 +7,21 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.lzy.okgo.OkGo;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 import wiki.scene.shop.R;
+import wiki.scene.shop.http.api.ApiUtil;
 import wiki.scene.shop.mvp.BaseBackMvpFragment;
 import wiki.scene.shop.ui.mine.mvpview.IBugFeedbackView;
 import wiki.scene.shop.ui.mine.presenter.BugFeedBackPresenter;
+import wiki.scene.shop.utils.ToastUtils;
 
 /**
  * Case By:问题反馈
@@ -32,8 +36,8 @@ public class BugFeedbackFragment extends BaseBackMvpFragment<IBugFeedbackView, B
     TextView toolbarTitle;
     @BindView(R.id.content)
     EditText content;
-    @BindView(R.id.submit)
-    Button submit;
+    @BindView(R.id.contact_number)
+    EditText contactNumber;
     Unbinder unbinder;
 
     public static BugFeedbackFragment newInstance() {
@@ -74,7 +78,30 @@ public class BugFeedbackFragment extends BaseBackMvpFragment<IBugFeedbackView, B
     }
 
     @Override
+    public void showMessage(@StringRes int resId) {
+        ToastUtils.getInstance(_mActivity).showToast(resId);
+    }
+
+    @Override
+    public void showMessage(String message) {
+        ToastUtils.getInstance(_mActivity).showToast(message);
+    }
+
+    @Override
+    public void bugFeedBackSuccess() {
+        content.setText("");
+        contactNumber.setText("");
+        showMessage(R.string.please_edit_your_bug_feedback);
+    }
+
+    @OnClick(R.id.submit)
+    public void onClickSubmit() {
+        presenter.submitBugFeedBack(content.getText().toString().trim(), contactNumber.getText().toString().trim());
+    }
+
+    @Override
     public void onDestroyView() {
+        OkGo.getInstance().cancelTag(ApiUtil.BUG_FEED_BACK_TAG);
         super.onDestroyView();
         unbinder.unbind();
     }
