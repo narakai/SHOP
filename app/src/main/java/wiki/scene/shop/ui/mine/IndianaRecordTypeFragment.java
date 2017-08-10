@@ -36,6 +36,7 @@ import wiki.scene.shop.itemDecoration.SpacesItemDecoration;
 import wiki.scene.shop.mvp.BaseBackMvpFragment;
 import wiki.scene.shop.mvp.BaseMvpFragment;
 import wiki.scene.shop.ui.car.PayOrderFragment;
+import wiki.scene.shop.ui.indiana.GoodsDetailFragment;
 import wiki.scene.shop.ui.mine.mvpview.IIndianaRecordTypeView;
 import wiki.scene.shop.ui.mine.presenter.IndianaRecordTypePresenter;
 import wiki.scene.shop.utils.ToastUtils;
@@ -51,7 +52,7 @@ public class IndianaRecordTypeFragment extends BaseMvpFragment<IIndianaRecordTyp
     private final static String ARG_INDIANA_RECORD_TYPE = "arg_indiana_record_type";
     public final static int INDIANA_RECORD_TYPE_ALL = 0;
     public final static int INDIANA_RECORD_TYPE_ONGOING = 1;
-    public final static int INDIANA_RECORD_TYPE_ANNOUNDCED = 3;
+    public final static int INDIANA_RECORD_TYPE_ANNOUNDCED = 4;
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
     @BindView(R.id.ptrLayout)
@@ -128,6 +129,13 @@ public class IndianaRecordTypeFragment extends BaseMvpFragment<IIndianaRecordTyp
             @Override
             public void onClickItemPay(int position) {
                 presenter.toPay(list.get(position).getId());
+            }
+
+            @Override
+            public void toGoodsDetail(int position) {
+                if (getParentFragment() instanceof IndianaRecordFragment) {
+                    ((IndianaRecordFragment) getParentFragment()).start(GoodsDetailFragment.newInstance(list.get(position).getCycle_id()));
+                }
             }
         });
     }
@@ -223,6 +231,15 @@ public class IndianaRecordTypeFragment extends BaseMvpFragment<IIndianaRecordTyp
     @Override
     public void changePage(int page) {
         this.page = page;
+    }
+
+    @Override
+    public void loadmoreFail() {
+        try{
+            ptrLayout.loadFail();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     private View.OnClickListener retryListener = new View.OnClickListener() {

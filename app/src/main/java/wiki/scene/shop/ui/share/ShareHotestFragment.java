@@ -228,6 +228,15 @@ public class ShareHotestFragment extends BaseMvpFragment<IShareTypeView, ShareTy
         }
     }
 
+    @Override
+    public void loadmoreFail() {
+        try {
+            ptrLayout.loadFail();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
     private View.OnClickListener retryListener = new View.OnClickListener() {
         @Override

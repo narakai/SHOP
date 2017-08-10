@@ -108,6 +108,9 @@ public class ApiUtil {
     //问题反馈
     public static final String BUG_FEED_BACK="/personal/feedback/question";
     public static final String BUG_FEED_BACK_TAG="BUG_FEED_BACK_TAG";
+    //我的中奖记录
+    public static final String MINE_WIN_LIST="/personal/order/win";
+    public static final String MINE_WIN_LIST_TAG="MINE_WIN_LIST_TAG";
     /**
      * Case By:创建参数基础信息
      * Author: scene on 2017/5/19 13:19

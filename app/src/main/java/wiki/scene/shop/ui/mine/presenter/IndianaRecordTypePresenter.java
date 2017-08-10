@@ -58,10 +58,13 @@ public class IndianaRecordTypePresenter extends BasePresenter<IIndianaRecordType
                                 mView.showFail();
                             } else {
                                 mView.showMessage(message);
-                                mView.refreshComplete();
+
                             }
-                            if (page > 1) {
+                            if (page == 1) {
+                                mView.refreshComplete();
+                            } else {
                                 mView.changePage(page - 1);
+                                mView.loadmoreFail();
                             }
                         } catch (Exception e) {
                             e.printStackTrace();

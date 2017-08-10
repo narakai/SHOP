@@ -28,4 +28,6 @@ public interface IIndianaRecordTypeView extends BaseListView {
     void toPaySuccess(CreateOrderInfo createOrderInfo);
 
     void changePage(int page);
+
+    void loadmoreFail();
 }

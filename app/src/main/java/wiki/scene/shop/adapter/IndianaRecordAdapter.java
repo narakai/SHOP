@@ -20,6 +20,7 @@ import cn.iwgang.countdownview.CountdownView;
 import wiki.scene.shop.R;
 import wiki.scene.shop.ShopApplication;
 import wiki.scene.shop.entity.MineOrderInfo;
+import wiki.scene.shop.utils.DateUtil;
 
 /**
  * Case By:夺宝记录
@@ -79,6 +80,14 @@ public class IndianaRecordAdapter extends RecyclerView.Adapter<RecyclerView.View
                     }
                 }
             });
+            onGoingViewHolder.goonIndiana.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (indianaRecordItemButtonClickListener != null) {
+                        indianaRecordItemButtonClickListener.toGoodsDetail(position);
+                    }
+                }
+            });
             onGoingViewHolder.personTimes.setText(String.valueOf(info.getNumber()));
             setGoodsTag(onGoingViewHolder.goodsTag, info.getType());
             onGoingViewHolder.ongoingProgressbar.setProgress(info.getCurrent_source() * 100 / info.getNeed_source());
@@ -94,6 +103,11 @@ public class IndianaRecordAdapter extends RecyclerView.Adapter<RecyclerView.View
             indianaResultViewHolder.goodsName.setText(info.getTitle());
             Glide.with(context).load(ShopApplication.configInfo.getFile_domain() + info.getThumb()).fitCenter().into(indianaResultViewHolder.goodsImage);
             setGoodsTag(indianaResultViewHolder.goodsTag, info.getType());
+            indianaResultViewHolder.joinTimes.setText(String.format(context.getString(R.string.xx_fen), info.getWinner_codes().size()));
+            indianaResultViewHolder.announcedTime.setText(DateUtil.timeStampToStr(info.getOpen_time()));
+            indianaResultViewHolder.personTimes.setText(String.valueOf(info.getNumber()));
+            indianaResultViewHolder.winnerName.setText(info.getWinner_nickname());
+            indianaResultViewHolder.luckCode.setText(info.getLucky_code());
         }
 
     }
@@ -232,5 +246,7 @@ public class IndianaRecordAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     public interface IndianaRecordItemButtonClickListener {
         void onClickItemPay(int position);
+
+        void toGoodsDetail(int position);
     }
 }

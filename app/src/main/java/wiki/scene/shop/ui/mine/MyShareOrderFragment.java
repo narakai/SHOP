@@ -236,6 +236,15 @@ public class MyShareOrderFragment extends BaseBackMvpFragment<IShareTypeView, Sh
         }
     }
 
+    @Override
+    public void loadmoreFail() {
+        try {
+            ptrLayout.loadFail();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
     private View.OnClickListener retryListener = new View.OnClickListener() {
         @Override

@@ -25,6 +25,8 @@ public class MineOrderInfo implements Serializable {
     private List<String> my_codes;
     private int number;
     private int order_status; //1未支付  2已支付（完成） 3中奖   4过期
+    private List<String> winner_codes;
+    private String winner_nickname;
 
     public String getCycle_id() {
         return cycle_id;
@@ -152,5 +154,21 @@ public class MineOrderInfo implements Serializable {
 
     public void setNumber(int number) {
         this.number = number;
+    }
+
+    public List<String> getWinner_codes() {
+        return winner_codes;
+    }
+
+    public void setWinner_codes(List<String> winner_codes) {
+        this.winner_codes = winner_codes;
+    }
+
+    public String getWinner_nickname() {
+        return winner_nickname;
+    }
+
+    public void setWinner_nickname(String winner_nickname) {
+        this.winner_nickname = winner_nickname;
     }
 }

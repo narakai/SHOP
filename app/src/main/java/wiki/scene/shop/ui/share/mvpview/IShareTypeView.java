@@ -36,4 +36,6 @@ public interface IShareTypeView extends BaseView {
     void changePageInfo(ResultPageInfo pageInfo,int page);
 
     void refreshCompile();
+
+    void loadmoreFail();
 }

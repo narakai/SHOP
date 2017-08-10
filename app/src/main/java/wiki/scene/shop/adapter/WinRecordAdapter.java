@@ -8,11 +8,17 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.ta.utdid2.android.utils.StringUtils;
+
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import wiki.scene.shop.R;
+import wiki.scene.shop.ShopApplication;
+import wiki.scene.shop.entity.WinRecordResultInfo;
+import wiki.scene.shop.utils.DateUtil;
 
 /**
  * Case By:中奖记录
@@ -22,9 +28,9 @@ import wiki.scene.shop.R;
 
 public class WinRecordAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context context;
-    private List<String> list;
+    private List<WinRecordResultInfo.WinRecordInfo> list;
 
-    public WinRecordAdapter(Context context, List<String> list) {
+    public WinRecordAdapter(Context context, List<WinRecordResultInfo.WinRecordInfo> list) {
         this.context = context;
         this.list = list;
     }
@@ -36,8 +42,15 @@ public class WinRecordAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        WinRecordViewHolder viewHolder= (WinRecordViewHolder) holder;
-        viewHolder.goodsName.setText(list.get(position));
+        WinRecordViewHolder viewHolder = (WinRecordViewHolder) holder;
+        WinRecordResultInfo.WinRecordInfo info = list.get(position);
+        viewHolder.goodsName.setText(info.getTitle());
+        viewHolder.winnerName.setText(StringUtils.isEmpty(ShopApplication.userInfo.getNickname()) ? ShopApplication.userInfo.getMobile() : ShopApplication.userInfo.getNickname());
+        viewHolder.personTimes.setText(String.valueOf(info.getNumber()));
+        viewHolder.joinTimes.setText(String.format(context.getString(R.string.xx_fen), info.getNumber()));
+        viewHolder.luckCode.setText(info.getLucky_code());
+        viewHolder.announcedTime.setText(DateUtil.timeStampToStr(info.getOpen_time()));
+        Glide.with(context).load(ShopApplication.configInfo.getFile_domain() + info.getThumb()).fitCenter().into(viewHolder.goodsImage);
     }
 
     @Override

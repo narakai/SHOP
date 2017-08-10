@@ -59,8 +59,13 @@ public class ShareTypePrsenter extends BasePresenter<IShareTypeView> {
                         if (isLoading) {
                             mView.showErrorPage();
                         } else {
-                            mView.refreshCompile();
+                            if (page == 1) {
+                                mView.refreshCompile();
+                            } else {
+                                mView.loadmoreFail();
+                            }
                         }
+
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -107,7 +112,11 @@ public class ShareTypePrsenter extends BasePresenter<IShareTypeView> {
                             if (isLoading) {
                                 mView.showErrorPage();
                             } else {
-                                mView.refreshCompile();
+                                if (page == 1) {
+                                    mView.refreshCompile();
+                                } else {
+                                    mView.loadmoreFail();
+                                }
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
