@@ -67,6 +67,7 @@
                 android:textSize="@dimen/text_size_small" />
 
             <TextView
+                android:id="@+id/see_codes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/see_indiana_code"
@@ -104,11 +105,5 @@
                 android:textColor="#EA5F76"
                 android:textSize="@dimen/text_size_small" />
         </LinearLayout>
-
-        <Button
-            android:id="@+id/pay"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="立即支付" />
     </LinearLayout>
 </RelativeLayout>

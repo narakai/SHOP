@@ -137,6 +137,13 @@ public class IndianaRecordTypeFragment extends BaseMvpFragment<IIndianaRecordTyp
                     ((IndianaRecordFragment) getParentFragment()).start(GoodsDetailFragment.newInstance(list.get(position).getCycle_id()));
                 }
             }
+
+            @Override
+            public void seeAllCodes(int position) {
+                if (getParentFragment() instanceof IndianaRecordFragment) {
+                    //查看说要的夺宝号
+                }
+            }
         });
     }
 

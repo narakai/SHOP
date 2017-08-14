@@ -5,7 +5,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -60,31 +59,37 @@ public class IndianaRecordAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
-        MineOrderInfo info = list.get(position);
+        final MineOrderInfo info = list.get(position);
         if (holder instanceof OnGoingViewHolder) {
             OnGoingViewHolder onGoingViewHolder = (OnGoingViewHolder) holder;
             onGoingViewHolder.goodsName.setText(info.getTitle());
             Glide.with(context).load(ShopApplication.configInfo.getFile_domain() + info.getThumb()).fitCenter().into(onGoingViewHolder.goodsImage);
             if (info.getOrder_status() == 1) {
                 //未支付的订单
-                onGoingViewHolder.pay.setVisibility(View.VISIBLE);
+                onGoingViewHolder.goonIndiana.setText(R.string.pay_now);
+                onGoingViewHolder.seeCodes.setVisibility(View.GONE);
             } else {
                 //已支付的订单
-                onGoingViewHolder.pay.setVisibility(View.GONE);
+                onGoingViewHolder.goonIndiana.setText(R.string.goon_indiana);
+                onGoingViewHolder.seeCodes.setVisibility(View.VISIBLE);
             }
-            onGoingViewHolder.pay.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (indianaRecordItemButtonClickListener != null) {
-                        indianaRecordItemButtonClickListener.onClickItemPay(position);
-                    }
-                }
-            });
             onGoingViewHolder.goonIndiana.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (indianaRecordItemButtonClickListener != null) {
-                        indianaRecordItemButtonClickListener.toGoodsDetail(position);
+                        if (info.getOrder_status() == 1) {
+                            indianaRecordItemButtonClickListener.onClickItemPay(position);
+                        } else {
+                            indianaRecordItemButtonClickListener.toGoodsDetail(position);
+                        }
+                    }
+                }
+            });
+            onGoingViewHolder.seeCodes.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (indianaRecordItemButtonClickListener != null) {
+                        indianaRecordItemButtonClickListener.seeAllCodes(position);
                     }
                 }
             });
@@ -183,8 +188,8 @@ public class IndianaRecordAdapter extends RecyclerView.Adapter<RecyclerView.View
         ProgressBar ongoingProgressbar;
         @BindView(R.id.goon_indiana)
         TextView goonIndiana;
-        @BindView(R.id.pay)
-        Button pay;
+        @BindView(R.id.see_codes)
+        TextView seeCodes;
 
         OnGoingViewHolder(View view) {
             super(view);
@@ -248,5 +253,7 @@ public class IndianaRecordAdapter extends RecyclerView.Adapter<RecyclerView.View
         void onClickItemPay(int position);
 
         void toGoodsDetail(int position);
+
+        void seeAllCodes(int position);
     }
 }

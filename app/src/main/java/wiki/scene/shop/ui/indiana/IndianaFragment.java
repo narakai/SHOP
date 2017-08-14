@@ -502,15 +502,13 @@ public class IndianaFragment extends BaseMainMvpFragment<IIndianaView, IndianaPr
                     newestGoods3.setVisibility(View.VISIBLE);
                     newestGoodsName1.setText(newWaitInfoList.get(2).getTitle());
                     newestGoodsName3.setTag(R.id.newest_countDownView3);
-                    newestCountDownView3.updateShow(1502280840000L - System.currentTimeMillis());
-                    newestCountDownView3.restart();
+                    newestCountDownView3.start(1502280840000L - System.currentTimeMillis());
                     Glide.with(getContext()).load(ShopApplication.configInfo.getFile_domain() + newWaitInfoList.get(2).getThumb()).fitCenter().into(newestGoodsImage3);
                 case 2:
                     newestGoods2.setVisibility(View.VISIBLE);
                     newestGoodsName1.setText(newWaitInfoList.get(1).getTitle());
                     newestGoodsName2.setTag(R.id.newest_countDownView2);
-                    newestCountDownView2.updateShow(1502290850000L - System.currentTimeMillis());
-                    newestCountDownView2.restart();
+                    newestCountDownView2.start(1502290850000L - System.currentTimeMillis());
                     Glide.with(getContext()).load(ShopApplication.configInfo.getFile_domain() + newWaitInfoList.get(1).getThumb()).fitCenter().into(newestGoodsImage2);
                 case 1:
                     newestGoods1.setVisibility(View.VISIBLE);
