@@ -274,6 +274,7 @@ public class IndianaFragment extends BaseMainMvpFragment<IIndianaView, IndianaPr
                 indianaHeaderView.textPrice1.setCompoundDrawablesWithIntrinsicBounds(null, null, getResources().getDrawable(R.drawable.ic_price_down), null);
             }
             priceUp2Down = !priceUp2Down;
+            getDataSuccess(indianaIndexInfo, false);
             return;
         }
         textPopular.setTextColor(getResources().getColor(R.color.text_color_title));
@@ -474,9 +475,10 @@ public class IndianaFragment extends BaseMainMvpFragment<IIndianaView, IndianaPr
         List<String> bannerImageUrls = new ArrayList<>();
         List<String> bannerTitles = new ArrayList<>();
         View mView;
+
         IndianaHeaderView(View view) {
             ButterKnife.bind(this, view);
-            mView=view;
+            mView = view;
             layoutPopular1.setOnClickListener(onClickListener);
             layoutNewest1.setOnClickListener(onClickListener);
             layoutFastest1.setOnClickListener(onClickListener);
