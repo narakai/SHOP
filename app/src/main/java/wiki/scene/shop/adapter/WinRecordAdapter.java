@@ -29,10 +29,15 @@ import wiki.scene.shop.utils.DateUtil;
 public class WinRecordAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context context;
     private List<WinRecordResultInfo.WinRecordInfo> list;
+    private OnWinRecordItemButtonClickListener onWinRecordItemButtonClickListener;
 
     public WinRecordAdapter(Context context, List<WinRecordResultInfo.WinRecordInfo> list) {
         this.context = context;
         this.list = list;
+    }
+
+    public void setWinRecordItemButtonClickListener(OnWinRecordItemButtonClickListener onWinRecordItemButtonClickListener) {
+        this.onWinRecordItemButtonClickListener = onWinRecordItemButtonClickListener;
     }
 
     @Override
@@ -41,7 +46,7 @@ public class WinRecordAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         WinRecordViewHolder viewHolder = (WinRecordViewHolder) holder;
         WinRecordResultInfo.WinRecordInfo info = list.get(position);
         viewHolder.goodsName.setText(info.getTitle());
@@ -51,6 +56,31 @@ public class WinRecordAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         viewHolder.luckCode.setText(info.getLucky_code());
         viewHolder.announcedTime.setText(DateUtil.timeStampToStr(info.getOpen_time()));
         Glide.with(context).load(ShopApplication.configInfo.getFile_domain() + info.getThumb()).fitCenter().into(viewHolder.goodsImage);
+        setGoodsTag(viewHolder.goodsTag, info.getType());
+        viewHolder.goToShareOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onWinRecordItemButtonClickListener != null) {
+                    onWinRecordItemButtonClickListener.onClickShareOrder(position);
+                }
+            }
+        });
+    }
+
+    private void setGoodsTag(TextView tagView, int type) {
+        switch (type) {
+            case 1:
+                tagView.setText(context.getString(R.string.second_open));
+                tagView.setVisibility(View.VISIBLE);
+                break;
+            case 2:
+                tagView.setVisibility(View.GONE);
+                break;
+            case 3:
+                tagView.setVisibility(View.VISIBLE);
+                tagView.setText(context.getString(R.string.price_10_area));
+                break;
+        }
     }
 
     @Override
@@ -75,10 +105,16 @@ public class WinRecordAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         TextView luckCode;
         @BindView(R.id.announced_time)
         TextView announcedTime;
+        @BindView(R.id.go_to_share_order)
+        TextView goToShareOrder;
 
         WinRecordViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
         }
+    }
+
+    public interface OnWinRecordItemButtonClickListener {
+        void onClickShareOrder(int position);
     }
 }

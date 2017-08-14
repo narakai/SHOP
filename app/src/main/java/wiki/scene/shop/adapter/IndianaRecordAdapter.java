@@ -113,6 +113,19 @@ public class IndianaRecordAdapter extends RecyclerView.Adapter<RecyclerView.View
             indianaResultViewHolder.personTimes.setText(String.valueOf(info.getNumber()));
             indianaResultViewHolder.winnerName.setText(info.getWinner_nickname());
             indianaResultViewHolder.luckCode.setText(info.getLucky_code());
+            if (info.getLucky_user_id().equals(info.getUser_id())) {
+                indianaResultViewHolder.goToShareOrder.setVisibility(View.VISIBLE);
+            } else {
+                indianaResultViewHolder.goToShareOrder.setVisibility(View.GONE);
+            }
+            indianaResultViewHolder.goToShareOrder.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(indianaRecordItemButtonClickListener!=null){
+                        indianaRecordItemButtonClickListener.goToShareOrder(position);
+                    }
+                }
+            });
         }
 
     }
@@ -242,6 +255,8 @@ public class IndianaRecordAdapter extends RecyclerView.Adapter<RecyclerView.View
         TextView luckCode;
         @BindView(R.id.announced_time)
         TextView announcedTime;
+        @BindView(R.id.go_to_share_order)
+        TextView goToShareOrder;
 
         IndianaResultViewHolder(View view) {
             super(view);
@@ -255,5 +270,7 @@ public class IndianaRecordAdapter extends RecyclerView.Adapter<RecyclerView.View
         void toGoodsDetail(int position);
 
         void seeAllCodes(int position);
+
+        void goToShareOrder(int position);
     }
 }

@@ -74,101 +74,117 @@
                 android:textSize="@dimen/text_size_small" />
         </LinearLayout>
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:background="@color/bg_color_gray2"
-            android:orientation="vertical"
-            android:padding="8dp">
+            android:layout_height="wrap_content">
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_marginTop="12dp"
+                android:background="@color/bg_color_gray2"
+                android:orientation="vertical"
+                android:padding="8dp">
 
-                <TextView
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/winner"
-                    android:textColor="@color/text_color_des"
-                    android:textSize="@dimen/text_size_small" />
+                    android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/winner_name"
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/winner"
+                        android:textColor="@color/text_color_des"
+                        android:textSize="@dimen/text_size_small" />
+
+                    <TextView
+                        android:id="@+id/winner_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="scene"
+                        android:textColor="#00A0E9"
+                        android:textSize="@dimen/text_size_small" />
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="scene"
-                    android:textColor="#00A0E9"
-                    android:textSize="@dimen/text_size_small" />
+                    android:layout_marginTop="6.66dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/join_times"
+                        android:textColor="@color/text_color_des"
+                        android:textSize="@dimen/text_size_small" />
+
+                    <TextView
+                        android:id="@+id/join_times"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/xx_fen"
+                        android:textColor="@color/text_color_title"
+                        android:textSize="@dimen/text_size_small" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6.66dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/luck_code"
+                        android:textColor="@color/text_color_des"
+                        android:textSize="@dimen/text_size_small" />
+
+                    <TextView
+                        android:id="@+id/luck_code"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1234564123"
+                        android:textColor="#F9543E"
+                        android:textSize="@dimen/text_size_small" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6.66dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/announced_time"
+                        android:textColor="@color/text_color_des"
+                        android:textSize="@dimen/text_size_small" />
+
+                    <TextView
+                        android:id="@+id/announced_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="2017-12-12 12:12:12"
+                        android:textColor="@color/text_color_title"
+                        android:textSize="@dimen/text_size_small" />
+
+                </LinearLayout>
             </LinearLayout>
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/go_to_share_order"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6.66dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/join_times"
-                    android:textColor="@color/text_color_des"
-                    android:textSize="@dimen/text_size_small" />
-
-                <TextView
-                    android:id="@+id/join_times"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/xx_fen"
-                    android:textColor="@color/text_color_title"
-                    android:textSize="@dimen/text_size_small" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="6.66dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/luck_code"
-                    android:textColor="@color/text_color_des"
-                    android:textSize="@dimen/text_size_small" />
-
-                <TextView
-                    android:id="@+id/luck_code"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="1234564123"
-                    android:textColor="#F9543E"
-                    android:textSize="@dimen/text_size_small" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="6.66dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/announced_time"
-                    android:textColor="@color/text_color_des"
-                    android:textSize="@dimen/text_size_small" />
-
-                <TextView
-                    android:id="@+id/announced_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="2017-12-12 12:12:12"
-                    android:textColor="@color/text_color_title"
-                    android:textSize="@dimen/text_size_small" />
-
-            </LinearLayout>
-        </LinearLayout>
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/ic_share_order"
+                android:text="立即晒单"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_middle" />
+        </RelativeLayout>
     </LinearLayout>
 </RelativeLayout>

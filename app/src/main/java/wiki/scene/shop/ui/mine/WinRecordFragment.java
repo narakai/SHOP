@@ -1,5 +1,6 @@
 package wiki.scene.shop.ui.mine;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
@@ -43,7 +44,7 @@ import wiki.scene.shop.utils.ToastUtils;
  * Author：scene on 2017/7/5 11:36
  */
 
-public class WinRecordFragment extends BaseBackMvpFragment<IWinRecordView, WinRecordPresenter> implements IWinRecordView {
+public class WinRecordFragment extends BaseBackMvpFragment<IWinRecordView, WinRecordPresenter> implements IWinRecordView, WinRecordAdapter.OnWinRecordItemButtonClickListener {
 
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
@@ -108,6 +109,7 @@ public class WinRecordFragment extends BaseBackMvpFragment<IWinRecordView, WinRe
         recyclerView.setLayoutManager(new LinearLayoutManager(_mActivity));
         recyclerView.addItemDecoration(new SpacesItemDecoration(PtrLocalDisplay.dp2px(1)));
         recyclerView.setAdapter(mAdapter);
+        adapter.setWinRecordItemButtonClickListener(this);
         ptrLayout.setLoadMoreEnable(true);
         presenter.getMineRecordData(true, page);
     }
@@ -165,7 +167,7 @@ public class WinRecordFragment extends BaseBackMvpFragment<IWinRecordView, WinRe
     @Override
     public void showContentPage() {
         try {
-            if(!statusLayout.isContent()){
+            if (!statusLayout.isContent()) {
                 statusLayout.showContent();
             }
         } catch (Exception e) {
@@ -221,9 +223,9 @@ public class WinRecordFragment extends BaseBackMvpFragment<IWinRecordView, WinRe
 
     @Override
     public void loadmoreFail() {
-        try{
+        try {
             ptrLayout.loadFail();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -233,5 +235,15 @@ public class WinRecordFragment extends BaseBackMvpFragment<IWinRecordView, WinRe
         OkGo.getInstance().cancelTag(ApiUtil.MINE_WIN_LIST_TAG);
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @Override
+    public void onClickShareOrder(int position) {
+        Intent intent = new Intent(getContext(), ShareOrderActivity.class);
+        intent.putExtra(ShareOrderActivity.ARG_GOODS_NAME, list.get(position).getTitle());
+        intent.putExtra(ShareOrderActivity.ARG_CYCLE_CODE, list.get(position).getCycle_code());
+        intent.putExtra(ShareOrderActivity.ARG_ORDER_ID, list.get(position).getId());
+        intent.putExtra(ShareOrderActivity.ARG_CYCLE_ID, list.get(position).getCycle_id());
+        startActivity(intent);
     }
 }

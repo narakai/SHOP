@@ -1,5 +1,6 @@
 package wiki.scene.shop.ui.mine;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
@@ -141,8 +142,18 @@ public class IndianaRecordTypeFragment extends BaseMvpFragment<IIndianaRecordTyp
             @Override
             public void seeAllCodes(int position) {
                 if (getParentFragment() instanceof IndianaRecordFragment) {
-                    //查看说要的夺宝号
+                    //查看所有的夺宝号
                 }
+            }
+
+            @Override
+            public void goToShareOrder(int position) {
+                Intent intent = new Intent(getContext(), ShareOrderActivity.class);
+                intent.putExtra(ShareOrderActivity.ARG_GOODS_NAME, list.get(position).getTitle());
+                intent.putExtra(ShareOrderActivity.ARG_CYCLE_CODE, list.get(position).getCycle_code());
+                intent.putExtra(ShareOrderActivity.ARG_ORDER_ID, list.get(position).getId());
+                intent.putExtra(ShareOrderActivity.ARG_CYCLE_ID, list.get(position).getCycle_id());
+                startActivity(intent);
             }
         });
     }
@@ -242,9 +253,9 @@ public class IndianaRecordTypeFragment extends BaseMvpFragment<IIndianaRecordTyp
 
     @Override
     public void loadmoreFail() {
-        try{
+        try {
             ptrLayout.loadFail();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

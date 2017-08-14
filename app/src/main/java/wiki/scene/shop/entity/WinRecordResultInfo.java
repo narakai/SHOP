@@ -50,7 +50,7 @@ public class WinRecordResultInfo implements Serializable {
          */
 
         private String cycle_id;
-        private String type;
+        private int type;
         private String thumb;
         private String title;
         private String cycle_code;
@@ -74,11 +74,11 @@ public class WinRecordResultInfo implements Serializable {
             this.cycle_id = cycle_id;
         }
 
-        public String getType() {
+        public int getType() {
             return type;
         }
 
-        public void setType(String type) {
+        public void setType(int type) {
             this.type = type;
         }
 

@@ -10,6 +10,7 @@ public class AppConfig {
     public static final int CHOOSE_AVATER_REQUEST_CODE = 1001;
     public static final int ADD_ADDRESS_REQUEST_CODE = 1002;
     public static final int ORDER_DETAIL_TO_PAY_REQUEST_CODE = 1003;
+    public static final int SHARE_ORDER_REQUEST_CODE = 1004;
     public static final String WX_APPKEY = "wx4d1ef7a0167fde7e";
     public static final String WX_APPSECRET = "18af9d20dddaffd4217940a8b407469b";
     public static final String QQ_APPKEY = "1106258470";
