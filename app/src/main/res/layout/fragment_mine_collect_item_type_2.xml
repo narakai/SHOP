@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
@@ -7,9 +8,9 @@
 
     <ImageView
         android:id="@+id/goods_image"
+        android:layout_width="100dp"
         android:padding="8dp"
-        android:layout_width="133.33dp"
-        android:layout_height="133.33dp" />
+        android:layout_height="100dp" />
 
     <TextView
         android:id="@+id/goods_tag"
@@ -41,56 +42,24 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="10dp"
+            android:gravity="bottom"
             android:orientation="horizontal">
 
-            <TextView
+            <cn.iwgang.countdownview.CountdownView
+                android:id="@+id/newest_countDownView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/your_join"
-                android:textColor="@color/text_color_des"
-                android:textSize="@dimen/text_size_small" />
-
-            <TextView
-                android:id="@+id/person_times"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="6"
-                android:textColor="#F9543E"
-                android:textSize="@dimen/text_size_small" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:layout_weight="1"
-                android:text="@string/person_time"
-                android:textColor="@color/text_color_des"
-                android:textSize="@dimen/text_size_small" />
-
-            <TextView
-                android:id="@+id/see_codes"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/see_indiana_code"
-                android:textColor="#00A0E9"
-                android:textSize="@dimen/text_size_small" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="13.33dp"
-            android:orientation="horizontal">
-
-            <ProgressBar
-                android:id="@+id/ongoing_progressbar"
-                style="@style/Widget.MaterialProgressBar.ProgressBar.Horizontal.Small"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1"
-                android:progress="10"
-                android:progressDrawable="@drawable/progressbar_color" />
+                app:isHideTimeBackground="true"
+                app:isShowDay="false"
+                app:isShowMillisecond="false"
+                app:suffixGravity="center"
+                app:suffixTextColor="#FF002E"
+                app:suffixTextSize="27sp"
+                app:timeTextColor="#FF002E"
+                app:timeTextSize="27sp" />
 
             <TextView
                 android:id="@+id/goon_indiana"
@@ -104,7 +73,7 @@
                 android:paddingTop="3dp"
                 android:text="@string/goon_indiana"
                 android:textColor="#EA5F76"
-                android:textSize="@dimen/text_size_small" />
+                android:textSize="@dimen/text_size_big" />
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

@@ -188,7 +188,7 @@ public class IndianaRecordAdapter extends RecyclerView.Adapter<RecyclerView.View
      * Case By: 进行中
      * Author：scene on 2017/7/5 13:54
      */
-    static class OnGoingViewHolder extends RecyclerView.ViewHolder {
+    class OnGoingViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.goods_image)
         ImageView goodsImage;
         @BindView(R.id.goods_tag)
@@ -238,7 +238,7 @@ public class IndianaRecordAdapter extends RecyclerView.Adapter<RecyclerView.View
         }
     }
 
-    static class IndianaResultViewHolder extends RecyclerView.ViewHolder {
+    class IndianaResultViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.goods_image)
         ImageView goodsImage;
         @BindView(R.id.goods_tag)

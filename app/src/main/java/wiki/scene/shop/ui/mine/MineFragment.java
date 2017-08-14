@@ -80,7 +80,7 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
     }
 
     private void initView() {
-       loadingDialog=LoadingDialog.getInstance(_mActivity);
+        loadingDialog = LoadingDialog.getInstance(_mActivity);
 
         if (ShopApplication.hasLogin) {
             hasLogin();
@@ -120,6 +120,11 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
         presenter.clickWinRecord();
     }
 
+    @OnClick(R.id.mine_collect)
+    public void onClickMineCollect() {
+        EventBus.getDefault().post(new StartBrotherEvent(MineCollectFragment.newInstance()));
+    }
+
     @OnClick(R.id.mine_share)
     public void onClickMyShareOrder() {
         presenter.clickMineShare();
@@ -147,7 +152,7 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
 
     @Override
     public void hideLoading() {
-       loadingDialog.cancelLoadingDialog();
+        loadingDialog.cancelLoadingDialog();
     }
 
     @Override
@@ -201,7 +206,7 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
      */
     @Override
     public void enterMineRed() {
-        EventBus.getDefault().post(new StartBrotherEvent(MineRedFragment.newInstance(true,null)));
+        EventBus.getDefault().post(new StartBrotherEvent(MineRedFragment.newInstance(true, null)));
     }
 
     /**

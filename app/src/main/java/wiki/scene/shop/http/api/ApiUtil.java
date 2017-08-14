@@ -111,6 +111,9 @@ public class ApiUtil {
     //我的中奖记录
     public static final String MINE_WIN_LIST="/personal/order/win";
     public static final String MINE_WIN_LIST_TAG="MINE_WIN_LIST_TAG";
+    //我的收藏
+    public static final String MINE_COLLECTION="/personal/collection";
+    public static final String MINE_COLLECTION_TAG="MINE_COLLECTION_TAG";
     /**
      * Case By:创建参数基础信息
      * Author: scene on 2017/5/19 13:19
