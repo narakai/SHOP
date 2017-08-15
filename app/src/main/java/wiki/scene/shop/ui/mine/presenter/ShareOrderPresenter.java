@@ -39,7 +39,6 @@ public class ShareOrderPresenter extends BasePresenter<IShareOrderView> {
                 return;
             }
             if (ShopApplication.hasLogin && ShopApplication.userInfo != null) {
-                mView.showProgressDialog(R.string.loading);
                 HttpParams params = new HttpParams();
                 params.put("user_id", ShopApplication.userInfo.getUser_id());
                 params.put("content", content);
@@ -86,7 +85,6 @@ public class ShareOrderPresenter extends BasePresenter<IShareOrderView> {
 
     public void compressImages(Context context, List<String> images) {
         try {
-            mView.showProgressDialog(R.string.loading);
             List<File> files = new ArrayList<>();
             for (String path : images) {
                 if (!path.equals("add")) {

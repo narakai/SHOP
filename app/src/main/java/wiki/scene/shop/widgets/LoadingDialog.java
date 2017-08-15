@@ -24,12 +24,7 @@ public class LoadingDialog {
     }
 
     public static LoadingDialog getInstance(Context context) {    //对获取实例的方法进行同步
-        if (instance == null) {
-            synchronized (LoadingDialog.class) {
-                if (instance == null)
-                    instance = new LoadingDialog(context);
-            }
-        }
+        instance = new LoadingDialog(context);
         return instance;
     }
 
@@ -40,7 +35,7 @@ public class LoadingDialog {
                     .showCancelButton(false)
                     .showConfirmButton(false)
                     .setDialogAnimation(CBDialogBuilder.DIALOG_ANIM_SLID_BOTTOM)
-                    .setOnProgressOutTimeListener(1000, new CBDialogBuilder.onProgressOutTimeListener() {
+                    .setOnProgressOutTimeListener(10000, new CBDialogBuilder.onProgressOutTimeListener() {
                         @Override
                         public void onProgressOutTime(Dialog dialog, TextView dialogMsgTextView) {
                             cancelLoadingDialog();
@@ -59,8 +54,8 @@ public class LoadingDialog {
     public void cancelLoadingDialog() {
         if (dialog != null && dialogBuilder != null && dialog.isShowing()) {
             dialog.cancel();
-            dialog = null;
-            dialogBuilder = null;
+//            dialog = null;
+//            dialogBuilder = null;
         }
     }
 }

@@ -2,6 +2,7 @@ package wiki.scene.shop.ui.mine.presenter;
 
 import com.lzy.okgo.model.HttpParams;
 
+import wiki.scene.shop.R;
 import wiki.scene.shop.ShopApplication;
 import wiki.scene.shop.http.listener.HttpResultListener;
 import wiki.scene.shop.mvp.BasePresenter;
@@ -61,30 +62,34 @@ public class MineInfoPresenter extends BasePresenter<IMineInfoView> {
     }
 
     public void updateUserAvater(String avaterFilePath) {
-        if (mineInfoView != null) {
-            model.updateUserAvater(avaterFilePath, new HttpResultListener<String>() {
-                @Override
-                public void onSuccess(String data) {
-                    if (mineInfoView != null) {
-                        mineInfoView.updateUserAvaterSuccess(data);
-                        mineInfoView.showFail("头像修改成功");
+        try{
+            if (mineInfoView != null) {
+                model.updateUserAvater(avaterFilePath, new HttpResultListener<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        if (mineInfoView != null) {
+                            mineInfoView.updateUserAvaterSuccess(data);
+                            mineInfoView.showFail("头像修改成功");
+                        }
                     }
-                }
 
-                @Override
-                public void onFail(String message) {
-                    if (mineInfoView != null) {
-                        mineInfoView.showFail(message);
+                    @Override
+                    public void onFail(String message) {
+                        if (mineInfoView != null) {
+                            mineInfoView.showFail(message);
+                        }
                     }
-                }
 
-                @Override
-                public void onFinish() {
-                    if (mineInfoView != null) {
-                        mineInfoView.hideLoading();
+                    @Override
+                    public void onFinish() {
+                        if (mineInfoView != null) {
+                            mineInfoView.hideLoading();
+                        }
                     }
-                }
-            });
+                });
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 }

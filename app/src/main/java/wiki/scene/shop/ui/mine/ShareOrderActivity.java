@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.lzy.okgo.OkGo;
 import com.yuyh.library.imgsel.ImageLoader;
 import com.yuyh.library.imgsel.ImgSelActivity;
 import com.yuyh.library.imgsel.ImgSelConfig;
@@ -21,7 +22,6 @@ import com.yuyh.library.imgsel.ImgSelConfig;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,6 +31,7 @@ import wiki.scene.loadmore.utils.SceneLogUtil;
 import wiki.scene.shop.R;
 import wiki.scene.shop.adapter.ImageListAdapter;
 import wiki.scene.shop.config.AppConfig;
+import wiki.scene.shop.http.api.ApiUtil;
 import wiki.scene.shop.mvp.BaseMvpActivity;
 import wiki.scene.shop.ui.mine.mvpview.IShareOrderView;
 import wiki.scene.shop.ui.mine.presenter.ShareOrderPresenter;
@@ -69,8 +70,6 @@ public class ShareOrderActivity extends BaseMvpActivity<IShareOrderView, ShareOr
     private List<String> imageList;
     private ImageListAdapter adapter;
 
-    private String goodsNameStr;
-    private String goodsCycleCodeStr;
     private String orderId;
     private String cycleId;
 
@@ -100,10 +99,11 @@ public class ShareOrderActivity extends BaseMvpActivity<IShareOrderView, ShareOr
 
 
     private void initView() {
+        loadingDialog = LoadingDialog.getInstance(ShareOrderActivity.this);
         Intent intent = getIntent();
         if (intent != null) {
-            goodsNameStr = intent.getStringExtra(ARG_GOODS_NAME);
-            goodsCycleCodeStr = intent.getStringExtra(ARG_CYCLE_CODE);
+            String goodsNameStr = intent.getStringExtra(ARG_GOODS_NAME);
+            String goodsCycleCodeStr = intent.getStringExtra(ARG_CYCLE_CODE);
             orderId = intent.getStringExtra(ARG_ORDER_ID);
             cycleId = intent.getStringExtra(ARG_CYCLE_ID);
             goodsName.setText(goodsNameStr);
@@ -142,6 +142,7 @@ public class ShareOrderActivity extends BaseMvpActivity<IShareOrderView, ShareOr
 
     @Override
     protected void onDestroy() {
+        OkGo.getInstance().cancelTag(ApiUtil.SHARE_ORDER_TAG);
         super.onDestroy();
         unbinder.unbind();
     }
@@ -208,18 +209,20 @@ public class ShareOrderActivity extends BaseMvpActivity<IShareOrderView, ShareOr
 
     @Override
     public void showProgressDialog(String msg) {
-        if (loadingDialog == null) {
-            loadingDialog = LoadingDialog.getInstance(ShareOrderActivity.this);
+        try {
+            loadingDialog.showLoadingDialog(msg);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        loadingDialog.showLoadingDialog(msg);
     }
 
     @Override
     public void showProgressDialog(@StringRes int resId) {
-        if (loadingDialog == null) {
-            loadingDialog = LoadingDialog.getInstance(ShareOrderActivity.this);
+        try {
+            loadingDialog.showLoadingDialog(getString(resId));
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        loadingDialog.showLoadingDialog(getString(resId));
     }
 
     @Override
@@ -247,16 +250,26 @@ public class ShareOrderActivity extends BaseMvpActivity<IShareOrderView, ShareOr
 
     @Override
     public void compressSuccess(List<File> fileList) {
-        presenter.shareOrder(shareContent.getText().toString().trim(), orderId, cycleId, fileList);
+        try {
+            presenter.shareOrder(shareContent.getText().toString().trim(), orderId, cycleId, fileList);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @OnClick(R.id.toolbar_text)
     public void onClickSend() {
+        if (shareContent.getText().toString().trim().isEmpty()) {
+            showMessage(R.string.please_edit_content);
+            return;
+        }
+        showProgressDialog(R.string.loading);
         if (imageList.size() > 1) {
             //压缩图片
             presenter.compressImages(ShareOrderActivity.this, imageList);
-        }else{
+        } else {
             presenter.shareOrder(shareContent.getText().toString().trim(), orderId, cycleId, null);
         }
     }
+
 }

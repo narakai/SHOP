@@ -109,9 +109,9 @@ public class GoodsDetailPresenter extends BasePresenter<IGoodsDetailView> {
 
     public void createOrder(Context context, String cycleId, int number) {
         try {
-            mView.showProgressDialog(R.string.loading);
-            HttpParams params = new HttpParams();
             if (ShopApplication.hasLogin) {
+                mView.showProgressDialog(R.string.loading);
+                HttpParams params = new HttpParams();
                 params.put("user_id", ShopApplication.userInfo.getUser_id());
                 params.put("cycle_id", cycleId);
                 params.put("mobile", ShopApplication.userInfo.getMobile());

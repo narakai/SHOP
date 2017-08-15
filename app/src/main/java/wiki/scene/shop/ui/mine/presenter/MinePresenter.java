@@ -32,13 +32,21 @@ public class MinePresenter extends BasePresenter<IMineView> {
 
     public void clickIndianaRecord() {
         if (mineView != null) {
-            mineView.enterIndianaRecord();
+            if (ShopApplication.userInfo != null && ShopApplication.hasLogin) {
+                mineView.enterIndianaRecord();
+            } else {
+                mView.enterLogin();
+            }
         }
     }
 
     public void clickWinRecord() {
         if (mineView != null) {
-            mineView.enterWinRecord();
+            if (ShopApplication.userInfo != null && ShopApplication.hasLogin) {
+                mineView.enterWinRecord();
+            } else {
+                mView.enterLogin();
+            }
         }
     }
 
@@ -48,19 +56,31 @@ public class MinePresenter extends BasePresenter<IMineView> {
 
     public void clickMineShare() {
         if (mineView != null) {
-            mineView.enterMineShare();
+            if (ShopApplication.userInfo != null && ShopApplication.hasLogin) {
+                mineView.enterMineShare();
+            } else {
+                mView.enterLogin();
+            }
         }
     }
 
     public void clickMineRed() {
         if (mineView != null) {
-            mineView.enterMineRed();
+            if (ShopApplication.userInfo != null && ShopApplication.hasLogin) {
+                mineView.enterMineRed();
+            } else {
+                mView.enterLogin();
+            }
         }
     }
 
     public void clickMineReceiverAddress() {
         if (mineView != null) {
-            mineView.enterReceiverAddress();
+            if (ShopApplication.userInfo != null && ShopApplication.hasLogin) {
+                mineView.enterReceiverAddress();
+            } else {
+                mView.enterLogin();
+            }
         }
     }
 
