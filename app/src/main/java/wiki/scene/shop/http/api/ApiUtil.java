@@ -126,6 +126,9 @@ public class ApiUtil {
     //晒单点赞
     public static final String ZAN_SHARE_ORDER="/personal/show/like";
     public static final String ZAN_SHARE_ORDER_TAG="ZAN_SHARE_ORDER_TAG";
+    //红包
+    public static final String MINE_RED="/personal/coupon";
+    public static final String MINE_RED_TAG="MINE_RED_TAG";
 
     /**
      * Case By:创建参数基础信息

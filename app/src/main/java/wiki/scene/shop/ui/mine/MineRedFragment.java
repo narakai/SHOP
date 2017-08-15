@@ -2,6 +2,7 @@ package wiki.scene.shop.ui.mine;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -10,9 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.lzy.okgo.OkGo;
+
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,10 +31,12 @@ import wiki.scene.shop.R;
 import wiki.scene.shop.adapter.MineRedAdapter;
 import wiki.scene.shop.entity.CreateOrderInfo;
 import wiki.scene.shop.event.TabSelectedEvent;
+import wiki.scene.shop.http.api.ApiUtil;
 import wiki.scene.shop.itemDecoration.SpacesItemDecoration;
 import wiki.scene.shop.mvp.BaseBackMvpFragment;
 import wiki.scene.shop.ui.mine.mvpview.IMineRedView;
 import wiki.scene.shop.ui.mine.presenter.MineRedPresenter;
+import wiki.scene.shop.utils.ToastUtils;
 
 /**
  * Case By:我的红包
@@ -56,7 +62,7 @@ public class MineRedFragment extends BaseBackMvpFragment<IMineRedView, MineRedPr
 
     private boolean isEnterFromMine = false;
     //adapter
-    private ArrayList<CreateOrderInfo.CouponsBean> list = new ArrayList<>();
+    private ArrayList<CreateOrderInfo.CouponsBean> list;
     private MineRedAdapter adapter;
 
 
@@ -69,6 +75,7 @@ public class MineRedFragment extends BaseBackMvpFragment<IMineRedView, MineRedPr
         return fragment;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,20 +103,19 @@ public class MineRedFragment extends BaseBackMvpFragment<IMineRedView, MineRedPr
     }
 
     private void initView() {
-        if (list != null) {
-            ptrLayout.setLoadMoreEnable(false);
-            ptrLayout.setPullToRefresh(false);
+        if (isEnterFromMine) {
+            list = new ArrayList<>();
         }
+        ptrLayout.setPullToRefresh(isEnterFromMine);
         ptrLayout.setLastUpdateTimeRelateObject(this);
         ptrLayout.setPtrHandler(new PtrDefaultHandler() {
             @Override
-            public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
-                return super.checkCanDoRefresh(frame, content, header) && isEnterFromMine;
-            }
-
-            @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
-
+                if (isEnterFromMine) {
+                    presenter.getMineRedData(false);
+                } else {
+                    refreshCompilt();
+                }
             }
         });
         adapter = new MineRedAdapter(_mActivity, list);
@@ -130,21 +136,36 @@ public class MineRedFragment extends BaseBackMvpFragment<IMineRedView, MineRedPr
                 _mActivity.onBackPressed();
             }
         });
+        if (isEnterFromMine) {
+            presenter.getMineRedData(true);
+        }
     }
 
     @Override
     public void showLoading() {
-        statusLayout.showLoading();
+        try {
+            statusLayout.showLoading();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void showContent() {
-        statusLayout.showContent();
+        try {
+            statusLayout.showContent();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void showFail() {
-        statusLayout.showFailed(retryListener);
+        try {
+            statusLayout.showFailed(retryListener);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -154,6 +175,7 @@ public class MineRedFragment extends BaseBackMvpFragment<IMineRedView, MineRedPr
 
     @Override
     public void onDestroyView() {
+        OkGo.getInstance().cancelTag(ApiUtil.MINE_RED_TAG);
         super.onDestroyView();
         unbinder.unbind();
     }
@@ -161,7 +183,45 @@ public class MineRedFragment extends BaseBackMvpFragment<IMineRedView, MineRedPr
     View.OnClickListener retryListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-
+            if (isEnterFromMine) {
+                presenter.getMineRedData(true);
+            }
         }
     };
+
+    @Override
+    public void showMessage(@StringRes int resId) {
+        ToastUtils.getInstance(_mActivity).showToast(resId);
+    }
+
+    @Override
+    public void showMessage(String message) {
+        ToastUtils.getInstance(_mActivity).showToast(message);
+    }
+
+    @Override
+    public void refreshCompilt() {
+        try {
+            ptrLayout.refreshComplete();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void bindData(List<CreateOrderInfo.CouponsBean> data) {
+        try {
+            list.clear();
+            list.addAll(data);
+            adapter.notifyDataSetChanged();
+            if (list.size() == 0) {
+                statusLayout.showNone();
+            } else {
+                statusLayout.showContent();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
 }

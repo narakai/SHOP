@@ -99,7 +99,7 @@ public class ShareHotestFragment extends BaseMvpFragment<IShareTypeView, ShareTy
 
     private void initView() {
         ptrLayout.setLastUpdateTimeRelateObject(this);
-        adapter = new ShareAdapter(_mActivity, list);
+        adapter = new ShareAdapter(_mActivity, list, false);
         RecyclerAdapterWithHF mAdapter = new RecyclerAdapterWithHF(adapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(_mActivity);
         recyclerView.setLayoutManager(layoutManager);
@@ -259,7 +259,8 @@ public class ShareHotestFragment extends BaseMvpFragment<IShareTypeView, ShareTy
 
     @Override
     public void zanSuccess(int position) {
-        list.get(position).setLike(1);list.get(position).setLike_number(list.get(position).getLike_number() + 1);
+        list.get(position).setLike(1);
+        list.get(position).setLike_number(list.get(position).getLike_number() + 1);
         adapter.notifyDataSetChanged();
     }
 

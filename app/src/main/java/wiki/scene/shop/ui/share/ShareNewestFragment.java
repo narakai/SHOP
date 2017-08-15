@@ -99,7 +99,7 @@ public class ShareNewestFragment extends BaseMvpFragment<IShareTypeView, ShareTy
 
     private void initView() {
         ptrLayout.setLastUpdateTimeRelateObject(this);
-        adapter = new ShareAdapter(_mActivity, list);
+        adapter = new ShareAdapter(_mActivity, list, false);
         RecyclerAdapterWithHF mAdapter = new RecyclerAdapterWithHF(adapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(_mActivity);
         recyclerView.setLayoutManager(layoutManager);

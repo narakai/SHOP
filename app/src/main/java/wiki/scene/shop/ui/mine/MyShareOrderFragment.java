@@ -107,7 +107,7 @@ public class MyShareOrderFragment extends BaseBackMvpFragment<IShareTypeView, Sh
 
     private void initView() {
         ptrLayout.setLastUpdateTimeRelateObject(this);
-        adapter = new ShareAdapter(_mActivity, list);
+        adapter = new ShareAdapter(_mActivity, list, true);
         RecyclerAdapterWithHF mAdapter = new RecyclerAdapterWithHF(adapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(_mActivity);
         recyclerView.setLayoutManager(layoutManager);

@@ -1,5 +1,10 @@
 package wiki.scene.shop.ui.mine.mvpview;
 
+import android.support.annotation.StringRes;
+
+import java.util.List;
+
+import wiki.scene.shop.entity.CreateOrderInfo;
 import wiki.scene.shop.mvp.BaseListView;
 
 /**
@@ -9,4 +14,11 @@ import wiki.scene.shop.mvp.BaseListView;
  */
 
 public interface IMineRedView extends BaseListView {
+    void showMessage(@StringRes int resId);
+
+    void showMessage(String message);
+
+    void refreshCompilt();
+
+    void bindData(List<CreateOrderInfo.CouponsBean> list);
 }

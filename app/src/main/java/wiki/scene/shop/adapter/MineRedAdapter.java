@@ -49,11 +49,15 @@ public class MineRedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         viewHolder.redName.setText(bean.getTitle());
         viewHolder.needPrice.setText(PriceUtil.getPrice(bean.getMini_money()));
         viewHolder.cost.setText(PriceUtil.getPrice(bean.getCost()));
-        viewHolder.expiryDate.setText(DateUtil.timeStampToFormat(bean.getExpired_time()));
+        if (bean.getExpired_time() == 0) {
+            viewHolder.expiryDate.setText(String.format(context.getString(R.string.expiry_date), "永久"));
+        } else {
+            viewHolder.expiryDate.setText(String.format(context.getString(R.string.expiry_date), DateUtil.formatDate(bean.getExpired_time())));
+        }
         viewHolder.immddiatelyIndiana.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(onMineRedItemClickListener!=null){
+                if (onMineRedItemClickListener != null) {
                     onMineRedItemClickListener.onMineRedItemClick(position);
                 }
             }

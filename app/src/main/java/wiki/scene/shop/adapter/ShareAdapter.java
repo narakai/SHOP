@@ -33,11 +33,13 @@ import wiki.scene.shop.widgets.RatioImageView;
 public class ShareAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context context;
     private List<ShareListResultInfo.ShareListInfo> list;
+    private boolean isMine;
     private OnClickShareOrderItemListener onClickShareOrderItemListener;
 
-    public ShareAdapter(Context context, List<ShareListResultInfo.ShareListInfo> list) {
+    public ShareAdapter(Context context, List<ShareListResultInfo.ShareListInfo> list, boolean isMine) {
         this.context = context;
         this.list = list;
+        this.isMine = isMine;
     }
 
     public void setOnClickShareOrderItemListener(OnClickShareOrderItemListener onClickShareOrderItemListener) {
@@ -57,9 +59,15 @@ public class ShareAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         if (!TextUtils.isEmpty(mobile)) {
             mobile = mobile.replace(mobile.substring(3, 7), "****");
         }
-        Glide.with(context).load(ShopApplication.configInfo.getFile_domain() + info.getAvatar()).bitmapTransform(new CropCircleTransformation(context)).into(viewHolder.userAvater);
-        viewHolder.userLevel.setText(String.valueOf(info.getLevel()));
-        viewHolder.username.setText(StringUtils.isEmpty(info.getNickname()) ? mobile : info.getNickname());
+        if (isMine) {
+            Glide.with(context).load(ShopApplication.userInfo.getAvatar()).bitmapTransform(new CropCircleTransformation(context)).into(viewHolder.userAvater);
+            viewHolder.userLevel.setText(String.valueOf(ShopApplication.userInfo.getLevel()));
+            viewHolder.username.setText(StringUtils.isEmpty(ShopApplication.userInfo.getNickname()) ? ShopApplication.userInfo.getMobile() : ShopApplication.userInfo.getNickname());
+        } else {
+            Glide.with(context).load(ShopApplication.configInfo.getFile_domain() + info.getAvatar()).bitmapTransform(new CropCircleTransformation(context)).into(viewHolder.userAvater);
+            viewHolder.userLevel.setText(String.valueOf(info.getLevel()));
+            viewHolder.username.setText(StringUtils.isEmpty(info.getNickname()) ? mobile : info.getNickname());
+        }
         viewHolder.content.setText(info.getContent());
         viewHolder.goodsName.setText(info.getTitle());
         viewHolder.goodsTime.setText(String.format(context.getString(R.string.share_goods_times), info.getCycle_code()));
