@@ -65,6 +65,11 @@ public class WinRecordAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 }
             }
         });
+        if (info.isShowed()) {
+            viewHolder.goToShareOrder.setVisibility(View.GONE);
+        } else {
+            viewHolder.goToShareOrder.setVisibility(View.VISIBLE);
+        }
     }
 
     private void setGoodsTag(TextView tagView, int type) {

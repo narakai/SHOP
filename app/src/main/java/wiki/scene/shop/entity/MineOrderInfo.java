@@ -27,6 +27,7 @@ public class MineOrderInfo implements Serializable {
     private int order_status; //1未支付  2已支付（完成） 3中奖   4过期
     private List<String> winner_codes;
     private String winner_nickname;
+    private boolean showed;
 
     public String getCycle_id() {
         return cycle_id;
@@ -170,5 +171,13 @@ public class MineOrderInfo implements Serializable {
 
     public void setWinner_nickname(String winner_nickname) {
         this.winner_nickname = winner_nickname;
+    }
+
+    public boolean isShowed() {
+        return showed;
+    }
+
+    public void setShowed(boolean showed) {
+        this.showed = showed;
     }
 }

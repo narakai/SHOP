@@ -113,7 +113,7 @@ public class IndianaRecordAdapter extends RecyclerView.Adapter<RecyclerView.View
             indianaResultViewHolder.personTimes.setText(String.valueOf(info.getNumber()));
             indianaResultViewHolder.winnerName.setText(info.getWinner_nickname());
             indianaResultViewHolder.luckCode.setText(info.getLucky_code());
-            if (info.getLucky_user_id().equals(info.getUser_id())) {
+            if (info.getLucky_user_id().equals(info.getUser_id()) && !info.isShowed()) {
                 indianaResultViewHolder.goToShareOrder.setVisibility(View.VISIBLE);
             } else {
                 indianaResultViewHolder.goToShareOrder.setVisibility(View.GONE);
@@ -121,11 +121,12 @@ public class IndianaRecordAdapter extends RecyclerView.Adapter<RecyclerView.View
             indianaResultViewHolder.goToShareOrder.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(indianaRecordItemButtonClickListener!=null){
+                    if (indianaRecordItemButtonClickListener != null) {
                         indianaRecordItemButtonClickListener.goToShareOrder(position);
                     }
                 }
             });
+
         }
 
     }

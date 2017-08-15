@@ -65,6 +65,7 @@ public class WinRecordResultInfo implements Serializable {
         private int order_status;
         private int number;
         private List<String> my_codes;
+        private boolean showed;
 
         public String getCycle_id() {
             return cycle_id;
@@ -192,6 +193,14 @@ public class WinRecordResultInfo implements Serializable {
 
         public void setMy_codes(List<String> my_codes) {
             this.my_codes = my_codes;
+        }
+
+        public boolean isShowed() {
+            return showed;
+        }
+
+        public void setShowed(boolean showed) {
+            this.showed = showed;
         }
     }
 

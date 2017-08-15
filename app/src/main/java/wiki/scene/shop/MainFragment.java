@@ -132,8 +132,8 @@ public class MainFragment extends SupportFragment {
                     toolbarPublish.setVisibility(View.GONE);
                 } else if (position == 2) {
                     toolbarLayout.setVisibility(View.VISIBLE);
-                    toolbarMessage.setVisibility(View.GONE);
-                    toolbarPublish.setVisibility(View.VISIBLE);
+                    toolbarMessage.setVisibility(View.VISIBLE);
+                    toolbarPublish.setVisibility(View.GONE);
                 } else {
                     toolbarLayout.setVisibility(View.GONE);
                 }
