@@ -88,6 +88,7 @@ public class ShareTypePrsenter extends BasePresenter<IShareTypeView> {
             }
             if (ShopApplication.hasLogin && ShopApplication.userInfo != null) {
                 HttpParams params = new HttpParams();
+                params.put("user_id", ShopApplication.userInfo.getUser_id());
                 params.put("page", page);
                 model.getMyShareListData(params, new HttpResultListener<ShareListResultInfo>() {
                     @Override
@@ -126,6 +127,50 @@ public class ShareTypePrsenter extends BasePresenter<IShareTypeView> {
                     @Override
                     public void onFinish() {
 
+                    }
+                });
+            } else {
+                mView.showMessage(R.string.you_has_no_login_please_login);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void zanShareOrder(String showId, final int positon) {
+        try {
+            if (ShopApplication.hasLogin && ShopApplication.userInfo != null) {
+                mView.showProgressDialog(R.string.loading);
+                HttpParams params = new HttpParams();
+                params.put("user_id", ShopApplication.userInfo.getUser_id());
+                params.put("show_id", showId);
+                model.zanShareOrder(params, new HttpResultListener<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        try {
+                            mView.zanSuccess(positon);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFail(String message) {
+                        try {
+                            mView.showMessage(message);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        try {
+                            mView.hideProgressDialog();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 });
             } else {

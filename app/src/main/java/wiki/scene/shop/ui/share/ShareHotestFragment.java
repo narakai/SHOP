@@ -9,6 +9,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.lzy.okgo.OkGo;
+
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,10 +26,13 @@ import wiki.scene.loadmore.StatusViewLayout;
 import wiki.scene.loadmore.loadmore.OnLoadMoreListener;
 import wiki.scene.loadmore.recyclerview.RecyclerAdapterWithHF;
 import wiki.scene.loadmore.utils.PtrLocalDisplay;
+import wiki.scene.shop.MainFragment;
 import wiki.scene.shop.R;
 import wiki.scene.shop.adapter.ShareAdapter;
 import wiki.scene.shop.entity.ResultPageInfo;
 import wiki.scene.shop.entity.ShareListResultInfo;
+import wiki.scene.shop.event.TabSelectedEvent;
+import wiki.scene.shop.http.api.ApiUtil;
 import wiki.scene.shop.itemDecoration.SpacesItemDecoration;
 import wiki.scene.shop.mvp.BaseMvpFragment;
 import wiki.scene.shop.ui.share.mvpview.IShareTypeView;
@@ -112,6 +119,17 @@ public class ShareHotestFragment extends BaseMvpFragment<IShareTypeView, ShareTy
                 presenter.getShareListData(false, TYPE, page + 1);
             }
         });
+        adapter.setOnClickShareOrderItemListener(new ShareAdapter.OnClickShareOrderItemListener() {
+            @Override
+            public void onClickItemZan(int position) {
+                presenter.zanShareOrder(list.get(position).getId(), position);
+            }
+
+            @Override
+            public void onClikcItemTryLuck(int position) {
+                EventBus.getDefault().post(new TabSelectedEvent(MainFragment.FIRST));
+            }
+        });
     }
 
 
@@ -127,6 +145,8 @@ public class ShareHotestFragment extends BaseMvpFragment<IShareTypeView, ShareTy
 
     @Override
     public void onDestroyView() {
+        OkGo.getInstance().cancelTag(ApiUtil.SHARE_LIST_TAG);
+        OkGo.getInstance().cancelTag(ApiUtil.ZAN_SHARE_ORDER_TAG);
         super.onDestroyView();
         unbinder.unbind();
     }
@@ -235,6 +255,12 @@ public class ShareHotestFragment extends BaseMvpFragment<IShareTypeView, ShareTy
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void zanSuccess(int position) {
+        list.get(position).setLike(1);list.get(position).setLike_number(list.get(position).getLike_number() + 1);
+        adapter.notifyDataSetChanged();
     }
 
 

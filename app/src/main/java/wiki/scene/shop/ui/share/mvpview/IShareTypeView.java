@@ -33,9 +33,11 @@ public interface IShareTypeView extends BaseView {
 
     void getShareListDataSuccess(List<ShareListResultInfo.ShareListInfo> list);
 
-    void changePageInfo(ResultPageInfo pageInfo,int page);
+    void changePageInfo(ResultPageInfo pageInfo, int page);
 
     void refreshCompile();
 
     void loadmoreFail();
+
+    void zanSuccess(int position);
 }

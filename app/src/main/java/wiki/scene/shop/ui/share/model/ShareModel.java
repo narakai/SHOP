@@ -40,6 +40,7 @@ public class ShareModel {
                 });
 
     }
+
     public void getMyShareListData(HttpParams params, final HttpResultListener<ShareListResultInfo> listener) {
         OkGo.<LzyResponse<ShareListResultInfo>>get(ApiUtil.API_PRE + ApiUtil.MINE_SHARE_LIST)
                 .tag(ApiUtil.MINE_SHARE_LIST_TAG)
@@ -63,5 +64,29 @@ public class ShareModel {
                     }
                 });
 
+    }
+
+    public void zanShareOrder(HttpParams params, final HttpResultListener<String> listener) {
+        OkGo.<LzyResponse<String>>post(ApiUtil.API_PRE + ApiUtil.ZAN_SHARE_ORDER)
+                .tag(ApiUtil.ZAN_SHARE_ORDER_TAG)
+                .params(params)
+                .execute(new JsonCallback<LzyResponse<String>>() {
+                    @Override
+                    public void onSuccess(Response<LzyResponse<String>> response) {
+                        listener.onSuccess(response.body().data);
+                    }
+
+                    @Override
+                    public void onError(Response<LzyResponse<String>> response) {
+                        super.onError(response);
+                        listener.onFail(response.getException() == null ? response.message() : response.getException().getMessage());
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        super.onFinish();
+                        listener.onFinish();
+                    }
+                });
     }
 }

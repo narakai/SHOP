@@ -86,22 +86,18 @@
             android:textColor="@color/text_color_title"
             android:textSize="@dimen/text_size_small" />
 
-        <wiki.scene.shop.widgets.RatioImageView
-            android:id="@+id/goods_image"
-            android:layout_width="133dp"
+        <com.w4lle.library.NineGridlayout
+            android:id="@+id/share_images"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/content"
-            android:layout_marginTop="10dp"
-            android:background="#FF0000"
-            app:base="horizontal"
-            app:horizontal_weight="5"
-            app:vertical_weight="3" />
+            android:layout_marginTop="10dp" />
 
         <LinearLayout
             android:id="@+id/layout_goodsInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/goods_image"
+            android:layout_below="@+id/share_images"
             android:layout_marginTop="10dp"
             android:background="@color/white"
             android:orientation="vertical"

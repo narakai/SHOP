@@ -18,11 +18,14 @@ import com.yuyh.library.imgsel.ImageLoader;
 import com.yuyh.library.imgsel.ImgSelActivity;
 import com.yuyh.library.imgsel.ImgSelConfig;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 import wiki.scene.loadmore.utils.SceneLogUtil;
 import wiki.scene.shop.R;
@@ -31,7 +34,9 @@ import wiki.scene.shop.config.AppConfig;
 import wiki.scene.shop.mvp.BaseMvpActivity;
 import wiki.scene.shop.ui.mine.mvpview.IShareOrderView;
 import wiki.scene.shop.ui.mine.presenter.ShareOrderPresenter;
+import wiki.scene.shop.utils.ToastUtils;
 import wiki.scene.shop.widgets.CustomeGridView;
+import wiki.scene.shop.widgets.LoadingDialog;
 
 /**
  * 晒单
@@ -68,6 +73,9 @@ public class ShareOrderActivity extends BaseMvpActivity<IShareOrderView, ShareOr
     private String goodsCycleCodeStr;
     private String orderId;
     private String cycleId;
+
+
+    private LoadingDialog loadingDialog;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -112,8 +120,6 @@ public class ShareOrderActivity extends BaseMvpActivity<IShareOrderView, ShareOr
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (position == imageList.size() - 1) {
                     chooseImages(10 - imageList.size());
-                } else {
-
                 }
             }
         });
@@ -197,6 +203,60 @@ public class ShareOrderActivity extends BaseMvpActivity<IShareOrderView, ShareOr
                     SceneLogUtil.e("选择图片异常了");
                 }
             }
+        }
+    }
+
+    @Override
+    public void showProgressDialog(String msg) {
+        if (loadingDialog == null) {
+            loadingDialog = LoadingDialog.getInstance(ShareOrderActivity.this);
+        }
+        loadingDialog.showLoadingDialog(msg);
+    }
+
+    @Override
+    public void showProgressDialog(@StringRes int resId) {
+        if (loadingDialog == null) {
+            loadingDialog = LoadingDialog.getInstance(ShareOrderActivity.this);
+        }
+        loadingDialog.showLoadingDialog(getString(resId));
+    }
+
+    @Override
+    public void hideProgressDialog() {
+        if (loadingDialog != null) {
+            loadingDialog.cancelLoadingDialog();
+        }
+    }
+
+    @Override
+    public void showMessage(@StringRes int resId) {
+        ToastUtils.getInstance(ShareOrderActivity.this).showToast(resId);
+    }
+
+    @Override
+    public void showMessage(String msg) {
+        ToastUtils.getInstance(ShareOrderActivity.this).showToast(msg);
+    }
+
+    @Override
+    public void shareSuccess() {
+        onBackPressed();
+        showMessage(R.string.share_order_success);
+    }
+
+    @Override
+    public void compressSuccess(List<File> fileList) {
+        presenter.shareOrder(shareContent.getText().toString().trim(), orderId, cycleId, fileList);
+    }
+
+    @OnClick(R.id.toolbar_text)
+    public void onClickSend() {
+        if (imageList.size() > 1) {
+            //压缩图片
+            presenter.compressImages(ShareOrderActivity.this, imageList);
+        }else{
+            presenter.shareOrder(shareContent.getText().toString().trim(), orderId, cycleId, null);
         }
     }
 }

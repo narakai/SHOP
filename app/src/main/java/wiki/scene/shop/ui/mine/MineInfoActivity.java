@@ -28,8 +28,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
-import top.zibin.luban.Luban;
-import top.zibin.luban.OnCompressListener;
+import me.shaohui.advancedluban.Luban;
+import me.shaohui.advancedluban.OnCompressListener;
 import wiki.scene.loadmore.utils.SceneLogUtil;
 import wiki.scene.shop.R;
 import wiki.scene.shop.ShopApplication;
@@ -171,7 +171,7 @@ public class MineInfoActivity extends BaseMvpActivity<IMineInfoView, MineInfoPre
 
     public void changeUserAvater(String filePath) {
         SceneLogUtil.e("changeUserAvater");
-        Luban.with(MineInfoActivity.this).load(new File(filePath)).setCompressListener(new OnCompressListener() {
+        Luban.compress(this, new File(filePath)).launch(new OnCompressListener() {
             @Override
             public void onStart() {
                 showLoading("正在上传头像...");
@@ -189,7 +189,8 @@ public class MineInfoActivity extends BaseMvpActivity<IMineInfoView, MineInfoPre
                 hideLoading();
                 showFail("头像上传失败");
             }
-        }).launch();
+        });
+
     }
 
     @Override

@@ -11,6 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.lzy.okgo.OkGo;
+
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,10 +28,13 @@ import wiki.scene.loadmore.StatusViewLayout;
 import wiki.scene.loadmore.loadmore.OnLoadMoreListener;
 import wiki.scene.loadmore.recyclerview.RecyclerAdapterWithHF;
 import wiki.scene.loadmore.utils.PtrLocalDisplay;
+import wiki.scene.shop.MainFragment;
 import wiki.scene.shop.R;
 import wiki.scene.shop.adapter.ShareAdapter;
 import wiki.scene.shop.entity.ResultPageInfo;
 import wiki.scene.shop.entity.ShareListResultInfo;
+import wiki.scene.shop.event.TabSelectedEvent;
+import wiki.scene.shop.http.api.ApiUtil;
 import wiki.scene.shop.itemDecoration.SpacesItemDecoration;
 import wiki.scene.shop.mvp.BaseBackMvpFragment;
 import wiki.scene.shop.ui.share.mvpview.IShareTypeView;
@@ -120,6 +127,18 @@ public class MyShareOrderFragment extends BaseBackMvpFragment<IShareTypeView, Sh
                 presenter.getMyShareListData(false, TYPE, page + 1);
             }
         });
+        adapter.setOnClickShareOrderItemListener(new ShareAdapter.OnClickShareOrderItemListener() {
+            @Override
+            public void onClickItemZan(int position) {
+                presenter.zanShareOrder(list.get(position).getId(), position);
+            }
+
+            @Override
+            public void onClikcItemTryLuck(int position) {
+                EventBus.getDefault().post(new TabSelectedEvent(MainFragment.FIRST));
+                _mActivity.onBackPressed();
+            }
+        });
     }
 
 
@@ -135,6 +154,8 @@ public class MyShareOrderFragment extends BaseBackMvpFragment<IShareTypeView, Sh
 
     @Override
     public void onDestroyView() {
+        OkGo.getInstance().cancelTag(ApiUtil.SHARE_LIST_TAG);
+        OkGo.getInstance().cancelTag(ApiUtil.ZAN_SHARE_ORDER_TAG);
         super.onDestroyView();
         unbinder.unbind();
     }
@@ -240,6 +261,17 @@ public class MyShareOrderFragment extends BaseBackMvpFragment<IShareTypeView, Sh
     public void loadmoreFail() {
         try {
             ptrLayout.loadFail();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void zanSuccess(int position) {
+        try {
+            list.get(position).setLike(1);
+            list.get(position).setLike_number(list.get(position).getLike_number() + 1);
+            adapter.notifyDataSetChanged();
         } catch (Exception e) {
             e.printStackTrace();
         }

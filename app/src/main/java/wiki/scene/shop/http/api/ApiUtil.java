@@ -120,6 +120,13 @@ public class ApiUtil {
     //秒开夺宝
     public static final String SECOND_INDIANA="/cycle/quick";
     public static final String SECOND_INDIANA_TAG="SECOND_INDIANA_TAG";
+    //晒单
+    public static final String SHARE_ORDER="/personal/show/add";
+    public static final String SHARE_ORDER_TAG="SHARE_ORDER_TAG";
+    //晒单点赞
+    public static final String ZAN_SHARE_ORDER="/personal/show/like";
+    public static final String ZAN_SHARE_ORDER_TAG="ZAN_SHARE_ORDER_TAG";
+
     /**
      * Case By:创建参数基础信息
      * Author: scene on 2017/5/19 13:19
