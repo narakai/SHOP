@@ -222,4 +222,6 @@
     <string name="please_edit_your_wish_goods">请输入您的心愿产品</string>
     <string name="please_edit_your_bug_feedback">我们已经收到您反馈的问题，感谢您对我们的支持</string>
     <string name="send">发表</string>
+    <string name="price_10_indiana">10元夺宝</string>
+    <string name="second_open_indiana">秒开夺宝</string>
 </resources>

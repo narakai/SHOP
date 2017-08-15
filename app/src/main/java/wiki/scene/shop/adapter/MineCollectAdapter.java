@@ -56,12 +56,6 @@ public class MineCollectAdapter extends RecyclerView.Adapter {
             ViewHolderType1 viewHolderType1 = (ViewHolderType1) holder;
             viewHolderType1.goodsName.setText(info.getTitle());
             Glide.with(context).load(ShopApplication.configInfo.getFile_domain() + info.getThumb()).fitCenter().into(viewHolderType1.goodsImage);
-            viewHolderType1.goonIndiana.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                }
-            });
             int precent = info.getCurrent_source() * 100 / info.getNeed_source();
             viewHolderType1.precent.setText(precent + "%");
             setGoodsTag(viewHolderType1.goodsTag, info.getType());

@@ -1,9 +1,9 @@
-package wiki.scene.shop.ui.mine;
+package wiki.scene.shop.ui.indiana;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -27,16 +27,14 @@ import wiki.scene.loadmore.loadmore.OnLoadMoreListener;
 import wiki.scene.loadmore.recyclerview.RecyclerAdapterWithHF;
 import wiki.scene.loadmore.utils.PtrLocalDisplay;
 import wiki.scene.shop.R;
-import wiki.scene.shop.adapter.MineCollectAdapter;
-import wiki.scene.shop.adapter.WinRecordAdapter;
-import wiki.scene.shop.entity.MineCollectionResultInfo;
+import wiki.scene.shop.adapter.Price10IndianaAdapter;
+import wiki.scene.shop.entity.Price10IndianaResultInfo;
 import wiki.scene.shop.entity.ResultPageInfo;
 import wiki.scene.shop.http.api.ApiUtil;
-import wiki.scene.shop.itemDecoration.SpacesItemDecoration;
+import wiki.scene.shop.itemDecoration.GridSpacingItemDecoration;
 import wiki.scene.shop.mvp.BaseBackMvpFragment;
-import wiki.scene.shop.ui.indiana.GoodsDetailFragment;
-import wiki.scene.shop.ui.mine.mvpview.IMineCollectView;
-import wiki.scene.shop.ui.mine.presenter.MineCollectPresenter;
+import wiki.scene.shop.ui.indiana.mvpview.IPrice10IndianaView;
+import wiki.scene.shop.ui.indiana.presenter.Price10IndianaPresenter;
 import wiki.scene.shop.utils.ToastUtils;
 
 /**
@@ -45,7 +43,7 @@ import wiki.scene.shop.utils.ToastUtils;
  * Author：scene on 2017/7/5 11:36
  */
 
-public class MineCollectFragment extends BaseBackMvpFragment<IMineCollectView, MineCollectPresenter> implements IMineCollectView {
+public class Price10IndianaFragment extends BaseBackMvpFragment<IPrice10IndianaView, Price10IndianaPresenter> implements IPrice10IndianaView {
 
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
@@ -60,23 +58,35 @@ public class MineCollectFragment extends BaseBackMvpFragment<IMineCollectView, M
     TextView toolbarTitle;
 
     //adapter
-    private List<MineCollectionResultInfo.MineCollectionInfo> list = new ArrayList<>();
-    private MineCollectAdapter adapter;
+    private List<Price10IndianaResultInfo.Price10IndianaInfo> list = new ArrayList<>();
+    private Price10IndianaAdapter adapter;
     //分页
     private int page = 1;
+    //1:10元，2：秒开
+    private int pageType = 1;
 
-    public static MineCollectFragment newInstance() {
+    public static Price10IndianaFragment newInstance(int type) {
 
         Bundle args = new Bundle();
-        MineCollectFragment fragment = new MineCollectFragment();
+        args.putInt("type", type);
+        Price10IndianaFragment fragment = new Price10IndianaFragment();
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            pageType = bundle.getInt("type", 1);
+        }
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_win_record, container, false);
+        View view = inflater.inflate(R.layout.fragment_price_10_indiana, container, false);
         unbinder = ButterKnife.bind(this, view);
         return attachToSwipeBack(view);
     }
@@ -84,7 +94,11 @@ public class MineCollectFragment extends BaseBackMvpFragment<IMineCollectView, M
     @Override
     public void onEnterAnimationEnd(Bundle savedInstanceState) {
         super.onEnterAnimationEnd(savedInstanceState);
-        toolbarTitle.setText(R.string.mine_collect);
+        if (pageType == 1) {
+            toolbarTitle.setText(R.string.price_10_indiana);
+        } else {
+            toolbarTitle.setText(R.string.second_open_indiana);
+        }
         initToolbarNav(toolbar);
         initView();
     }
@@ -95,34 +109,53 @@ public class MineCollectFragment extends BaseBackMvpFragment<IMineCollectView, M
         ptrLayout.setPtrHandler(new PtrDefaultHandler() {
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
-                presenter.getMineCollectionData(false, 1);
+                if (pageType == 1) {
+                    presenter.getPrice10IndianaData(false, 1);
+                } else {
+                    presenter.getSecondIndianaData(false, 1);
+                }
             }
         });
         ptrLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void loadMore() {
-                presenter.getMineCollectionData(false, page + 1);
+                if (pageType == 1) {
+                    presenter.getPrice10IndianaData(false, page + 1);
+                } else {
+                    presenter.getSecondIndianaData(false, page + 1);
+                }
             }
         });
 
-        adapter = new MineCollectAdapter(_mActivity, list);
+        adapter = new Price10IndianaAdapter(getContext(), list, pageType);
         RecyclerAdapterWithHF mAdapter = new RecyclerAdapterWithHF(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(_mActivity));
-        recyclerView.addItemDecoration(new SpacesItemDecoration(PtrLocalDisplay.dp2px(1)));
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(_mActivity, 2);
+        gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                return position == recyclerView.getAdapter().getItemCount() - 1 ? 2 : 1;
+            }
+        });
+        recyclerView.setLayoutManager(gridLayoutManager);
+        recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, PtrLocalDisplay.designedDP2px(1), false));
         recyclerView.setAdapter(mAdapter);
         ptrLayout.setLoadMoreEnable(true);
-        presenter.getMineCollectionData(true, page);
+        if (pageType == 1) {
+            presenter.getPrice10IndianaData(true, page);
+        } else {
+            presenter.getSecondIndianaData(true, page);
+        }
         mAdapter.setOnItemClickListener(new RecyclerAdapterWithHF.OnItemClickListener() {
             @Override
             public void onItemClick(RecyclerAdapterWithHF adapter, RecyclerView.ViewHolder vh, int position) {
-                start(GoodsDetailFragment.newInstance(list.get(position).getCycle_id()));
+                start(GoodsDetailFragment.newInstance(list.get(position).getId()));
             }
         });
     }
 
     @Override
-    public MineCollectPresenter initPresenter() {
-        return new MineCollectPresenter(this);
+    public Price10IndianaPresenter initPresenter() {
+        return new Price10IndianaPresenter(this);
     }
 
 
@@ -148,7 +181,11 @@ public class MineCollectFragment extends BaseBackMvpFragment<IMineCollectView, M
     private View.OnClickListener retryListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            presenter.getMineCollectionData(true, page);
+            if (pageType == 1) {
+                presenter.getPrice10IndianaData(true, page);
+            } else {
+                presenter.getSecondIndianaData(true, page);
+            }
         }
     };
 
@@ -206,7 +243,7 @@ public class MineCollectFragment extends BaseBackMvpFragment<IMineCollectView, M
     }
 
     @Override
-    public void bindMineCollectData(MineCollectionResultInfo resultInfo) {
+    public void bindData(Price10IndianaResultInfo resultInfo) {
         try {
             ResultPageInfo pageInfo = resultInfo.getInfo();
             if (page == 1) {

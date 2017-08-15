@@ -493,6 +493,8 @@ public class IndianaFragment extends BaseMainMvpFragment<IIndianaView, IndianaPr
             banner.setImages(bannerImageUrls);
             banner.start();
             bindIndianaNotice();
+            indianaPrice10.setOnClickListener(onClickListener);
+            indianaFast.setOnClickListener(onClickListener);
         }
 
         void bindNewestGoods(List<NewWaitInfo> newWaitInfoList) {
@@ -581,6 +583,12 @@ public class IndianaFragment extends BaseMainMvpFragment<IIndianaView, IndianaPr
                     break;
                 case R.id.layout_price1:
                     presenter.setChoosedTitleBar(TITLE_BAR_PRICE, currentChoosedPosition);
+                    break;
+                case R.id.indiana_price_10:
+                    EventBus.getDefault().post(new StartBrotherEvent(Price10IndianaFragment.newInstance(1)));
+                    break;
+                case R.id.indiana_fast:
+                    EventBus.getDefault().post(new StartBrotherEvent(Price10IndianaFragment.newInstance(2)));
                     break;
             }
         }

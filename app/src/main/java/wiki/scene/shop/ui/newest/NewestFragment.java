@@ -87,8 +87,8 @@ public class NewestFragment extends BaseMainMvpFragment<INewestView, NewestPrese
             }
         });
         adapter = new NewestAdapter(_mActivity, list);
-        final RecyclerAdapterWithHF mAdapter = new RecyclerAdapterWithHF(adapter);
-        final GridLayoutManager gridLayoutManager = new GridLayoutManager(_mActivity, 2);
+        RecyclerAdapterWithHF mAdapter = new RecyclerAdapterWithHF(adapter);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(_mActivity, 2);
         gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {

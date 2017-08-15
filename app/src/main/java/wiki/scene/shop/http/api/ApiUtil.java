@@ -114,6 +114,12 @@ public class ApiUtil {
     //我的收藏
     public static final String MINE_COLLECTION="/personal/collection";
     public static final String MINE_COLLECTION_TAG="MINE_COLLECTION_TAG";
+    //10元夺宝
+    public static final String PRICE_10_INDIANA="/cycle/ten";
+    public static final String PRICE_10_INDIANA_TAG="PRICE_10_INDIANA_TAG";
+    //秒开夺宝
+    public static final String SECOND_INDIANA="/cycle/quick";
+    public static final String SECOND_INDIANA_TAG="SECOND_INDIANA_TAG";
     /**
      * Case By:创建参数基础信息
      * Author: scene on 2017/5/19 13:19
