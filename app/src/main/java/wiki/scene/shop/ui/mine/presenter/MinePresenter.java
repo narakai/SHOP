@@ -23,7 +23,7 @@ public class MinePresenter extends BasePresenter<IMineView> {
     public void recharge() {
         if (mineView != null) {
             if (ShopApplication.hasLogin) {
-                return;
+                mineView.enterRecharge();
             } else {
                 mineView.enterLogin();
             }

@@ -172,7 +172,7 @@ public class ShareNewestFragment extends BaseMvpFragment<IShareTypeView, ShareTy
     @Override
     public void showEmptyPage() {
         try {
-            statusLayout.showNone();
+            statusLayout.showNone(retryListener);
         } catch (Exception e) {
             e.printStackTrace();
         }

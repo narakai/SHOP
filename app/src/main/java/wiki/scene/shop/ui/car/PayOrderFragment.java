@@ -115,7 +115,7 @@ public class PayOrderFragment extends BaseBackMvpFragment<IPayOrderView, PayOrde
 
     private void initView() {
         loadingDialog = LoadingDialog.getInstance(_mActivity);
-        List<CreateOrderInfo.CyclesBean> cyclesBeanList=new ArrayList<>();
+        List<CreateOrderInfo.CyclesBean> cyclesBeanList = new ArrayList<>();
         cyclesBeanList.add(createOrderInfo.getCycle());
         PayOrderGoodsAdapter adapter = new PayOrderGoodsAdapter(_mActivity, cyclesBeanList);
         goodsListview.setAdapter(adapter);
@@ -137,16 +137,16 @@ public class PayOrderFragment extends BaseBackMvpFragment<IPayOrderView, PayOrde
         }
         if (type == AppConfig.PAY_TYPE_BALANCE) {
             radioBalancePayImage.setImageResource(R.drawable.ic_address_choosed_s);
-            radioWechatPay.setCompoundDrawablesWithIntrinsicBounds(null, null, getResources().getDrawable(R.drawable.ic_address_choosed_d), null);
-            radioAlipay.setCompoundDrawablesWithIntrinsicBounds(null, null, getResources().getDrawable(R.drawable.ic_address_choosed_d), null);
+            radioWechatPay.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_wechat), null, getResources().getDrawable(R.drawable.ic_address_choosed_d), null);
+            radioAlipay.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_alipay), null, getResources().getDrawable(R.drawable.ic_address_choosed_d), null);
         } else if (type == AppConfig.PAY_TYPE_WECHAT) {
             radioBalancePayImage.setImageResource(R.drawable.ic_address_choosed_d);
-            radioWechatPay.setCompoundDrawablesWithIntrinsicBounds(null, null, getResources().getDrawable(R.drawable.ic_address_choosed_s), null);
-            radioAlipay.setCompoundDrawablesWithIntrinsicBounds(null, null, getResources().getDrawable(R.drawable.ic_address_choosed_d), null);
+            radioWechatPay.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_wechat), null, getResources().getDrawable(R.drawable.ic_address_choosed_s), null);
+            radioAlipay.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_alipay), null, getResources().getDrawable(R.drawable.ic_address_choosed_d), null);
         } else if (type == AppConfig.PAY_TYPE_ALPAY) {
             radioBalancePayImage.setImageResource(R.drawable.ic_address_choosed_d);
-            radioWechatPay.setCompoundDrawablesWithIntrinsicBounds(null, null, getResources().getDrawable(R.drawable.ic_address_choosed_d), null);
-            radioAlipay.setCompoundDrawablesWithIntrinsicBounds(null, null, getResources().getDrawable(R.drawable.ic_address_choosed_s), null);
+            radioWechatPay.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_wechat), null, getResources().getDrawable(R.drawable.ic_address_choosed_d), null);
+            radioAlipay.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_alipay), null, getResources().getDrawable(R.drawable.ic_address_choosed_s), null);
         }
         payType = type;
     }

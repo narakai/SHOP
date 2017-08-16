@@ -228,4 +228,9 @@
     <string name="share_order_fail">晒单失败，请重试</string>
     <string name="please_edit_content">请输入您要分享的内容</string>
 
+    <string name="recharge_notice">充值金额用于购买等价夺宝币</string>
+    <string name="please_choose_recharge_money">请选择充值金额(元)</string>
+    <string name="please_choose_pay_way">请选择支付方式</string>
+    <string name="recharge_now">立即充值</string>
+
 </resources>

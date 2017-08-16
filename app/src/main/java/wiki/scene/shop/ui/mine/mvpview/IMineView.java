@@ -33,4 +33,6 @@ public interface IMineView extends BaseView {
 
     void hasNoLogin();
 
+    void enterRecharge();
+
 }

@@ -174,9 +174,9 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
      */
     @Override
     public void enterIndianaRecord() {
-        if(ShopApplication.hasLogin&&ShopApplication.userInfo!=null){
+        if (ShopApplication.hasLogin && ShopApplication.userInfo != null) {
             EventBus.getDefault().post(new StartBrotherEvent(IndianaRecordFragment.newInstance()));
-        }else{
+        } else {
             startActivity(new Intent(_mActivity, LoginActivity.class));
         }
     }
@@ -253,6 +253,11 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
         Glide.with(_mActivity).load(R.drawable.ic_default_avater).bitmapTransform(new CropCircleTransformation(_mActivity)).into(userAvater);
         imageLevel.setText(String.valueOf(1));
         coinNumber.setText(String.format(getString(R.string.coin_number), String.valueOf(0)));
+    }
+
+    @Override
+    public void enterRecharge() {
+        EventBus.getDefault().post(new StartBrotherEvent(RechargeFragment.newInstance()));
     }
 
     @Override
