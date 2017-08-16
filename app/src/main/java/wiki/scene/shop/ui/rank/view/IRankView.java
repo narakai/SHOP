@@ -1,5 +1,10 @@
 package wiki.scene.shop.ui.rank.view;
 
+import android.support.annotation.StringRes;
+
+import java.util.List;
+
+import wiki.scene.shop.entity.RankInfo;
 import wiki.scene.shop.mvp.BaseView;
 
 /**
@@ -8,4 +13,19 @@ import wiki.scene.shop.mvp.BaseView;
  */
 
 public interface IRankView extends BaseView {
+    void showLoadingPage();
+
+    void showContentPage();
+
+    void showErrorPage();
+
+    void showNonePage();
+
+    void refreshCompilt();
+
+    void showMessage(@StringRes int resId);
+
+    void showMessage(String message);
+
+    void bindData(List<RankInfo> data);
 }

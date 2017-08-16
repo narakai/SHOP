@@ -106,32 +106,35 @@ public class ApiUtil {
     public static final String ADD_WISH_GOODS = "/personal/feedback/wish";
     public static final String ADD_WISH_GOODS_TAG = "ADD_WISH_GOODS_TAG";
     //问题反馈
-    public static final String BUG_FEED_BACK="/personal/feedback/question";
-    public static final String BUG_FEED_BACK_TAG="BUG_FEED_BACK_TAG";
+    public static final String BUG_FEED_BACK = "/personal/feedback/question";
+    public static final String BUG_FEED_BACK_TAG = "BUG_FEED_BACK_TAG";
     //我的中奖记录
-    public static final String MINE_WIN_LIST="/personal/order/win";
-    public static final String MINE_WIN_LIST_TAG="MINE_WIN_LIST_TAG";
+    public static final String MINE_WIN_LIST = "/personal/order/win";
+    public static final String MINE_WIN_LIST_TAG = "MINE_WIN_LIST_TAG";
     //我的收藏
-    public static final String MINE_COLLECTION="/personal/collection";
-    public static final String MINE_COLLECTION_TAG="MINE_COLLECTION_TAG";
+    public static final String MINE_COLLECTION = "/personal/collection";
+    public static final String MINE_COLLECTION_TAG = "MINE_COLLECTION_TAG";
     //10元夺宝
-    public static final String PRICE_10_INDIANA="/cycle/ten";
-    public static final String PRICE_10_INDIANA_TAG="PRICE_10_INDIANA_TAG";
+    public static final String PRICE_10_INDIANA = "/cycle/ten";
+    public static final String PRICE_10_INDIANA_TAG = "PRICE_10_INDIANA_TAG";
     //秒开夺宝
-    public static final String SECOND_INDIANA="/cycle/quick";
-    public static final String SECOND_INDIANA_TAG="SECOND_INDIANA_TAG";
+    public static final String SECOND_INDIANA = "/cycle/quick";
+    public static final String SECOND_INDIANA_TAG = "SECOND_INDIANA_TAG";
     //晒单
-    public static final String SHARE_ORDER="/personal/show/add";
-    public static final String SHARE_ORDER_TAG="SHARE_ORDER_TAG";
+    public static final String SHARE_ORDER = "/personal/show/add";
+    public static final String SHARE_ORDER_TAG = "SHARE_ORDER_TAG";
     //晒单点赞
-    public static final String ZAN_SHARE_ORDER="/personal/show/like";
-    public static final String ZAN_SHARE_ORDER_TAG="ZAN_SHARE_ORDER_TAG";
+    public static final String ZAN_SHARE_ORDER = "/personal/show/like";
+    public static final String ZAN_SHARE_ORDER_TAG = "ZAN_SHARE_ORDER_TAG";
     //红包
-    public static final String MINE_RED="/personal/coupon";
-    public static final String MINE_RED_TAG="MINE_RED_TAG";
+    public static final String MINE_RED = "/personal/coupon";
+    public static final String MINE_RED_TAG = "MINE_RED_TAG";
     //充值
-    public static final String RECHARGE="/personal/recharge";
-    public static final String RECHARGE_TAG="RECHARGE_TAG";
+    public static final String RECHARGE = "/personal/recharge";
+    public static final String RECHARGE_TAG = "RECHARGE_TAG";
+    //排行榜
+    public static final String RANK = "/ranking";
+    public static final String RANK_TAG = "RANK_TAG";
 
     /**
      * Case By:创建参数基础信息

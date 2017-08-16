@@ -7,5 +7,18 @@
     <wiki.scene.loadmore.StatusViewLayout
         android:id="@+id/status_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></wiki.scene.loadmore.StatusViewLayout>
+        android:layout_height="match_parent">
+
+        <wiki.scene.loadmore.PtrClassicFrameLayout
+            android:id="@+id/ptrLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/bg_color_gray2" />
+        </wiki.scene.loadmore.PtrClassicFrameLayout>
+    </wiki.scene.loadmore.StatusViewLayout>
 </LinearLayout>
