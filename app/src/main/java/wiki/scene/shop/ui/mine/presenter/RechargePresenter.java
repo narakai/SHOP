@@ -1,5 +1,10 @@
 package wiki.scene.shop.ui.mine.presenter;
 
+import com.lzy.okgo.model.HttpParams;
+
+import wiki.scene.shop.R;
+import wiki.scene.shop.ShopApplication;
+import wiki.scene.shop.http.listener.HttpResultListener;
 import wiki.scene.shop.mvp.BasePresenter;
 import wiki.scene.shop.ui.mine.model.RechargeModel;
 import wiki.scene.shop.ui.mine.mvpview.IRechargeView;
@@ -15,8 +20,50 @@ public class RechargePresenter extends BasePresenter<IRechargeView> {
 
     public RechargePresenter(IRechargeView rechargeView) {
         this.mView = rechargeView;
-        this.model=new RechargeModel();
+        this.model = new RechargeModel();
     }
 
+    public void recharge(int cost, int payType) {
+        try {
+            if (ShopApplication.hasLogin && ShopApplication.userInfo != null) {
+                mView.showLoading(R.string.loading);
+                HttpParams params = new HttpParams();
+                params.put("user_id", ShopApplication.userInfo.getUser_id());
+                params.put("cost", cost);
+                params.put("pay_type", payType);
+                model.rechage(params, new HttpResultListener<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        try {
+                            mView.getRechargeOrderSuccess();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
 
+                    @Override
+                    public void onFail(String message) {
+                        try {
+                            mView.showMessage(message);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        try {
+                            mView.hideLoading();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+            } else {
+                mView.showMessage(R.string.you_has_no_login_please_login);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

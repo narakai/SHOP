@@ -150,12 +150,15 @@
                         android:background="@drawable/item_recharge_choosed_d"
                         android:gravity="center"
                         android:hint="自定义金额"
+                        android:inputType="number"
                         android:lines="1"
+                        android:maxLength="5"
                         android:maxLines="1"
                         android:paddingBottom="5dp"
                         android:paddingTop="5dp"
+                        android:singleLine="true"
                         android:text=""
-                        android:textColor="@color/text_color_title"
+                        android:textColor="#FF183F"
                         android:textSize="13sp" />
                 </LinearLayout>
             </LinearLayout>

@@ -129,6 +129,9 @@ public class ApiUtil {
     //红包
     public static final String MINE_RED="/personal/coupon";
     public static final String MINE_RED_TAG="MINE_RED_TAG";
+    //充值
+    public static final String RECHARGE="/personal/recharge";
+    public static final String RECHARGE_TAG="RECHARGE_TAG";
 
     /**
      * Case By:创建参数基础信息

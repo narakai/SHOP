@@ -1,5 +1,7 @@
 package wiki.scene.shop.ui.mine.mvpview;
 
+import android.support.annotation.StringRes;
+
 import wiki.scene.shop.mvp.BaseView;
 
 /**
@@ -8,4 +10,9 @@ import wiki.scene.shop.mvp.BaseView;
  */
 
 public interface IRechargeView extends BaseView {
+    void showMessage(String message);
+
+    void showMessage(@StringRes int resId);
+
+    void getRechargeOrderSuccess();
 }
