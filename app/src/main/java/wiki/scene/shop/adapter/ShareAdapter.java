@@ -73,17 +73,17 @@ public class ShareAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         viewHolder.goodsTime.setText(String.format(context.getString(R.string.share_goods_times), info.getCycle_code()));
         viewHolder.time.setText(DateUtil.convertTimeToFormat(info.getCreate_time()));
         viewHolder.zanNumber.setText(String.valueOf(info.getLike_number()));
-        if (info.getLike() == 0) {
-            viewHolder.imageZan.setImageResource(R.drawable.ic_zan_d);
-        } else {
+        if (info.isLiked()) {
             viewHolder.imageZan.setImageResource(R.drawable.ic_zan_s);
+        } else {
+            viewHolder.imageZan.setImageResource(R.drawable.ic_zan_d);
         }
         ShareImagesAdapter shareImagesAdapter = new ShareImagesAdapter(context, info.getImages());
         viewHolder.shareImages.setAdapter(shareImagesAdapter);
         viewHolder.imageZan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (info.getLike() == 0) {
+                if (!info.isLiked()) {
                     if (onClickShareOrderItemListener != null) {
                         onClickShareOrderItemListener.onClickItemZan(position);
                     }

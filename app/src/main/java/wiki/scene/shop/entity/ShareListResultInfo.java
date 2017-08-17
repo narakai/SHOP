@@ -49,7 +49,6 @@ public class ShareListResultInfo implements Serializable {
         private String id;
         private String user_id;
         private String cycle_id;
-        private int like;
         private int like_number;
         private String ip;
         private String area;
@@ -64,6 +63,7 @@ public class ShareListResultInfo implements Serializable {
         private String mobile;
         private int level;
         private String avatar;
+        private boolean liked;
 
         public String getId() {
             return id;
@@ -87,14 +87,6 @@ public class ShareListResultInfo implements Serializable {
 
         public void setCycle_id(String cycle_id) {
             this.cycle_id = cycle_id;
-        }
-
-        public int getLike() {
-            return like;
-        }
-
-        public void setLike(int like) {
-            this.like = like;
         }
 
         public int getLike_number() {
@@ -207,6 +199,14 @@ public class ShareListResultInfo implements Serializable {
 
         public void setAvatar(String avatar) {
             this.avatar = avatar;
+        }
+
+        public boolean isLiked() {
+            return liked;
+        }
+
+        public void setLiked(boolean liked) {
+            this.liked = liked;
         }
     }
 }

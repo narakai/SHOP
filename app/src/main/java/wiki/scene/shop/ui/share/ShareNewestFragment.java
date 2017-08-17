@@ -259,7 +259,7 @@ public class ShareNewestFragment extends BaseMvpFragment<IShareTypeView, ShareTy
 
     @Override
     public void zanSuccess(int position) {
-        list.get(position).setLike(1);
+        list.get(position).setLiked(true);
         list.get(position).setLike_number(list.get(position).getLike_number() + 1);
         adapter.notifyDataSetChanged();
     }

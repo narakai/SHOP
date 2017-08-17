@@ -269,7 +269,7 @@ public class MyShareOrderFragment extends BaseBackMvpFragment<IShareTypeView, Sh
     @Override
     public void zanSuccess(int position) {
         try {
-            list.get(position).setLike(1);
+            list.get(position).setLiked(true);
             list.get(position).setLike_number(list.get(position).getLike_number() + 1);
             adapter.notifyDataSetChanged();
         } catch (Exception e) {
