@@ -51,6 +51,12 @@ public class LoginActivity extends BaseMvpActivity<ILoginView, LoginPresenter> i
     private LoadingDialog loadingDialog;
     private UMShareAPI shareAPI;
 
+
+    private String unionid;
+    private String nickName;
+    private int sex;
+    private String avaterPath;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,7 +89,11 @@ public class LoginActivity extends BaseMvpActivity<ILoginView, LoginPresenter> i
 
     @Override
     public void showLoading(@StringRes int resId) {
-        loadingDialog.showLoadingDialog(getString(resId));
+        try {
+            loadingDialog.showLoadingDialog(getString(resId));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -125,6 +135,17 @@ public class LoginActivity extends BaseMvpActivity<ILoginView, LoginPresenter> i
     @Override
     public void enterLosePasswordActivity() {
 
+    }
+
+    @Override
+    public void noRegister(int type) {
+        Intent intent = new Intent(LoginActivity.this, Register1Activity.class);
+        intent.putExtra("unionid", unionid);
+        intent.putExtra("nickName", nickName);
+        intent.putExtra("sex", sex);
+        intent.putExtra("avaterPath", avaterPath);
+        intent.putExtra("type", type);
+        startActivity(intent);
     }
 
     @OnClick(R.id.login)
@@ -204,11 +225,11 @@ public class LoginActivity extends BaseMvpActivity<ILoginView, LoginPresenter> i
     @Override
     public void onComplete(SHARE_MEDIA share_media, int i, Map<String, String> map) {
         hideLoading();
-        showFailInfo("ss");
-        String uid = map.get("uid");
-        String nickName = map.get("name");
-        int sex = map.get("gender").equals("男") ? 1 : 2;
-        String iconurl = map.get("iconurl");
+        unionid = map.get("uid");
+        nickName = map.get("name");
+        sex = map.get("gender").equals("男") ? 1 : 2;
+        avaterPath = map.get("iconurl");
+        presenter.loginByOthers(unionid, share_media == SHARE_MEDIA.QQ ? 1 : 2);
     }
 
     /**

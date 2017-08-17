@@ -29,7 +29,7 @@ public abstract class JsonCallback<T> extends AbsCallback<T> {
         HashMap<String, String> params = ApiUtil.createParams();
         if (ShopApplication.hasLogin && ShopApplication.userInfo != null && !ShopApplication.userInfo.getAccess_token().isEmpty()) {
             params.put("access_token", ShopApplication.userInfo.getAccess_token());
-            params.put("mobile",ShopApplication.userInfo.getMobile());
+            params.put("mobile", ShopApplication.userInfo.getMobile());
         }
         request.getParams().put(params);
     }
@@ -68,6 +68,8 @@ public abstract class JsonCallback<T> extends AbsCallback<T> {
                 if (code == 200) {
                     //成功
                     return (T) baseResponse;
+                } else if (code == 201) {
+                    throw new IllegalStateException("unRegister");
                 } else {
                     throw new IllegalStateException(baseResponse.message);
                 }

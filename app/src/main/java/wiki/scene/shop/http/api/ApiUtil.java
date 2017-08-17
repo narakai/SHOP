@@ -21,9 +21,22 @@ public class ApiUtil {
     //登录
     public static final String LOGIN = "/user/login";
     public static final String LOGIN_TAG = "LOGIN_TAG";
+    //QQ登录
+    public static final String LOGIN_QQ = "/user/qq_login";
+    public static final String LOGIN_QQ_TAG = "LOGIN_QQ_TAG";
+    //微信登录
+    public static final String LOGIN_WX = "/user/wx_login";
+    public static final String LOGIN_WX_TAG = "LOGIN_WX_TAG";
+
     //注册
     public static final String REGISTER = "/user/reg";
     public static final String REGISTER_TAG = "REGISTER_TAG";
+    //QQ注册
+    public static final String REGISTER_QQ = "/user/qq_reg";
+    public static final String REGISTER_QQ_TAG = "REGISTER_QQ_TAG";
+    //微信注册
+    public static final String REGISTER_WX = "/user/wx_reg";
+    public static final String REGISTER_WX_TAG = "REGISTER_WX_TAG";
     //获取注册验证码
     public static final String GET_VERIFICATION_CODE = "/user/code";
     public static final String GET_VERIFICATION_CODE_TAG = "GET_VERIFICATION_CODE_TAG";

@@ -64,8 +64,57 @@ public class Register2Presenter extends BasePresenter<IRegister2View> {
                     }
                 }
             });
+        }
+    }
 
 
+    public void registerByOthers(int type,String mobile, String code, String unionid, String nickname,String avater, int sex) {
+        if (register2View != null) {
+            if (TextUtils.isEmpty(register2View.getPassword())) {
+                register2View.showFail(R.string.please_edit_password);
+                return;
+            }
+            if (register2View.getPassword().length() < 6 || register2View.getPassword().length() > 20) {
+                register2View.showFail(R.string.password_length_6_20);
+                return;
+            }
+            if (TextUtils.isEmpty(register2View.getRePassword()) || !register2View.getPassword().equals(register2View.getRePassword())) {
+                register2View.showFail(R.string.twice_password_different);
+                return;
+            }
+            register2View.showLoading(R.string.is_registing);
+            HttpParams params = new HttpParams();
+            params.put("mobile", mobile);
+            params.put("password", MD5Util.string2Md5(register2View.getRePassword(), "UTF-8"));
+            params.put("code", code);
+            params.put("unionid", unionid);
+            if (!TextUtils.isEmpty(nickname)) {
+                params.put("nickname", nickname);
+            }
+            if (sex != 0) {
+                params.put("sex", sex);
+            }
+            if(avater!=null){
+                params.put("avatar",avater);
+            }
+            model.registerByOthers(params, type,new OnRegisterResultListener() {
+                @Override
+                public void onRegisterSuccess(UserInfo userInfo) {
+                    register2View.registerSuccess(userInfo);
+                }
+
+                @Override
+                public void onRegisterFail(String message) {
+                    register2View.showFail(message);
+                }
+
+                @Override
+                public void onRegisterFinish() {
+                    if (register2View != null) {
+                        register2View.hideLoading();
+                    }
+                }
+            });
         }
     }
 }

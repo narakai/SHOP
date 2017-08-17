@@ -46,12 +46,25 @@ public class Register2Activity extends BaseMvpActivity<IRegister2View, Register2
     private String phoneNumber;
     private String code;
 
+    private String unionid;
+    private String nickName;
+    private int sex;
+    private String avaterPath;
+    private int type;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register2);
         unbinder = ButterKnife.bind(this);
         initToolbar();
+        if (getIntent() != null) {
+            unionid = getIntent().getStringExtra("unionid");
+            nickName = getIntent().getStringExtra("nickName");
+            sex = getIntent().getIntExtra("sex", 0);
+            avaterPath = getIntent().getStringExtra("avaterPath");
+            type = getIntent().getIntExtra("type", 0);
+        }
         initView();
     }
 
@@ -72,25 +85,29 @@ public class Register2Activity extends BaseMvpActivity<IRegister2View, Register2
     }
 
     private void initView() {
-        loadingDialog=LoadingDialog.getInstance(this);
+        loadingDialog = LoadingDialog.getInstance(this);
         phoneNumber = getIntent().getStringExtra("phone");
         code = getIntent().getStringExtra("code");
     }
 
     @OnClick(R.id.complete)
     public void onClickComplete() {
-        presenter.setPassword(phoneNumber,code);
+        if (type == 0) {
+            presenter.setPassword(phoneNumber, code);
+        } else {
+            presenter.registerByOthers(type, phoneNumber, code, unionid, nickName, avaterPath, sex);
+        }
     }
 
 
     @Override
     public void showLoading(@StringRes int resId) {
-       loadingDialog.showLoadingDialog(getString(resId));
+        loadingDialog.showLoadingDialog(getString(resId));
     }
 
     @Override
     public void hideLoading() {
-      loadingDialog.cancelLoadingDialog();
+        loadingDialog.cancelLoadingDialog();
     }
 
 

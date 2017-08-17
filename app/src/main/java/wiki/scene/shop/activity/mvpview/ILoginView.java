@@ -26,4 +26,6 @@ public interface ILoginView extends BaseView {
     void enterRegisterActivity();
 
     void enterLosePasswordActivity();
+
+    void noRegister(int type);
 }

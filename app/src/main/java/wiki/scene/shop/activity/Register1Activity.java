@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.StringRes;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -58,12 +59,25 @@ public class Register1Activity extends BaseMvpActivity<IRegister1View, Register1
     private Timer timer;
     private TimerTask timerTask;
 
+    private String unionid;
+    private String nickName;
+    private int sex;
+    private String avaterPath;
+    private int type;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register1);
         unbinder = ButterKnife.bind(this);
         initToolbar();
+        if (getIntent() != null) {
+            unionid = getIntent().getStringExtra("unionid");
+            nickName = getIntent().getStringExtra("nickName");
+            sex = getIntent().getIntExtra("sex", 0);
+            avaterPath = getIntent().getStringExtra("avaterPath");
+            type = getIntent().getIntExtra("type", 0);
+        }
         initView();
     }
 
@@ -170,6 +184,21 @@ public class Register1Activity extends BaseMvpActivity<IRegister1View, Register1
         Intent intent = new Intent(Register1Activity.this, Register2Activity.class);
         intent.putExtra("phone", getPhoneNumber());
         intent.putExtra("code", getCode());
+        if (!TextUtils.isEmpty(unionid)) {
+            intent.putExtra("unionid", unionid);
+        }
+        if (!TextUtils.isEmpty(nickName)) {
+            intent.putExtra("nickName", nickName);
+        }
+        if (sex != 0) {
+            intent.putExtra("sex", sex);
+        }
+        if (!TextUtils.isEmpty(avaterPath)) {
+            intent.putExtra("avaterPath", avaterPath);
+        }
+        if (type != 0) {
+            intent.putExtra("type", type);
+        }
         startActivity(intent);
     }
 

@@ -41,6 +41,7 @@ public class UserInfo implements Serializable {
     private int score;
     private String avatar;
     private int money;
+    private boolean isResgistered;
 
     public int getUser_id() {
         return user_id;
@@ -148,5 +149,13 @@ public class UserInfo implements Serializable {
 
     public void setMoney(int money) {
         this.money = money;
+    }
+
+    public boolean isResgistered() {
+        return isResgistered;
+    }
+
+    public void setResgistered(boolean resgistered) {
+        isResgistered = resgistered;
     }
 }
