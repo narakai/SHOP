@@ -10,6 +10,7 @@ import wiki.scene.shop.activity.mvpview.IFindPasswordView;
 import wiki.scene.shop.http.listener.HttpResultListener;
 import wiki.scene.shop.mvp.BasePresenter;
 import wiki.scene.shop.utils.AppUtils;
+import wiki.scene.shop.utils.MD5Util;
 
 /**
  * 找回密码
@@ -103,7 +104,7 @@ public class FindPasswordPresenter extends BasePresenter<IFindPasswordView> {
             HttpParams params = new HttpParams();
             params.put("mobile", mobile);
             params.put("code", code);
-            params.put("password", password);
+            params.put("password", MD5Util.string2Md5(password, "UTF-8"));
             model.updatePassword(params, new HttpResultListener<String>() {
                 @Override
                 public void onSuccess(String data) {
