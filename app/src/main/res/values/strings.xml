@@ -13,6 +13,7 @@
 
     <string name="please_edit_phone_munber">请输入手机号</string>
     <string name="please_edit_password">请输入密码</string>
+    <string name="please_comfirm_you_password">请确认您的密码</string>
     <string name="lose_password">忘记密码？</string>
 
     <string name="is_logining">正在登录，请稍候&#8230;</string>
@@ -233,5 +234,7 @@
     <string name="please_choose_recharge_money">请选择充值金额(元)</string>
     <string name="please_choose_pay_way">请选择支付方式</string>
     <string name="recharge_now">立即充值</string>
+    <string name="find_password">找回密码</string>
+    <string name="password_reset_success">密码重置成功</string>
 
 </resources>

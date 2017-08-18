@@ -134,7 +134,7 @@ public class LoginActivity extends BaseMvpActivity<ILoginView, LoginPresenter> i
 
     @Override
     public void enterLosePasswordActivity() {
-
+        startActivity(new Intent(LoginActivity.this,FindPasswordActivity.class));
     }
 
     @Override
@@ -156,6 +156,11 @@ public class LoginActivity extends BaseMvpActivity<ILoginView, LoginPresenter> i
     @OnClick(R.id.register)
     public void onClickRegister() {
         presenter.enterRegisterActivity();
+    }
+
+    @OnClick(R.id.lose_password)
+    public void onClickLosePassword(){
+        presenter.enterLosePassword();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

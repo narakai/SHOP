@@ -119,7 +119,7 @@ public class LoginPresenter extends BasePresenter<ILoginView> {
      */
     public void enterLosePassword() {
         if (loginView != null) {
-            loginView.enterRegisterActivity();
+            loginView.enterLosePasswordActivity();
         }
     }
 

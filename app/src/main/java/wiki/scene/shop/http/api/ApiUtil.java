@@ -148,6 +148,12 @@ public class ApiUtil {
     //排行榜
     public static final String RANK = "/ranking";
     public static final String RANK_TAG = "RANK_TAG";
+    //找回密码获取验证码
+    public static final String FIND_PASSWORD_CODE = "/user/find_password_code";
+    public static final String FIND_PASSWORD_CODE_TAG = "FIND_PASSWORD_CODE_TAG";
+    //找回密码 重置密码
+    public static final String FIND_PASSWORD_RESET = "/user/reset_password";
+    public static final String FIND_PASSWORD_RESET_TAG = "FIND_PASSWORD_RESET_TAG";
 
     /**
      * Case By:创建参数基础信息

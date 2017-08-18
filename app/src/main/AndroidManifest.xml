@@ -55,6 +55,12 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar.SwipeBack"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+        <activity
+            android:name=".activity.FindPasswordActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar.SwipeBack"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+
         <!--个人资料-->
         <activity
             android:name=".ui.mine.MineInfoActivity"

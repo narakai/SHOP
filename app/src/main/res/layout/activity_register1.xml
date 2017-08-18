@@ -5,7 +5,7 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-    <include layout="@layout/toolbar_back" />
+    <!--<include layout="@layout/toolbar_back" />-->
 
     <EditText
         android:id="@+id/phone_number"
