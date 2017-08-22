@@ -4,6 +4,7 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.model.HttpParams;
 import com.lzy.okgo.model.Response;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import wiki.scene.shop.entity.AddressInfo;
@@ -27,7 +28,7 @@ public class MineReceiverAddressModel {
                 .execute(new JsonCallback<LzyResponse<List<AddressInfo>>>() {
                     @Override
                     public void onSuccess(Response<LzyResponse<List<AddressInfo>>> response) {
-                        resultListener.onSuccess(response.body().data);
+                        resultListener.onSuccess(response.body().data == null ? new ArrayList<AddressInfo>() : response.body().data);
                     }
 
                     @Override
