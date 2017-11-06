@@ -59,7 +59,7 @@
                 android:layout_gravity="right"
                 android:layout_marginTop="10dp"
                 android:text="@string/lose_password"
-                android:textColor="@color/text_color_des"
+                android:textColor="#38383A"
                 android:textSize="@dimen/text_size_small" />
 
             <Button
@@ -79,7 +79,7 @@
                 android:layout_marginTop="10dp"
                 android:background="@drawable/bg_btn_rigister"
                 android:text="@string/fast_register"
-                android:textColor="@color/text_color_title"
+                android:textColor="@color/white"
                 android:textSize="@dimen/btn_text_size" />
 
             <View

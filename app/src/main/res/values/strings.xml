@@ -21,7 +21,7 @@
 
     <string name="login">登录</string>
     <string name="register">注册</string>
-    <string name="fast_register">快速注册</string>
+    <string name="fast_register">手机号一键注册</string>
     <string name="use_others_way_login">使用第三方登录</string>
     <string name="wechat_login">微信登录</string>
     <string name="qq_login">QQ登录</string>
