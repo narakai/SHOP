@@ -3,9 +3,10 @@
     <string name="bottom_tab_indiana">夺宝</string>
     <string name="bottom_tab_newest">最新揭晓</string>
     <string name="bottom_tab_share">晒单</string>
+    <string name="bottom_tab_service">客服</string>
     <string name="bottom_tab_car">购物车</string>
     <string name="bottom_tab_mine">我的</string>
-    <string name="bottom_tab_rank">排行榜</string>
+    <string name="bottom_tab_rank">榜单</string>
 
     <string name="press_again_exit">再按一次退出</string>
 

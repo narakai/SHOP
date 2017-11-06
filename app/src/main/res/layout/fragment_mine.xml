@@ -70,9 +70,9 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="13dp"
         android:background="@color/white"
         android:gravity="center_vertical"
+        android:visibility="gone"
         android:padding="17dp">
 
         <TextView
@@ -95,11 +95,20 @@
             android:textColor="@color/text_color_red_deep"
             android:textSize="18sp" />
 
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="13dp"
+        android:padding="13dp"
+        android:background="@color/white">
+
         <TextView
             android:id="@+id/recharge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
             android:background="@drawable/btn_recharge"
@@ -108,6 +117,38 @@
             android:paddingRight="15dp"
             android:paddingTop="5dp"
             android:text="@string/recharge"
+            android:textColor="@color/white"
+            android:layout_marginLeft="20dp"
+            android:textSize="@dimen/text_size_middle" />
+
+        <TextView
+            android:id="@+id/exchange"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/btn_exchange"
+            android:paddingBottom="5dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:paddingTop="5dp"
+            android:text="兑换"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_middle" />
+
+        <TextView
+            android:id="@+id/draw_cash"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/btn_draw_cash"
+            android:paddingBottom="5dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:paddingTop="5dp"
+            android:text="提现"
             android:textColor="@color/white"
             android:textSize="@dimen/text_size_middle" />
     </RelativeLayout>
@@ -158,6 +199,42 @@
                 android:textSize="@dimen/text_size_middle" />
 
             <TextView
+                android:id="@+id/exchange_record"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:background="@color/white"
+                android:drawableLeft="@drawable/ic_exchange"
+                android:drawablePadding="8dp"
+                android:drawableRight="@drawable/ic_mine_arrow_right"
+                android:gravity="center_vertical"
+                android:paddingBottom="13.33dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:paddingTop="13.33dp"
+                android:text="兑换记录"
+                android:textColor="@color/text_color_title"
+                android:textSize="@dimen/text_size_middle" />
+
+            <TextView
+                android:id="@+id/draw_cash_record"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:background="@color/white"
+                android:drawableLeft="@drawable/ic_draw_cash"
+                android:drawablePadding="8dp"
+                android:drawableRight="@drawable/ic_mine_arrow_right"
+                android:gravity="center_vertical"
+                android:paddingBottom="13.33dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:paddingTop="13.33dp"
+                android:text="提现记录"
+                android:textColor="@color/text_color_title"
+                android:textSize="@dimen/text_size_middle" />
+
+            <TextView
                 android:id="@+id/indiana_raiders"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -172,6 +249,62 @@
                 android:paddingRight="8dp"
                 android:paddingTop="13.33dp"
                 android:text="@string/indiana_raiders"
+                android:textColor="@color/text_color_title"
+                android:textSize="@dimen/text_size_middle"
+                android:visibility="gone" />
+
+
+            <TextView
+                android:id="@+id/bind_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="13dp"
+                android:background="@color/white"
+                android:drawableLeft="@drawable/ic_bind_phone"
+                android:drawablePadding="8dp"
+                android:drawableRight="@drawable/ic_mine_arrow_right"
+                android:gravity="center_vertical"
+                android:paddingBottom="13.33dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:paddingTop="13.33dp"
+                android:text="绑定手机号"
+                android:textColor="@color/text_color_title"
+                android:textSize="@dimen/text_size_middle" />
+
+            <TextView
+                android:id="@+id/mine_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:background="@color/white"
+                android:drawableLeft="@drawable/ic_mine_card"
+                android:drawablePadding="8dp"
+                android:drawableRight="@drawable/ic_mine_arrow_right"
+                android:gravity="center_vertical"
+                android:paddingBottom="13.33dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:paddingTop="13.33dp"
+                android:text="我的银行卡"
+                android:textColor="@color/text_color_title"
+                android:textSize="@dimen/text_size_middle" />
+
+            <TextView
+                android:id="@+id/mine_shishicai"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:background="@color/white"
+                android:drawableLeft="@drawable/ic_shishicai"
+                android:drawablePadding="8dp"
+                android:drawableRight="@drawable/ic_mine_arrow_right"
+                android:gravity="center_vertical"
+                android:paddingBottom="13.33dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:paddingTop="13.33dp"
+                android:text="时时彩开奖查询"
                 android:textColor="@color/text_color_title"
                 android:textSize="@dimen/text_size_middle" />
 
@@ -191,7 +324,8 @@
                 android:paddingTop="13.33dp"
                 android:text="@string/mine_collect"
                 android:textColor="@color/text_color_title"
-                android:textSize="@dimen/text_size_middle" />
+                android:textSize="@dimen/text_size_middle"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/mine_share"
@@ -209,7 +343,8 @@
                 android:paddingTop="13.33dp"
                 android:text="@string/mine_share"
                 android:textColor="@color/text_color_title"
-                android:textSize="@dimen/text_size_middle" />
+                android:textSize="@dimen/text_size_middle"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/mine_red"
@@ -227,7 +362,8 @@
                 android:paddingTop="13.33dp"
                 android:text="@string/mine_red"
                 android:textColor="@color/text_color_title"
-                android:textSize="@dimen/text_size_middle" />
+                android:textSize="@dimen/text_size_middle"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/receiver_address"
@@ -245,7 +381,8 @@
                 android:paddingTop="13.33dp"
                 android:text="@string/receiver_address"
                 android:textColor="@color/text_color_title"
-                android:textSize="@dimen/text_size_middle" />
+                android:textSize="@dimen/text_size_middle"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/service_center"
@@ -263,7 +400,8 @@
                 android:paddingTop="13.33dp"
                 android:text="@string/service_center"
                 android:textColor="@color/text_color_title"
-                android:textSize="@dimen/text_size_middle" />
+                android:textSize="@dimen/text_size_middle"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/share_app"
@@ -281,7 +419,8 @@
                 android:paddingTop="13.33dp"
                 android:text="@string/share_app"
                 android:textColor="@color/text_color_title"
-                android:textSize="@dimen/text_size_middle" />
+                android:textSize="@dimen/text_size_middle"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/setting"

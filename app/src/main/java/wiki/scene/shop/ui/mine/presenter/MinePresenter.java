@@ -49,6 +49,15 @@ public class MinePresenter extends BasePresenter<IMineView> {
             }
         }
     }
+    public void clickMyCollect() {
+        if (mineView != null) {
+            if (ShopApplication.userInfo != null && ShopApplication.hasLogin) {
+                mineView.enterMyCollect();
+            } else {
+                mView.enterLogin();
+            }
+        }
+    }
 
     public void clickIndianaRaiders() {
 

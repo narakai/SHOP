@@ -35,4 +35,5 @@ public interface IMineView extends BaseView {
 
     void enterRecharge();
 
+    void enterMyCollect();
 }

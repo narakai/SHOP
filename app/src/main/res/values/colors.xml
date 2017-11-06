@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#D23854</color>
-    <color name="colorPrimaryDark">#D23854</color>
-    <color name="colorAccent">#D23854</color>
+    <color name="colorPrimary">#FF395E</color>
+    <color name="colorPrimaryDark">#FF395E</color>
+    <color name="colorAccent">#FF395E</color>
 
-    <color name="toolbar_color">#D23854</color>
+    <color name="toolbar_color">#FF395E</color>
 
     <color name="tab_unselect">#999999</color>
-    <color name="tab_select">#D23854</color>
+    <color name="tab_select">#FF395E</color>
     <color name="tab_bar_bg">#FFFFFF</color>
 
     <color name="bg_color_gray">#E9E9E9</color>

@@ -122,7 +122,7 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
 
     @OnClick(R.id.mine_collect)
     public void onClickMineCollect() {
-        EventBus.getDefault().post(new StartBrotherEvent(MineCollectFragment.newInstance()));
+        presenter.clickMyCollect();
     }
 
     @OnClick(R.id.mine_share)
@@ -258,6 +258,11 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
     @Override
     public void enterRecharge() {
         EventBus.getDefault().post(new StartBrotherEvent(RechargeFragment.newInstance()));
+    }
+
+    @Override
+    public void enterMyCollect() {
+        EventBus.getDefault().post(new StartBrotherEvent(MineCollectFragment.newInstance()));
     }
 
     @Override

@@ -24,9 +24,8 @@ import wiki.scene.shop.event.StartBrotherEvent;
 import wiki.scene.shop.event.TabSelectedEvent;
 import wiki.scene.shop.ui.indiana.IndianaFragment;
 import wiki.scene.shop.ui.mine.MineFragment;
-import wiki.scene.shop.ui.newest.NewestFragment;
 import wiki.scene.shop.ui.rank.RankFragment;
-import wiki.scene.shop.ui.share.ShareFragment;
+import wiki.scene.shop.ui.servicecenter.ServiceCenterFragment;
 import wiki.scene.shop.view.BottomBar;
 import wiki.scene.shop.view.BottomBarTab;
 
@@ -42,7 +41,6 @@ public class MainFragment extends SupportFragment {
     public static final int SECOND = 1;
     public static final int THIRD = 2;
     public static final int FOUR = 3;
-    public static final int FIVE = 4;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.toolbar_title)
@@ -58,7 +56,7 @@ public class MainFragment extends SupportFragment {
 
     Unbinder unbinder;
 
-    private SupportFragment[] mFragments = new SupportFragment[5];
+    private SupportFragment[] mFragments = new SupportFragment[4];
     private List<String> tabNames = new ArrayList<>();
 
     public static MainFragment newInstance() {
@@ -84,30 +82,26 @@ public class MainFragment extends SupportFragment {
         super.onActivityCreated(savedInstanceState);
         SupportFragment firstFragment = findChildFragment(IndianaFragment.class);
         tabNames.add(getString(R.string.indiana_toolbar_text));
-        tabNames.add(getString(R.string.bottom_tab_newest));
         tabNames.add(getString(R.string.bottom_tab_rank));
-        tabNames.add(getString(R.string.bottom_tab_share));
+        tabNames.add(getString(R.string.bottom_tab_service));
         tabNames.add(getString(R.string.bottom_tab_mine));
         if (firstFragment == null) {
             mFragments[FIRST] = IndianaFragment.newInstance();
-            mFragments[SECOND] = NewestFragment.newInstance();
-            mFragments[THIRD] = RankFragment.newInstance();
-            mFragments[FOUR] = ShareFragment.newInstance();
-            mFragments[FIVE] = MineFragment.newInstance();
+            mFragments[SECOND] = RankFragment.newInstance();
+            mFragments[THIRD] = ServiceCenterFragment.newInstance();
+            mFragments[FOUR] = MineFragment.newInstance();
 
             loadMultipleRootFragment(R.id.fl_tab_container, FIRST,
                     mFragments[FIRST],
                     mFragments[SECOND],
                     mFragments[THIRD],
-                    mFragments[FOUR],
-                    mFragments[FIVE]);
+                    mFragments[FOUR]);
         } else {
             // 这里我们需要拿到mFragments的引用,也可以通过getChildFragmentManager.findFragmentByTag自行进行判断查找(效率更高些),用下面的方法查找更方便些
             mFragments[FIRST] = firstFragment;
-            mFragments[SECOND] = findChildFragment(NewestFragment.class);
-            mFragments[THIRD] = findChildFragment(RankFragment.class);
-            mFragments[FOUR] = findChildFragment(ShareFragment.class);
-            mFragments[FIVE] = findChildFragment(MineFragment.class);
+            mFragments[SECOND] = findChildFragment(RankFragment.class);
+            mFragments[THIRD] = findChildFragment(ServiceCenterFragment.class);
+            mFragments[FOUR] = findChildFragment(MineFragment.class);
         }
         try {
             toolbarTitle.setText(tabNames.get(0));
@@ -120,11 +114,10 @@ public class MainFragment extends SupportFragment {
         EventBus.getDefault().register(this);
 
         mBottomBar
-                .addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottombar_indiana_d, R.drawable.ic_bottombar_indiana_s, getString(R.string.bottom_tab_indiana)))
-                .addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottombar_newest_d, R.drawable.ic_bottombar_newest_s, getString(R.string.bottom_tab_newest)))
-                .addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottombar_rank_d, R.drawable.ic_bottombar_rank_s, getString(R.string.bottom_tab_rank)))
-                .addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottombar_share_d, R.drawable.ic_bottombar_share_s, getString(R.string.bottom_tab_share)))
-                .addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottombar_mine_d, R.drawable.ic_bottombar_mine_s, getString(R.string.bottom_tab_mine)));
+                .addItem(new BottomBarTab(_mActivity, R.drawable.ic_tab_index_d, R.drawable.ic_tab_index_s, getString(R.string.bottom_tab_indiana)))
+                .addItem(new BottomBarTab(_mActivity, R.drawable.ic_tab_rank_d, R.drawable.ic_tab_rank_s, getString(R.string.bottom_tab_rank)))
+                .addItem(new BottomBarTab(_mActivity, R.drawable.ic_tab_service_d, R.drawable.ic_tab_service_s, getString(R.string.bottom_tab_service)))
+                .addItem(new BottomBarTab(_mActivity, R.drawable.ic_tab_mine_d, R.drawable.ic_tab_mine_s, getString(R.string.bottom_tab_mine)));
 
 
         mBottomBar.setOnTabSelectedListener(new BottomBar.OnTabSelectedListener() {
