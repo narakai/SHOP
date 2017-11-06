@@ -1,13 +1,18 @@
 package wiki.scene.shop.activity.presenter;
 
+import android.text.TextUtils;
+
 import com.lzy.okgo.model.HttpParams;
 
 import wiki.scene.shop.R;
 import wiki.scene.shop.activity.model.Register1Model;
+import wiki.scene.shop.activity.model.listener.OnRegisterResultListener;
 import wiki.scene.shop.activity.mvpview.IRegister1View;
+import wiki.scene.shop.entity.UserInfo;
 import wiki.scene.shop.http.listener.HttpResultListener;
 import wiki.scene.shop.mvp.BasePresenter;
 import wiki.scene.shop.utils.AppUtils;
+import wiki.scene.shop.utils.MD5Util;
 
 /**
  * Case By:注册第一步
@@ -109,4 +114,51 @@ public class Register1Presenter extends BasePresenter<IRegister1View> {
         }
     }
 
+    public void setPassword() {
+        if (register1View != null) {
+            if (mView.getPhoneNumber().isEmpty()) {
+                register1View.showFail(R.string.please_edit_phone_munber);
+                return;
+            }
+            if (!AppUtils.isMobileNO(mView.getPhoneNumber())) {
+                register1View.showFail(R.string.please_edit_right_phone_number);
+                return;
+            }
+            if (TextUtils.isEmpty(register1View.getPassword())) {
+                register1View.showFail(R.string.please_edit_password);
+                return;
+            }
+            if (register1View.getPassword().length() < 6 || register1View.getPassword().length() > 20) {
+                register1View.showFail(R.string.password_length_6_20);
+                return;
+            }
+            if (mView.getCode().isEmpty()) {
+                register1View.showFail(R.string.please_edit_verification);
+                return;
+            }
+            register1View.showLoading(R.string.is_registing);
+            HttpParams params = new HttpParams();
+            params.put("mobile", mView.getPhoneNumber());
+            params.put("password", MD5Util.string2Md5(register1View.getPassword(), "UTF-8"));
+            params.put("code", mView.getCode());
+            model.register(params, new OnRegisterResultListener() {
+                @Override
+                public void onRegisterSuccess(UserInfo userInfo) {
+                    register1View.registerSuccess(userInfo);
+                }
+
+                @Override
+                public void onRegisterFail(String message) {
+                    register1View.showFail(message);
+                }
+
+                @Override
+                public void onRegisterFinish() {
+                    if (register1View != null) {
+                        register1View.hideLoading();
+                    }
+                }
+            });
+        }
+    }
 }

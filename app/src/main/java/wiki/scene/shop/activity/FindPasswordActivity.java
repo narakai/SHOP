@@ -141,8 +141,7 @@ public class FindPasswordActivity extends BaseMvpActivity<IFindPasswordView, Fin
         try {
             getVerification.setClickable(false);
             getVerification.setText(String.format(getString(R.string.retry_xx), 60));
-            getVerification.setTextColor(getResources().getColor(R.color.line_color));
-            getVerification.setBackgroundResource(R.drawable.bg_btn_rigister);
+            getVerification.setBackgroundResource(R.drawable.btn_retry);
             timer = new Timer();
             timerTask = new TimerTask() {
                 @Override
@@ -157,8 +156,7 @@ public class FindPasswordActivity extends BaseMvpActivity<IFindPasswordView, Fin
                                 } else {
                                     getVerification.setClickable(true);
                                     getVerification.setText(R.string.get_verification);
-                                    getVerification.setTextColor(getResources().getColor(R.color.colorPrimary));
-                                    getVerification.setBackgroundResource(R.drawable.btn_immediately_indiana);
+                                    getVerification.setBackgroundResource(R.drawable.bg_theme_round);
                                     if (timer != null) {
                                         timer.cancel();
                                         timer = null;

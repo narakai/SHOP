@@ -25,6 +25,7 @@ import wiki.scene.loadmore.utils.SceneLogUtil;
 import wiki.scene.shop.R;
 import wiki.scene.shop.activity.mvpview.IRegister1View;
 import wiki.scene.shop.activity.presenter.Register1Presenter;
+import wiki.scene.shop.entity.UserInfo;
 import wiki.scene.shop.event.RegisterSuccessEvent;
 import wiki.scene.shop.mvp.BaseMvpActivity;
 import wiki.scene.shop.utils.ToastUtils;
@@ -50,6 +51,8 @@ public class Register1Activity extends BaseMvpActivity<IRegister1View, Register1
     TextView getVerification;
     @BindView(R.id.agree)
     CheckBox agree;
+    @BindView(R.id.password)
+    EditText password;
 
     private Unbinder unbinder;
 
@@ -103,7 +106,7 @@ public class Register1Activity extends BaseMvpActivity<IRegister1View, Register1
 
     @OnClick(R.id.next_step)
     public void onClickNextStep() {
-        presenter.checkCode();
+        presenter.setPassword();
     }
 
     @OnClick(R.id.get_verification)
@@ -114,6 +117,12 @@ public class Register1Activity extends BaseMvpActivity<IRegister1View, Register1
     @Override
     public void showLoading(@StringRes int resId) {
         loadingDialog.showLoadingDialog(getString(resId));
+    }
+
+    @Override
+    public void registerSuccess(UserInfo userInfo) {
+        EventBus.getDefault().post(new RegisterSuccessEvent(userInfo));
+        onBackPressed();
     }
 
     @Override
@@ -135,8 +144,7 @@ public class Register1Activity extends BaseMvpActivity<IRegister1View, Register1
     public void showCountDownTimer() {
         getVerification.setClickable(false);
         getVerification.setText(String.format(getString(R.string.retry_xx), 60));
-        getVerification.setTextColor(getResources().getColor(R.color.bg_color_gray));
-        getVerification.setBackgroundColor(getResources().getColor(R.color.text_color_title));
+        getVerification.setBackgroundResource(R.drawable.btn_retry);
         timer = new Timer();
         timerTask = new TimerTask() {
             @Override
@@ -151,8 +159,7 @@ public class Register1Activity extends BaseMvpActivity<IRegister1View, Register1
                             } else {
                                 getVerification.setClickable(true);
                                 getVerification.setText(R.string.get_verification);
-                                getVerification.setTextColor(getResources().getColor(R.color.white));
-                                getVerification.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                                getVerification.setBackgroundResource(R.drawable.bg_theme_round);
                                 if (timer != null) {
                                     timer.cancel();
                                     timer = null;
@@ -210,6 +217,11 @@ public class Register1Activity extends BaseMvpActivity<IRegister1View, Register1
     @Override
     public String getPhoneNumber() {
         return phoneNumber.getText().toString().trim();
+    }
+
+    @Override
+    public String getPassword() {
+        return password.getText().toString().trim();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
