@@ -45,7 +45,7 @@
             android:layout_height="wrap_content"
             android:text="@string/username"
             android:textColor="@color/text_color_title"
-            android:textSize="@dimen/text_size_small" />
+            android:textSize="@dimen/text_size_middle" />
 
         <EditText
             android:id="@+id/username"
@@ -69,7 +69,8 @@
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingLeft="8dp"
-        android:paddingRight="8dp">
+        android:paddingRight="8dp"
+        android:visibility="gone">
 
         <TextView
             android:layout_width="wrap_content"
@@ -108,43 +109,49 @@
             android:layout_height="wrap_content"
             android:text="@string/sex"
             android:textColor="@color/text_color_title"
-            android:textSize="@dimen/text_size_small" />
+            android:textSize="@dimen/text_size_middle" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/sex"
             android:textColor="@color/text_color_title"
-            android:textSize="@dimen/text_size_small"
+            android:textSize="@dimen/text_size_middle"
             android:visibility="invisible" />
 
         <RadioGroup
             android:id="@+id/sex_radiogroup"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
+            android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <RadioButton
                 android:id="@+id/sex_male"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:button="@drawable/bg_sex_radio_button_selector"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rd_sex_male"
+                android:button="@null"
                 android:checked="true"
+                android:gravity="center"
                 android:padding="5dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
                 android:text="@string/male"
-                android:textColor="@drawable/bg_sex_radio_button_textcolor_selector"
+                android:textColor="@color/white"
                 android:textSize="@dimen/text_size_small" />
 
             <RadioButton
                 android:id="@+id/sex_female"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="20dp"
-                android:button="@drawable/bg_sex_radio_button_selector"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rd_sex_female"
+                android:button="@null"
+                android:gravity="center"
                 android:padding="5dp"
                 android:text="@string/female"
-                android:textColor="@drawable/bg_sex_radio_button_textcolor_selector"
+                android:textColor="@color/white"
                 android:textSize="@dimen/text_size_small" />
         </RadioGroup>
 
