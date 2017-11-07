@@ -8,6 +8,7 @@ import wiki.scene.shop.entity.CreateOrderInfo;
 import wiki.scene.shop.entity.MineOrderResultInfo;
 import wiki.scene.shop.http.listener.HttpResultListener;
 import wiki.scene.shop.mvp.BasePresenter;
+import wiki.scene.shop.ui.mine.IndianaRecordTypeFragment;
 import wiki.scene.shop.ui.mine.model.IndianaRecordModel;
 import wiki.scene.shop.ui.mine.mvpview.IIndianaRecordTypeView;
 
@@ -25,7 +26,7 @@ public class IndianaRecordTypePresenter extends BasePresenter<IIndianaRecordType
         model = new IndianaRecordModel();
     }
 
-    public void getIndianaRecordData(int type, final int page, final boolean isLoading) {
+    public void getIndianaRecordData( final int page, final boolean isLoading) {
         try {
             if (isLoading) {
                 mView.showLoading();
@@ -33,7 +34,7 @@ public class IndianaRecordTypePresenter extends BasePresenter<IIndianaRecordType
             HttpParams params = new HttpParams();
             if (ShopApplication.hasLogin) {
                 params.put("user_id", ShopApplication.userInfo.getUser_id());
-                params.put("status", type);
+                params.put("status", IndianaRecordTypeFragment.INDIANA_RECORD_TYPE_ALL);
                 params.put("page", page);
                 model.getIndianaRecordData(params, new HttpResultListener<MineOrderResultInfo>() {
                     @Override

@@ -173,7 +173,7 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
     @Override
     public void enterIndianaRecord() {
         if (ShopApplication.hasLogin && ShopApplication.userInfo != null) {
-            EventBus.getDefault().post(new StartBrotherEvent(IndianaRecordFragment.newInstance()));
+            EventBus.getDefault().post(new StartBrotherEvent(IndianaRecordTypeFragment.newInstance()));
         } else {
             startActivity(new Intent(_mActivity, LoginActivity.class));
         }

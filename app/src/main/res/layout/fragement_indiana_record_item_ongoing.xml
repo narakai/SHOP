@@ -1,110 +1,179 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
     android:orientation="vertical">
 
-    <com.sunfusheng.glideimageview.GlideImageView
-        android:id="@+id/goods_image"
-        android:padding="8dp"
-        android:layout_width="133.33dp"
-        android:layout_height="133.33dp" />
-
     <TextView
-        android:id="@+id/goods_tag"
+        android:id="@+id/goods_cycle_code"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_goods_tag"
-        android:gravity="center"
-        android:text="10元\n专区"
-        android:textColor="@color/white"
-        android:textSize="8sp" />
+        android:paddingBottom="10dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="10dp"
+        android:text="第201711071231期"
+        android:textColor="@color/text_color_title"
+        android:textSize="@dimen/text_size_big" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/line_color" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="13.33dp"
-        android:layout_toRightOf="@+id/goods_image"
-        android:orientation="vertical">
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="10dp">
 
-        <TextView
-            android:id="@+id/goods_name"
-            style="@style/text_title_13sp_style"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="iphone7" />
+        <ImageView
+            android:id="@+id/goods_image"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_default_image" />
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:orientation="horizontal">
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
             <TextView
+                android:id="@+id/goods_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/your_join"
-                android:textColor="@color/text_color_des"
-                android:textSize="@dimen/text_size_small" />
+                android:ellipsize="end"
+                android:lines="1"
+                android:text="Apple iphone 7 plus 128G"
+                android:textColor="@color/text_color_title"
+                android:textSize="@dimen/text_size_big" />
 
-            <TextView
-                android:id="@+id/person_times"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="6"
-                android:textColor="#F9543E"
-                android:textSize="@dimen/text_size_small" />
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/person_time"
-                android:textColor="@color/text_color_des"
-                android:textSize="@dimen/text_size_small" />
+                <TextView
+                    android:id="@+id/text_state"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="您购买"
+                    android:textColor="@color/text_color_des"
+                    android:textSize="@dimen/text_size_middle" />
 
-            <TextView
-                android:id="@+id/see_codes"
+                <TextView
+                    android:id="@+id/buy_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="6"
+                    android:textColor="#00B7EE"
+                    android:textSize="@dimen/text_size_middle" />
+
+                <TextView
+                    android:id="@+id/number_base"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="组"
+                    android:textColor="@color/text_color_des"
+                    android:textSize="@dimen/text_size_middle" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_downtimer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/see_indiana_code"
-                android:textColor="#00A0E9"
-                android:textSize="@dimen/text_size_small" />
+                android:layout_marginTop="10dp"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="揭晓倒计时"
+                    android:textColor="@color/text_color_title"
+                    android:textSize="@dimen/text_size_middle" />
+
+                <wiki.scene.shop.widgets.CustomFontTextView
+                    android:id="@+id/downtimer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="45:20"
+                    android:textColor="#FF0000"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_win_info"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="bottom"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="中奖号码"
+                    android:textColor="@color/text_color_content"
+                    android:textSize="@dimen/text_size_small" />
+
+                <TextView
+                    android:id="@+id/win_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="66514"
+                    android:textColor="#FF0000"
+                    android:textSize="@dimen/text_size_small" />
+
+                <TextView
+                    android:id="@+id/win_state"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginRight="3dp"
+                    android:text="买大 买单"
+                    android:textColor="#00B7EE"
+                    android:textSize="@dimen/text_size_small" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="获胜"
+                    android:textColor="@color/text_color_content"
+                    android:textSize="@dimen/text_size_small" />
+            </LinearLayout>
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="13.33dp"
-            android:orientation="horizontal">
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
 
-            <ProgressBar
-                android:id="@+id/ongoing_progressbar"
-                style="@style/Widget.MaterialProgressBar.ProgressBar.Horizontal.Small"
-                android:layout_width="0dp"
+            <ImageView
+                android:id="@+id/state_image"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1"
-                android:progress="10"
-                android:progressDrawable="@drawable/progressbar_color" />
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_win" />
 
             <TextView
                 android:id="@+id/goon_indiana"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
+                android:layout_alignParentBottom="true"
                 android:background="@drawable/btn_gooning_indiana"
-                android:paddingBottom="3dp"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
-                android:paddingTop="3dp"
-                android:text="@string/goon_indiana"
-                android:textColor="#EA5F76"
-                android:textSize="@dimen/text_size_small" />
-        </LinearLayout>
+                android:text="继续夺宝"
+                android:textColor="#FF395e"
+                android:textSize="@dimen/text_size_middle" />
+        </RelativeLayout>
     </LinearLayout>
-</RelativeLayout>
+</LinearLayout>

@@ -92,13 +92,17 @@ public class RechargeFragment extends BaseBackMvpFragment<IRechargeView, Recharg
         priceCustom.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if (v == priceCustom && hasFocus) {
-                    priceCustom.setBackgroundResource(R.drawable.item_recharge_choosed_s);
-                    priceCustom.setTextColor(Color.parseColor("#FF183F"));
-                    choosedNumber(5);
-                } else {
-                    priceCustom.setBackgroundResource(R.drawable.item_recharge_choosed_d);
-                    priceCustom.setTextColor(getResources().getColor(R.color.text_color_title));
+                try{
+                    if (v == priceCustom && hasFocus) {
+                        priceCustom.setBackgroundResource(R.drawable.item_recharge_choosed_s);
+                        priceCustom.setTextColor(Color.parseColor("#FF183F"));
+                        choosedNumber(5);
+                    } else {
+                        priceCustom.setBackgroundResource(R.drawable.item_recharge_choosed_d);
+                        priceCustom.setTextColor(getResources().getColor(R.color.text_color_title));
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
                 }
             }
         });

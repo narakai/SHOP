@@ -95,13 +95,14 @@
                 android:paddingTop="13.33dp"
                 android:text="@string/add_wish_goods"
                 android:textColor="@color/text_color_title"
-                android:textSize="@dimen/text_size_middle" />
+                android:textSize="@dimen/text_size_middle"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/bug_feedback"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="13.33dp"
+                android:layout_marginTop="1dp"
                 android:background="@color/white"
                 android:drawableRight="@drawable/ic_mine_arrow_right"
                 android:gravity="center_vertical"
@@ -144,15 +145,16 @@
                 android:text="@string/about_us"
                 android:textColor="@color/text_color_title"
                 android:textSize="@dimen/text_size_middle" />
+
             <Button
                 android:id="@+id/exit_login"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
                 android:layout_marginTop="40dp"
                 android:background="@drawable/bg_btn_login"
                 android:text="@string/exit_login"
-                android:layout_marginRight="8dp"
-                android:layout_marginLeft="8dp"
                 android:textColor="@color/white"
                 android:textSize="@dimen/btn_text_size" />
         </LinearLayout>

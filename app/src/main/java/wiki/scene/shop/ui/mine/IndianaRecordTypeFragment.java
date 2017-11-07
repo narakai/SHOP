@@ -6,9 +6,11 @@ import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.lzy.okgo.OkGo;
 
@@ -35,7 +37,6 @@ import wiki.scene.shop.entity.ResultPageInfo;
 import wiki.scene.shop.http.api.ApiUtil;
 import wiki.scene.shop.itemDecoration.SpacesItemDecoration;
 import wiki.scene.shop.mvp.BaseBackMvpFragment;
-import wiki.scene.shop.mvp.BaseMvpFragment;
 import wiki.scene.shop.ui.car.PayOrderFragment;
 import wiki.scene.shop.ui.indiana.GoodsDetailFragment;
 import wiki.scene.shop.ui.mine.mvpview.IIndianaRecordTypeView;
@@ -49,7 +50,7 @@ import wiki.scene.shop.widgets.LoadingDialog;
  * Author：scene on 2017/7/5 13:49
  */
 
-public class IndianaRecordTypeFragment extends BaseMvpFragment<IIndianaRecordTypeView, IndianaRecordTypePresenter> implements IIndianaRecordTypeView {
+public class IndianaRecordTypeFragment extends BaseBackMvpFragment<IIndianaRecordTypeView, IndianaRecordTypePresenter> implements IIndianaRecordTypeView {
     private final static String ARG_INDIANA_RECORD_TYPE = "arg_indiana_record_type";
     public final static int INDIANA_RECORD_TYPE_ALL = 0;
     public final static int INDIANA_RECORD_TYPE_ONGOING = 1;
@@ -60,9 +61,12 @@ public class IndianaRecordTypeFragment extends BaseMvpFragment<IIndianaRecordTyp
     PtrClassicFrameLayout ptrLayout;
     @BindView(R.id.status_layout)
     StatusViewLayout statusLayout;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+    @BindView(R.id.toolbar_title)
+    TextView toolbarTitle;
     Unbinder unbinder;
 
-    private int type = INDIANA_RECORD_TYPE_ALL;
     private int page = 1;
     //adapter
     private List<MineOrderInfo> list = new ArrayList<>();
@@ -70,9 +74,8 @@ public class IndianaRecordTypeFragment extends BaseMvpFragment<IIndianaRecordTyp
 
     private LoadingDialog loadingDialog;
 
-    public static IndianaRecordTypeFragment newInstance(int type) {
+    public static IndianaRecordTypeFragment newInstance() {
         Bundle args = new Bundle();
-        args.putInt(ARG_INDIANA_RECORD_TYPE, type);
         IndianaRecordTypeFragment fragment = new IndianaRecordTypeFragment();
         fragment.setArguments(args);
         return fragment;
@@ -82,9 +85,6 @@ public class IndianaRecordTypeFragment extends BaseMvpFragment<IIndianaRecordTyp
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle args = getArguments();
-        if (args != null) {
-            type = args.getInt(ARG_INDIANA_RECORD_TYPE);
-        }
     }
 
     @Nullable
@@ -92,14 +92,16 @@ public class IndianaRecordTypeFragment extends BaseMvpFragment<IIndianaRecordTyp
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_indiana_record_type, container, false);
         unbinder = ButterKnife.bind(this, view);
-        return view;
+        return attachToSwipeBack(view);
     }
 
     @Override
     public void onEnterAnimationEnd(Bundle savedInstanceState) {
         super.onEnterAnimationEnd(savedInstanceState);
+        toolbarTitle.setText(R.string.indiana_record);
+        initToolbarNav(toolbar);
         initView();
-        presenter.getIndianaRecordData(type, page, true);
+        presenter.getIndianaRecordData(page, true);
     }
 
     private void initView() {
@@ -109,13 +111,13 @@ public class IndianaRecordTypeFragment extends BaseMvpFragment<IIndianaRecordTyp
         ptrLayout.setPtrHandler(new PtrDefaultHandler() {
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
-                presenter.getIndianaRecordData(type, 1, false);
+                presenter.getIndianaRecordData(1, false);
             }
         });
         ptrLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void loadMore() {
-                presenter.getIndianaRecordData(type, page + 1, false);
+                presenter.getIndianaRecordData(page + 1, false);
             }
         });
 
@@ -263,7 +265,7 @@ public class IndianaRecordTypeFragment extends BaseMvpFragment<IIndianaRecordTyp
     private View.OnClickListener retryListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            presenter.getIndianaRecordData(type, page, true);
+            presenter.getIndianaRecordData(page, true);
         }
     };
 
