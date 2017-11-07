@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
+import com.sunfusheng.glideimageview.GlideImageLoader;
 import com.ta.utdid2.android.utils.StringUtils;
 import com.w4lle.library.NineGridlayout;
 
@@ -17,7 +17,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import jp.wasabeef.glide.transformations.CropCircleTransformation;
 import wiki.scene.shop.R;
 import wiki.scene.shop.ShopApplication;
 import wiki.scene.shop.entity.ShareListResultInfo;
@@ -60,11 +59,11 @@ public class ShareAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             mobile = mobile.replace(mobile.substring(3, 7), "****");
         }
         if (isMine) {
-            Glide.with(context).load(ShopApplication.userInfo.getAvatar()).bitmapTransform(new CropCircleTransformation(context)).into(viewHolder.userAvater);
+            GlideImageLoader.create(viewHolder.userAvater).loadCircleImage(ShopApplication.userInfo.getAvatar(),R.drawable.ic_default_avater);
             viewHolder.userLevel.setText(String.valueOf(ShopApplication.userInfo.getLevel()));
             viewHolder.username.setText(StringUtils.isEmpty(ShopApplication.userInfo.getNickname()) ? ShopApplication.userInfo.getMobile() : ShopApplication.userInfo.getNickname());
         } else {
-            Glide.with(context).load(ShopApplication.configInfo.getFile_domain() + info.getAvatar()).bitmapTransform(new CropCircleTransformation(context)).into(viewHolder.userAvater);
+            GlideImageLoader.create(viewHolder.userAvater).loadCircleImage(ShopApplication.configInfo.getFile_domain()+info.getAvatar(),R.drawable.ic_default_avater);
             viewHolder.userLevel.setText(String.valueOf(info.getLevel()));
             viewHolder.username.setText(StringUtils.isEmpty(info.getNickname()) ? mobile : info.getNickname());
         }

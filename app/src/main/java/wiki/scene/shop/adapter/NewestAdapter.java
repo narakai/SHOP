@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
+import com.sunfusheng.glideimageview.GlideImageLoader;
 
 import java.util.List;
 
@@ -66,7 +66,7 @@ public class NewestAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 viewHolder.announcedTime.setText(DateUtil.timeStampToStr(info.getOpen_time()));
             }
         }
-        Glide.with(context).load(ShopApplication.configInfo.getFile_domain() + info.getThumb()).fitCenter().into(viewHolder.goodsImage);
+        GlideImageLoader.create(viewHolder.goodsImage).loadImage(ShopApplication.configInfo.getFile_domain() + info.getThumb(), R.drawable.ic_default_image);
         viewHolder.goodsTime.setText(String.format(context.getString(R.string.times_code), info.getCycle_code()));
     }
 

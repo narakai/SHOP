@@ -5,18 +5,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
+import com.sunfusheng.glideimageview.GlideImageView;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import jp.wasabeef.glide.transformations.CropCircleTransformation;
 import wiki.scene.shop.R;
-import wiki.scene.shop.ShopApplication;
 import wiki.scene.shop.entity.GoodsDetailInfo;
 import wiki.scene.shop.utils.DateUtil;
 
@@ -66,13 +63,13 @@ public class GoodsDetailJoinRecordAdapter extends BaseAdapter {
         viewHolder.userInfo.setText(String.format(context.getString(R.string.user_info), info.getNickname(), info.getArea(), info.getIp()));
         viewHolder.joinTimes.setText(String.format(context.getString(R.string.join_xx_times), info.getNumber()));
         viewHolder.joinTime.setText(DateUtil.timeStampToStr(info.getCreate_time()));
-        Glide.with(context).load(ShopApplication.configInfo.getFile_domain() + info.getAvatar()).bitmapTransform(new CropCircleTransformation(context)).into(viewHolder.userAvater);
+        viewHolder.userAvater.loadCircleImage(info.getAvatar(), R.drawable.ic_default_avater);
         return convertView;
     }
 
     static class JoinRecordViewHolder {
         @BindView(R.id.user_avater)
-        ImageView userAvater;
+        GlideImageView userAvater;
         @BindView(R.id.user_info)
         TextView userInfo;
         @BindView(R.id.join_times)

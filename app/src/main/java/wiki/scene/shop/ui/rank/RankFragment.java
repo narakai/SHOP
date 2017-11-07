@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
+import com.sunfusheng.glideimageview.GlideImageLoader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +20,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import jp.wasabeef.glide.transformations.CropCircleTransformation;
 import wiki.scene.loadmore.PtrClassicFrameLayout;
 import wiki.scene.loadmore.PtrDefaultHandler;
 import wiki.scene.loadmore.PtrFrameLayout;
@@ -231,22 +230,19 @@ public class RankFragment extends BaseMainMvpFragment<IRankView, RankPresenter> 
         switch (headerList.size()) {
             case 3:
                 layoutRank3.setVisibility(View.VISIBLE);
-                Glide.with(this).load(ShopApplication.configInfo.getFile_domain() + headerList.get(2)
-                        .getAvatar()).bitmapTransform(new CropCircleTransformation(getContext())).into(rank3Avater);
+                GlideImageLoader.create(rank3Avater).loadCircleImage(ShopApplication.configInfo.getFile_domain()+headerList.get(2).getAvatar(),R.drawable.ic_default_avater);
                 rank3Nickname.setText(headerList.get(2).getNickname());
                 rank3WinTime.setText(String.valueOf(headerList.get(2).getWin_times()));
                 rank3WinPrice.setText(headerList.get(2).getTotal_cost());
             case 2:
                 layoutRank2.setVisibility(View.VISIBLE);
-                Glide.with(this).load(ShopApplication.configInfo.getFile_domain() + headerList.get(1)
-                        .getAvatar()).bitmapTransform(new CropCircleTransformation(getContext())).into(rank2Avater);
+                GlideImageLoader.create(rank2Avater).loadCircleImage(ShopApplication.configInfo.getFile_domain()+headerList.get(1).getAvatar(),R.drawable.ic_default_avater);
                 rank2Nickname.setText(headerList.get(1).getNickname());
                 rank2WinTime.setText(String.valueOf(headerList.get(1).getWin_times()));
                 rank2WinPrice.setText(headerList.get(1).getTotal_cost());
             case 1:
                 layoutRank1.setVisibility(View.VISIBLE);
-                Glide.with(this).load(ShopApplication.configInfo.getFile_domain() + headerList.get(0)
-                        .getAvatar()).bitmapTransform(new CropCircleTransformation(getContext())).into(rank1Avater);
+                GlideImageLoader.create(rank1Avater).loadCircleImage(ShopApplication.configInfo.getFile_domain()+headerList.get(0).getAvatar(),R.drawable.ic_default_avater);
                 rank1Nickname.setText(headerList.get(0).getNickname());
                 rank1WinTime.setText(String.valueOf(headerList.get(0).getWin_times()));
                 rank1WinPrice.setText(headerList.get(0).getTotal_cost());

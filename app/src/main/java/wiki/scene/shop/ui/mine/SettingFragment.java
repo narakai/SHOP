@@ -83,10 +83,20 @@ public class SettingFragment extends BaseBackMvpFragment<ISettingView, SettingPr
     @OnClick(R.id.clear_cache)
     public void onClickClearCache() {
         showLoading(R.string.clear_caching);
-        GlideCacheUtil.getInstance().cleanCacheDisk(_mActivity);
-        GlideCacheUtil.getInstance().clearCacheDiskSelf(_mActivity);
-        hideLoading();
-        cacheSize.setText(GlideCacheUtil.getInstance().getCacheSize(_mActivity));
+//        GlideCacheUtil.getInstance().cleanCacheDisk(_mActivity);
+//        GlideCacheUtil.getInstance().clearCacheDiskSelf(_mActivity);
+        cacheSize.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                _mActivity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        hideLoading();
+                    }
+                });
+            }
+        }, 2000);
+        cacheSize.setText("0M");
     }
 
     @OnClick(R.id.add_wish_goods)

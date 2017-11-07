@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
+import com.sunfusheng.glideimageview.GlideImageLoader;
 import com.ta.utdid2.android.utils.StringUtils;
 
 import java.util.List;
@@ -55,7 +55,7 @@ public class WinRecordAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         viewHolder.joinTimes.setText(String.format(context.getString(R.string.xx_fen), info.getNumber()));
         viewHolder.luckCode.setText(info.getLucky_code());
         viewHolder.announcedTime.setText(DateUtil.timeStampToStr(info.getOpen_time()));
-        Glide.with(context).load(ShopApplication.configInfo.getFile_domain() + info.getThumb()).fitCenter().into(viewHolder.goodsImage);
+        GlideImageLoader.create(viewHolder.goodsImage).loadImage(ShopApplication.configInfo.getFile_domain() + info.getThumb(), R.drawable.ic_default_image);
         setGoodsTag(viewHolder.goodsTag, info.getType());
         viewHolder.goToShareOrder.setOnClickListener(new View.OnClickListener() {
             @Override

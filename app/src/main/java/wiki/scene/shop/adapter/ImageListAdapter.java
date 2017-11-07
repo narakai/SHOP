@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
+import com.sunfusheng.glideimageview.GlideImageView;
 
 import java.util.List;
 
@@ -62,10 +62,10 @@ public class ImageListAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         if (list.get(position).equals("add")) {
-            Glide.with(context).load(R.drawable.ic_add_image).centerCrop().into(viewHolder.image);
+            viewHolder.image.loadLocalImage(R.drawable.ic_add_image, R.drawable.ic_add_image);
             viewHolder.delete.setVisibility(View.GONE);
         } else {
-            Glide.with(context).load(list.get(position)).centerCrop().into(viewHolder.image);
+            viewHolder.image.loadLocalImage(list.get(position), R.drawable.ic_add_image);
             viewHolder.delete.setVisibility(View.VISIBLE);
         }
         viewHolder.delete.setOnClickListener(new View.OnClickListener() {
@@ -81,7 +81,7 @@ public class ImageListAdapter extends BaseAdapter {
 
     static class ViewHolder {
         @BindView(R.id.image)
-        ImageView image;
+        GlideImageView image;
         @BindView(R.id.delete)
         ImageView delete;
 

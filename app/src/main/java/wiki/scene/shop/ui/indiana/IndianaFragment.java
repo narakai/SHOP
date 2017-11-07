@@ -12,8 +12,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.lzy.okgo.OkGo;
+import com.sunfusheng.glideimageview.GlideImageLoader;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 
@@ -47,7 +47,7 @@ import wiki.scene.shop.itemDecoration.IndianaItemDecoration;
 import wiki.scene.shop.mvp.BaseMainMvpFragment;
 import wiki.scene.shop.ui.indiana.mvpview.IIndianaView;
 import wiki.scene.shop.ui.indiana.presenter.IndianaPresenter;
-import wiki.scene.shop.utils.GlideImageLoader;
+import wiki.scene.shop.utils.GlideBannerImageLoader;
 import wiki.scene.shop.utils.PriceUtil;
 import wiki.scene.shop.utils.ToastUtils;
 import wiki.scene.shop.utils.ViewUtils;
@@ -486,7 +486,7 @@ public class IndianaFragment extends BaseMainMvpFragment<IIndianaView, IndianaPr
             //banner
             //设置banner高度
             ViewUtils.setViewHeightByViewGroup(banner, (int) (PtrLocalDisplay.SCREEN_WIDTH_PIXELS * 10f / 27f));
-            banner.setImageLoader(new GlideImageLoader());
+            banner.setImageLoader(new GlideBannerImageLoader());
             banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE);
             banner.setDelayTime(2000);
             banner.setBannerTitles(bannerTitles);
@@ -507,19 +507,19 @@ public class IndianaFragment extends BaseMainMvpFragment<IIndianaView, IndianaPr
                     newestGoodsName1.setText(newWaitInfoList.get(2).getTitle());
                     newestGoodsName3.setTag(R.id.newest_countDownView3);
                     newestCountDownView3.start(1502280840000L - System.currentTimeMillis());
-                    Glide.with(getContext()).load(ShopApplication.configInfo.getFile_domain() + newWaitInfoList.get(2).getThumb()).fitCenter().into(newestGoodsImage3);
+                    GlideImageLoader.create(newestGoodsImage3).loadImage(ShopApplication.configInfo.getFile_domain()+newWaitInfoList.get(2).getThumb(),R.drawable.ic_default_image);
                 case 2:
                     newestGoods2.setVisibility(View.VISIBLE);
                     newestGoodsName1.setText(newWaitInfoList.get(1).getTitle());
                     newestGoodsName2.setTag(R.id.newest_countDownView2);
                     newestCountDownView2.start(1502290850000L - System.currentTimeMillis());
-                    Glide.with(getContext()).load(ShopApplication.configInfo.getFile_domain() + newWaitInfoList.get(1).getThumb()).fitCenter().into(newestGoodsImage2);
+                    GlideImageLoader.create(newestGoodsImage2).loadImage(ShopApplication.configInfo.getFile_domain()+newWaitInfoList.get(1).getThumb(),R.drawable.ic_default_image);
                 case 1:
                     newestGoods1.setVisibility(View.VISIBLE);
                     newestGoodsName1.setText(newWaitInfoList.get(0).getTitle());
                     newestGoodsName1.setTag(R.id.newest_countDownView1);
                     newestCountDownView1.start(1502270860000L - System.currentTimeMillis());
-                    Glide.with(getContext()).load(ShopApplication.configInfo.getFile_domain() + newWaitInfoList.get(0).getThumb()).fitCenter().into(newestGoodsImage1);
+                    GlideImageLoader.create(newestGoodsImage1).loadImage(ShopApplication.configInfo.getFile_domain()+newWaitInfoList.get(0).getThumb(),R.drawable.ic_default_image);
                     break;
             }
         }

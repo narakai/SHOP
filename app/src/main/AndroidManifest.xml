@@ -22,9 +22,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
         <!-- 配置Glide -->
-        <meta-data
-            android:name="com.bumptech.glide.integration.okhttp3.OkHttpGlideModule"
-            android:value="GlideModule" />
+        <!--<meta-data-->
+            <!--android:name="com.bumptech.glide.integration.okhttp3.OkHttpGlideModule"-->
+            <!--android:value="GlideModule" />-->
 
         <activity
             android:name=".activity.LauncherActivity"

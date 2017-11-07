@@ -8,15 +8,13 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.daimajia.swipe.adapters.BaseSwipeAdapter;
+import com.sunfusheng.glideimageview.GlideImageView;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
-import wiki.scene.loadmore.utils.PtrLocalDisplay;
 import wiki.scene.shop.R;
 import wiki.scene.shop.ShopApplication;
 import wiki.scene.shop.entity.CartInfo;
@@ -80,7 +78,7 @@ public class CarGoodsAdapter extends BaseSwipeAdapter {
         viewHolder = new CarGoodsViewHolder(convertView);
         CartInfo info = list.get(position);
         viewHolder.status.setImageResource(info.isChecked() ? R.drawable.ic_address_choosed_s : R.drawable.ic_address_choosed_d);
-        Glide.with(context).load(ShopApplication.configInfo.getFile_domain() + info.getThumb()).bitmapTransform(new RoundedCornersTransformation(context, PtrLocalDisplay.dp2px(10), 0)).into(viewHolder.goodsImage);
+        viewHolder.goodsImage.loadImage(ShopApplication.configInfo.getFile_domain() + info.getThumb(), R.drawable.ic_default_avater);
         viewHolder.goodsName.setText(info.getTitle());
         viewHolder.progressBar.setProgress(info.getCurrent_source() * 100 / info.getNeed_source());
         viewHolder.goodsTime.setText(String.format(context.getString(R.string.xx_times), info.getCycle_id()));
@@ -133,7 +131,7 @@ public class CarGoodsAdapter extends BaseSwipeAdapter {
         @BindView(R.id.status)
         ImageView status;
         @BindView(R.id.goods_image)
-        ImageView goodsImage;
+        GlideImageView goodsImage;
         @BindView(R.id.goods_name)
         TextView goodsName;
         @BindView(R.id.progressBar)

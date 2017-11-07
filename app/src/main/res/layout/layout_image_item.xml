@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <wiki.scene.shop.widgets.RatioImageView
+    <com.sunfusheng.glideimageview.GlideImageView
         android:id="@+id/image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

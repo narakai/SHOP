@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
+import com.sunfusheng.glideimageview.GlideImageLoader;
 
 import java.util.List;
 
@@ -48,7 +48,7 @@ public class Price10IndianaAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         int precent = info.getCurrent_source() * 100 / info.getNeed_source();
         viewHolder.precent.setText(precent + "%");
         viewHolder.ongoingProgressbar.setProgress(precent);
-        Glide.with(context).load(ShopApplication.configInfo.getFile_domain() + info.getThumb()).fitCenter().into(viewHolder.goodsImage);
+        GlideImageLoader.create(viewHolder.goodsImage).loadImage(ShopApplication.configInfo.getFile_domain() + info.getThumb(), R.drawable.ic_default_image);
         if (this.type == 1) {
             viewHolder.goodsTag.setText(context.getString(R.string.price_10_area));
         } else {

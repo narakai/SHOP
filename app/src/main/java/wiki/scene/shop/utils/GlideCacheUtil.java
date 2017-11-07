@@ -3,10 +3,11 @@ package wiki.scene.shop.utils;
 import android.content.Context;
 import android.os.Looper;
 
-import com.bumptech.glide.Glide;
+import com.sunfusheng.glideimageview.progress.GlideApp;
 
 import java.io.File;
 import java.math.BigDecimal;
+
 
 /**
  * Case By: Glide缓存
@@ -26,7 +27,7 @@ public class GlideCacheUtil {
     // 获取Glide磁盘缓存大小
     public String getCacheSize(Context context) {
         try {
-            return getFormatSize(getFolderSize(Glide.getPhotoCacheDir(context)));
+            return getFormatSize(getFolderSize(GlideApp.getPhotoCacheDir(context)));
         } catch (Exception e) {
             e.printStackTrace();
             return "获取失败";
@@ -35,7 +36,7 @@ public class GlideCacheUtil {
 
     // 清除Glide磁盘缓存，自己获取缓存文件夹并删除方法
     public boolean cleanCacheDisk(Context context) {
-        return deleteFolderFile(Glide.getPhotoCacheDir(context).getAbsolutePath(), true);
+        return deleteFolderFile(GlideApp.getPhotoCacheDir(context).getAbsolutePath(), true);
     }
 
     // 清除图片磁盘缓存，调用Glide自带方法
@@ -45,11 +46,11 @@ public class GlideCacheUtil {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        Glide.get(context).clearDiskCache();
+                        GlideApp.get(context).clearDiskCache();
                     }
                 }).start();
             } else {
-                Glide.get(context).clearDiskCache();
+                GlideApp.get(context).clearDiskCache();
             }
             return true;
         } catch (Exception e) {
@@ -62,7 +63,7 @@ public class GlideCacheUtil {
     public boolean clearCacheMemory(Context context) {
         try {
             if (Looper.myLooper() == Looper.getMainLooper()) { //只能在主线程执行
-                Glide.get(context).clearMemory();
+                GlideApp.get(context).clearMemory();
                 return true;
             }
         } catch (Exception e) {

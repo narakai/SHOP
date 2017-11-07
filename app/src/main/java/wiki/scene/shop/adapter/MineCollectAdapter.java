@@ -5,11 +5,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
+import com.sunfusheng.glideimageview.GlideImageView;
 
 import java.util.List;
 
@@ -55,7 +54,7 @@ public class MineCollectAdapter extends RecyclerView.Adapter {
         if (holder instanceof ViewHolderType1) {
             ViewHolderType1 viewHolderType1 = (ViewHolderType1) holder;
             viewHolderType1.goodsName.setText(info.getTitle());
-            Glide.with(context).load(ShopApplication.configInfo.getFile_domain() + info.getThumb()).fitCenter().into(viewHolderType1.goodsImage);
+            viewHolderType1.goodsImage.loadImage(ShopApplication.configInfo.getFile_domain() + info.getThumb(), R.drawable.ic_default_image);
             int precent = info.getCurrent_source() * 100 / info.getNeed_source();
             viewHolderType1.precent.setText(precent + "%");
             setGoodsTag(viewHolderType1.goodsTag, info.getType());
@@ -63,13 +62,13 @@ public class MineCollectAdapter extends RecyclerView.Adapter {
         } else if (holder instanceof ViewHolderType2) {
             ViewHolderType2 viewHolderType2 = (ViewHolderType2) holder;
             viewHolderType2.goodsName.setText(info.getTitle());
-            Glide.with(context).load(ShopApplication.configInfo.getFile_domain() + info.getThumb()).fitCenter().into(viewHolderType2.goodsImage);
+            viewHolderType2.goodsImage.loadImage(ShopApplication.configInfo.getFile_domain() + info.getThumb(), R.drawable.ic_default_image);
             viewHolderType2.refreshTime(info.getOpen_time() * 1000 - System.currentTimeMillis());
             setGoodsTag(viewHolderType2.goodsTag, info.getType());
         } else {
             ViewHolderType3 viewHolderType3 = (ViewHolderType3) holder;
             viewHolderType3.goodsName.setText(info.getTitle());
-            Glide.with(context).load(ShopApplication.configInfo.getFile_domain() + info.getThumb()).fitCenter().into(viewHolderType3.goodsImage);
+            viewHolderType3.goodsImage.loadImage(ShopApplication.configInfo.getFile_domain() + info.getThumb(), R.drawable.ic_default_image);
             setGoodsTag(viewHolderType3.goodsTag, info.getType());
             viewHolderType3.luckCode.setText(info.getLucky_code());
         }
@@ -131,7 +130,7 @@ public class MineCollectAdapter extends RecyclerView.Adapter {
 
     class ViewHolderType1 extends RecyclerView.ViewHolder {
         @BindView(R.id.goods_image)
-        ImageView goodsImage;
+        GlideImageView goodsImage;
         @BindView(R.id.goods_tag)
         TextView goodsTag;
         @BindView(R.id.goods_name)
@@ -151,7 +150,7 @@ public class MineCollectAdapter extends RecyclerView.Adapter {
 
     static class ViewHolderType2 extends RecyclerView.ViewHolder {
         @BindView(R.id.goods_image)
-        ImageView goodsImage;
+        GlideImageView goodsImage;
         @BindView(R.id.goods_tag)
         TextView goodsTag;
         @BindView(R.id.goods_name)
@@ -178,7 +177,7 @@ public class MineCollectAdapter extends RecyclerView.Adapter {
 
     static class ViewHolderType3 extends RecyclerView.ViewHolder {
         @BindView(R.id.goods_image)
-        ImageView goodsImage;
+        GlideImageView goodsImage;
         @BindView(R.id.goods_tag)
         TextView goodsTag;
         @BindView(R.id.goods_name)

@@ -13,8 +13,8 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.lzy.okgo.OkGo;
+import com.sunfusheng.glideimageview.GlideImageLoader;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
@@ -36,7 +36,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import cn.iwgang.countdownview.CountdownView;
-import jp.wasabeef.glide.transformations.CropCircleTransformation;
 import wiki.scene.loadmore.PtrClassicFrameLayout;
 import wiki.scene.loadmore.PtrDefaultHandler;
 import wiki.scene.loadmore.PtrFrameLayout;
@@ -58,7 +57,7 @@ import wiki.scene.shop.ui.car.PayOrderFragment;
 import wiki.scene.shop.ui.indiana.mvpview.IGoodsDetailView;
 import wiki.scene.shop.ui.indiana.presenter.GoodsDetailPresenter;
 import wiki.scene.shop.utils.DateUtil;
-import wiki.scene.shop.utils.GlideImageLoader;
+import wiki.scene.shop.utils.GlideBannerImageLoader;
 import wiki.scene.shop.utils.ToastUtils;
 import wiki.scene.shop.utils.ViewUtils;
 import wiki.scene.shop.widgets.CustomListView;
@@ -276,7 +275,7 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
         //设置banner高度
         ViewUtils.setViewHeightByViewGroup(banner, (int) (PtrLocalDisplay.SCREEN_WIDTH_PIXELS * 10f / 27f));
         //banner
-        banner.setImageLoader(new GlideImageLoader());
+        banner.setImageLoader(new GlideBannerImageLoader());
         banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
         banner.setDelayTime(2000);
         banner.setImages(bannerImageUrls);
@@ -512,7 +511,7 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
                 layoutGoodsStatusPendingView.setVisibility(View.GONE);
                 goodsStatus.setText("已揭晓");
                 GoodsDetailInfo.WinnerInfo winnerInfo = goodsInfo.getWinner();
-                Glide.with(this).load(ShopApplication.configInfo.getFile_domain() + winnerInfo.getAvatar()).bitmapTransform(new CropCircleTransformation(_mActivity)).into(announcedUserAvater);
+                GlideImageLoader.create(announcedUserAvater).loadCircleImage(ShopApplication.configInfo.getFile_domain() + winnerInfo.getAvatar(), R.drawable.ic_default_avater);
                 announcedWinnerName.setText(String.format(getString(R.string.winner_xx), winnerInfo.getNickname()));
                 announcedWinnerId.setText(String.format(getString(R.string.user_id_xx), goodsInfo.getLucky_user_id()));
                 announcedWinnerIp.setText(String.format(getString(R.string.user_ip_xx), winnerInfo.getIp()));
@@ -569,7 +568,7 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
                                                 layoutDanmu.setVisibility(View.GONE);
                                             } else {
                                                 layoutDanmu.setVisibility(View.VISIBLE);
-                                                Glide.with(_mActivity).load(ShopApplication.configInfo.getFile_domain() + logInfoList.get(currentDanmuPosition % logInfoList.size()).getAvatar()).bitmapTransform(new CropCircleTransformation(_mActivity)).into(danmuAvater);
+                                                GlideImageLoader.create(danmuAvater).loadCircleImage(ShopApplication.configInfo.getFile_domain() + logInfoList.get(currentDanmuPosition % logInfoList.size()).getAvatar(), R.drawable.ic_default_avater);
                                                 danmuNickname.setText(logInfoList.get(currentDanmuPosition % logInfoList.size()).getNickname());
                                                 danmuPersonTime.setText(String.valueOf(logInfoList.get(currentDanmuPosition % logInfoList.size()).getNumber()));
                                                 danmuTime.setText(DateUtil.convertTimeToFormat(logInfoList.get(currentDanmuPosition % logInfoList.size()).getCreate_time()));

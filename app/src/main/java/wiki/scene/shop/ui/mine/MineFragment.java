@@ -7,11 +7,10 @@ import android.support.annotation.StringRes;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
+import com.sunfusheng.glideimageview.GlideImageView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -20,7 +19,6 @@ import org.greenrobot.eventbus.ThreadMode;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import jp.wasabeef.glide.transformations.CropCircleTransformation;
 import wiki.scene.shop.R;
 import wiki.scene.shop.ShopApplication;
 import wiki.scene.shop.activity.LoginActivity;
@@ -43,7 +41,7 @@ import wiki.scene.shop.widgets.LoadingDialog;
 public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> implements IMineView {
 
     @BindView(R.id.user_avater)
-    ImageView userAvater;
+    GlideImageView userAvater;
     @BindView(R.id.image_level)
     TextView imageLevel;
     @BindView(R.id.username)
@@ -250,7 +248,7 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
         level.setVisibility(View.GONE);
         score.setVisibility(View.GONE);
         username.setText(R.string.please_login);
-        Glide.with(_mActivity).load(R.drawable.ic_default_avater).bitmapTransform(new CropCircleTransformation(_mActivity)).into(userAvater);
+        userAvater.loadLocalCircleImage(R.drawable.ic_default_avater, R.drawable.ic_default_avater);
         imageLevel.setText(String.valueOf(1));
         coinNumber.setText(String.format(getString(R.string.coin_number), String.valueOf(0)));
     }
@@ -273,15 +271,13 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
         score.setText(String.format(getString(R.string.mine_score), ShopApplication.userInfo.getScore()));
         imageLevel.setText(String.valueOf(ShopApplication.userInfo.getLevel()));
         username.setText(ShopApplication.userInfo.getNickname().isEmpty() ? ShopApplication.userInfo.getMobile() : ShopApplication.userInfo.getNickname());
-        Glide.with(_mActivity).load(ShopApplication.userInfo.getAvatar()).bitmapTransform(new CropCircleTransformation(_mActivity)).error(R.drawable.ic_default_avater).into(userAvater);
+        userAvater.loadCircleImage(ShopApplication.userInfo.getAvatar(), R.drawable.ic_default_avater);
         coinNumber.setText(String.format(getString(R.string.coin_number), PriceUtil.getPrice(ShopApplication.userInfo.getMoney())));
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void changeUserAvater(ChooseAvaterResultEvent event) {
-        Glide.with(this).load("file://" + event.avaterPath)
-                .bitmapTransform(new CropCircleTransformation(_mActivity))
-                .into(userAvater);
+        userAvater.loadCircleImage("file://" + event.avaterPath, R.drawable.ic_default_avater);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
+import com.sunfusheng.glideimageview.GlideImageView;
 
 import java.util.List;
 
@@ -63,7 +63,7 @@ public class IndianaRecordAdapter extends RecyclerView.Adapter<RecyclerView.View
         if (holder instanceof OnGoingViewHolder) {
             OnGoingViewHolder onGoingViewHolder = (OnGoingViewHolder) holder;
             onGoingViewHolder.goodsName.setText(info.getTitle());
-            Glide.with(context).load(ShopApplication.configInfo.getFile_domain() + info.getThumb()).fitCenter().into(onGoingViewHolder.goodsImage);
+            onGoingViewHolder.goodsImage.loadImage(ShopApplication.configInfo.getFile_domain() + info.getThumb(), R.drawable.ic_default_image);
             if (info.getOrder_status() == 1) {
                 //未支付的订单
                 onGoingViewHolder.goonIndiana.setText(R.string.pay_now);
@@ -99,14 +99,14 @@ public class IndianaRecordAdapter extends RecyclerView.Adapter<RecyclerView.View
         } else if (holder instanceof PendingViewHolder) {
             PendingViewHolder pendingViewHolder = (PendingViewHolder) holder;
             pendingViewHolder.goodsName.setText(info.getTitle());
-            Glide.with(context).load(ShopApplication.configInfo.getFile_domain() + info.getThumb()).fitCenter().into(pendingViewHolder.goodsImage);
+            pendingViewHolder.goodsImage.loadImage(ShopApplication.configInfo.getFile_domain() + info.getThumb(), R.drawable.ic_default_image);
             pendingViewHolder.personTimes.setText(String.valueOf(info.getNumber()));
             pendingViewHolder.refreshTime(info.getOpen_time() * 1000 - System.currentTimeMillis());
             setGoodsTag(pendingViewHolder.goodsTag, info.getType());
         } else {
             IndianaResultViewHolder indianaResultViewHolder = (IndianaResultViewHolder) holder;
             indianaResultViewHolder.goodsName.setText(info.getTitle());
-            Glide.with(context).load(ShopApplication.configInfo.getFile_domain() + info.getThumb()).fitCenter().into(indianaResultViewHolder.goodsImage);
+            indianaResultViewHolder.goodsImage.loadImage(ShopApplication.configInfo.getFile_domain() + info.getThumb(), R.drawable.ic_default_image);
             setGoodsTag(indianaResultViewHolder.goodsTag, info.getType());
             indianaResultViewHolder.joinTimes.setText(String.format(context.getString(R.string.xx_fen), info.getWinner_codes().size()));
             indianaResultViewHolder.announcedTime.setText(DateUtil.timeStampToStr(info.getOpen_time()));
@@ -191,7 +191,7 @@ public class IndianaRecordAdapter extends RecyclerView.Adapter<RecyclerView.View
      */
     class OnGoingViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.goods_image)
-        ImageView goodsImage;
+        GlideImageView goodsImage;
         @BindView(R.id.goods_tag)
         TextView goodsTag;
         @BindView(R.id.goods_name)
@@ -214,7 +214,7 @@ public class IndianaRecordAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     class PendingViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.goods_image)
-        ImageView goodsImage;
+        GlideImageView goodsImage;
         @BindView(R.id.goods_tag)
         TextView goodsTag;
         @BindView(R.id.goods_name)
@@ -241,7 +241,7 @@ public class IndianaRecordAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     class IndianaResultViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.goods_image)
-        ImageView goodsImage;
+        GlideImageView goodsImage;
         @BindView(R.id.goods_tag)
         TextView goodsTag;
         @BindView(R.id.goods_name)

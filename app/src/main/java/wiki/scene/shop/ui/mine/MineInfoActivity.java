@@ -15,6 +15,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.sunfusheng.glideimageview.GlideImageView;
 import com.yuyh.library.imgsel.ImageLoader;
 import com.yuyh.library.imgsel.ImgSelActivity;
 import com.yuyh.library.imgsel.ImgSelConfig;
@@ -27,7 +28,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import jp.wasabeef.glide.transformations.CropCircleTransformation;
 import me.shaohui.advancedluban.Luban;
 import me.shaohui.advancedluban.OnCompressListener;
 import wiki.scene.loadmore.utils.SceneLogUtil;
@@ -56,7 +56,7 @@ public class MineInfoActivity extends BaseMvpActivity<IMineInfoView, MineInfoPre
     @BindView(R.id.toolbar_title)
     TextView toolbarTitle;
     @BindView(R.id.user_avater)
-    ImageView userAvater;
+    GlideImageView userAvater;
     @BindView(R.id.username)
     EditText username;
     @BindView(R.id.sex_male)
@@ -94,7 +94,7 @@ public class MineInfoActivity extends BaseMvpActivity<IMineInfoView, MineInfoPre
 
     private void initView() {
         loadingDialog = LoadingDialog.getInstance(this);
-        Glide.with(this).load(ShopApplication.userInfo.getAvatar()).error(R.drawable.ic_default_avater).bitmapTransform(new CropCircleTransformation(MineInfoActivity.this)).into(userAvater);
+        userAvater.loadCircleImage(ShopApplication.userInfo.getAvatar(), R.drawable.ic_default_avater);
         username.setText(ShopApplication.userInfo.getNickname());
         phoneNumber.setText(ShopApplication.userInfo.getMobile());
         sexRadiogroup.check(ShopApplication.userInfo.getSex() == 1 ? R.id.sex_male : R.id.sex_female);
@@ -226,9 +226,7 @@ public class MineInfoActivity extends BaseMvpActivity<IMineInfoView, MineInfoPre
     @Override
     public void updateUserAvaterSuccess(String filePath) {
         EventBus.getDefault().post(new ChooseAvaterResultEvent(filePath));
-        Glide.with(MineInfoActivity.this).load(filePath)
-                .bitmapTransform(new CropCircleTransformation(MineInfoActivity.this))
-                .into(userAvater);
+        userAvater.loadCircleImage(filePath, R.drawable.ic_default_avater);
         UserInfo userInfo = ShopApplication.userInfo;
         userInfo.setAvatar(filePath);
         EventBus.getDefault().post(new RegisterSuccessEvent(userInfo));

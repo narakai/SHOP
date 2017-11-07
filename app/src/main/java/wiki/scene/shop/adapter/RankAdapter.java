@@ -8,13 +8,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
+import com.sunfusheng.glideimageview.GlideImageLoader;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import jp.wasabeef.glide.transformations.CropCircleTransformation;
 import wiki.scene.shop.R;
 import wiki.scene.shop.ShopApplication;
 import wiki.scene.shop.entity.RankInfo;
@@ -43,7 +42,7 @@ public class RankAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         RankViewHolder viewHolder = (RankViewHolder) holder;
         RankInfo info = list.get(position);
         viewHolder.number.setText(String.valueOf(position + 4));
-        Glide.with(context).load(ShopApplication.configInfo.getFile_domain() + info.getAvatar()).bitmapTransform(new CropCircleTransformation(context)).into(viewHolder.avater);
+        GlideImageLoader.create(viewHolder.avater).loadCircleImage(ShopApplication.configInfo.getFile_domain() + info.getAvatar(), R.drawable.ic_default_avater);
         viewHolder.nickname.setText(info.getNickname());
         viewHolder.winTime.setText(String.valueOf(info.getWin_times()));
         viewHolder.winPrice.setText(info.getTotal_cost());

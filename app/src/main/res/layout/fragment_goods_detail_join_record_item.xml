@@ -2,15 +2,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:paddingLeft="8dp"
     android:paddingRight="8dp"
     android:paddingTop="13.33dp">
 
-    <ImageView
+    <com.sunfusheng.glideimageview.GlideImageView
         android:id="@+id/user_avater"
         android:layout_width="40dp"
         android:layout_height="40dp"
+        app:siv_shape_type="circle"
         android:src="@drawable/ic_default_avater" />
 
     <LinearLayout

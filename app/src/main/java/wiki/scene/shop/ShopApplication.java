@@ -6,8 +6,7 @@ import android.content.pm.PackageManager;
 import android.text.TextUtils;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.integration.okhttp3.OkHttpUrlLoader;
-import com.bumptech.glide.load.model.GlideUrl;
+import com.bumptech.glide.MemoryCategory;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.cache.CacheEntity;
 import com.lzy.okgo.cache.CacheMode;
@@ -15,11 +14,11 @@ import com.lzy.okgo.cookie.CookieJarImpl;
 import com.lzy.okgo.cookie.store.MemoryCookieStore;
 import com.lzy.okgo.https.HttpsUtils;
 import com.lzy.okgo.interceptor.HttpLoggingInterceptor;
+import com.sunfusheng.glideimageview.progress.GlideApp;
 import com.umeng.socialize.Config;
 import com.umeng.socialize.PlatformConfig;
 import com.umeng.socialize.UMShareAPI;
 
-import java.io.InputStream;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 
@@ -40,8 +39,8 @@ public class ShopApplication extends Application {
     public static final String USER_INFO_KEY = "user_info_key";
     public static final String UUID_KEY = "uuid";
     public static String UUID = "";
-    public static String CHANNEL_ID ;
-    public static String RESOURCE_ID ;
+    public static String CHANNEL_ID;
+    public static String RESOURCE_ID;
     public static int versionCode = 0;
     public static boolean hasLogin = false;
     public static UserInfo userInfo;
@@ -87,7 +86,8 @@ public class ShopApplication extends Application {
                 .setCacheTime(CacheEntity.CACHE_NEVER_EXPIRE)   //全局统一缓存时间，默认永不过期，可以不传
                 .setRetryCount(0);                         //全局统一超时重连次数，默认为三次，那么最差的情况会请求4次(一次原始请求，三次重连请求)，不需要可以设置为0
         //初始化Glide
-        Glide.get(this).register(GlideUrl.class, InputStream.class, new OkHttpUrlLoader.Factory(builder.build()));
+        //Glide.get(this).register(GlideUrl.class, InputStream.class, new OkHttpUrlLoader.Factory(builder.build()));
+        GlideApp.get(this).setMemoryCategory(MemoryCategory.HIGH);
     }
 
     /**

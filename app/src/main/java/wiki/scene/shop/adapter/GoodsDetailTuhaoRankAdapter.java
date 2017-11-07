@@ -9,13 +9,12 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
+import com.sunfusheng.glideimageview.GlideImageView;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import jp.wasabeef.glide.transformations.CropCircleTransformation;
 import wiki.scene.shop.R;
 import wiki.scene.shop.ShopApplication;
 import wiki.scene.shop.entity.GoodsDetailInfo;
@@ -67,7 +66,7 @@ public class GoodsDetailTuhaoRankAdapter extends BaseAdapter {
         viewHolder.username.setText(list.get(position).getNickname());
         viewHolder.rank.setText("NO." + (position + 1));
         viewHolder.personTimes.setText(String.valueOf(list.get(position).getNumber()));
-        Glide.with(context).load(ShopApplication.configInfo.getFile_domain()+list.get(position).getAvatar()).bitmapTransform(new CropCircleTransformation(context)).into(viewHolder.userAvater);
+        viewHolder.userAvater.loadCircleImage(ShopApplication.configInfo.getFile_domain() + list.get(position).getAvatar(), R.drawable.ic_default_avater);
         if (position == 0) {
             viewHolder.rank.setTextColor(Color.parseColor("#F8B551"));
         } else if (position == 1) {
@@ -82,7 +81,7 @@ public class GoodsDetailTuhaoRankAdapter extends BaseAdapter {
         @BindView(R.id.rank)
         TextView rank;
         @BindView(R.id.user_avater)
-        ImageView userAvater;
+        GlideImageView userAvater;
         @BindView(R.id.username)
         TextView username;
         @BindView(R.id.person_times)

@@ -6,9 +6,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import java.util.List;
 
-import wiki.scene.shop.ui.share.ShareHotestFragment;
-import wiki.scene.shop.ui.share.ShareNewestFragment;
-
 /**
  * Case By:夺宝记录
  * package:wiki.scene.shop.adapter
