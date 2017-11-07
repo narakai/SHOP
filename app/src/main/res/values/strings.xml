@@ -149,7 +149,7 @@
     <string name="wechat_pay">微信支付</string>
     <string name="alipay_pay">支付宝支付</string>
     <string name="pay_order">支付订单</string>
-    <string name="goods_times_code">期号：%1$s</string>
+    <string name="goods_times_code">第%1$s期</string>
     <string name="pending_count_down">揭晓倒计时</string>
     <string name="reckon_detail">计算详情</string>
     <string name="your_has_no_join">您还没参与，快去参与吧~</string>
@@ -238,4 +238,6 @@
     <string name="find_password">找回密码</string>
     <string name="password_reset_success">密码重置成功</string>
 
+    <string name="win_rule">根据当期<font color="#ED1A43">时时彩</font> “开奖号”的<font color="#ED1A43">最后一个数字</font>，
+        为单则“买单”夺宝成功，反之“买双夺宝成功”。</string>
 </resources>

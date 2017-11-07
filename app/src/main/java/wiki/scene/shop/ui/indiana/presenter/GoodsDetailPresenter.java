@@ -50,7 +50,6 @@ public class GoodsDetailPresenter extends BasePresenter<IGoodsDetailView> {
                         mView.refreshComplete();
                     }
                     mView.bindGoodsInfo(data.getData());
-                    mView.bindTuhaoRank(data.getBuyers());
                     mView.bindJoinRecord(data.getLog());
                     mView.bindGuessLike(data.getData().getHot());
                     mView.showCollectionStatus(data.isCollection());

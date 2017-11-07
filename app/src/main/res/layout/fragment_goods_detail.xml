@@ -28,7 +28,8 @@
             android:layout_toLeftOf="@+id/toolbar_share"
             android:text="玩法说明"
             android:textColor="@color/white"
-            android:textSize="@dimen/text_size_middle" />
+            android:textSize="@dimen/text_size_middle"
+            android:visibility="gone" />
 
         <ImageView
             android:id="@+id/toolbar_share"
@@ -37,7 +38,8 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
-            android:src="@drawable/ic_toolbar_share" />
+            android:src="@drawable/ic_toolbar_share"
+            android:visibility="gone" />
     </RelativeLayout>
 
 
@@ -74,7 +76,8 @@
                             <com.youth.banner.Banner
                                 android:id="@+id/banner"
                                 android:layout_width="match_parent"
-                                android:layout_height="133.33dp" />
+                                android:layout_height="133.33dp"
+                                android:background="@color/white" />
 
                             <LinearLayout
                                 android:id="@+id/layout_danmu"
@@ -136,6 +139,11 @@
                             </LinearLayout>
                         </RelativeLayout>
 
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="2dp"
+                            android:background="@color/line_color_2" />
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -153,8 +161,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:background="@drawable/bg_goods_status_wait"
-                                    android:padding="5dp"
-                                    android:text="待揭晓"
+                                    android:text="进行中"
                                     android:textColor="@color/goods_status_wait"
                                     android:textSize="13sp" />
 
@@ -164,238 +171,193 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="8dp"
+                                    android:layout_weight="1"
                                     android:ellipsize="end"
                                     android:lines="1"
                                     android:text="金戒指" />
-                            </LinearLayout>
-
-                            <TextView
-                                android:id="@+id/goods_name_subtitle"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="8dp"
-                                android:layout_marginRight="8dp"
-                                android:layout_marginTop="5.33dp"
-                                android:ellipsize="end"
-                                android:lines="1"
-                                android:text="金戒指"
-                                android:textColor="@color/text_color_content"
-                                android:textSize="13sp" />
-
-                            <TextView
-                                android:id="@+id/goods_times"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_margin="8dp"
-                                android:ellipsize="end"
-                                android:lines="1"
-                                android:text="@string/goods_times_code"
-                                android:textColor="@color/text_color_des"
-                                android:textSize="@dimen/text_size_small" />
-
-                            <include layout="@layout/fragment_goods_detail_status_ongoing" />
-
-                            <include
-                                layout="@layout/fragment_goods_detail_status_pending"
-                                android:visibility="gone" />
-
-                            <include
-                                layout="@layout/fragment_goods_detail_status_announced"
-                                android:visibility="gone" />
-
-                            <RelativeLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content">
-
-                                <View
-                                    android:id="@+id/line"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="1dp"
-                                    android:background="@color/bg_color_gray2" />
-
-                                <LinearLayout
-                                    android:id="@+id/has_join"
-                                    style="@style/layout_padding_style"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_below="@+id/line"
-                                    android:gravity="center_vertical"
-                                    android:orientation="horizontal">
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="@string/your_joined"
-                                        android:textColor="@color/text_color_des"
-                                        android:textSize="@dimen/text_size_small" />
-
-                                    <TextView
-                                        android:id="@+id/goin_times"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="5"
-                                        android:textColor="#FF0000"
-                                        android:textSize="@dimen/text_size_small" />
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="@string/person_time"
-                                        android:textColor="@color/text_color_des"
-                                        android:textSize="@dimen/text_size_small" />
-
-                                    <TextView
-                                        android:id="@+id/my_luck_code"
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginLeft="10dp"
-                                        android:layout_marginRight="10dp"
-                                        android:layout_weight="1"
-                                        android:ellipsize="end"
-                                        android:lines="1"
-                                        android:text="@string/luck_code_xx"
-                                        android:textColor="@color/text_color_des"
-                                        android:textSize="@dimen/text_size_small" />
-
-                                    <TextView
-                                        android:id="@+id/see_all_luck_code"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:background="@drawable/btn_theme"
-                                        android:paddingBottom="3dp"
-                                        android:paddingLeft="8dp"
-                                        android:paddingRight="8dp"
-                                        android:paddingTop="3dp"
-                                        android:text="@string/see_all"
-                                        android:textColor="@color/white"
-                                        android:textSize="@dimen/text_size_big" />
-                                </LinearLayout>
 
                                 <TextView
-                                    android:id="@+id/no_join"
-                                    style="@style/layout_padding_style"
-                                    android:layout_width="match_parent"
+                                    android:id="@+id/goods_times"
+                                    android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_below="@+id/line"
-                                    android:gravity="center"
-                                    android:text="@string/your_has_no_join"
+                                    android:ellipsize="end"
+                                    android:lines="1"
+                                    android:text="@string/goods_times_code"
                                     android:textColor="@color/text_color_des"
-                                    android:textSize="@dimen/text_size_small"
-                                    android:visibility="gone" />
-                            </RelativeLayout>
+                                    android:textSize="@dimen/text_size_small" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="10dp"
+                                android:gravity="bottom"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:id="@+id/goods_price"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+
+                                    android:layout_marginLeft="8dp"
+                                    android:layout_marginRight="8dp"
+                                    android:layout_weight="1"
+                                    android:ellipsize="end"
+                                    android:lines="1"
+                                    android:text="12夺宝币"
+                                    android:textColor="@color/text_color_content"
+                                    android:textSize="13sp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="8dp"
+                                    android:layout_marginRight="8dp"
+                                    android:ellipsize="end"
+                                    android:lines="1"
+                                    android:text="开奖倒计时:"
+                                    android:textColor="#FF0000"
+                                    android:textSize="13sp" />
+
+                                <wiki.scene.shop.widgets.CustomFontTextView
+                                    android:id="@+id/countdownView"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginRight="8dp"
+                                    android:ellipsize="end"
+                                    android:lines="1"
+                                    android:text="18:00"
+                                    android:textColor="#FF0000"
+                                    android:textSize="18sp" />
+                            </LinearLayout>
+
                         </LinearLayout>
 
-                        <TextView
-                            android:id="@+id/image_text_detail"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="13dp"
-                            android:background="@color/white"
-                            android:drawableLeft="@drawable/ic_goods_detail_image_text"
-                            android:drawablePadding="8dp"
-                            android:drawableRight="@drawable/ic_mine_arrow_right"
-                            android:gravity="center_vertical"
-                            android:paddingBottom="13.33dp"
-                            android:paddingLeft="8dp"
-                            android:paddingRight="8dp"
-                            android:paddingTop="13.33dp"
-                            android:text="@string/image_text_detail"
-                            android:textColor="@color/text_color_title"
-                            android:textSize="@dimen/text_size_middle" />
-
-                        <TextView
-                            android:id="@+id/trend"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="1dp"
-                            android:background="@color/white"
-                            android:drawableLeft="@drawable/ic_goods_detail_trend"
-                            android:drawablePadding="8dp"
-                            android:drawableRight="@drawable/ic_mine_arrow_right"
-                            android:gravity="center_vertical"
-                            android:paddingBottom="13.33dp"
-                            android:paddingLeft="8dp"
-                            android:paddingRight="8dp"
-                            android:paddingTop="13.33dp"
-                            android:text="@string/trend"
-                            android:textColor="@color/text_color_title"
-                            android:textSize="@dimen/text_size_middle" />
-
-                        <TextView
-                            android:id="@+id/old_announced"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="1dp"
-                            android:background="@color/white"
-                            android:drawableLeft="@drawable/ic_goods_detail_old_announced"
-                            android:drawablePadding="8dp"
-                            android:drawableRight="@drawable/ic_mine_arrow_right"
-                            android:gravity="center_vertical"
-                            android:paddingBottom="13.33dp"
-                            android:paddingLeft="8dp"
-                            android:paddingRight="8dp"
-                            android:paddingTop="13.33dp"
-                            android:text="@string/old_announced"
-                            android:textColor="@color/text_color_title"
-                            android:textSize="@dimen/text_size_middle" />
-
-                        <TextView
-                            android:id="@+id/share_order_share"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="1dp"
-                            android:background="@color/white"
-                            android:drawableLeft="@drawable/ic_goods_detail_share_order"
-                            android:drawablePadding="8dp"
-                            android:drawableRight="@drawable/ic_mine_arrow_right"
-                            android:gravity="center_vertical"
-                            android:paddingBottom="13.33dp"
-                            android:paddingLeft="8dp"
-                            android:paddingRight="8dp"
-                            android:paddingTop="13.33dp"
-                            android:text="@string/share_order_share"
-                            android:textColor="@color/text_color_title"
-                            android:textSize="@dimen/text_size_middle" />
-
-                        <RelativeLayout
-                            android:id="@+id/layout_tuhaoRank"
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="13.33dp"
                             android:background="@color/white"
-                            android:orientation="vertical"
-                            android:padding="8dp">
+                            android:orientation="vertical">
 
                             <TextView
-                                style="@style/text_title_13sp_style"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:drawableLeft="@drawable/ic_tuhao_rank"
-                                android:drawablePadding="8dp"
-                                android:gravity="center_vertical"
-                                android:text="@string/tuhao_rank" />
+                                android:layout_gravity="center"
+                                android:padding="10dp"
+                                android:text="夺宝规则"
+                                android:textColor="#009BE8" />
 
-                            <TextView
-                                android:id="@+id/list_rules"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentRight="true"
-                                android:drawablePadding="4dp"
-                                android:drawableRight="@drawable/ic_mine_arrow_right"
-                                android:text="@string/list_rules"
-                                android:textColor="@color/text_color_des"
-                                android:textSize="13sp" />
-
-                            <wiki.scene.shop.widgets.CustomeGridView
-                                android:id="@+id/tuhao_rank_gridView"
+                            <View
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_below="@+id/list_rules"
-                                android:layout_marginTop="8dp"
-                                android:horizontalSpacing="0dp"
-                                android:numColumns="3"
-                                android:verticalSpacing="0dp" />
-                        </RelativeLayout>
+                                android:layout_height="1dp"
+                                android:background="@color/line_color_2" />
+
+                            <TextView
+                                android:id="@+id/win_rule"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:padding="10dp"
+                                android:text="@string/win_rule"
+                                android:textColor="@color/text_color_title"
+                                android:textSize="@dimen/text_size_middle" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:paddingBottom="10dp"
+                                android:paddingLeft="10dp"
+                                android:paddingRight="10dp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="开奖时间："
+                                    android:textColor="#009BE8"
+                                    android:textSize="@dimen/text_size_middle" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="10:00-22:00 每10分钟一期"
+                                        android:textColor="@color/text_color_title"
+                                        android:textSize="@dimen/text_size_middle" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="22:00-01:55 每5分钟一期"
+                                        android:textColor="@color/text_color_title"
+                                        android:textSize="@dimen/text_size_middle" />
+                                </LinearLayout>
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="13.33dp"
+                            android:background="@color/white"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:padding="10dp">
+
+                            <TextView
+                                android:id="@+id/buy_type_1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/btn_theme"
+                                android:paddingBottom="5dp"
+                                android:paddingLeft="15dp"
+                                android:paddingRight="15dp"
+                                android:paddingTop="5dp"
+                                android:text="买单"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/toolbar_title_size" />
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="20dp"
+                                android:layout_marginRight="20dp"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="开奖倒计时"
+                                    android:textColor="#FF0000"
+                                    android:textSize="@dimen/text_size_middle" />
+
+                                <wiki.scene.shop.widgets.CustomFontTextView
+                                    android:id="@+id/countdownView2"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="18:00"
+                                    android:textColor="#FF0000"
+                                    android:textSize="20sp" />
+                            </LinearLayout>
+
+                            <TextView
+                                android:id="@+id/buy_type_2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/btn_theme"
+                                android:paddingBottom="5dp"
+                                android:paddingLeft="15dp"
+                                android:paddingRight="15dp"
+                                android:paddingTop="5dp"
+                                android:text="买双"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/toolbar_title_size" />
+                        </LinearLayout>
 
                         <LinearLayout
                             android:id="@+id/layout_join_record"
@@ -477,54 +439,6 @@
                 </ScrollView>
             </wiki.scene.loadmore.PtrClassicFrameLayout>
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="1dp"
-                android:background="@color/white"
-                android:padding="8dp">
-
-                <TextView
-                    android:id="@+id/collection"
-                    android:layout_width="60dp"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:gravity="center"
-                    android:drawablePadding="6dp"
-                    android:drawableTop="@drawable/ic_collection_d"
-                    android:text="@string/collection" />
-
-                <TextView
-                    android:id="@+id/join_car"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:background="@drawable/bg_join_car"
-                    android:paddingBottom="5dp"
-                    android:paddingLeft="8dp"
-                    android:paddingRight="8dp"
-                    android:paddingTop="5dp"
-                    android:text="@string/join_car"
-                    android:textColor="@color/white"
-                    android:textSize="13sp"
-                    android:visibility="gone" />
-
-                <TextView
-                    android:id="@+id/immediately_indiana"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/collection"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignTop="@+id/collection"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="8dp"
-                    android:layout_toRightOf="@+id/collection"
-                    android:background="@drawable/btn_theme"
-                    android:gravity="center"
-                    android:text="@string/immediately_indiana"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/text_size_big" />
-            </RelativeLayout>
         </LinearLayout>
     </wiki.scene.loadmore.StatusViewLayout>
 </LinearLayout>

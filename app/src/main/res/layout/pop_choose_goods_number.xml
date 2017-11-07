@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:text="选择参与份数"
+            android:text="选择参与倍数"
             android:textColor="@color/text_color_title"
             android:textSize="@dimen/text_size_big" />
 
@@ -46,7 +46,7 @@
             android:gravity="center"
             android:paddingBottom="5dp"
             android:paddingTop="5dp"
-            android:text="1份"
+            android:text="1倍"
             android:textColor="@color/white"
             android:textSize="@dimen/text_size_middle" />
 
@@ -61,7 +61,7 @@
             android:gravity="center"
             android:paddingBottom="5dp"
             android:paddingTop="5dp"
-            android:text="5份"
+            android:text="5倍"
             android:textColor="@color/text_color_title"
             android:textSize="@dimen/text_size_middle" />
 
@@ -76,7 +76,7 @@
             android:gravity="center"
             android:paddingBottom="5dp"
             android:paddingTop="5dp"
-            android:text="10份"
+            android:text="10倍"
             android:textColor="@color/text_color_title"
             android:textSize="@dimen/text_size_middle" />
 
@@ -90,7 +90,7 @@
             android:gravity="center"
             android:paddingBottom="5dp"
             android:paddingTop="5dp"
-            android:text="20份"
+            android:text="20倍"
             android:textColor="@color/text_color_title"
             android:textSize="@dimen/text_size_middle" />
     </LinearLayout>
@@ -113,7 +113,7 @@
             android:gravity="center"
             android:paddingBottom="5dp"
             android:paddingTop="5dp"
-            android:text="50份"
+            android:text="50倍"
             android:textColor="@color/text_color_title"
             android:textSize="@dimen/text_size_middle" />
 
@@ -128,7 +128,7 @@
             android:gravity="center"
             android:paddingBottom="5dp"
             android:paddingTop="5dp"
-            android:text="100份"
+            android:text="100倍"
             android:textColor="@color/text_color_title"
             android:textSize="@dimen/text_size_middle" />
 
@@ -143,8 +143,8 @@
             android:gravity="center"
             android:paddingBottom="5dp"
             android:paddingTop="5dp"
-            android:text="包尾"
-            android:textColor="@color/colorPrimary"
+            android:text="200倍"
+            android:textColor="@color/text_color_title"
             android:textSize="@dimen/text_size_middle" />
 
         <EditText
@@ -155,7 +155,7 @@
             android:layout_weight="1"
             android:background="@drawable/bg_number_text"
             android:gravity="center"
-            android:hint="其他份数"
+            android:hint="其他倍数"
             android:inputType="number"
             android:paddingBottom="5dp"
             android:paddingTop="5dp"

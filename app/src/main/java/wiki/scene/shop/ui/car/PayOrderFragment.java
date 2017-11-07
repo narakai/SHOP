@@ -28,10 +28,8 @@ import wiki.scene.shop.entity.CreateOrderInfo;
 import wiki.scene.shop.mvp.BaseBackMvpFragment;
 import wiki.scene.shop.ui.car.mvpview.IPayOrderView;
 import wiki.scene.shop.ui.car.presenter.PayOrderPresenter;
-import wiki.scene.shop.ui.mine.MineRedFragment;
 import wiki.scene.shop.utils.PriceUtil;
 import wiki.scene.shop.utils.ToastUtils;
-import wiki.scene.shop.widgets.CustomListView;
 import wiki.scene.shop.widgets.LoadingDialog;
 
 /**
@@ -42,34 +40,29 @@ import wiki.scene.shop.widgets.LoadingDialog;
 
 public class PayOrderFragment extends BaseBackMvpFragment<IPayOrderView, PayOrderPresenter> implements IPayOrderView {
     private static final String ARG_CREATE_ORDER_INFO = "arg_cart_order_info";
-
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.toolbar_title)
     TextView toolbarTitle;
-    @BindView(R.id.goods_listview)
-    CustomListView goodsListview;
-    @BindView(R.id.radio_wechat_pay)
-    TextView radioWechatPay;
-    @BindView(R.id.radio_alipay)
-    TextView radioAlipay;
-    @BindView(R.id.comfire_pay)
-    Button comfirePay;
-    @BindView(R.id.total_goods_count)
-    TextView totalGoodsCount;
-    @BindView(R.id.total_price)
-    TextView totalPrice;
-    @BindView(R.id.red_name)
-    TextView redName;
-    Unbinder unbinder;
+    @BindView(R.id.goods_name)
+    TextView goodsName;
+    @BindView(R.id.goods_number)
+    TextView goodsNumber;
+    @BindView(R.id.need_price)
+    TextView needPrice;
     @BindView(R.id.user_money)
     TextView userMoney;
     @BindView(R.id.radio_balance_pay_image)
     ImageView radioBalancePayImage;
     @BindView(R.id.radio_balance_pay)
     LinearLayout radioBalancePay;
-    @BindView(R.id.need_price)
-    TextView needPrice;
+    @BindView(R.id.radio_wechat_pay)
+    TextView radioWechatPay;
+    @BindView(R.id.radio_alipay)
+    TextView radioAlipay;
+    @BindView(R.id.comfire_pay)
+    Button comfirePay;
+    Unbinder unbinder;
 
     private CreateOrderInfo createOrderInfo;
 
@@ -118,9 +111,6 @@ public class PayOrderFragment extends BaseBackMvpFragment<IPayOrderView, PayOrde
         List<CreateOrderInfo.CyclesBean> cyclesBeanList = new ArrayList<>();
         cyclesBeanList.add(createOrderInfo.getCycle());
         PayOrderGoodsAdapter adapter = new PayOrderGoodsAdapter(_mActivity, cyclesBeanList);
-        goodsListview.setAdapter(adapter);
-        totalGoodsCount.setText(String.format(getString(R.string.total_xx_goods), cyclesBeanList.size()));
-        totalPrice.setText(PriceUtil.getPrice(createOrderInfo.getCost()));
         userMoney.setText(PriceUtil.getPrice(createOrderInfo.getUser_money()));
         if (createOrderInfo.getUser_money() > createOrderInfo.getCost()) {
             isBalancePay(AppConfig.PAY_TYPE_BALANCE);
@@ -171,11 +161,6 @@ public class PayOrderFragment extends BaseBackMvpFragment<IPayOrderView, PayOrde
         isBalancePay(AppConfig.PAY_TYPE_ALPAY);
     }
 
-    @OnClick(R.id.choose_red)
-    public void onClickChoosedRed() {
-        startForResult(MineRedFragment.newInstance(false, (ArrayList<CreateOrderInfo.CouponsBean>) createOrderInfo.getCoupons()), 200);
-    }
-
     @OnClick(R.id.comfire_pay)
     public void onClickComfirePay() {
         presenter.getPayOrderInfo(createOrderInfo.getOrder_id(), choosedRed == null ? "" : choosedRed.getId(), payType);
@@ -200,20 +185,6 @@ public class PayOrderFragment extends BaseBackMvpFragment<IPayOrderView, PayOrde
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
-    }
-
-    @Override
-    public void onFragmentResult(int requestCode, int resultCode, Bundle data) {
-        super.onFragmentResult(requestCode, resultCode, data);
-        if (data != null && resultCode == RESULT_OK) {
-            if (requestCode == 200) {
-                choosedRed = (CreateOrderInfo.CouponsBean) data.getSerializable("red");
-                if (choosedRed != null) {
-                    redName.setText(choosedRed.getTitle());
-                    needPrice.setText(PriceUtil.getPrice(createOrderInfo.getCost() - choosedRed.getCost() < 0 ? 0 : createOrderInfo.getCost() - choosedRed.getCost()));
-                }
-            }
-        }
     }
 
     @Override

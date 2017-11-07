@@ -25,21 +25,16 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/total_goods_count"
+                    android:id="@+id/goods_name"
                     style="@style/text_title_13sp_style"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/total_xx_goods" />
+                    android:layout_weight="1"
+                    android:text="移动充值卡" />
+
 
                 <TextView
-                    style="@style/text_title_13sp_style"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:text="@string/total1" />
-
-                <TextView
-                    android:id="@+id/total_price"
+                    android:id="@+id/goods_number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="5"
@@ -51,41 +46,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/indiana_coin1" />
-            </LinearLayout>
-
-            <wiki.scene.shop.widgets.CustomListView
-                android:id="@+id/goods_listview"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:divider="@color/transparent"
-                android:dividerHeight="0dp" />
-
-            <LinearLayout
-                android:id="@+id/choose_red"
-                style="@style/layout_padding_style"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="13.33dp"
-                android:background="@color/white"
-                android:orientation="horizontal">
-
-                <TextView
-                    style="@style/text_title_13sp_style"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/red_envelope" />
-
-                <TextView
-                    android:id="@+id/red_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:drawablePadding="10dp"
-                    android:drawableRight="@drawable/ic_mine_arrow_right"
-                    android:gravity="right"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="13sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -122,10 +82,10 @@
                 style="@style/text_title_13sp_style"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="13.33dp"
+                android:layout_marginBottom="10dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
-                android:layout_marginTop="26.66dp"
+                android:layout_marginTop="20dp"
                 android:text="@string/balance_pay" />
 
             <LinearLayout
@@ -152,7 +112,7 @@
 
                 <TextView
                     style="@style/text_title_13sp_style"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/indiana_coin1" />
@@ -170,48 +130,48 @@
                 style="@style/text_title_13sp_style"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="13.33dp"
+                android:layout_marginBottom="10dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
-                android:layout_marginTop="26.66dp"
+                android:layout_marginTop="20dp"
                 android:text="@string/other_pay_way" />
 
 
-                <TextView
-                    android:id="@+id/radio_wechat_pay"
-                    style="@style/text_title_13sp_style"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    android:button="@null"
-                    android:checked="true"
-                    android:drawableLeft="@drawable/ic_wechat"
-                    android:gravity="center_vertical"
-                    android:drawablePadding="5dp"
-                    android:drawableRight="@drawable/ic_radio_button_selector"
-                    android:paddingBottom="13.33dp"
-                    android:paddingLeft="8dp"
-                    android:paddingRight="8dp"
-                    android:paddingTop="13.33dp"
-                    android:text="@string/wechat_pay" />
+            <TextView
+                android:id="@+id/radio_wechat_pay"
+                style="@style/text_title_13sp_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:button="@null"
+                android:checked="true"
+                android:drawableLeft="@drawable/ic_wechat"
+                android:drawablePadding="5dp"
+                android:drawableRight="@drawable/ic_radio_button_selector"
+                android:gravity="center_vertical"
+                android:paddingBottom="13.33dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:paddingTop="13.33dp"
+                android:text="@string/wechat_pay" />
 
-                <TextView
-                    android:id="@+id/radio_alipay"
-                    style="@style/text_title_13sp_style"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:layout_marginTop="1dp"
-                    android:background="@color/white"
-                    android:button="@null"
-                    android:drawableLeft="@drawable/ic_alipay"
-                    android:drawablePadding="5dp"
-                    android:drawableRight="@drawable/ic_radio_button_selector"
-                    android:paddingBottom="13.33dp"
-                    android:paddingLeft="8dp"
-                    android:paddingRight="8dp"
-                    android:paddingTop="13.33dp"
-                    android:text="@string/alipay_pay" />
+            <TextView
+                android:id="@+id/radio_alipay"
+                style="@style/text_title_13sp_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:background="@color/white"
+                android:button="@null"
+                android:drawableLeft="@drawable/ic_alipay"
+                android:drawablePadding="5dp"
+                android:drawableRight="@drawable/ic_radio_button_selector"
+                android:gravity="center_vertical"
+                android:paddingBottom="13.33dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:paddingTop="13.33dp"
+                android:text="@string/alipay_pay" />
         </LinearLayout>
     </ScrollView>
 
