@@ -5,7 +5,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.text.TextUtils;
 
-import com.bumptech.glide.Glide;
+import com.blankj.utilcode.util.Utils;
 import com.bumptech.glide.MemoryCategory;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.cache.CacheEntity;
@@ -54,6 +54,8 @@ public class ShopApplication extends Application {
         RESOURCE_ID = getResouyceName();
         initOKhttp();
         initUmengShare();
+        //初始化工具类
+        Utils.init(this);
     }
 
     /**

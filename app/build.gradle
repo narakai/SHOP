@@ -163,4 +163,6 @@ dependencies {
     compile 'com.github.yilylong:CBDialog:V1.0.1'
     //九宫格
     compile 'com.w4lle.library:NineLayout:1.0.0'
+    //utils
+    compile 'com.blankj:utilcode:1.9.8'
 }

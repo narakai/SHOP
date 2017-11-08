@@ -25,7 +25,7 @@ import wiki.scene.shop.event.TabSelectedEvent;
 import wiki.scene.shop.ui.indiana.IndianaFragment;
 import wiki.scene.shop.ui.mine.MineFragment;
 import wiki.scene.shop.ui.rank.RankFragment;
-import wiki.scene.shop.ui.servicecenter.ServiceCenterFragment;
+import wiki.scene.shop.ui.trend.TrendFragment;
 import wiki.scene.shop.view.BottomBar;
 import wiki.scene.shop.view.BottomBarTab;
 
@@ -60,9 +60,7 @@ public class MainFragment extends SupportFragment {
     private List<String> tabNames = new ArrayList<>();
 
     public static MainFragment newInstance() {
-
         Bundle args = new Bundle();
-
         MainFragment fragment = new MainFragment();
         fragment.setArguments(args);
         return fragment;
@@ -82,13 +80,13 @@ public class MainFragment extends SupportFragment {
         super.onActivityCreated(savedInstanceState);
         SupportFragment firstFragment = findChildFragment(IndianaFragment.class);
         tabNames.add(getString(R.string.indiana_toolbar_text));
+        tabNames.add(getString(R.string.bottom_tab_trend));
         tabNames.add(getString(R.string.bottom_tab_rank));
-        tabNames.add(getString(R.string.bottom_tab_service));
         tabNames.add(getString(R.string.bottom_tab_mine));
         if (firstFragment == null) {
             mFragments[FIRST] = IndianaFragment.newInstance();
-            mFragments[SECOND] = RankFragment.newInstance();
-            mFragments[THIRD] = ServiceCenterFragment.newInstance();
+            mFragments[SECOND] = TrendFragment.newInstance();
+            mFragments[THIRD] = RankFragment.newInstance();
             mFragments[FOUR] = MineFragment.newInstance();
 
             loadMultipleRootFragment(R.id.fl_tab_container, FIRST,
@@ -99,8 +97,8 @@ public class MainFragment extends SupportFragment {
         } else {
             // 这里我们需要拿到mFragments的引用,也可以通过getChildFragmentManager.findFragmentByTag自行进行判断查找(效率更高些),用下面的方法查找更方便些
             mFragments[FIRST] = firstFragment;
-            mFragments[SECOND] = findChildFragment(RankFragment.class);
-            mFragments[THIRD] = findChildFragment(ServiceCenterFragment.class);
+            mFragments[SECOND] = findChildFragment(TrendFragment.class);
+            mFragments[THIRD] = findChildFragment(RankFragment.class);
             mFragments[FOUR] = findChildFragment(MineFragment.class);
         }
         try {
@@ -115,8 +113,8 @@ public class MainFragment extends SupportFragment {
 
         mBottomBar
                 .addItem(new BottomBarTab(_mActivity, R.drawable.ic_tab_index_d, R.drawable.ic_tab_index_s, getString(R.string.bottom_tab_indiana)))
+                .addItem(new BottomBarTab(_mActivity, R.drawable.ic_tab_trend_d, R.drawable.ic_tab_trend_s, getString(R.string.bottom_tab_trend)))
                 .addItem(new BottomBarTab(_mActivity, R.drawable.ic_tab_rank_d, R.drawable.ic_tab_rank_s, getString(R.string.bottom_tab_rank)))
-                .addItem(new BottomBarTab(_mActivity, R.drawable.ic_tab_service_d, R.drawable.ic_tab_service_s, getString(R.string.bottom_tab_service)))
                 .addItem(new BottomBarTab(_mActivity, R.drawable.ic_tab_mine_d, R.drawable.ic_tab_mine_s, getString(R.string.bottom_tab_mine)));
 
 
@@ -127,7 +125,8 @@ public class MainFragment extends SupportFragment {
                 toolbarTitle.setText(tabNames.get(position));
                 if (position != tabNames.size() - 1) {
                     toolbarLayout.setVisibility(View.VISIBLE);
-                    toolbarMessage.setVisibility(View.VISIBLE);
+                    toolbarMessage.setVisibility(View.GONE);
+
                     toolbarPublish.setVisibility(View.GONE);
                 } else {
                     toolbarLayout.setVisibility(View.GONE);

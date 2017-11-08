@@ -375,6 +375,7 @@
                                 android:drawablePadding="8dp"
                                 android:gravity="center_vertical"
                                 android:padding="8dp"
+                                android:textColor="@color/text_color_title"
                                 android:text="@string/join_record" />
 
                             <View
@@ -412,7 +413,6 @@
                             android:layout_height="wrap_content"
                             android:orientation="vertical">
 
-
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -423,7 +423,7 @@
                                 android:gravity="center_vertical"
                                 android:padding="8dp"
                                 android:text="@string/guess_you_like"
-                                android:textColor="@color/text_color_des"
+                                android:textColor="@color/text_color_title"
                                 android:textSize="@dimen/text_size_middle" />
 
                             <wiki.scene.shop.widgets.CustomeGridView
