@@ -22,8 +22,9 @@ import com.bumptech.glide.request.target.Target;
 import com.sunfusheng.glideimageview.progress.OnGlideImageViewListener;
 import com.sunfusheng.glideimageview.progress.OnProgressListener;
 import com.sunfusheng.glideimageview.progress.ProgressManager;
+import com.sunfusheng.glideimageview.transformation.BlurTransformation;
 import com.sunfusheng.glideimageview.transformation.GlideCircleTransformation;
-import com.sunfusheng.glideimageview.transformation.GlideRoundTransform;
+import com.sunfusheng.glideimageview.transformation.RoundedCornersTransformation;
 
 import java.lang.ref.WeakReference;
 
@@ -143,7 +144,16 @@ public class GlideImageLoader {
 
     public RequestOptions roundCornersRequestOptions(int placeholderResId, int errorResId, int dp) {
         return requestOptions(placeholderResId, errorResId)
-                .transform(new MultiTransformation<Bitmap>(new CenterCrop(), new GlideRoundTransform(dp)));
+                .transform(new MultiTransformation<Bitmap>(new CenterCrop(), new RoundedCornersTransformation(dp, 0)));
+    }
+
+    public RequestOptions blurRequestOptions(int placeholderResId) {
+        return blurRequestOptions(placeholderResId, placeholderResId);
+    }
+
+    public RequestOptions blurRequestOptions(int placeholderResId, int errorResId) {
+        return requestOptions(placeholderResId, errorResId)
+                .transform(new MultiTransformation<Bitmap>(new CenterCrop(), new BlurTransformation(getContext(), 12)));
     }
 
     public void loadImage(String url, int placeholderResId) {
@@ -181,6 +191,18 @@ public class GlideImageLoader {
 
     public void loadLocalRoundCornerImage(String localPath, int placeholderResId, int dp) {
         load(FILE + localPath, roundCornersRequestOptions(placeholderResId, dp));
+    }
+
+    public void loadBlurImage(String url, int placeholderResId) {
+        load(url, blurRequestOptions(placeholderResId));
+    }
+
+    public void loadLocalBlurImage(int resId, int placeholderResId) {
+        load(resId, blurRequestOptions(placeholderResId));
+    }
+
+    public void loadLocalBlurImage(String localPath, int placeholderResId) {
+        load(FILE + localPath, blurRequestOptions(placeholderResId));
     }
 
 

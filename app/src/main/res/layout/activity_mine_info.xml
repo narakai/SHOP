@@ -170,4 +170,5 @@
         android:text="@string/save"
         android:textColor="@color/white"
         android:textSize="@dimen/btn_text_size" />
+
 </LinearLayout>

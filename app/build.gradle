@@ -122,9 +122,6 @@ dependencies {
     compile 'com.squareup.okhttp3:okhttp:3.9.0'
     compile 'com.squareup.okio:okio:1.13.0'
     compile 'com.lzy.net:okgo:3.0.4'
-
-    //glide 变换
-    compile 'jp.wasabeef:glide-transformations:2.0.2'
     //EventBus
     compile 'org.greenrobot:eventbus:3.0.0'
     //权限适配
