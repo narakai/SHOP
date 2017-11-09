@@ -45,7 +45,6 @@ public class RankAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         GlideImageLoader.create(viewHolder.avater).loadCircleImage(ShopApplication.configInfo.getFile_domain() + info.getAvatar(), R.drawable.ic_default_avater);
         viewHolder.nickname.setText(info.getNickname());
         viewHolder.winTime.setText(String.valueOf(info.getWin_times()));
-        viewHolder.winPrice.setText(info.getTotal_cost());
     }
 
     @Override
@@ -53,7 +52,8 @@ public class RankAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         return list != null ? list.size() : 0;
     }
 
-    static class RankViewHolder extends RecyclerView.ViewHolder {
+
+    class RankViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.number)
         TextView number;
         @BindView(R.id.avater)
@@ -62,8 +62,6 @@ public class RankAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         TextView nickname;
         @BindView(R.id.win_time)
         TextView winTime;
-        @BindView(R.id.win_price)
-        TextView winPrice;
 
         RankViewHolder(View view) {
             super(view);

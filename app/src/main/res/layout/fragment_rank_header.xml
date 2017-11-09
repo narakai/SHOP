@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white"
+    android:background="@color/color_theme"
     android:orientation="horizontal"
     android:paddingBottom="12dp"
     android:paddingTop="12dp">
@@ -17,32 +17,34 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:layout_weight="3"
+        android:layout_weight="1"
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
         <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:background="@drawable/bg_rank_header_avater"
+            android:gravity="center">
 
-            <ImageView
-                android:id="@+id/rank2_header"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignEnd="@+id/rank2_avater"
-                android:layout_alignParentTop="true"
-                android:src="@drawable/ic_rank_head_2" />
-
-
-            <ImageView
+            <com.sunfusheng.glideimageview.GlideImageView
                 android:id="@+id/rank2_avater"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="7dp"
-                android:padding="1dp" />
-
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:src="@drawable/ic_default_avater"
+                app:siv_border_color="@color/white"
+                app:siv_border_width="2dp"
+                app:siv_shape_type="circle" />
         </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/shape_bg_rank_number"
+            android:gravity="center"
+            android:text="2"
+            android:textColor="@color/white" />
 
         <TextView
             android:id="@+id/rank2_nickname"
@@ -52,8 +54,8 @@
             android:ellipsize="end"
             android:lines="1"
             android:text="昵称2"
-            android:textColor="#C0C0C0"
-            android:textSize="@dimen/text_size_middle" />
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_big" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -65,8 +67,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="获胜"
-                android:textColor="@color/text_color_des"
+                android:text="获奖："
+                android:textColor="#F7CBC2"
                 android:textSize="@dimen/text_size_small" />
 
             <TextView
@@ -74,85 +76,53 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="20"
-                android:textColor="#2FACFF"
-                android:textSize="@dimen/text_size_small" />
+                android:textColor="#F7CBC2"
+                android:textSize="@dimen/text_size_middle" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="组"
-                android:textColor="@color/text_color_des"
-                android:textSize="@dimen/text_size_small" />
+                android:textColor="#F7CBC2"
+                android:textSize="@dimen/text_size_middle" />
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="奖品价值"
-                android:textColor="@color/text_color_content"
-                android:textSize="@dimen/text_size_small" />
-
-            <TextView
-                android:id="@+id/rank2_win_price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="20"
-                android:textColor="#FF0808"
-                android:textSize="@dimen/text_size_small" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="元"
-                android:textColor="@color/text_color_content"
-                android:textSize="@dimen/text_size_small" />
-
-        </LinearLayout>
     </LinearLayout>
-
-    <View
-        android:layout_width="15dp"
-        android:layout_height="1dp" />
 
     <LinearLayout
         android:id="@+id/layout_rank1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:layout_weight="4"
+        android:layout_weight="1"
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
         <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:background="@drawable/bg_rank_header_avater"
+            android:gravity="center">
 
-            <ImageView
-                android:id="@+id/rank1_header"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignRight="@+id/rank1_avater"
-                android:layout_centerHorizontal="true"
-                android:src="@drawable/ic_rank_head_1" />
-
-            <ImageView
+            <com.sunfusheng.glideimageview.GlideImageView
                 android:id="@+id/rank1_avater"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="7dp"
-                android:background="@drawable/ic_rank_1_bg"
-                android:padding="1dp" />
-
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:src="@drawable/ic_default_avater"
+                app:siv_border_color="@color/white"
+                app:siv_border_width="2dp"
+                app:siv_shape_type="circle" />
         </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/shape_bg_rank_number"
+            android:gravity="center"
+            android:text="1"
+            android:textColor="@color/white" />
 
         <TextView
             android:id="@+id/rank1_nickname"
@@ -161,9 +131,9 @@
             android:layout_marginTop="10dp"
             android:ellipsize="end"
             android:lines="1"
-            android:text="昵称2"
-            android:textColor="#F49800"
-            android:textSize="@dimen/text_size_middle" />
+            android:text="昵称1"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_big" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -175,8 +145,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="本月中奖"
-                android:textColor="@color/text_color_des"
+                android:text="获奖："
+                android:textColor="#F7CBC2"
                 android:textSize="@dimen/text_size_small" />
 
             <TextView
@@ -184,85 +154,53 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="20"
-                android:textColor="#2FACFF"
-                android:textSize="@dimen/text_size_small" />
+                android:textColor="#F7CBC2"
+                android:textSize="@dimen/text_size_middle" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="次"
-                android:textColor="@color/text_color_des"
-                android:textSize="@dimen/text_size_small" />
+                android:text="组"
+                android:textColor="#F7CBC2"
+                android:textSize="@dimen/text_size_middle" />
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="奖品价值"
-                android:textColor="@color/text_color_content"
-                android:textSize="@dimen/text_size_small" />
-
-            <TextView
-                android:id="@+id/rank1_win_price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="20"
-                android:textColor="#FF0808"
-                android:textSize="@dimen/text_size_small" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="元"
-                android:textColor="@color/text_color_content"
-                android:textSize="@dimen/text_size_small" />
-
-        </LinearLayout>
     </LinearLayout>
-
-    <View
-        android:layout_width="15dp"
-        android:layout_height="1dp" />
 
     <LinearLayout
         android:id="@+id/layout_rank3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:layout_weight="3"
+        android:layout_weight="1"
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
         <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:background="@drawable/bg_rank_header_avater"
+            android:gravity="center">
 
-            <ImageView
-                android:id="@+id/rank3_header"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignRight="@+id/rank3_avater"
-                android:layout_centerHorizontal="true"
-                android:src="@drawable/ic_rank_head_3" />
-
-            <ImageView
+            <com.sunfusheng.glideimageview.GlideImageView
                 android:id="@+id/rank3_avater"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="7dp"
-                android:background="@drawable/ic_rank_3_bg"
-                android:padding="1dp" />
-
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:src="@drawable/ic_default_avater"
+                app:siv_border_color="@color/white"
+                app:siv_border_width="2dp"
+                app:siv_shape_type="circle" />
         </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/shape_bg_rank_number"
+            android:gravity="center"
+            android:text="3"
+            android:textColor="@color/white" />
 
         <TextView
             android:id="@+id/rank3_nickname"
@@ -271,9 +209,9 @@
             android:layout_marginTop="10dp"
             android:ellipsize="end"
             android:lines="1"
-            android:text="昵称2"
-            android:textColor="#B87333"
-            android:textSize="@dimen/text_size_middle" />
+            android:text="昵称3"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_big" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -285,8 +223,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="本月中奖"
-                android:textColor="@color/text_color_des"
+                android:text="获奖："
+                android:textColor="#F7CBC2"
                 android:textSize="@dimen/text_size_small" />
 
             <TextView
@@ -294,50 +232,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="20"
-                android:textColor="#2FACFF"
-                android:textSize="@dimen/text_size_small" />
+                android:textColor="#F7CBC2"
+                android:textSize="@dimen/text_size_middle" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="次"
-                android:textColor="@color/text_color_des"
-                android:textSize="@dimen/text_size_small" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="奖品价值"
-                android:textColor="@color/text_color_content"
-                android:textSize="@dimen/text_size_small" />
-
-            <TextView
-                android:id="@+id/rank3_win_price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="20"
-                android:textColor="#FF0808"
-                android:textSize="@dimen/text_size_small" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="元"
-                android:textColor="@color/text_color_content"
-                android:textSize="@dimen/text_size_small" />
+                android:text="组"
+                android:textColor="#F7CBC2"
+                android:textSize="@dimen/text_size_middle" />
         </LinearLayout>
     </LinearLayout>
-
-    <View
-        android:layout_width="10dp"
-        android:layout_height="1dp" />
 </LinearLayout>

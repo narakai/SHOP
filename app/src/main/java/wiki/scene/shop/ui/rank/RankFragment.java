@@ -63,9 +63,6 @@ public class RankFragment extends BaseMainMvpFragment<IRankView, RankPresenter> 
     private TextView rank1WinTime;
     private TextView rank2WinTime;
     private TextView rank3WinTime;
-    private TextView rank1WinPrice;
-    private TextView rank2WinPrice;
-    private TextView rank3WinPrice;
 
     private RankAdapter adapter;
     private List<RankInfo> list;
@@ -126,9 +123,6 @@ public class RankFragment extends BaseMainMvpFragment<IRankView, RankPresenter> 
         rank1WinTime = (TextView) headerView.findViewById(R.id.rank1_win_time);
         rank2WinTime = (TextView) headerView.findViewById(R.id.rank2_win_time);
         rank3WinTime = (TextView) headerView.findViewById(R.id.rank3_win_time);
-        rank1WinPrice = (TextView) headerView.findViewById(R.id.rank1_win_price);
-        rank2WinPrice = (TextView) headerView.findViewById(R.id.rank2_win_price);
-        rank3WinPrice = (TextView) headerView.findViewById(R.id.rank3_win_price);
     }
 
     @Override
@@ -230,22 +224,19 @@ public class RankFragment extends BaseMainMvpFragment<IRankView, RankPresenter> 
         switch (headerList.size()) {
             case 3:
                 layoutRank3.setVisibility(View.VISIBLE);
-                GlideImageLoader.create(rank3Avater).loadCircleImage(ShopApplication.configInfo.getFile_domain()+headerList.get(2).getAvatar(),R.drawable.ic_default_avater);
+                GlideImageLoader.create(rank3Avater).loadCircleImage(ShopApplication.configInfo.getFile_domain() + headerList.get(2).getAvatar(), R.drawable.ic_default_avater);
                 rank3Nickname.setText(headerList.get(2).getNickname());
                 rank3WinTime.setText(String.valueOf(headerList.get(2).getWin_times()));
-                rank3WinPrice.setText(headerList.get(2).getTotal_cost());
             case 2:
                 layoutRank2.setVisibility(View.VISIBLE);
-                GlideImageLoader.create(rank2Avater).loadCircleImage(ShopApplication.configInfo.getFile_domain()+headerList.get(1).getAvatar(),R.drawable.ic_default_avater);
+                GlideImageLoader.create(rank2Avater).loadCircleImage(ShopApplication.configInfo.getFile_domain() + headerList.get(1).getAvatar(), R.drawable.ic_default_avater);
                 rank2Nickname.setText(headerList.get(1).getNickname());
                 rank2WinTime.setText(String.valueOf(headerList.get(1).getWin_times()));
-                rank2WinPrice.setText(headerList.get(1).getTotal_cost());
             case 1:
                 layoutRank1.setVisibility(View.VISIBLE);
-                GlideImageLoader.create(rank1Avater).loadCircleImage(ShopApplication.configInfo.getFile_domain()+headerList.get(0).getAvatar(),R.drawable.ic_default_avater);
+                GlideImageLoader.create(rank1Avater).loadCircleImage(ShopApplication.configInfo.getFile_domain() + headerList.get(0).getAvatar(), R.drawable.ic_default_avater);
                 rank1Nickname.setText(headerList.get(0).getNickname());
                 rank1WinTime.setText(String.valueOf(headerList.get(0).getWin_times()));
-                rank1WinPrice.setText(headerList.get(0).getTotal_cost());
                 break;
         }
         switch (headerList.size()) {
