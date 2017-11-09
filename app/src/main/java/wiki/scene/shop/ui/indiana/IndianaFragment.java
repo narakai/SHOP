@@ -8,14 +8,20 @@ import android.view.ViewGroup;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import wiki.scene.loadmore.PtrClassicFrameLayout;
+import wiki.scene.loadmore.PtrDefaultHandler;
+import wiki.scene.loadmore.PtrFrameLayout;
 import wiki.scene.loadmore.StatusViewLayout;
 import wiki.scene.shop.R;
+import wiki.scene.shop.adapter.IndianaCanyuAdapter;
+import wiki.scene.shop.adapter.IndianaGoodsAdapter;
 import wiki.scene.shop.entity.IndianaIndexInfo;
 import wiki.scene.shop.entity.NewWaitInfo;
 import wiki.scene.shop.entity.SliderInfo;
@@ -23,6 +29,7 @@ import wiki.scene.shop.entity.WinningNoticeInfo;
 import wiki.scene.shop.mvp.BaseMainMvpFragment;
 import wiki.scene.shop.ui.indiana.mvpview.IIndianaView;
 import wiki.scene.shop.ui.indiana.presenter.IndianaPresenter;
+import wiki.scene.shop.utils.ThreadPoolUtils;
 import wiki.scene.shop.utils.ViewUtils;
 import wiki.scene.shop.widgets.CustomeGridView;
 import wiki.scene.shop.widgets.NoTouchListView;
@@ -91,6 +98,53 @@ public class IndianaFragment extends BaseMainMvpFragment<IIndianaView, IndianaPr
                 }
             }
         });
+
+        ptrLayout.setLastUpdateTimeRelateObject(this);
+        ptrLayout.setPtrHandler(new PtrDefaultHandler() {
+            @Override
+            public void onRefreshBegin(PtrFrameLayout frame) {
+                ptrLayout.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        _mActivity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                ptrLayout.refreshComplete();
+                            }
+                        });
+                    }
+                }, 2000);
+            }
+        });
+
+        List<String> list = new ArrayList<>();
+        List<String> list1 = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            list.add("用户：" + (i + 1));
+            if (i <= 3) {
+                list1.add("xxx" + i);
+            }
+        }
+        IndianaCanyuAdapter adapter = new IndianaCanyuAdapter(getContext(), list);
+        canyuListView.setAdapter(adapter);
+        huojiangListView.setAdapter(adapter);
+        ThreadPoolUtils threadPoolUtils = new ThreadPoolUtils(ThreadPoolUtils.SingleThread, 1);
+        threadPoolUtils.scheduleWithFixedDelay(new Runnable() {
+            @Override
+            public void run() {
+                _mActivity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        canyuListView.smoothScrollToPositionFromTop(canyuListView.getFirstVisiblePosition() + 1, 1);
+                        huojiangListView.smoothScrollToPositionFromTop(huojiangListView.getFirstVisiblePosition() + 1, 1);
+                    }
+                });
+            }
+        }, 3, 3, TimeUnit.SECONDS);
+
+
+        IndianaGoodsAdapter goodsAdapter = new IndianaGoodsAdapter(getContext(), list1);
+        gridView.setAdapter(goodsAdapter);
     }
 
 

@@ -8,12 +8,13 @@
     android:paddingBottom="10dp"
     android:paddingLeft="15dp"
     android:paddingRight="15dp"
+    android:gravity="center_vertical"
     android:paddingTop="10dp">
 
     <com.sunfusheng.glideimageview.GlideImageView
         android:id="@+id/user_avater"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
         android:layout_centerHorizontal="true"
         android:padding="10dp"
         android:src="@drawable/ic_default_avater"
