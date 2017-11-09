@@ -66,7 +66,7 @@ public class NewestAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 viewHolder.announcedTime.setText(DateUtil.timeStampToStr(info.getOpen_time()));
             }
         }
-        GlideImageLoader.create(viewHolder.goodsImage).loadImage(ShopApplication.configInfo.getFile_domain() + info.getThumb(), R.drawable.ic_default_image);
+        GlideImageLoader.create(viewHolder.goodsImage).loadImage(ShopApplication.configInfo.getFile_domain() + info.getThumb(), R.drawable.ic_default_goods_image);
         viewHolder.goodsTime.setText(String.format(context.getString(R.string.times_code), info.getCycle_code()));
     }
 

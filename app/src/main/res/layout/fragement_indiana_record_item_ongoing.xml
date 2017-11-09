@@ -50,7 +50,7 @@
             android:id="@+id/goods_image"
             android:layout_width="140dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/ic_default_image"
+            android:background="@drawable/ic_default_goods_image"
             android:scaleType="centerCrop"
             app:base="horizontal"
             app:horizontal_weight="370"

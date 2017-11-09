@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:src="@drawable/ic_default_image"
+        android:background="@drawable/ic_default_goods_image"
         app:base="horizontal"
         app:horizontal_weight="468"
         app:vertical_weight="294" />

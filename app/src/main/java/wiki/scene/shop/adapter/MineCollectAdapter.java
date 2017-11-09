@@ -54,7 +54,7 @@ public class MineCollectAdapter extends RecyclerView.Adapter {
         if (holder instanceof ViewHolderType1) {
             ViewHolderType1 viewHolderType1 = (ViewHolderType1) holder;
             viewHolderType1.goodsName.setText(info.getTitle());
-            viewHolderType1.goodsImage.loadImage(ShopApplication.configInfo.getFile_domain() + info.getThumb(), R.drawable.ic_default_image);
+            viewHolderType1.goodsImage.loadImage(ShopApplication.configInfo.getFile_domain() + info.getThumb(), R.drawable.ic_default_goods_image);
             int precent = info.getCurrent_source() * 100 / info.getNeed_source();
             viewHolderType1.precent.setText(precent + "%");
             setGoodsTag(viewHolderType1.goodsTag, info.getType());
@@ -62,13 +62,13 @@ public class MineCollectAdapter extends RecyclerView.Adapter {
         } else if (holder instanceof ViewHolderType2) {
             ViewHolderType2 viewHolderType2 = (ViewHolderType2) holder;
             viewHolderType2.goodsName.setText(info.getTitle());
-            viewHolderType2.goodsImage.loadImage(ShopApplication.configInfo.getFile_domain() + info.getThumb(), R.drawable.ic_default_image);
+            viewHolderType2.goodsImage.loadImage(ShopApplication.configInfo.getFile_domain() + info.getThumb(), R.drawable.ic_default_goods_image);
             viewHolderType2.refreshTime(info.getOpen_time() * 1000 - System.currentTimeMillis());
             setGoodsTag(viewHolderType2.goodsTag, info.getType());
         } else {
             ViewHolderType3 viewHolderType3 = (ViewHolderType3) holder;
             viewHolderType3.goodsName.setText(info.getTitle());
-            viewHolderType3.goodsImage.loadImage(ShopApplication.configInfo.getFile_domain() + info.getThumb(), R.drawable.ic_default_image);
+            viewHolderType3.goodsImage.loadImage(ShopApplication.configInfo.getFile_domain() + info.getThumb(), R.drawable.ic_default_goods_image);
             setGoodsTag(viewHolderType3.goodsTag, info.getType());
             viewHolderType3.luckCode.setText(info.getLucky_code());
         }

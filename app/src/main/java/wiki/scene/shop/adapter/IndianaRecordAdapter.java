@@ -52,7 +52,7 @@ public class IndianaRecordAdapter extends RecyclerView.Adapter<RecyclerView.View
         final MineOrderInfo info = list.get(position);
         IndianaRecordViewHolder viewHolder = (IndianaRecordViewHolder) holder;
         viewHolder.goodsName.setText(info.getTitle());
-        GlideImageLoader.create(viewHolder.goodsImage).loadRoundCornerImage(ShopApplication.configInfo.getFile_domain() + info.getThumb(), R.drawable.ic_default_image, 5);
+        GlideImageLoader.create(viewHolder.goodsImage).loadRoundCornerImage(ShopApplication.configInfo.getFile_domain() + info.getThumb(), R.drawable.ic_default_goods_image, 5);
         viewHolder.goonIndiana.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

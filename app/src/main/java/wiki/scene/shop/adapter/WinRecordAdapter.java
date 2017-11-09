@@ -55,7 +55,7 @@ public class WinRecordAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         viewHolder.joinTimes.setText(String.format(context.getString(R.string.xx_fen), info.getNumber()));
         viewHolder.luckCode.setText(info.getLucky_code());
         viewHolder.announcedTime.setText(DateUtil.timeStampToStr(info.getOpen_time()));
-        GlideImageLoader.create(viewHolder.goodsImage).loadImage(ShopApplication.configInfo.getFile_domain() + info.getThumb(), R.drawable.ic_default_image);
+        GlideImageLoader.create(viewHolder.goodsImage).loadImage(ShopApplication.configInfo.getFile_domain() + info.getThumb(), R.drawable.ic_default_goods_image);
         setGoodsTag(viewHolder.goodsTag, info.getType());
         viewHolder.goToShareOrder.setOnClickListener(new View.OnClickListener() {
             @Override
