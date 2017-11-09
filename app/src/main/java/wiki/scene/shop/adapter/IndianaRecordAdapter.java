@@ -18,7 +18,7 @@ import butterknife.ButterKnife;
 import wiki.scene.shop.R;
 import wiki.scene.shop.ShopApplication;
 import wiki.scene.shop.entity.MineOrderInfo;
-import wiki.scene.shop.widgets.CustomFontTextView;
+import wiki.scene.shop.widgets.RatioImageView;
 
 /**
  * Case By:夺宝记录
@@ -84,31 +84,34 @@ public class IndianaRecordAdapter extends RecyclerView.Adapter<RecyclerView.View
         void goToShareOrder(int position);
     }
 
+
     static class IndianaRecordViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.goods_image)
-        ImageView goodsImage;
         @BindView(R.id.goods_cycle_code)
         TextView goodsCycleCode;
+        @BindView(R.id.buy_time)
+        TextView buyTime;
+        @BindView(R.id.goods_image)
+        RatioImageView goodsImage;
         @BindView(R.id.goods_name)
         TextView goodsName;
-        @BindView(R.id.text_state)
-        TextView textState;
-        @BindView(R.id.buy_number)
-        TextView buyNumber;
-        @BindView(R.id.number_base)
-        TextView numberBase;
-        @BindView(R.id.downtimer)
-        CustomFontTextView downtimer;
-        @BindView(R.id.layout_downtimer)
-        LinearLayout layoutDowntimer;
-        @BindView(R.id.win_number)
-        TextView winNumber;
-        @BindView(R.id.win_state)
-        TextView winState;
-        @BindView(R.id.layout_win_info)
-        LinearLayout layoutWinInfo;
+        @BindView(R.id.play_way)
+        TextView playWay;
+        @BindView(R.id.buy_money)
+        TextView buyMoney;
+        @BindView(R.id.cycle_code)
+        TextView cycleCode;
+        @BindView(R.id.win_code)
+        TextView winCode;
+        @BindView(R.id.layout1)
+        LinearLayout layout1;
         @BindView(R.id.state_image)
         ImageView stateImage;
+        @BindView(R.id.image_goods_status)
+        ImageView imageGoodsStatus;
+        @BindView(R.id.text_goods_status)
+        TextView textGoodsStatus;
+        @BindView(R.id.countdownView)
+        TextView countdownView;
         @BindView(R.id.goon_indiana)
         TextView goonIndiana;
 

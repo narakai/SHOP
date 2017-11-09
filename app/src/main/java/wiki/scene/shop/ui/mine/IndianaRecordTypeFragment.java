@@ -6,11 +6,9 @@ import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.lzy.okgo.OkGo;
 
@@ -37,6 +35,7 @@ import wiki.scene.shop.entity.ResultPageInfo;
 import wiki.scene.shop.http.api.ApiUtil;
 import wiki.scene.shop.itemDecoration.SpacesItemDecoration;
 import wiki.scene.shop.mvp.BaseBackMvpFragment;
+import wiki.scene.shop.mvp.BaseMvpFragment;
 import wiki.scene.shop.ui.car.PayOrderFragment;
 import wiki.scene.shop.ui.indiana.GoodsDetailFragment;
 import wiki.scene.shop.ui.mine.mvpview.IIndianaRecordTypeView;
@@ -50,7 +49,7 @@ import wiki.scene.shop.widgets.LoadingDialog;
  * Author：scene on 2017/7/5 13:49
  */
 
-public class IndianaRecordTypeFragment extends BaseBackMvpFragment<IIndianaRecordTypeView, IndianaRecordTypePresenter> implements IIndianaRecordTypeView {
+public class IndianaRecordTypeFragment extends BaseMvpFragment<IIndianaRecordTypeView, IndianaRecordTypePresenter> implements IIndianaRecordTypeView {
     private final static String ARG_INDIANA_RECORD_TYPE = "arg_indiana_record_type";
     public final static int INDIANA_RECORD_TYPE_ALL = 0;
     public final static int INDIANA_RECORD_TYPE_ONGOING = 1;
@@ -61,10 +60,6 @@ public class IndianaRecordTypeFragment extends BaseBackMvpFragment<IIndianaRecor
     PtrClassicFrameLayout ptrLayout;
     @BindView(R.id.status_layout)
     StatusViewLayout statusLayout;
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
-    @BindView(R.id.toolbar_title)
-    TextView toolbarTitle;
     Unbinder unbinder;
 
     private int page = 1;
@@ -92,14 +87,12 @@ public class IndianaRecordTypeFragment extends BaseBackMvpFragment<IIndianaRecor
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_indiana_record_type, container, false);
         unbinder = ButterKnife.bind(this, view);
-        return attachToSwipeBack(view);
+        return view;
     }
 
     @Override
     public void onEnterAnimationEnd(Bundle savedInstanceState) {
         super.onEnterAnimationEnd(savedInstanceState);
-        toolbarTitle.setText(R.string.indiana_record);
-        initToolbarNav(toolbar);
         initView();
         presenter.getIndianaRecordData(page, true);
     }
