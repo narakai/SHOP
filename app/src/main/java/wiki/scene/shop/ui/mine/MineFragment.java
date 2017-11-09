@@ -7,6 +7,7 @@ import android.support.annotation.StringRes;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -19,6 +20,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 import wiki.scene.shop.R;
 import wiki.scene.shop.ShopApplication;
 import wiki.scene.shop.activity.LoginActivity;
@@ -29,7 +31,6 @@ import wiki.scene.shop.event.StartBrotherEvent;
 import wiki.scene.shop.mvp.BaseMainMvpFragment;
 import wiki.scene.shop.ui.mine.mvpview.IMineView;
 import wiki.scene.shop.ui.mine.presenter.MinePresenter;
-import wiki.scene.shop.utils.PriceUtil;
 import wiki.scene.shop.utils.SharedPreferencesUtil;
 import wiki.scene.shop.widgets.LoadingDialog;
 
@@ -40,19 +41,40 @@ import wiki.scene.shop.widgets.LoadingDialog;
  */
 public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> implements IMineView {
 
+
     @BindView(R.id.user_avater)
     GlideImageView userAvater;
-    @BindView(R.id.image_level)
-    TextView imageLevel;
     @BindView(R.id.username)
     TextView username;
-    @BindView(R.id.level)
-    TextView level;
-    @BindView(R.id.score)
-    TextView score;
-    @BindView(R.id.coin_number)
-    TextView coinNumber;
-
+    @BindView(R.id.user_id)
+    TextView userId;
+    @BindView(R.id.win_time)
+    TextView winTime;
+    @BindView(R.id.commission)
+    TextView commission;
+    @BindView(R.id.coin)
+    TextView coin;
+    @BindView(R.id.layout1)
+    LinearLayout layout1;
+    @BindView(R.id.recharge)
+    TextView recharge;
+    @BindView(R.id.exchange)
+    TextView exchange;
+    @BindView(R.id.draw_cash)
+    TextView drawCash;
+    @BindView(R.id.make_money)
+    TextView makeMoney;
+    @BindView(R.id.indiana_record)
+    TextView indianaRecord;
+    @BindView(R.id.exchange_record)
+    TextView exchangeRecord;
+    @BindView(R.id.draw_cash_record)
+    TextView drawCashRecord;
+    @BindView(R.id.mine_phone)
+    TextView minePhone;
+    @BindView(R.id.mine_card)
+    TextView mineCard;
+    Unbinder unbinder;
     private LoadingDialog loadingDialog;
 
     public static MineFragment newInstance() {
@@ -111,31 +133,6 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
     @OnClick(R.id.indiana_record)
     public void onClickIndianaRecord() {
         presenter.clickIndianaRecord();
-    }
-
-    @OnClick(R.id.win_record)
-    public void onClickWinRecord() {
-        presenter.clickWinRecord();
-    }
-
-    @OnClick(R.id.mine_collect)
-    public void onClickMineCollect() {
-        presenter.clickMyCollect();
-    }
-
-    @OnClick(R.id.mine_share)
-    public void onClickMyShareOrder() {
-        presenter.clickMineShare();
-    }
-
-    @OnClick(R.id.receiver_address)
-    public void onClickReceiverAddress() {
-        presenter.clickMineReceiverAddress();
-    }
-
-    @OnClick(R.id.mine_red)
-    public void onClickMineRed() {
-        presenter.clickMineRed();
     }
 
     @OnClick(R.id.setting)
@@ -240,17 +237,17 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
      */
     @Override
     public void enterSetting() {
-        EventBus.getDefault().post(new StartBrotherEvent(SettingFragment.newInstance()));
+        if (ShopApplication.hasLogin) {
+            startActivity(new Intent(_mActivity, MineInfoActivity.class));
+        } else {
+            enterLogin();
+        }
     }
 
     @Override
     public void hasNoLogin() {
-        level.setVisibility(View.GONE);
-        score.setVisibility(View.GONE);
         username.setText(R.string.please_login);
         userAvater.loadLocalCircleImage(R.drawable.ic_default_avater, R.drawable.ic_default_avater);
-        imageLevel.setText(String.valueOf(1));
-        coinNumber.setText(String.format(getString(R.string.coin_number), String.valueOf(0)));
     }
 
     @Override
@@ -265,14 +262,8 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
 
     @Override
     public void hasLogin() {
-        level.setVisibility(View.VISIBLE);
-        score.setVisibility(View.VISIBLE);
-        level.setText(String.format(getString(R.string.mine_level), ShopApplication.userInfo.getLevel()));
-        score.setText(String.format(getString(R.string.mine_score), ShopApplication.userInfo.getScore()));
-        imageLevel.setText(String.valueOf(ShopApplication.userInfo.getLevel()));
         username.setText(ShopApplication.userInfo.getNickname().isEmpty() ? ShopApplication.userInfo.getMobile() : ShopApplication.userInfo.getNickname());
         userAvater.loadCircleImage(ShopApplication.userInfo.getAvatar(), R.drawable.ic_default_avater);
-        coinNumber.setText(String.format(getString(R.string.coin_number), PriceUtil.getPrice(ShopApplication.userInfo.getMoney())));
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -299,5 +290,6 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
     public void onDestroyView() {
         EventBus.getDefault().unregister(this);
         super.onDestroyView();
+        unbinder.unbind();
     }
 }

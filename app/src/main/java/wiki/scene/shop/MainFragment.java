@@ -123,14 +123,14 @@ public class MainFragment extends SupportFragment {
             public void onTabSelected(int position, int prePosition) {
                 showHideFragment(mFragments[position], mFragments[prePosition]);
                 toolbarTitle.setText(tabNames.get(position));
-                if (position != tabNames.size() - 1) {
-                    toolbarLayout.setVisibility(View.VISIBLE);
-                    toolbarMessage.setVisibility(View.GONE);
-
-                    toolbarPublish.setVisibility(View.GONE);
-                } else {
-                    toolbarLayout.setVisibility(View.GONE);
-                }
+                toolbarMessage.setVisibility(View.GONE);
+//                if (position != tabNames.size() - 1) {
+//                    toolbarLayout.setVisibility(View.VISIBLE);
+//
+//                    toolbarPublish.setVisibility(View.GONE);
+//                } else {
+//                    toolbarLayout.setVisibility(View.GONE);
+//                }
             }
 
             @Override

@@ -44,6 +44,7 @@
             android:background="@drawable/shape_bg_rank_number"
             android:gravity="center"
             android:text="2"
+            android:textSize="@dimen/text_size_middle"
             android:textColor="@color/white" />
 
         <TextView
@@ -122,6 +123,7 @@
             android:background="@drawable/shape_bg_rank_number"
             android:gravity="center"
             android:text="1"
+            android:textSize="@dimen/text_size_middle"
             android:textColor="@color/white" />
 
         <TextView
@@ -200,6 +202,7 @@
             android:background="@drawable/shape_bg_rank_number"
             android:gravity="center"
             android:text="3"
+            android:textSize="@dimen/text_size_middle"
             android:textColor="@color/white" />
 
         <TextView
