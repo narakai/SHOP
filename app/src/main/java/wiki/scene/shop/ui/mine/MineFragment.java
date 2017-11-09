@@ -74,7 +74,15 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
     TextView minePhone;
     @BindView(R.id.mine_card)
     TextView mineCard;
+    @BindView(R.id.today_join)
+    TextView todayJoin;
+    @BindView(R.id.today_commission)
+    TextView todayCommission;
+    @BindView(R.id.today_win)
+    TextView todayWin;
+
     Unbinder unbinder;
+
     private LoadingDialog loadingDialog;
 
     public static MineFragment newInstance() {
@@ -101,13 +109,11 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
 
     private void initView() {
         loadingDialog = LoadingDialog.getInstance(_mActivity);
-
         if (ShopApplication.hasLogin) {
             hasLogin();
         } else {
             hasNoLogin();
         }
-
     }
 
     @OnClick(R.id.user_avater)

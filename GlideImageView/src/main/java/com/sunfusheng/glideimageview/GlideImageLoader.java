@@ -1,6 +1,7 @@
 package com.sunfusheng.glideimageview;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Handler;
@@ -12,7 +13,9 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.MultiTransformation;
 import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
@@ -20,6 +23,7 @@ import com.sunfusheng.glideimageview.progress.OnGlideImageViewListener;
 import com.sunfusheng.glideimageview.progress.OnProgressListener;
 import com.sunfusheng.glideimageview.progress.ProgressManager;
 import com.sunfusheng.glideimageview.transformation.GlideCircleTransformation;
+import com.sunfusheng.glideimageview.transformation.GlideRoundTransform;
 
 import java.lang.ref.WeakReference;
 
@@ -133,6 +137,15 @@ public class GlideImageLoader {
                 .transform(new GlideCircleTransformation());
     }
 
+    public RequestOptions roundCornersRequestOptions(int placeholderResId, int dp) {
+        return roundCornersRequestOptions(placeholderResId, placeholderResId, dp);
+    }
+
+    public RequestOptions roundCornersRequestOptions(int placeholderResId, int errorResId, int dp) {
+        return requestOptions(placeholderResId, errorResId)
+                .transform(new MultiTransformation<Bitmap>(new CenterCrop(), new GlideRoundTransform(dp)));
+    }
+
     public void loadImage(String url, int placeholderResId) {
         load(url, requestOptions(placeholderResId));
     }
@@ -156,6 +169,20 @@ public class GlideImageLoader {
     public void loadLocalCircleImage(String localPath, int placeholderResId) {
         load(FILE + localPath, circleRequestOptions(placeholderResId));
     }
+
+
+    public void loadRoundCornerImage(String url, int placeholderResId, int dp) {
+        load(url, roundCornersRequestOptions(placeholderResId, dp));
+    }
+
+    public void loadLocalRoundCornerImage(int resId, int placeholderResId, int dp) {
+        load(resId, roundCornersRequestOptions(placeholderResId, dp));
+    }
+
+    public void loadLocalRoundCornerImage(String localPath, int placeholderResId, int dp) {
+        load(FILE + localPath, roundCornersRequestOptions(placeholderResId, dp));
+    }
+
 
     private void addProgressListener() {
         if (getImageUrl() == null) return;
