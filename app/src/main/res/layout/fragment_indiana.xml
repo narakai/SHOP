@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <wiki.scene.loadmore.StatusViewLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/status_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="#F5F5F5"
     android:orientation="vertical">
 
     <wiki.scene.loadmore.PtrClassicFrameLayout
@@ -12,60 +11,256 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.design.widget.CoordinatorLayout
-            android:id="@+id/coordinatorLayout"
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <!-- 第二部分:缩放控件-->
-            <android.support.design.widget.AppBarLayout
-                android:id="@+id/appbarlayout"
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_behavior="wiki.scene.shop.widgets.FlingBehavior">
+                android:orientation="vertical">
 
-                <android.support.design.widget.CollapsingToolbarLayout
-                    android:id="@+id/collapsing_tool_bar_test_ctl"
+                <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:fitsSystemWindows="true"
-                    app:expandedTitleMarginEnd="64dp"
-                    app:expandedTitleMarginStart="48dp"
-                    app:layout_scrollFlags="scroll|exitUntilCollapsed">
-
-                    <RelativeLayout
-                        android:id="@+id/userScroreRe"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <include layout="@layout/fragment_indiana_header_view" />
-
-                    </RelativeLayout>
-                </android.support.design.widget.CollapsingToolbarLayout>
-
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:maxHeight="1000dp"
+                    android:src="@drawable/ic_banner" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:background="@color/white"
+                    android:orientation="horizontal"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:paddingTop="10dp">
 
-                    <include layout="@layout/fragment_indiana_title_bar" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:drawableLeft="@drawable/ic_zhuancoin"
+                        android:drawablePadding="5dp"
+                        android:gravity="center_vertical"
+                        android:text="赚取夺宝币"
+                        android:textColor="@color/text_color_title"
+                        android:textSize="@dimen/text_size_small" />
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/line_color_2" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:drawableLeft="@drawable/ic_chongzhi"
+                        android:drawablePadding="5dp"
+                        android:gravity="center_vertical"
+                        android:text="充值"
+                        android:textColor="@color/text_color_title"
+                        android:textSize="@dimen/text_size_small" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:drawableLeft="@drawable/ic_duihuan"
+                        android:drawablePadding="5dp"
+                        android:gravity="center_vertical"
+                        android:text="兑换"
+                        android:textColor="@color/text_color_title"
+                        android:textSize="@dimen/text_size_small" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:drawableLeft="@drawable/ic_tixian"
+                        android:drawablePadding="5dp"
+                        android:gravity="center_vertical"
+                        android:text="提现"
+                        android:textColor="@color/text_color_title"
+                        android:textSize="@dimen/text_size_small" />
                 </LinearLayout>
-            </android.support.design.widget.AppBarLayout>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/white"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:paddingTop="10dp">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/line_color_2"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/shape_btn_theme_orange"
+                        android:paddingBottom="2dp"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingTop="2dp"
+                        android:text="时时彩开奖公布"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_middle" />
 
-        </android.support.design.widget.CoordinatorLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="第xxxxxx期："
+                        android:textColor="@color/color_theme"
+                        android:textSize="@dimen/text_size_middle" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/shape_trend_round_gray"
+                        android:gravity="center"
+                        android:text="1"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_middle" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:background="@drawable/shape_trend_round_gray"
+                        android:gravity="center"
+                        android:text="1"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_middle" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:background="@drawable/shape_trend_round_gray"
+                        android:gravity="center"
+                        android:text="1"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_middle" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:background="@drawable/shape_trend_round_red"
+                        android:gravity="center"
+                        android:text="1"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_middle" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:background="@drawable/shape_trend_round_red"
+                        android:gravity="center"
+                        android:text="1"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_middle" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/white"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:paddingTop="10dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_laba" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="恭喜XXXXX获胜8组       恭喜XXXXX获胜8组"
+                        android:textColor="@color/color_theme"
+                        android:textSize="@dimen/text_size_middle" />
+                </LinearLayout>
+
+                <wiki.scene.shop.widgets.CustomeGridView
+                    android:id="@+id/gridView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:horizontalSpacing="1dp"
+                    android:numColumns="2"
+                    android:verticalSpacing="1dp" />
+
+                <RadioGroup
+                    android:id="@+id/radioGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/white"
+                    android:orientation="horizontal"
+                    android:paddingTop="10dp">
+
+                    <RadioButton
+                        android:id="@+id/rd_canyu"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:button="@null"
+                        android:checked="true"
+                        android:textSize="@dimen/text_size_big"
+                        android:drawableBottom="@drawable/bg_index_radio_button_selector"
+                        android:drawablePadding="10dp"
+                        android:gravity="center"
+                        android:text="最新参与"
+                        android:textColor="@drawable/bg_index_radio_button_textcolor_selector" />
+
+                    <RadioButton
+                        android:id="@+id/rd_huojiang"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:button="@null"
+                        android:textSize="@dimen/text_size_big"
+                        android:drawableBottom="@drawable/bg_index_radio_button_selector"
+                        android:drawablePadding="10dp"
+                        android:gravity="center"
+                        android:text="最新获奖"
+                        android:textColor="@drawable/bg_index_radio_button_textcolor_selector" />
+                </RadioGroup>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <wiki.scene.shop.widgets.NoTouchListView
+                        android:id="@+id/canyuListView"
+                        android:layout_width="match_parent"
+                        android:layout_height="400dp"
+                        android:background="@color/white"
+                        android:divider="#F5F5F5"
+                        android:dividerHeight="1dp" />
+
+                    <wiki.scene.shop.widgets.NoTouchListView
+                        android:id="@+id/huojiangListView"
+                        android:layout_width="match_parent"
+                        android:layout_height="400dp"
+                        android:background="@color/white"
+                        android:divider="#F5F5F5"
+                        android:visibility="gone"
+                        android:dividerHeight="1dp" />
+                </RelativeLayout>
+
+            </LinearLayout>
+        </ScrollView>
+
     </wiki.scene.loadmore.PtrClassicFrameLayout>
 
 </wiki.scene.loadmore.StatusViewLayout>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:paddingBottom="10dp"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp"
+    android:paddingTop="10dp">
+
+    <wiki.scene.shop.widgets.RatioImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_default_image"
+        app:base="horizontal"
+        app:horizontal_weight="468"
+        app:vertical_weight="294" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:ellipsize="end"
+        android:lines="1"
+        android:text="20元移动充值卡"
+        android:textColor="@color/text_color_title"
+        android:textSize="@dimen/text_size_big" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="夺宝价：￥"
+            android:textColor="#999999"
+            android:textSize="@dimen/text_size_small" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="6/8/12"
+            android:textColor="@color/color_theme"
+            android:textSize="@dimen/text_size_small" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/indiana_now"
+            android:drawableLeft="@drawable/ic_naozhong"
+            android:drawablePadding="5dp"
+            android:gravity="center_vertical"
+            android:text="11:12"
+            android:textColor="@color/color_theme"
+            android:textSize="@dimen/text_size_10sp" />
+
+        <TextView
+            android:id="@+id/indiana_now"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/shape_btn_theme_orange"
+            android:paddingBottom="3dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingTop="3dp"
+            android:text="立即夺宝"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_middle" />
+    </RelativeLayout>
+</LinearLayout>
