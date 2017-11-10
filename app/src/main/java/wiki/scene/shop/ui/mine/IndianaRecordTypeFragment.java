@@ -130,7 +130,7 @@ public class IndianaRecordTypeFragment extends BaseMvpFragment<IIndianaRecordTyp
             @Override
             public void toGoodsDetail(int position) {
                 if (getParentFragment() instanceof IndianaRecordFragment) {
-                    ((IndianaRecordFragment) getParentFragment()).start(GoodsDetailFragment.newInstance(list.get(position).getCycle_id()));
+                    ((IndianaRecordFragment) getParentFragment()).start(GoodsDetailFragment.newInstance(1));
                 }
             }
 

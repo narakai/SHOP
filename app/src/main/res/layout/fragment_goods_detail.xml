@@ -3,45 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_color_gray2"
+    android:background="#F0F0F0"
     android:orientation="vertical">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:background="@color/colorPrimary"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:popupTheme="@style/AppTheme.NoActionBar.PopupOverlay" />
-
-        <TextView
-            android:id="@+id/toolbar_how_to_play"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="10dp"
-            android:layout_toLeftOf="@+id/toolbar_share"
-            android:text="玩法说明"
-            android:textColor="@color/white"
-            android:textSize="@dimen/text_size_middle"
-            android:visibility="gone" />
-
-        <ImageView
-            android:id="@+id/toolbar_share"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="10dp"
-            android:src="@drawable/ic_toolbar_share"
-            android:visibility="gone" />
-    </RelativeLayout>
-
+    <include layout="@layout/toolbar_back" />
 
     <wiki.scene.loadmore.StatusViewLayout
         android:id="@+id/status_layout"
@@ -71,374 +36,445 @@
 
                         <RelativeLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:background="@color/white"
+                            android:padding="15dp">
 
-                            <com.youth.banner.Banner
-                                android:id="@+id/banner"
-                                android:layout_width="match_parent"
-                                android:layout_height="133.33dp"
-                                android:background="@color/white" />
-
-                            <LinearLayout
-                                android:id="@+id/layout_danmu"
+                            <wiki.scene.shop.widgets.RatioImageView
+                                android:id="@+id/goods_image"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="20dp"
-                                android:layout_marginTop="20dp"
-                                android:background="@drawable/danmu_bg"
-                                android:gravity="center_vertical"
-                                android:orientation="horizontal"
-                                android:padding="3dp"
-                                android:visibility="gone">
-
-                                <ImageView
-                                    android:id="@+id/danmu_avater"
-                                    android:layout_width="20dp"
-                                    android:layout_height="20dp"
-                                    android:background="@drawable/ic_default_avater" />
-
-                                <TextView
-                                    android:id="@+id/danmu_nickname"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="5dp"
-                                    android:textColor="#FFF100"
-                                    android:textSize="@dimen/text_size_small" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="5dp"
-                                    android:text="参与"
-                                    android:textColor="@color/white"
-                                    android:textSize="@dimen/text_size_small" />
-
-                                <TextView
-                                    android:id="@+id/danmu_person_time"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="5dp"
-                                    android:textColor="#2FACFF"
-                                    android:textSize="@dimen/text_size_small" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="5dp"
-                                    android:text="@string/person_time"
-                                    android:textColor="@color/white"
-                                    android:textSize="@dimen/text_size_small" />
-
-                                <TextView
-                                    android:id="@+id/danmu_time"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="5dp"
-                                    android:textColor="#FFF100"
-                                    android:textSize="@dimen/text_size_small" />
-                            </LinearLayout>
+                                android:background="@drawable/ic_default_goods_image"
+                                app:base="horizontal"
+                                app:horizontal_weight="370"
+                                app:vertical_weight="232" />
                         </RelativeLayout>
 
                         <View
                             android:layout_width="match_parent"
-                            android:layout_height="2dp"
-                            android:background="@color/line_color_2" />
+                            android:layout_height="1dp"
+                            android:background="#F0F0F0" />
 
-                        <LinearLayout
+                        <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@color/white"
-                            android:orientation="vertical">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                android:padding="8dp">
-
-                                <TextView
-                                    android:id="@+id/goods_status"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:background="@drawable/bg_goods_status_wait"
-                                    android:text="进行中"
-                                    android:textColor="@color/goods_status_wait"
-                                    android:textSize="13sp" />
-
-                                <TextView
-                                    android:id="@+id/goods_name"
-                                    style="@style/text_title_13sp_style"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="8dp"
-                                    android:layout_weight="1"
-                                    android:ellipsize="end"
-                                    android:lines="1"
-                                    android:text="金戒指" />
-
-                                <TextView
-                                    android:id="@+id/goods_times"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:ellipsize="end"
-                                    android:lines="1"
-                                    android:text="@string/goods_times_code"
-                                    android:textColor="@color/text_color_des"
-                                    android:textSize="@dimen/text_size_small" />
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="10dp"
-                                android:gravity="bottom"
-                                android:orientation="horizontal">
-
-                                <TextView
-                                    android:id="@+id/goods_price"
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-
-                                    android:layout_marginLeft="8dp"
-                                    android:layout_marginRight="8dp"
-                                    android:layout_weight="1"
-                                    android:ellipsize="end"
-                                    android:lines="1"
-                                    android:text="12夺宝币"
-                                    android:textColor="@color/text_color_content"
-                                    android:textSize="13sp" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="8dp"
-                                    android:layout_marginRight="8dp"
-                                    android:ellipsize="end"
-                                    android:lines="1"
-                                    android:text="开奖倒计时:"
-                                    android:textColor="#FF0000"
-                                    android:textSize="13sp" />
-
-                                <wiki.scene.shop.widgets.CustomFontTextView
-                                    android:id="@+id/countdownView"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginRight="8dp"
-                                    android:ellipsize="end"
-                                    android:lines="1"
-                                    android:text="18:00"
-                                    android:textColor="#FF0000"
-                                    android:textSize="18sp" />
-                            </LinearLayout>
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="13.33dp"
-                            android:background="@color/white"
-                            android:orientation="vertical">
+                            android:paddingBottom="10dp"
+                            android:paddingLeft="15dp"
+                            android:paddingRight="15dp"
+                            android:paddingTop="10dp">
 
                             <TextView
+                                android:id="@+id/cycle_code"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:padding="10dp"
-                                android:text="夺宝规则"
-                                android:textColor="#009BE8" />
-
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:background="@color/line_color_2" />
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:text="第12345646784期"
+                                android:textColor="@color/text_color_content"
+                                android:textSize="@dimen/text_size_small" />
 
                             <TextView
-                                android:id="@+id/win_rule"
+                                android:id="@+id/goods_name"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:padding="10dp"
-                                android:text="@string/win_rule"
+                                android:layout_alignParentLeft="true"
+                                android:layout_marginRight="15dp"
+                                android:layout_toLeftOf="@+id/cycle_code"
+                                android:ellipsize="end"
+                                android:lines="1"
+                                android:text="20元商品"
                                 android:textColor="@color/text_color_title"
-                                android:textSize="@dimen/text_size_middle" />
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                android:paddingBottom="10dp"
-                                android:paddingLeft="10dp"
-                                android:paddingRight="10dp">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="开奖时间："
-                                    android:textColor="#009BE8"
-                                    android:textSize="@dimen/text_size_middle" />
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="vertical">
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="10:00-22:00 每10分钟一期"
-                                        android:textColor="@color/text_color_title"
-                                        android:textSize="@dimen/text_size_middle" />
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="22:00-01:55 每5分钟一期"
-                                        android:textColor="@color/text_color_title"
-                                        android:textSize="@dimen/text_size_middle" />
-                                </LinearLayout>
-                            </LinearLayout>
-                        </LinearLayout>
+                                android:textSize="@dimen/text_size_big" />
+                        </RelativeLayout>
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="13.33dp"
                             android:background="@color/white"
-                            android:gravity="center"
-                            android:orientation="horizontal"
-                            android:padding="10dp">
+                            android:gravity="center_vertical"
+                            android:paddingBottom="10dp"
+                            android:paddingLeft="15dp"
+                            android:paddingRight="15dp">
 
                             <TextView
-                                android:id="@+id/buy_type_1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:background="@drawable/btn_theme"
-                                android:paddingBottom="5dp"
-                                android:paddingLeft="15dp"
-                                android:paddingRight="15dp"
-                                android:paddingTop="5dp"
-                                android:text="买单"
-                                android:textColor="@color/white"
-                                android:textSize="@dimen/toolbar_title_size" />
+                                android:text="夺宝价："
+                                android:textColor="@color/text_color_content"
+                                android:textSize="@dimen/text_size_small" />
 
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="20dp"
-                                android:layout_marginRight="20dp"
-                                android:gravity="center"
+                                android:layout_marginLeft="10dp"
+                                android:gravity="center_horizontal"
                                 android:orientation="vertical">
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="开奖倒计时"
-                                    android:textColor="#FF0000"
-                                    android:textSize="@dimen/text_size_middle" />
+                                    android:text="12"
+                                    android:textColor="@color/color_theme"
+                                    android:textSize="@dimen/text_size_small" />
 
-                                <wiki.scene.shop.widgets.CustomFontTextView
-                                    android:id="@+id/countdownView2"
+                                <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="18:00"
-                                    android:textColor="#FF0000"
-                                    android:textSize="20sp" />
+                                    android:text="(双人)"
+                                    android:textColor="@color/text_color_content"
+                                    android:textSize="@dimen/text_size_small" />
                             </LinearLayout>
 
-                            <TextView
-                                android:id="@+id/buy_type_2"
+                            <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:background="@drawable/btn_theme"
-                                android:paddingBottom="5dp"
-                                android:paddingLeft="15dp"
-                                android:paddingRight="15dp"
-                                android:paddingTop="5dp"
-                                android:text="买双"
-                                android:textColor="@color/white"
-                                android:textSize="@dimen/toolbar_title_size" />
-                        </LinearLayout>
+                                android:layout_marginLeft="10dp"
+                                android:gravity="center_horizontal"
+                                android:orientation="vertical">
 
-                        <LinearLayout
-                            android:id="@+id/layout_join_record"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="13.33dp"
-                            android:background="@color/white"
-                            android:orientation="vertical">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="12"
+                                    android:textColor="@color/color_theme"
+                                    android:textSize="@dimen/text_size_small" />
 
-                            <TextView
-                                style="@style/text_title_13sp_style"
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="(四人)"
+                                    android:textColor="@color/text_color_content"
+                                    android:textSize="@dimen/text_size_small" />
+                            </LinearLayout>
+
+                            <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:drawableLeft="@drawable/ic_join_record"
-                                android:drawablePadding="8dp"
-                                android:gravity="center_vertical"
-                                android:padding="8dp"
-                                android:textColor="@color/text_color_title"
-                                android:text="@string/join_record" />
+                                android:layout_marginLeft="10dp"
+                                android:gravity="center_horizontal"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="12"
+                                    android:textColor="@color/color_theme"
+                                    android:textSize="@dimen/text_size_small" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="(十人)"
+                                    android:textColor="@color/text_color_content"
+                                    android:textSize="@dimen/text_size_small" />
+                            </LinearLayout>
 
                             <View
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:background="@color/bg_color_gray2" />
-
-                            <wiki.scene.shop.widgets.CustomListView
-                                android:id="@+id/join_record_listview"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:divider="@color/transparent"
-                                android:dividerHeight="0dp" />
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_weight="1" />
 
                             <TextView
-                                android:id="@+id/see_all_join_record"
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginBottom="13.33dp"
-                                android:layout_marginLeft="50dp"
-                                android:layout_marginRight="50dp"
-                                android:layout_marginTop="20dp"
-                                android:background="@drawable/btn_theme"
-                                android:gravity="center"
-                                android:paddingBottom="10dp"
-                                android:paddingTop="10dp"
-                                android:text="@string/see_all"
+                                android:background="@drawable/shape_btn_theme_orange"
+                                android:paddingBottom="3dp"
+                                android:paddingLeft="10dp"
+                                android:paddingRight="10dp"
+                                android:paddingTop="3dp"
+                                android:text="04:28"
                                 android:textColor="@color/white"
                                 android:textSize="@dimen/text_size_big" />
                         </LinearLayout>
 
-                        <LinearLayout
-                            android:id="@+id/layout_guess_like"
+                        <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical">
+                            android:layout_marginTop="10dp"
+                            android:background="@color/white"
+                            android:gravity="center"
+                            android:paddingBottom="10dp"
+                            android:paddingLeft="15dp"
+                            android:paddingRight="15dp"
+                            android:paddingTop="10dp"
+                            android:text="夺宝规则"
+                            android:textColor="@color/color_theme"
+                            android:textSize="@dimen/text_size_big" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="1dp"
+                            android:background="@color/white"
+                            android:orientation="vertical"
+                            android:paddingBottom="10dp"
+                            android:paddingLeft="15dp"
+                            android:paddingRight="15dp"
+                            android:paddingTop="10dp">
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="13.33dp"
-                                android:background="@color/white"
-                                android:drawableLeft="@drawable/ic_car_like"
-                                android:drawablePadding="8dp"
-                                android:gravity="center_vertical"
-                                android:padding="8dp"
-                                android:text="@string/guess_you_like"
-                                android:textColor="@color/text_color_title"
+                                android:text="多人PK各出一分钱众筹商品，根据时时彩最新一期开奖号码来决定商品归属"
+                                android:textColor="@color/color_theme"
                                 android:textSize="@dimen/text_size_middle" />
 
-                            <wiki.scene.shop.widgets.CustomeGridView
-                                android:id="@+id/guesslike_gridView"
+                            <LinearLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_marginTop="1dp"
-                                android:horizontalSpacing="1dp"
-                                android:numColumns="2"
-                                android:verticalSpacing="1dp" />
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:orientation="horizontal">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:orientation="vertical">
+
+                                    <RelativeLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="vertical">
+
+                                        <TextView
+                                            android:id="@+id/rule1"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_alignParentLeft="true"
+                                            android:text="双人夺宝:"
+                                            android:textColor="@color/color_theme"
+                                            android:textSize="@dimen/text_size_small" />
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_toRightOf="@+id/rule1"
+                                            android:ellipsize="end"
+                                            android:lines="1"
+                                            android:text="半价购买商品，中奖率高达50%"
+                                            android:textColor="@color/text_color_content"
+                                            android:textSize="@dimen/text_size_small" />
+                                    </RelativeLayout>
+
+                                    <RelativeLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="3dp"
+                                        android:orientation="vertical">
+
+                                        <TextView
+                                            android:id="@+id/rule2"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_alignParentLeft="true"
+                                            android:text="四人夺宝:"
+                                            android:textColor="@color/color_theme"
+                                            android:textSize="@dimen/text_size_small" />
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_toRightOf="@+id/rule2"
+                                            android:ellipsize="end"
+                                            android:lines="1"
+                                            android:text="1/4价格购买商品，中奖获取4倍收益"
+                                            android:textColor="@color/text_color_content"
+                                            android:textSize="@dimen/text_size_small" />
+                                    </RelativeLayout>
+
+                                    <RelativeLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="3dp"
+                                        android:orientation="vertical">
+
+                                        <TextView
+                                            android:id="@+id/rule3"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_alignParentLeft="true"
+                                            android:text="十人夺宝:"
+                                            android:textColor="@color/color_theme"
+                                            android:textSize="@dimen/text_size_small" />
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_toRightOf="@+id/rule3"
+                                            android:ellipsize="end"
+                                            android:lines="1"
+                                            android:text="1/10超低价购买，获奖收益高达10倍"
+                                            android:textColor="@color/text_color_content"
+                                            android:textSize="@dimen/text_size_small" />
+                                    </RelativeLayout>
+                                </LinearLayout>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="bottom"
+                                    android:background="@drawable/shape_theme_round_corner_small"
+                                    android:paddingBottom="2dp"
+                                    android:paddingLeft="5dp"
+                                    android:paddingRight="5dp"
+                                    android:paddingTop="2dp"
+                                    android:text="玩法说明"
+                                    android:textColor="@color/color_theme"
+                                    android:textSize="@dimen/text_size_middle" />
+                            </LinearLayout>
                         </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:background="@color/white"
+                            android:orientation="horizontal"
+                            android:paddingBottom="10dp"
+                            android:paddingLeft="15dp"
+                            android:paddingRight="15dp"
+                            android:paddingTop="10dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="第"
+                                android:textColor="@color/color_theme"
+                                android:textSize="@dimen/text_size_middle" />
+
+                            <TextView
+                                android:id="@+id/last_cycle_code"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:layout_marginRight="5dp"
+                                android:text="xxxxxxxx"
+                                android:textColor="@color/color_theme"
+                                android:textSize="@dimen/text_size_middle" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="期"
+                                android:textColor="@color/color_theme"
+                                android:textSize="@dimen/text_size_middle" />
+
+                            <TextView
+                                android:id="@+id/last_win_code"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:text="31745"
+                                android:textColor="@color/color_theme"
+                                android:textSize="@dimen/text_size_middle" />
+
+                            <TextView
+                                android:id="@+id/last_open_result"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:drawableRight="@drawable/ic_arrow_bottom"
+                                android:text="(大|双|大双|7)"
+                                android:textColor="@color/color_theme"
+                                android:textSize="@dimen/text_size_middle" />
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:background="@color/white"
+                            android:paddingBottom="10dp"
+                            android:paddingLeft="15dp"
+                            android:paddingRight="15dp"
+                            android:paddingTop="10dp"
+                            android:text="抢购榜单"
+                            android:textColor="@color/color_theme"
+                            android:textSize="@dimen/text_size_big" />
+
+                        <wiki.scene.shop.widgets.CustomListView
+                            android:id="@+id/buyListView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:divider="#00000000"
+                            android:dividerHeight="0dp" />
+
+                        <RadioGroup
+                            android:id="@+id/radioGroup"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:background="@color/white"
+                            android:orientation="horizontal"
+                            android:paddingTop="10dp">
+
+                            <RadioButton
+                                android:id="@+id/rd_jieshao"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:button="@null"
+                                android:checked="true"
+                                android:drawableBottom="@drawable/bg_index_radio_button_selector"
+                                android:drawablePadding="10dp"
+                                android:gravity="center"
+                                android:text="商品介绍"
+                                android:textColor="@drawable/bg_index_radio_button_textcolor_selector"
+                                android:textSize="@dimen/text_size_big" />
+
+                            <RadioButton
+                                android:id="@+id/rd_guige"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:button="@null"
+                                android:drawableBottom="@drawable/bg_index_radio_button_selector"
+                                android:drawablePadding="10dp"
+                                android:gravity="center"
+                                android:text="参数规格"
+                                android:textColor="@drawable/bg_index_radio_button_textcolor_selector"
+                                android:textSize="@dimen/text_size_big" />
+
+                            <RadioButton
+                                android:id="@+id/rd_shouhou"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:button="@null"
+                                android:drawableBottom="@drawable/bg_index_radio_button_selector"
+                                android:drawablePadding="10dp"
+                                android:gravity="center"
+                                android:text="售后保障"
+                                android:textColor="@drawable/bg_index_radio_button_textcolor_selector"
+                                android:textSize="@dimen/text_size_big" />
+                        </RadioGroup>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="#F0F0F0" />
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="300dp"
+                            android:background="@color/white" />
                     </LinearLayout>
                 </ScrollView>
             </wiki.scene.loadmore.PtrClassicFrameLayout>
 
+            <TextView
+                android:id="@+id/buy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/color_theme"
+                android:gravity="center"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:text="立即夺宝"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
         </LinearLayout>
     </wiki.scene.loadmore.StatusViewLayout>
 </LinearLayout>

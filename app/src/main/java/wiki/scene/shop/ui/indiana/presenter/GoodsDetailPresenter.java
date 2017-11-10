@@ -31,7 +31,7 @@ public class GoodsDetailPresenter extends BasePresenter<IGoodsDetailView> {
         model = new GoodsDetailModel();
     }
 
-    public void getGoodsDetailInfo(final boolean isFirst, String cycleId) {
+    public void getGoodsDetailInfo(final boolean isFirst, int cycleId) {
         try {
             if (isFirst) {
                 mView.showLoading(0);
@@ -182,27 +182,27 @@ public class GoodsDetailPresenter extends BasePresenter<IGoodsDetailView> {
                 model.addCollection(params, new HttpResultListener<String>() {
                     @Override
                     public void onSuccess(String data) {
-                        try{
+                        try {
                             mView.hasCollected();
-                        }catch (Exception e){
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }
 
                     @Override
                     public void onFail(String message) {
-                        try{
+                        try {
                             mView.showMessage(message);
-                        }catch (Exception e){
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }
 
                     @Override
                     public void onFinish() {
-                        try{
+                        try {
                             mView.hideProgressDialog();
-                        }catch (Exception e){
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }
@@ -226,27 +226,27 @@ public class GoodsDetailPresenter extends BasePresenter<IGoodsDetailView> {
                 model.cancelCollection(params, new HttpResultListener<String>() {
                     @Override
                     public void onSuccess(String data) {
-                        try{
+                        try {
                             mView.noCollected();
-                        }catch (Exception e){
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }
 
                     @Override
                     public void onFail(String message) {
-                        try{
+                        try {
                             mView.showMessage(message);
-                        }catch (Exception e){
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }
 
                     @Override
                     public void onFinish() {
-                        try{
+                        try {
                             mView.hideProgressDialog();
-                        }catch (Exception e){
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }

@@ -148,7 +148,7 @@ public class Price10IndianaFragment extends BaseBackMvpFragment<IPrice10IndianaV
         mAdapter.setOnItemClickListener(new RecyclerAdapterWithHF.OnItemClickListener() {
             @Override
             public void onItemClick(RecyclerAdapterWithHF adapter, RecyclerView.ViewHolder vh, int position) {
-                start(GoodsDetailFragment.newInstance(list.get(position).getId()));
+                start(GoodsDetailFragment.newInstance(1));
             }
         });
     }

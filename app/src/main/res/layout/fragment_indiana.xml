@@ -181,7 +181,8 @@
                         android:layout_height="wrap_content"
                         android:src="@drawable/ic_laba" />
 
-                    <TextView
+                    <wiki.scene.shop.widgets.MarqueeView
+                        android:id="@+id/notice"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"

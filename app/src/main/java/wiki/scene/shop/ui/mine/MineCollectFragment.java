@@ -115,7 +115,7 @@ public class MineCollectFragment extends BaseBackMvpFragment<IMineCollectView, M
         mAdapter.setOnItemClickListener(new RecyclerAdapterWithHF.OnItemClickListener() {
             @Override
             public void onItemClick(RecyclerAdapterWithHF adapter, RecyclerView.ViewHolder vh, int position) {
-                start(GoodsDetailFragment.newInstance(list.get(position).getCycle_id()));
+                start(GoodsDetailFragment.newInstance(1));
             }
         });
     }

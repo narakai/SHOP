@@ -5,11 +5,15 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.lzy.okgo.OkGo;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +32,7 @@ import wiki.scene.shop.ShopApplication;
 import wiki.scene.shop.adapter.IndianaCanyuAdapter;
 import wiki.scene.shop.adapter.IndianaGoodsAdapter;
 import wiki.scene.shop.entity.IndexInfo;
+import wiki.scene.shop.event.StartBrotherEvent;
 import wiki.scene.shop.http.api.ApiUtil;
 import wiki.scene.shop.mvp.BaseMainMvpFragment;
 import wiki.scene.shop.ui.indiana.mvpview.IIndianaView;
@@ -35,6 +40,7 @@ import wiki.scene.shop.ui.indiana.presenter.IndianaPresenter;
 import wiki.scene.shop.utils.ThreadPoolUtils;
 import wiki.scene.shop.utils.ViewUtils;
 import wiki.scene.shop.widgets.CustomeGridView;
+import wiki.scene.shop.widgets.MarqueeView;
 import wiki.scene.shop.widgets.NoTouchListView;
 
 /**
@@ -62,9 +68,14 @@ public class IndianaFragment extends BaseMainMvpFragment<IIndianaView, IndianaPr
     @BindView(R.id.status_layout)
     StatusViewLayout statusLayout;
     Unbinder unbinder;
+    @BindView(R.id.notice)
+    MarqueeView notice;
 
     private List<IndexInfo.ProductsBean> goodsList = new ArrayList<>();
     private IndianaGoodsAdapter goodsAdapter;
+
+    private ScheduledFuture scheduledFuture;
+    private ThreadPoolUtils threadPoolUtils;
 
     public static IndianaFragment newInstance() {
         Bundle args = new Bundle();
@@ -121,15 +132,19 @@ public class IndianaFragment extends BaseMainMvpFragment<IIndianaView, IndianaPr
         IndianaCanyuAdapter adapter = new IndianaCanyuAdapter(getContext(), list);
         canyuListView.setAdapter(adapter);
         huojiangListView.setAdapter(adapter);
-        ThreadPoolUtils threadPoolUtils = new ThreadPoolUtils(ThreadPoolUtils.SingleThread, 1);
-        ScheduledFuture scheduledFuture = threadPoolUtils.scheduleWithFixedDelay(new Runnable() {
+        threadPoolUtils = new ThreadPoolUtils(ThreadPoolUtils.SingleThread, 1);
+        scheduledFuture = threadPoolUtils.scheduleWithFixedDelay(new Runnable() {
             @Override
             public void run() {
                 _mActivity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        canyuListView.smoothScrollToPositionFromTop(canyuListView.getFirstVisiblePosition() + 1, 1);
-                        huojiangListView.smoothScrollToPositionFromTop(huojiangListView.getFirstVisiblePosition() + 1, 1);
+                        try {
+                            canyuListView.smoothScrollToPositionFromTop(canyuListView.getFirstVisiblePosition() + 1, 1);
+                            huojiangListView.smoothScrollToPositionFromTop(huojiangListView.getFirstVisiblePosition() + 1, 1);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 });
             }
@@ -137,6 +152,15 @@ public class IndianaFragment extends BaseMainMvpFragment<IIndianaView, IndianaPr
 
         goodsAdapter = new IndianaGoodsAdapter(getContext(), goodsList);
         gridView.setAdapter(goodsAdapter);
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                EventBus.getDefault().post(new StartBrotherEvent(GoodsDetailFragment.newInstance(goodsList.get(i).getId())));
+            }
+        });
+        notice.setFocusable(true);
+        notice.setFocusableInTouchMode(true);
+        notice.requestFocus();
     }
 
 
@@ -240,6 +264,12 @@ public class IndianaFragment extends BaseMainMvpFragment<IIndianaView, IndianaPr
 
     @Override
     public void onDestroyView() {
+        if (scheduledFuture != null) {
+            scheduledFuture.cancel(true);
+        }
+        if (threadPoolUtils != null && !threadPoolUtils.isShutDown()) {
+            threadPoolUtils.shutDownNow();
+        }
         OkGo.getInstance().cancelTag(ApiUtil.INDEX_TAG);
         super.onDestroyView();
         unbinder.unbind();

@@ -135,7 +135,7 @@ public class CarFragment extends BaseMainMvpFragment<ICarView, CarPresenter> imp
         likeGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                EventBus.getDefault().post(new StartBrotherEvent(GoodsDetailFragment.newInstance(guessLikeList.get(position).getId())));
+                EventBus.getDefault().post(new StartBrotherEvent(GoodsDetailFragment.newInstance(1)));
             }
         });
 
@@ -324,7 +324,7 @@ public class CarFragment extends BaseMainMvpFragment<ICarView, CarPresenter> imp
 
     @Override
     public void onItemClickGoodsImage(int position) {
-        EventBus.getDefault().post(new StartBrotherEvent(GoodsDetailFragment.newInstance(goodsList.get(position).getProduct_id())));
+        EventBus.getDefault().post(new StartBrotherEvent(GoodsDetailFragment.newInstance(1)));
     }
 
     @Override
