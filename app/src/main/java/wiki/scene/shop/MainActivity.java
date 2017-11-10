@@ -7,6 +7,8 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.model.Response;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.socialize.UMShareAPI;
 import com.yanzhenjie.permission.AndPermission;
@@ -17,13 +19,20 @@ import com.yuyh.library.imgsel.ImgSelActivity;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 
 import me.yokeyword.fragmentation.SupportActivity;
 import me.yokeyword.fragmentation.anim.DefaultHorizontalAnimator;
 import me.yokeyword.fragmentation.anim.FragmentAnimator;
 import wiki.scene.loadmore.utils.SceneLogUtil;
 import wiki.scene.shop.config.AppConfig;
+import wiki.scene.shop.entity.CurrentCycleInfo;
 import wiki.scene.shop.event.ChooseAvaterResultEvent;
+import wiki.scene.shop.http.api.ApiUtil;
+import wiki.scene.shop.http.base.LzyResponse;
+import wiki.scene.shop.http.callback.JsonCallback;
+import wiki.scene.shop.utils.ThreadPoolUtils;
 
 /**
  * Case By: 主界面
@@ -31,7 +40,6 @@ import wiki.scene.shop.event.ChooseAvaterResultEvent;
  * Author：scene on 2017/6/26 14:03
  */
 public class MainActivity extends SupportActivity {
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +47,7 @@ public class MainActivity extends SupportActivity {
         if (findFragment(MainFragment.class) == null) {
             loadRootFragment(R.id.fl_container, MainFragment.newInstance());
         }
+        getCurrentCycle();
     }
 
     @Override
@@ -105,7 +114,52 @@ public class MainActivity extends SupportActivity {
 
     @Override
     protected void onDestroy() {
+        if (scheduledFuture != null) {
+            scheduledFuture.cancel(true);
+        }
+        if (poolUtils != null && !poolUtils.isShutDown()) {
+            poolUtils.shutDownNow();
+        }
+        OkGo.getInstance().cancelTag(ApiUtil.CURRENT_CYCLE_TAG);
         super.onDestroy();
         UMShareAPI.get(this).release();
+    }
+
+    private ThreadPoolUtils poolUtils;
+    private ScheduledFuture scheduledFuture;
+
+    private void getCurrentCycle() {
+        long time = ShopApplication.currentCycleInfo.getOpen_time() * 1000 - System.currentTimeMillis();
+        long delay = time > 0 ? time : 1;
+        poolUtils = new ThreadPoolUtils(ThreadPoolUtils.SingleThread, 1);
+        scheduledFuture = poolUtils.schedule(new Runnable() {
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        getCurrentCycleData();
+                    }
+                });
+            }
+        }, delay, TimeUnit.SECONDS);
+    }
+
+    private void getCurrentCycleData() {
+        OkGo.<LzyResponse<CurrentCycleInfo>>get(ApiUtil.API_PRE + ApiUtil.CURRENT_CYCLE)
+                .tag(ApiUtil.CURRENT_CYCLE_TAG)
+                .execute(new JsonCallback<LzyResponse<CurrentCycleInfo>>() {
+                    @Override
+                    public void onSuccess(Response<LzyResponse<CurrentCycleInfo>> response) {
+                        ShopApplication.currentCycleInfo = response.body().data;
+                        getCurrentCycle();
+                    }
+
+                    @Override
+                    public void onError(Response<LzyResponse<CurrentCycleInfo>> response) {
+                        super.onError(response);
+                        finish();
+                    }
+                });
     }
 }

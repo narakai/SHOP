@@ -5,7 +5,7 @@ import com.lzy.okgo.model.Response;
 
 import java.util.List;
 
-import wiki.scene.shop.entity.IndianaIndexInfo;
+import wiki.scene.shop.entity.IndexInfo;
 import wiki.scene.shop.entity.WinningNoticeInfo;
 import wiki.scene.shop.http.api.ApiUtil;
 import wiki.scene.shop.http.base.LzyResponse;
@@ -19,17 +19,17 @@ import wiki.scene.shop.http.listener.HttpResultListener;
  */
 
 public class IndianaModel {
-    public void getIndianaIndexData(final HttpResultListener<IndianaIndexInfo> listener) {
-        OkGo.<LzyResponse<IndianaIndexInfo>>get(ApiUtil.API_PRE + ApiUtil.INDEX)
+    public void getIndianaIndexData(final HttpResultListener<IndexInfo> listener) {
+        OkGo.<LzyResponse<IndexInfo>>get(ApiUtil.API_PRE + ApiUtil.INDEX)
                 .tag(ApiUtil.INDEX_TAG)
-                .execute(new JsonCallback<LzyResponse<IndianaIndexInfo>>() {
+                .execute(new JsonCallback<LzyResponse<IndexInfo>>() {
                     @Override
-                    public void onSuccess(Response<LzyResponse<IndianaIndexInfo>> response) {
+                    public void onSuccess(Response<LzyResponse<IndexInfo>> response) {
                         listener.onSuccess(response.body().data);
                     }
 
                     @Override
-                    public void onError(Response<LzyResponse<IndianaIndexInfo>> response) {
+                    public void onError(Response<LzyResponse<IndexInfo>> response) {
                         super.onError(response);
                         if (response.getException() != null) {
                             listener.onFail(response.getException().getMessage());

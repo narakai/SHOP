@@ -69,7 +69,6 @@
             android:drawableLeft="@drawable/ic_naozhong"
             android:drawablePadding="5dp"
             android:gravity="center_vertical"
-            android:text="11:12"
             android:textColor="@color/color_theme"
             android:textSize="@dimen/text_size_10sp" />
 

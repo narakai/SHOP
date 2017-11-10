@@ -8,8 +8,12 @@ import android.view.ViewGroup;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import com.blankj.utilcode.util.ToastUtils;
+import com.lzy.okgo.OkGo;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
@@ -20,12 +24,11 @@ import wiki.scene.loadmore.PtrDefaultHandler;
 import wiki.scene.loadmore.PtrFrameLayout;
 import wiki.scene.loadmore.StatusViewLayout;
 import wiki.scene.shop.R;
+import wiki.scene.shop.ShopApplication;
 import wiki.scene.shop.adapter.IndianaCanyuAdapter;
 import wiki.scene.shop.adapter.IndianaGoodsAdapter;
-import wiki.scene.shop.entity.IndianaIndexInfo;
-import wiki.scene.shop.entity.NewWaitInfo;
-import wiki.scene.shop.entity.SliderInfo;
-import wiki.scene.shop.entity.WinningNoticeInfo;
+import wiki.scene.shop.entity.IndexInfo;
+import wiki.scene.shop.http.api.ApiUtil;
 import wiki.scene.shop.mvp.BaseMainMvpFragment;
 import wiki.scene.shop.ui.indiana.mvpview.IIndianaView;
 import wiki.scene.shop.ui.indiana.presenter.IndianaPresenter;
@@ -60,6 +63,9 @@ public class IndianaFragment extends BaseMainMvpFragment<IIndianaView, IndianaPr
     StatusViewLayout statusLayout;
     Unbinder unbinder;
 
+    private List<IndexInfo.ProductsBean> goodsList = new ArrayList<>();
+    private IndianaGoodsAdapter goodsAdapter;
+
     public static IndianaFragment newInstance() {
         Bundle args = new Bundle();
         IndianaFragment fragment = new IndianaFragment();
@@ -80,6 +86,7 @@ public class IndianaFragment extends BaseMainMvpFragment<IIndianaView, IndianaPr
         super.onLazyInitView(savedInstanceState);
         statusLayout.showContent();
         initView();
+        presenter.getIndianaData(false);
     }
 
     private void initView() {
@@ -103,33 +110,19 @@ public class IndianaFragment extends BaseMainMvpFragment<IIndianaView, IndianaPr
         ptrLayout.setPtrHandler(new PtrDefaultHandler() {
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
-                ptrLayout.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        _mActivity.runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                ptrLayout.refreshComplete();
-                            }
-                        });
-                    }
-                }, 2000);
+                presenter.getIndianaData(true);
             }
         });
 
         List<String> list = new ArrayList<>();
-        List<String> list1 = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             list.add("用户：" + (i + 1));
-            if (i <= 3) {
-                list1.add("xxx" + i);
-            }
         }
         IndianaCanyuAdapter adapter = new IndianaCanyuAdapter(getContext(), list);
         canyuListView.setAdapter(adapter);
         huojiangListView.setAdapter(adapter);
         ThreadPoolUtils threadPoolUtils = new ThreadPoolUtils(ThreadPoolUtils.SingleThread, 1);
-        threadPoolUtils.scheduleWithFixedDelay(new Runnable() {
+        ScheduledFuture scheduledFuture = threadPoolUtils.scheduleWithFixedDelay(new Runnable() {
             @Override
             public void run() {
                 _mActivity.runOnUiThread(new Runnable() {
@@ -142,8 +135,7 @@ public class IndianaFragment extends BaseMainMvpFragment<IIndianaView, IndianaPr
             }
         }, 3, 3, TimeUnit.SECONDS);
 
-
-        IndianaGoodsAdapter goodsAdapter = new IndianaGoodsAdapter(getContext(), list1);
+        goodsAdapter = new IndianaGoodsAdapter(getContext(), goodsList);
         gridView.setAdapter(goodsAdapter);
     }
 
@@ -155,22 +147,42 @@ public class IndianaFragment extends BaseMainMvpFragment<IIndianaView, IndianaPr
 
     @Override
     public void showLoading(int resId) {
-
+        try {
+            statusLayout.showLoading();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void hideLoading() {
-
+        try {
+            statusLayout.showContent();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
-    public void setTitlebarChoosed(int choosedPosition, int oldChoosedPosition) {
-
-    }
-
-    @Override
-    public void getDataSuccess(IndianaIndexInfo indexInfo, boolean isRefresh) {
-
+    public void getDataSuccess(IndexInfo indexInfo) {
+        if (goodsAdapter != null) {
+            goodsAdapter.cancelAllTimers();
+        }
+        goodsList.clear();
+        goodsList.addAll(indexInfo.getProducts());
+        int size = goodsList.size();
+        for (int i = 0; i < size; i++) {
+            if (indexInfo.getCurrent_cycle() != null && indexInfo.getCurrent_cycle().getOpen_time() != 0) {
+                goodsList.get(i).setOpen_time(indexInfo.getCurrent_cycle().getOpen_time());
+            } else {
+                if (ShopApplication.currentCycleInfo != null && ShopApplication.currentCycleInfo.getOpen_time() != 0) {
+                    goodsList.get(i).setOpen_time(ShopApplication.currentCycleInfo.getOpen_time());
+                } else {
+                    goodsList.get(i).setOpen_time(0L);
+                }
+            }
+        }
+        goodsAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -180,22 +192,30 @@ public class IndianaFragment extends BaseMainMvpFragment<IIndianaView, IndianaPr
 
     @Override
     public void showFailPage() {
-
+        try {
+            statusLayout.showFailed(retryListener);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
-    public void bindBannerData(List<SliderInfo> bannerList) {
-
+    public void refreshComplete() {
+        try {
+            ptrLayout.refreshComplete();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
-    public void bindWinnerNotice(List<WinningNoticeInfo> noticeInfoList) {
-
-    }
-
-    @Override
-    public void bindNewWaiting(List<NewWaitInfo> newWaitInfoList) {
-
+    public void refrshFail(String message) {
+        try {
+            ptrLayout.refreshComplete();
+            ToastUtils.showShort(message);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -203,8 +223,24 @@ public class IndianaFragment extends BaseMainMvpFragment<IIndianaView, IndianaPr
         return new IndianaPresenter(this);
     }
 
+    private View.OnClickListener retryListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            presenter.getIndianaData(false);
+        }
+    };
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (goodsAdapter != null) {
+            goodsAdapter.cancelAllTimers();
+        }
+    }
+
     @Override
     public void onDestroyView() {
+        OkGo.getInstance().cancelTag(ApiUtil.INDEX_TAG);
         super.onDestroyView();
         unbinder.unbind();
     }

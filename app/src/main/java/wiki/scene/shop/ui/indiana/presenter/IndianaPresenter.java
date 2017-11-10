@@ -1,11 +1,9 @@
 package wiki.scene.shop.ui.indiana.presenter;
 
-import android.content.Context;
-
 import java.util.List;
 
 import wiki.scene.shop.R;
-import wiki.scene.shop.entity.IndianaIndexInfo;
+import wiki.scene.shop.entity.IndexInfo;
 import wiki.scene.shop.entity.WinningNoticeInfo;
 import wiki.scene.shop.http.listener.HttpResultListener;
 import wiki.scene.shop.mvp.BasePresenter;
@@ -27,28 +25,21 @@ public class IndianaPresenter extends BasePresenter<IIndianaView> {
         model = new IndianaModel();
     }
 
-    public void setChoosedTitleBar(int choosedPosition, int oldChoosedPosition) {
-        if (indianaView != null) {
-            indianaView.setTitlebarChoosed(choosedPosition, oldChoosedPosition);
-        }
-    }
-
     public void getIndianaData(final boolean isRefresh) {
         if (indianaView != null) {
             if (!isRefresh) {
                 indianaView.showLoading(R.string.loading);
             }
-            model.getIndianaIndexData(new HttpResultListener<IndianaIndexInfo>() {
+            model.getIndianaIndexData(new HttpResultListener<IndexInfo>() {
                 @Override
-                public void onSuccess(IndianaIndexInfo data) {
+                public void onSuccess(IndexInfo data) {
                     if (indianaView != null) {
                         if (!isRefresh) {
                             indianaView.hideLoading();
+                        } else {
+                            indianaView.refreshComplete();
                         }
-                        indianaView.getDataSuccess(data, isRefresh);
-                        indianaView.bindBannerData(data.getSlider());
-                        indianaView.bindWinnerNotice(data.getWinning_notice());
-                        indianaView.bindNewWaiting(data.getNew_waiting());
+                        indianaView.getDataSuccess(data);
                     }
                 }
 
@@ -56,7 +47,7 @@ public class IndianaPresenter extends BasePresenter<IIndianaView> {
                 public void onFail(String message) {
                     if (indianaView != null) {
                         if (isRefresh) {
-                            indianaView.showMessage(message);
+                            indianaView.refrshFail(message);
                         } else {
                             indianaView.showFailPage();
                         }
@@ -78,7 +69,7 @@ public class IndianaPresenter extends BasePresenter<IIndianaView> {
             model.getWinNotice(new HttpResultListener<List<WinningNoticeInfo>>() {
                 @Override
                 public void onSuccess(List<WinningNoticeInfo> data) {
-                    indianaView.bindWinnerNotice(data);
+
                 }
 
                 @Override

@@ -26,6 +26,7 @@ import okhttp3.OkHttpClient;
 import wiki.scene.loadmore.utils.PtrLocalDisplay;
 import wiki.scene.shop.config.AppConfig;
 import wiki.scene.shop.entity.ConfigInfo;
+import wiki.scene.shop.entity.CurrentCycleInfo;
 import wiki.scene.shop.entity.UserInfo;
 
 
@@ -45,6 +46,8 @@ public class ShopApplication extends Application {
     public static boolean hasLogin = false;
     public static UserInfo userInfo;
     public static ConfigInfo configInfo;
+
+    public static CurrentCycleInfo currentCycleInfo;
 
     @Override
     public void onCreate() {

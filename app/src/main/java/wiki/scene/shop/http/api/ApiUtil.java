@@ -61,8 +61,11 @@ public class ApiUtil {
     //设置默认收货地址
     public static final String SET_DEFAULT_ADDRESS = "/personal/address/default";
     public static final String SET_DEFAULT_ADDRESS_TAG = "SET_DEFAULT_ADDRESS_TAG";
+    //获取最新一期数据
+    public static final String CURRENT_CYCLE = "/business/current_cycle";
+    public static final String CURRENT_CYCLE_TAG = "CURRENT_CYCLE_TAG";
     //夺宝首页
-    public static final String INDEX = "/index";
+    public static final String INDEX = "/business";
     public static final String INDEX_TAG = "INDEX_TAG";
     //购物车
     public static final String CAR = "/cart";

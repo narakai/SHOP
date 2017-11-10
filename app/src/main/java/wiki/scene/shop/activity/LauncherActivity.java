@@ -1,6 +1,7 @@
 package wiki.scene.shop.activity;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -10,6 +11,8 @@ import android.support.annotation.StringRes;
 import android.telephony.TelephonyManager;
 
 import com.google.gson.Gson;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.model.Response;
 import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.PermissionListener;
 import com.yanzhenjie.permission.Rationale;
@@ -23,7 +26,11 @@ import wiki.scene.shop.ShopApplication;
 import wiki.scene.shop.activity.mvpview.ILauncherView;
 import wiki.scene.shop.activity.presenter.LauncherPresenter;
 import wiki.scene.shop.entity.ConfigInfo;
+import wiki.scene.shop.entity.CurrentCycleInfo;
 import wiki.scene.shop.entity.UserInfo;
+import wiki.scene.shop.http.api.ApiUtil;
+import wiki.scene.shop.http.base.LzyResponse;
+import wiki.scene.shop.http.callback.JsonCallback;
 import wiki.scene.shop.mvp.BaseMvpActivity;
 import wiki.scene.shop.utils.SharedPreferencesUtil;
 import wiki.scene.shop.utils.ToastUtils;
@@ -77,19 +84,7 @@ public class LauncherActivity extends BaseMvpActivity<ILauncherView, LauncherPre
     @Override
     public void getConfigSuccess(ConfigInfo configInfo) {
         ShopApplication.configInfo = configInfo;
-        long delayTime = 2000 - (System.currentTimeMillis() - beginTime);
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        startActivity(new Intent(LauncherActivity.this, MainActivity.class));
-                        LauncherActivity.this.finish();
-                    }
-                });
-            }
-        }, delayTime > 0 ? delayTime : 0);
+        getCurrentCycle();
     }
 
     @Override
@@ -120,6 +115,7 @@ public class LauncherActivity extends BaseMvpActivity<ILauncherView, LauncherPre
                         beginTime = System.currentTimeMillis();
                         presenter.getAppConfig();
                         checkHasLogin();
+
                     }
 
                     @Override
@@ -143,6 +139,7 @@ public class LauncherActivity extends BaseMvpActivity<ILauncherView, LauncherPre
      *
      * @return uuid
      */
+    @SuppressLint("MissingPermission")
     private String getUUID() {
         String uuid;
         TelephonyManager tm = (TelephonyManager) this.getSystemService(TELEPHONY_SERVICE);
@@ -181,5 +178,36 @@ public class LauncherActivity extends BaseMvpActivity<ILauncherView, LauncherPre
         } while (bDone);
 
         return retStr;
+    }
+
+    private void getCurrentCycle() {
+        OkGo.<LzyResponse<CurrentCycleInfo>>get(ApiUtil.API_PRE + ApiUtil.CURRENT_CYCLE)
+                .tag(ApiUtil.CURRENT_CYCLE_TAG)
+                .execute(new JsonCallback<LzyResponse<CurrentCycleInfo>>() {
+                    @Override
+                    public void onSuccess(Response<LzyResponse<CurrentCycleInfo>> response) {
+                        ShopApplication.currentCycleInfo = response.body().data;
+                        long delayTime = 2000 - (System.currentTimeMillis() - beginTime);
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        startActivity(new Intent(LauncherActivity.this, MainActivity.class));
+                                        LauncherActivity.this.finish();
+                                    }
+                                });
+                            }
+                        }, delayTime > 0 ? delayTime : 0);
+                    }
+
+                    @Override
+                    public void onError(Response<LzyResponse<CurrentCycleInfo>> response) {
+                        super.onError(response);
+                        ToastUtils.getInstance(LauncherActivity.this).showToast("未知错误，请重试");
+                        finish();
+                    }
+                });
     }
 }
