@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="horizontal"
+    android:paddingBottom="10dp"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp"
+    android:paddingTop="10dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="第"
+        android:textColor="@color/color_theme"
+        android:textSize="@dimen/text_size_middle" />
+
+    <TextView
+        android:id="@+id/last_cycle_code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:text="xxxxxxxx"
+        android:textColor="@color/color_theme"
+        android:textSize="@dimen/text_size_middle" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="期"
+        android:textColor="@color/color_theme"
+        android:textSize="@dimen/text_size_middle" />
+
+    <TextView
+        android:id="@+id/last_win_code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:text="31745"
+        android:textColor="@color/color_theme"
+        android:textSize="@dimen/text_size_middle" />
+
+    <TextView
+        android:id="@+id/last_open_result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="(大|双|大双|7)"
+        android:textColor="@color/color_theme"
+        android:textSize="@dimen/text_size_middle" />
+
+</LinearLayout>

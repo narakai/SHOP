@@ -6,27 +6,37 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 import wiki.scene.loadmore.PtrClassicFrameLayout;
 import wiki.scene.loadmore.PtrDefaultHandler;
 import wiki.scene.loadmore.PtrFrameLayout;
 import wiki.scene.loadmore.StatusViewLayout;
 import wiki.scene.shop.R;
+import wiki.scene.shop.adapter.GoodsDetailBuyAdapter;
+import wiki.scene.shop.adapter.GoodsDetailWinCodeAdapter;
 import wiki.scene.shop.entity.CreateOrderInfo;
 import wiki.scene.shop.entity.GoodsDetailInfo;
 import wiki.scene.shop.entity.ListGoodsInfo;
 import wiki.scene.shop.mvp.BaseBackMvpFragment;
 import wiki.scene.shop.ui.indiana.mvpview.IGoodsDetailView;
 import wiki.scene.shop.ui.indiana.presenter.GoodsDetailPresenter;
+import wiki.scene.shop.utils.ThreadPoolUtils;
+import wiki.scene.shop.utils.ViewUtils;
 import wiki.scene.shop.widgets.CustomListView;
+import wiki.scene.shop.widgets.NoTouchListView;
 import wiki.scene.shop.widgets.RatioImageView;
 
 /**
@@ -57,7 +67,7 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
     @BindView(R.id.last_open_result)
     TextView lastOpenResult;
     @BindView(R.id.buyListView)
-    CustomListView buyListView;
+    NoTouchListView buyListView;
     @BindView(R.id.rd_jieshao)
     RadioButton rdJieshao;
     @BindView(R.id.rd_guige)
@@ -76,7 +86,20 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
     Toolbar toolbar;
     @BindView(R.id.toolbar_title)
     TextView toolbarTitle;
+    @BindView(R.id.layout_win_code_history)
+    LinearLayout layoutWinCodeHistory;
+    @BindView(R.id.win_code_history_listview)
+    CustomListView winCodeHistoryListview;
     private int goodsId;
+
+    private GoodsDetailWinCodeAdapter winCodeAdapter;
+    private List<String> winCodeList = new ArrayList<>();
+
+    private GoodsDetailBuyAdapter buyAdapter;
+    private List<String> buyList = new ArrayList<>();
+
+    private ThreadPoolUtils threadPoolUtils;
+    private ScheduledFuture scheduledFuture;
 
     public static GoodsDetailFragment newInstance(int goodsId) {
         Bundle args = new Bundle();
@@ -135,6 +158,35 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
                 }, 2000);
             }
         });
+
+        for (int i = 0; i < 10; i++) {
+            winCodeList.add("xxxxxxxx" + i);
+            buyList.add("xxxxxxxx" + i);
+        }
+        winCodeAdapter = new GoodsDetailWinCodeAdapter(getContext(), winCodeList);
+        winCodeHistoryListview.setAdapter(winCodeAdapter);
+
+        buyAdapter = new GoodsDetailBuyAdapter(getContext(), buyList);
+        buyListView.setAdapter(buyAdapter);
+
+        View buyItemView = LayoutInflater.from(getContext()).inflate(R.layout.fragment_goods_detail_buy_item, null);
+        ViewUtils.setViewHeightByViewGroup(buyListView, ViewUtils.getViewHeight(buyItemView) * 4);
+        threadPoolUtils = new ThreadPoolUtils(ThreadPoolUtils.SingleThread, 1);
+        scheduledFuture = threadPoolUtils.scheduleWithFixedDelay(new Runnable() {
+            @Override
+            public void run() {
+                _mActivity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            buyListView.smoothScrollToPositionFromTop(buyListView.getFirstVisiblePosition() + 1, 1);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+            }
+        }, 3, 3, TimeUnit.SECONDS);
     }
 
     /**
@@ -146,6 +198,11 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
             presenter.getGoodsDetailInfo(true, goodsId);
         }
     };
+
+    @OnClick(R.id.layout_win_code_history)
+    public void onClickWinCode() {
+        winCodeHistoryListview.setVisibility(winCodeHistoryListview.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
+    }
 
     @Override
     public void showLoading(int resId) {
@@ -230,5 +287,21 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
     @Override
     public void showCollectionStatus(boolean collectionStatus) {
 
+    }
+
+    @Override
+    public void onDestroyView() {
+        try {
+            if (scheduledFuture != null) {
+                scheduledFuture.cancel(true);
+            }
+            if (threadPoolUtils != null && !threadPoolUtils.isShutDown()) {
+                threadPoolUtils.shutDownNow();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        super.onDestroyView();
+        unbinder.unbind();
     }
 }

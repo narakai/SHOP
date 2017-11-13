@@ -44,24 +44,32 @@ public class GoodsDetailPresenter extends BasePresenter<IGoodsDetailView> {
             model.getDetailInfo(params, new HttpResultListener<GoodsDetailInfo>() {
                 @Override
                 public void onSuccess(GoodsDetailInfo data) {
-                    if (isFirst) {
-                        mView.hideLoading();
-                    } else {
-                        mView.refreshComplete();
+                    try {
+                        if (isFirst) {
+                            mView.hideLoading();
+                        } else {
+                            mView.refreshComplete();
+                        }
+                        mView.bindGoodsInfo(data.getData());
+                        mView.bindJoinRecord(data.getLog());
+                        mView.bindGuessLike(data.getData().getHot());
+                        mView.showCollectionStatus(data.isCollection());
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                    mView.bindGoodsInfo(data.getData());
-                    mView.bindJoinRecord(data.getLog());
-                    mView.bindGuessLike(data.getData().getHot());
-                    mView.showCollectionStatus(data.isCollection());
                 }
 
                 @Override
                 public void onFail(String message) {
-                    if (isFirst) {
-                        mView.showFailPage();
-                    } else {
-                        mView.showMessage(message);
-                        mView.refreshComplete();
+                    try {
+                        if (isFirst) {
+                            mView.showFailPage();
+                        } else {
+                            mView.showMessage(message);
+                            mView.refreshComplete();
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 }
 

@@ -326,6 +326,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/layout_win_code_history"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
@@ -381,6 +382,16 @@
 
                         </LinearLayout>
 
+                        <wiki.scene.shop.widgets.CustomListView
+                            android:id="@+id/win_code_history_listview"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="0.5dp"
+                            android:background="@color/white"
+                            android:divider="#F0F0F0"
+                            android:dividerHeight="0.5dp"
+                            android:visibility="gone" />
+
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -394,12 +405,12 @@
                             android:textColor="@color/color_theme"
                             android:textSize="@dimen/text_size_big" />
 
-                        <wiki.scene.shop.widgets.CustomListView
+                        <wiki.scene.shop.widgets.NoTouchListView
                             android:id="@+id/buyListView"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:divider="#00000000"
-                            android:dividerHeight="0dp" />
+                            android:layout_height="match_parent"
+                            android:divider="#F0F0F0"
+                            android:dividerHeight="0.5dp" />
 
                         <RadioGroup
                             android:id="@+id/radioGroup"
