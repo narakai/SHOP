@@ -9,38 +9,42 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
-import android.widget.TextView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import butterknife.ButterKnife;
 import wiki.scene.shop.R;
-import wiki.scene.shop.utils.ToastUtils;
 
 /**
  * 商品详情选择数量的popupwindow
  * Created by scene on 17-7-31.
  */
 
-public class ChooseGoodsNumberPopupWindow extends PopupWindow implements View.OnClickListener {
+public class ChooseGoodsNumberPopupWindow extends PopupWindow implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
     private Context context;
-
-    private TextView text;
-    private ImageView btnClose;
-    private TextView btnNumber1;
-    private TextView btnNumber5;
-    private TextView btnNumber10;
-    private TextView btnNumber20;
-    private TextView btnNumber50;
-    private TextView btnNumber100;
-    private TextView btnNumberRest;
-    private EditText editNumberOthers;
-    private TextView immediately_indiana;
+    private EditText number;
+    private RadioGroup radioGroup, rg_way1, rg_way2, rg_way3_1, rg_way3_2;
+    private LinearLayout rg_way3;
+    private RadioButton way3_type_1;
+    private RadioButton way3_type_2;
+    private RadioButton way3_type_3;
+    private RadioButton way3_type_4;
+    private RadioButton way3_type_5;
+    private RadioButton way3_type_6;
+    private RadioButton way3_type_7;
+    private RadioButton way3_type_8;
+    private RadioButton way3_type_9;
+    private RadioButton way3_type_10;
 
     private OnClickImmediatelyIndianaListener onClickImmediatelyIndianaListener;
 
-    private int currentChoosedPosition = 0;
+
+    private int choosedWayType = 1;
+
 
     public ChooseGoodsNumberPopupWindow(Context context) {
         super(context);
@@ -73,44 +77,61 @@ public class ChooseGoodsNumberPopupWindow extends PopupWindow implements View.On
     }
 
     private void initView(View view) {
-        text = (TextView) view.findViewById(R.id.text);
-        btnClose = (ImageView) view.findViewById(R.id.btn_close);
-        btnNumber1 = (TextView) view.findViewById(R.id.btn_number_1);
-        btnNumber5 = (TextView) view.findViewById(R.id.btn_number_5);
-        btnNumber10 = (TextView) view.findViewById(R.id.btn_number_10);
-        btnNumber20 = (TextView) view.findViewById(R.id.btn_number_20);
-        btnNumber50 = (TextView) view.findViewById(R.id.btn_number_50);
-        btnNumber100 = (TextView) view.findViewById(R.id.btn_number_100);
-        btnNumberRest = (TextView) view.findViewById(R.id.btn_number_rest);
-        editNumberOthers = (EditText) view.findViewById(R.id.edit_number_others);
-        immediately_indiana = (TextView) view.findViewById(R.id.immediately_indiana);
-
-        text.setFocusable(true);
-        text.setFocusableInTouchMode(true);
-        text.requestFocus();
+        number = (EditText) view.findViewById(R.id.number);
+        radioGroup = (RadioGroup) view.findViewById(R.id.radioGroup);
+        rg_way1 = (RadioGroup) view.findViewById(R.id.rg_way1);
+        rg_way2 = (RadioGroup) view.findViewById(R.id.rg_way2);
+        rg_way3 = (LinearLayout) view.findViewById(R.id.rg_way3);
+        rg_way3_1 = (RadioGroup) view.findViewById(R.id.rg_way3_1);
+        rg_way3_2 = (RadioGroup) view.findViewById(R.id.rg_way3_2);
+        way3_type_1 = (RadioButton) view.findViewById(R.id.way3_type_1);
+        way3_type_2 = (RadioButton) view.findViewById(R.id.way3_type_2);
+        way3_type_3 = (RadioButton) view.findViewById(R.id.way3_type_3);
+        way3_type_4 = (RadioButton) view.findViewById(R.id.way3_type_4);
+        way3_type_5 = (RadioButton) view.findViewById(R.id.way3_type_5);
+        way3_type_6 = (RadioButton) view.findViewById(R.id.way3_type_6);
+        way3_type_7 = (RadioButton) view.findViewById(R.id.way3_type_7);
+        way3_type_8 = (RadioButton) view.findViewById(R.id.way3_type_8);
+        way3_type_9 = (RadioButton) view.findViewById(R.id.way3_type_9);
+        way3_type_10 = (RadioButton) view.findViewById(R.id.way3_type_10);
     }
 
     private void setListener() {
-        btnClose.setOnClickListener(this);
-        btnNumber1.setOnClickListener(this);
-        btnNumber5.setOnClickListener(this);
-        btnNumber10.setOnClickListener(this);
-        btnNumber20.setOnClickListener(this);
-        btnNumber50.setOnClickListener(this);
-        btnNumber100.setOnClickListener(this);
-        btnNumberRest.setOnClickListener(this);
-        immediately_indiana.setOnClickListener(this);
-        editNumberOthers.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (v == editNumberOthers && hasFocus) {
-                    editNumberOthers.setBackgroundResource(R.drawable.bg_number_text_can_use);
-                    choosedNumber(7);
-                } else {
-                    editNumberOthers.setBackgroundResource(R.drawable.bg_number_text);
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                switch (i) {
+                    case R.id.rd_shuangren:
+                        choosedWayType = 1;
+                        rg_way1.setVisibility(View.VISIBLE);
+                        rg_way2.setVisibility(View.GONE);
+                        rg_way3.setVisibility(View.GONE);
+                        break;
+                    case R.id.rd_siren:
+                        choosedWayType = 2;
+                        rg_way1.setVisibility(View.GONE);
+                        rg_way2.setVisibility(View.VISIBLE);
+                        rg_way3.setVisibility(View.GONE);
+                        break;
+                    case R.id.rd_shiren:
+                        choosedWayType = 3;
+                        rg_way1.setVisibility(View.GONE);
+                        rg_way2.setVisibility(View.GONE);
+                        rg_way3.setVisibility(View.VISIBLE);
+                        break;
                 }
             }
         });
+        way3_type_1.setOnCheckedChangeListener(this);
+        way3_type_2.setOnCheckedChangeListener(this);
+        way3_type_3.setOnCheckedChangeListener(this);
+        way3_type_4.setOnCheckedChangeListener(this);
+        way3_type_5.setOnCheckedChangeListener(this);
+        way3_type_6.setOnCheckedChangeListener(this);
+        way3_type_7.setOnCheckedChangeListener(this);
+        way3_type_8.setOnCheckedChangeListener(this);
+        way3_type_9.setOnCheckedChangeListener(this);
+        way3_type_10.setOnCheckedChangeListener(this);
     }
 
     private void setBackgroundAlpha(float bgAlpha) {
@@ -123,6 +144,7 @@ public class ChooseGoodsNumberPopupWindow extends PopupWindow implements View.On
     public void dismiss() {
         if (this.isShowing()) {
             setBackgroundAlpha(1.0f);
+            hideSoftInput();
             super.dismiss();
         }
     }
@@ -139,145 +161,50 @@ public class ChooseGoodsNumberPopupWindow extends PopupWindow implements View.On
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btn_close:
-                dismiss();
-                break;
-            case R.id.btn_number_1:
-                choosedNumber(0);
-                break;
-            case R.id.btn_number_5:
-                choosedNumber(1);
-                break;
-            case R.id.btn_number_10:
-                choosedNumber(2);
-                break;
-            case R.id.btn_number_20:
-                choosedNumber(3);
-                break;
-            case R.id.btn_number_50:
-                choosedNumber(4);
-                break;
-            case R.id.btn_number_100:
-                choosedNumber(5);
-                break;
-            case R.id.btn_number_rest:
-                choosedNumber(6);
-                break;
-            case R.id.immediately_indiana:
-                if (onClickImmediatelyIndianaListener != null) {
-                    int number = 0;
-                    switch (currentChoosedPosition) {
-                        case 0:
-                            number=1;
-                            break;
-                        case 1:
-                            number=5;
-                            break;
-                        case 2:
-                            number=10;
-                            break;
-                        case 3:
-                            number=20;
-                            break;
-                        case 4:
-                            number=50;
-                            break;
-                        case 5:number=100;
-                            break;
-                        case 6:
-                            number=-1;
-                            break;
-                        case 7:
-                            try{
-                                number=Integer.valueOf(editNumberOthers.getText().toString().trim());
-                            }catch (Exception e){
-                                ToastUtils.getInstance(context).showToast(R.string.input_right_number);
-                                return;
-                            }
-                            break;
-                    }
-                    onClickImmediatelyIndianaListener.onClickImmediatelyIndiana(number);
-                }
-                break;
-        }
+
     }
 
-
-    private void choosedNumber(int position) {
-        if (position != 7) {
-            text.setFocusable(true);
-            text.setFocusableInTouchMode(true);
-            text.requestFocus();
-            hideSoftInput();
-        }
-        switch (currentChoosedPosition) {
-            case 0:
-                btnNumber1.setTextColor(context.getResources().getColor(R.color.text_color_title));
-                btnNumber1.setBackgroundResource(R.drawable.bg_number_text);
-                break;
-            case 1:
-                btnNumber5.setTextColor(context.getResources().getColor(R.color.text_color_title));
-                btnNumber5.setBackgroundResource(R.drawable.bg_number_text);
-                break;
-            case 2:
-                btnNumber10.setTextColor(context.getResources().getColor(R.color.text_color_title));
-                btnNumber10.setBackgroundResource(R.drawable.bg_number_text);
-                break;
-            case 3:
-                btnNumber20.setTextColor(context.getResources().getColor(R.color.text_color_title));
-                btnNumber20.setBackgroundResource(R.drawable.bg_number_text);
-                break;
-            case 4:
-                btnNumber50.setTextColor(context.getResources().getColor(R.color.text_color_title));
-                btnNumber50.setBackgroundResource(R.drawable.bg_number_text);
-                break;
-            case 5:
-                btnNumber100.setTextColor(context.getResources().getColor(R.color.text_color_title));
-                btnNumber100.setBackgroundResource(R.drawable.bg_number_text);
-                break;
-            case 6:
-                btnNumberRest.setTextColor(context.getResources().getColor(R.color.colorPrimary));
-                btnNumberRest.setBackgroundResource(R.drawable.bg_number_text);
-                break;
-        }
-        switch (position) {
-            case 0:
-                btnNumber1.setTextColor(context.getResources().getColor(R.color.white));
-                btnNumber1.setBackgroundResource(R.drawable.bg_number_text_choosed);
-                break;
-            case 1:
-                btnNumber5.setTextColor(context.getResources().getColor(R.color.white));
-                btnNumber5.setBackgroundResource(R.drawable.bg_number_text_choosed);
-                break;
-            case 2:
-                btnNumber10.setTextColor(context.getResources().getColor(R.color.white));
-                btnNumber10.setBackgroundResource(R.drawable.bg_number_text_choosed);
-                break;
-            case 3:
-                btnNumber20.setTextColor(context.getResources().getColor(R.color.white));
-                btnNumber20.setBackgroundResource(R.drawable.bg_number_text_choosed);
-                break;
-            case 4:
-                btnNumber50.setTextColor(context.getResources().getColor(R.color.white));
-                btnNumber50.setBackgroundResource(R.drawable.bg_number_text_choosed);
-                break;
-            case 5:
-                btnNumber100.setTextColor(context.getResources().getColor(R.color.white));
-                btnNumber100.setBackgroundResource(R.drawable.bg_number_text_choosed);
-                break;
-            case 6:
-                btnNumberRest.setTextColor(context.getResources().getColor(R.color.white));
-                btnNumberRest.setBackgroundResource(R.drawable.bg_number_text_choosed);
-                break;
-        }
-        currentChoosedPosition = position;
-    }
 
     private void hideSoftInput() {
-        if (editNumberOthers != null && editNumberOthers.getContext() != null) {
-            InputMethodManager imm = (InputMethodManager) editNumberOthers.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(editNumberOthers.getWindowToken(), 0);
+        if (number != null && number.getContext() != null) {
+            InputMethodManager imm = (InputMethodManager) number.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(number.getWindowToken(), 0);
+        }
+    }
+
+    @Override
+    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+        switch (compoundButton.getId()) {
+            case R.id.way3_type_1:
+                rg_way3_2.clearCheck();
+                break;
+            case R.id.way3_type_2:
+                rg_way3_2.clearCheck();
+                break;
+            case R.id.way3_type_3:
+                rg_way3_2.clearCheck();
+                break;
+            case R.id.way3_type_4:
+                rg_way3_2.clearCheck();
+                break;
+            case R.id.way3_type_5:
+                rg_way3_2.clearCheck();
+                break;
+            case R.id.way3_type_6:
+                rg_way3_1.clearCheck();
+                break;
+            case R.id.way3_type_7:
+                rg_way3_1.clearCheck();
+                break;
+            case R.id.way3_type_8:
+                rg_way3_1.clearCheck();
+                break;
+            case R.id.way3_type_9:
+                rg_way3_1.clearCheck();
+                break;
+            case R.id.way3_type_10:
+                rg_way3_1.clearCheck();
+                break;
         }
     }
 

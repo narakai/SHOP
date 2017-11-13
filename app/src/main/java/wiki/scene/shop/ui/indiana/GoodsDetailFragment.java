@@ -101,6 +101,8 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
     private ThreadPoolUtils threadPoolUtils;
     private ScheduledFuture scheduledFuture;
 
+    private ChooseGoodsNumberPopupWindow popupWindow;
+
     public static GoodsDetailFragment newInstance(int goodsId) {
         Bundle args = new Bundle();
         args.putInt(ARG_CYCLE_ID, goodsId);
@@ -187,6 +189,7 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
                 });
             }
         }, 3, 3, TimeUnit.SECONDS);
+
     }
 
     /**
@@ -202,6 +205,14 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
     @OnClick(R.id.layout_win_code_history)
     public void onClickWinCode() {
         winCodeHistoryListview.setVisibility(winCodeHistoryListview.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
+    }
+
+    @OnClick(R.id.buy)
+    public void onClickBuy() {
+        if (popupWindow == null) {
+            popupWindow = new ChooseGoodsNumberPopupWindow(_mActivity);
+        }
+        popupWindow.show(buy);
     }
 
     @Override
