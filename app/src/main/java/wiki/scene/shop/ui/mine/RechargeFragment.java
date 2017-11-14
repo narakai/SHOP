@@ -1,6 +1,5 @@
 package wiki.scene.shop.ui.mine;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
@@ -34,22 +33,21 @@ import wiki.scene.shop.widgets.LoadingDialog;
  */
 
 public class RechargeFragment extends BaseBackMvpFragment<IRechargeView, RechargePresenter> implements IRechargeView {
+    Unbinder unbinder;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.toolbar_title)
     TextView toolbarTitle;
-    @BindView(R.id.price_20)
-    TextView price20;
-    @BindView(R.id.price_50)
-    TextView price50;
-    @BindView(R.id.price_100)
-    TextView price100;
-    @BindView(R.id.price_300)
-    TextView price300;
-    @BindView(R.id.price_500)
-    TextView price500;
-    @BindView(R.id.price_custom)
-    EditText priceCustom;
+    @BindView(R.id.money_1)
+    RadioButton money1;
+    @BindView(R.id.money_2)
+    RadioButton money2;
+    @BindView(R.id.money_3)
+    RadioButton money3;
+    @BindView(R.id.money_4)
+    RadioButton money4;
+    @BindView(R.id.radioGroup)
+    RadioGroup radioGroup;
     @BindView(R.id.radio_wechat_pay)
     RadioButton radioWechatPay;
     @BindView(R.id.radio_alipay)
@@ -58,7 +56,8 @@ public class RechargeFragment extends BaseBackMvpFragment<IRechargeView, Recharg
     RadioGroup rgPayType;
     @BindView(R.id.recharge)
     TextView recharge;
-    Unbinder unbinder;
+    @BindView(R.id.priceCustom)
+    EditText priceCustom;
 
     private int currentChoosedPosition = 0;
 
@@ -92,16 +91,11 @@ public class RechargeFragment extends BaseBackMvpFragment<IRechargeView, Recharg
         priceCustom.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                try{
+                try {
                     if (v == priceCustom && hasFocus) {
-                        priceCustom.setBackgroundResource(R.drawable.item_recharge_choosed_s);
-                        priceCustom.setTextColor(Color.parseColor("#FF183F"));
-                        choosedNumber(5);
-                    } else {
-                        priceCustom.setBackgroundResource(R.drawable.item_recharge_choosed_d);
-                        priceCustom.setTextColor(getResources().getColor(R.color.text_color_title));
+                        radioGroup.clearCheck();
                     }
-                }catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -112,60 +106,6 @@ public class RechargeFragment extends BaseBackMvpFragment<IRechargeView, Recharg
         } else {
             radioAlipay.setChecked(true);
         }
-    }
-
-    private void choosedNumber(int position) {
-        if (position != 5) {
-            toolbarTitle.setFocusable(true);
-            toolbarTitle.setFocusableInTouchMode(true);
-            toolbarTitle.requestFocus();
-            hideSoftInput();
-        }
-        switch (currentChoosedPosition) {
-            case 0:
-                price20.setTextColor(getResources().getColor(R.color.text_color_title));
-                price20.setBackgroundResource(R.drawable.item_recharge_choosed_d);
-                break;
-            case 1:
-                price50.setTextColor(getResources().getColor(R.color.text_color_title));
-                price50.setBackgroundResource(R.drawable.item_recharge_choosed_d);
-                break;
-            case 2:
-                price100.setTextColor(getResources().getColor(R.color.text_color_title));
-                price100.setBackgroundResource(R.drawable.item_recharge_choosed_d);
-                break;
-            case 3:
-                price300.setTextColor(getResources().getColor(R.color.text_color_title));
-                price300.setBackgroundResource(R.drawable.item_recharge_choosed_d);
-                break;
-            case 4:
-                price500.setTextColor(getResources().getColor(R.color.text_color_title));
-                price500.setBackgroundResource(R.drawable.item_recharge_choosed_d);
-                break;
-        }
-        switch (position) {
-            case 0:
-                price20.setTextColor(Color.parseColor("#FF183F"));
-                price20.setBackgroundResource(R.drawable.item_recharge_choosed_s);
-                break;
-            case 1:
-                price50.setTextColor(Color.parseColor("#FF183F"));
-                price50.setBackgroundResource(R.drawable.item_recharge_choosed_s);
-                break;
-            case 2:
-                price100.setTextColor(Color.parseColor("#FF183F"));
-                price100.setBackgroundResource(R.drawable.item_recharge_choosed_s);
-                break;
-            case 3:
-                price300.setTextColor(Color.parseColor("#FF183F"));
-                price300.setBackgroundResource(R.drawable.item_recharge_choosed_s);
-                break;
-            case 4:
-                price500.setTextColor(Color.parseColor("#FF183F"));
-                price500.setBackgroundResource(R.drawable.item_recharge_choosed_s);
-                break;
-        }
-        currentChoosedPosition = position;
     }
 
     @Override
@@ -193,31 +133,6 @@ public class RechargeFragment extends BaseBackMvpFragment<IRechargeView, Recharg
         OkGo.getInstance().cancelTag(ApiUtil.RECHARGE_TAG);
         super.onDestroyView();
         unbinder.unbind();
-    }
-
-    @OnClick(R.id.price_20)
-    public void onClickPrice20() {
-        choosedNumber(0);
-    }
-
-    @OnClick(R.id.price_50)
-    public void onClickPrice50() {
-        choosedNumber(1);
-    }
-
-    @OnClick(R.id.price_100)
-    public void onClickPrice100() {
-        choosedNumber(2);
-    }
-
-    @OnClick(R.id.price_300)
-    public void onClickPrice300() {
-        choosedNumber(3);
-    }
-
-    @OnClick(R.id.price_500)
-    public void onClickPrice500() {
-        choosedNumber(4);
     }
 
     @OnClick(R.id.recharge)

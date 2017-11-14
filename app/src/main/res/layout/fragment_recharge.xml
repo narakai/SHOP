@@ -19,164 +19,131 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#FBD6DC"
+                android:background="#F6F6F6"
                 android:paddingBottom="16dp"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:paddingTop="16dp"
                 android:text="@string/recharge_notice"
-                android:textColor="@color/text_color_title"
-                android:textSize="@dimen/text_size_middle" />
+                android:textColor="#FA6440"
+                android:textSize="@dimen/text_size_big" />
 
-            <LinearLayout
+            <RadioGroup
+                android:id="@+id/radioGroup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/bg_color_gray2"
-                android:orientation="vertical">
+                android:orientation="horizontal"
+                android:padding="20dp">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="24dp"
-                    android:layout_marginTop="14dp"
-                    android:gravity="center_horizontal"
-                    android:text="@string/please_choose_recharge_money"
-                    android:textColor="#F39800"
+                <RadioButton
+                    android:id="@+id/money_1"
+                    android:layout_width="60dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_choose_type_radio_button_selector"
+                    android:button="@null"
+                    android:checked="true"
+                    android:gravity="center"
+                    android:text="100"
+                    android:textColor="@drawable/bg_choose_money_radio_button_textcolor_selector"
                     android:textSize="@dimen/text_size_big" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="14dp"
-                    android:layout_marginRight="14dp"
-                    android:orientation="horizontal">
+                <View
+                    android:layout_width="20dp"
+                    android:layout_height="1dp" />
 
-                    <TextView
-                        android:id="@+id/price_20"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@drawable/item_recharge_choosed_s"
-                        android:gravity="center"
-                        android:paddingBottom="5dp"
-                        android:paddingTop="5dp"
-                        android:text="20"
-                        android:textColor="#FF183F"
-                        android:textSize="13sp" />
+                <RadioButton
+                    android:id="@+id/money_2"
+                    android:layout_width="60dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_choose_type_radio_button_selector"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:text="200"
+                    android:textColor="@drawable/bg_choose_money_radio_button_textcolor_selector"
+                    android:textSize="@dimen/text_size_big" />
 
-                    <View
-                        android:layout_width="16dp"
-                        android:layout_height="0dp" />
+                <View
+                    android:layout_width="20dp"
+                    android:layout_height="1dp" />
 
-                    <TextView
-                        android:id="@+id/price_50"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@drawable/item_recharge_choosed_d"
-                        android:gravity="center"
-                        android:paddingBottom="5dp"
-                        android:paddingTop="5dp"
-                        android:text="50"
-                        android:textColor="@color/text_color_title"
-                        android:textSize="13sp" />
+                <RadioButton
+                    android:id="@+id/money_3"
+                    android:layout_width="60dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_choose_type_radio_button_selector"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:text="500"
+                    android:textColor="@drawable/bg_choose_money_radio_button_textcolor_selector"
+                    android:textSize="@dimen/text_size_big" />
 
-                    <View
-                        android:layout_width="16dp"
-                        android:layout_height="0dp" />
+                <View
+                    android:layout_width="20dp"
+                    android:layout_height="1dp" />
 
-                    <TextView
-                        android:id="@+id/price_100"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@drawable/item_recharge_choosed_d"
-                        android:gravity="center"
-                        android:paddingBottom="5dp"
-                        android:paddingTop="5dp"
-                        android:text="100"
-                        android:textColor="@color/text_color_title"
-                        android:textSize="13sp" />
-                </LinearLayout>
+                <RadioButton
+                    android:id="@+id/money_4"
+                    android:layout_width="60dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_choose_type_radio_button_selector"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:text="1000"
+                    android:textColor="@drawable/bg_choose_money_radio_button_textcolor_selector"
+                    android:textSize="@dimen/text_size_big" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="14dp"
-                    android:layout_marginLeft="14dp"
-                    android:layout_marginRight="14dp"
-                    android:layout_marginTop="16dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/price_300"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@drawable/item_recharge_choosed_d"
-                        android:gravity="center"
-                        android:paddingBottom="5dp"
-                        android:paddingTop="5dp"
-                        android:text="300"
-                        android:textColor="@color/text_color_title"
-                        android:textSize="13sp" />
-
-                    <View
-                        android:layout_width="16dp"
-                        android:layout_height="0dp" />
-
-                    <TextView
-                        android:id="@+id/price_500"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@drawable/item_recharge_choosed_d"
-                        android:gravity="center"
-                        android:paddingBottom="5dp"
-                        android:paddingTop="5dp"
-                        android:text="500"
-                        android:textColor="@color/text_color_title"
-                        android:textSize="13sp" />
-
-                    <View
-                        android:layout_width="16dp"
-                        android:layout_height="0dp" />
-
-                    <EditText
-                        android:id="@+id/price_custom"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@drawable/item_recharge_choosed_d"
-                        android:gravity="center"
-                        android:hint="自定义金额"
-                        android:inputType="number"
-                        android:lines="1"
-                        android:maxLength="5"
-                        android:maxLines="1"
-                        android:paddingBottom="5dp"
-                        android:paddingTop="5dp"
-                        android:singleLine="true"
-                        android:text=""
-                        android:textColor="#FF183F"
-                        android:textSize="13sp" />
-                </LinearLayout>
-            </LinearLayout>
+            </RadioGroup>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
-                android:layout_marginTop="14dp"
-                android:gravity="center_horizontal"
-                android:text="@string/please_choose_pay_way"
-                android:textColor="#F39800"
+                android:paddingBottom="16dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="16dp"
+                android:text="手动输入金额充值"
+                android:textColor="#FA6440"
                 android:textSize="@dimen/text_size_big" />
-
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:textColor="#999999"
+                    android:text="￥"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:layout_height="wrap_content" />
+                <EditText
+                    android:id="@+id/priceCustom"
+                    android:layout_width="match_parent"
+                    android:textColor="#FA6440"
+                    android:text=""
+                    android:layout_marginRight="20dp"
+                    android:paddingLeft="@dimen/text_size_10sp"
+                    android:lines="1"
+                    android:maxLength="7"
+                    android:textSize="@dimen/text_size_big"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="2dp"
+                android:background="#F0F0F0"/>
             <RadioGroup
                 android:id="@+id/rg_pay_type"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
                 android:orientation="vertical">
 
                 <RadioButton
@@ -217,12 +184,6 @@
                     android:textColor="@color/text_color_title"
                     android:textSize="@dimen/text_size_middle" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginLeft="14dp"
-                    android:layout_marginRight="14dp"
-                    android:background="@color/bg_color_gray2" />
             </RadioGroup>
 
             <TextView
