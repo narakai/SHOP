@@ -108,37 +108,44 @@
                 android:text="手动输入金额充值"
                 android:textColor="#FA6440"
                 android:textSize="@dimen/text_size_big" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
                 android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="wrap_content"
-                    android:textColor="#999999"
+                    android:layout_height="wrap_content"
                     android:text="￥"
+                    android:textColor="#999999"
                     android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:layout_height="wrap_content" />
+                    android:textStyle="bold" />
+
                 <EditText
                     android:id="@+id/priceCustom"
                     android:layout_width="match_parent"
-                    android:textColor="#FA6440"
-                    android:text=""
+                    android:layout_height="wrap_content"
                     android:layout_marginRight="20dp"
-                    android:paddingLeft="@dimen/text_size_10sp"
+                    android:background="@null"
+                    android:inputType="number"
                     android:lines="1"
                     android:maxLength="7"
-                    android:textSize="@dimen/text_size_big"
-                    android:layout_height="wrap_content" />
+                    android:paddingLeft="@dimen/text_size_10sp"
+                    android:text=""
+                    android:textColor="#FA6440"
+                    android:textSize="@dimen/text_size_big" />
             </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="2dp"
-                android:background="#F0F0F0"/>
+                android:background="#F0F0F0" />
+
             <RadioGroup
                 android:id="@+id/rg_pay_type"
                 android:layout_width="match_parent"

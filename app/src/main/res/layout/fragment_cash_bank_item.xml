@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#F0F0F0"
+    android:orientation="horizontal"
+    android:paddingBottom="15dp"
+    android:paddingLeft="12dp"
+    android:paddingRight="12dp"
+    android:paddingTop="15dp">
+
+    <TextView
+        android:id="@+id/cash_way"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="提现到支付宝"
+        android:textColor="@color/text_color_title"
+        android:textSize="@dimen/text_size_middle" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="10dp"
+        android:layout_toLeftOf="@+id/icon"
+        android:layout_toRightOf="@+id/cash_way"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="招商银行（尾号3456）"
+            android:textColor="@color/color_theme"
+            android:textSize="@dimen/text_size_middle" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="提现收取手续费1%"
+            android:textColor="@color/text_color_title"
+            android:textSize="@dimen/text_size_small" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center_vertical"
+        android:src="@drawable/ic_jiaohuan" />
+</RelativeLayout>
