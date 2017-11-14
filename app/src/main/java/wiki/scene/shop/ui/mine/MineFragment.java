@@ -146,6 +146,11 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
         presenter.clickSetting();
     }
 
+    @OnClick(R.id.mine_card)
+    public void onClickMineBankCard() {
+        presenter.clickMineBankCard();
+    }
+
     @Override
     public void showLoading(@StringRes int resId) {
         loadingDialog.showLoadingDialog(getString(resId));
@@ -264,6 +269,14 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
     @Override
     public void enterMyCollect() {
         EventBus.getDefault().post(new StartBrotherEvent(MineCollectFragment.newInstance()));
+    }
+
+    /**
+     * 我的银行卡
+     */
+    @Override
+    public void enterMineBankCard() {
+        EventBus.getDefault().post(new StartBrotherEvent(BankListFragment.newInstance()));
     }
 
     @Override

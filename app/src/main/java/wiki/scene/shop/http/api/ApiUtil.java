@@ -157,6 +157,9 @@ public class ApiUtil {
     //找回密码 重置密码
     public static final String FIND_PASSWORD_RESET = "/user/reset_password";
     public static final String FIND_PASSWORD_RESET_TAG = "FIND_PASSWORD_RESET_TAG";
+    //开奖走势列表
+    public static final String TREND_LIST="/new_opened";
+    public static final String TREND_LIST_TAG="TREND_LIST";
 
     /**
      * Case By:创建参数基础信息

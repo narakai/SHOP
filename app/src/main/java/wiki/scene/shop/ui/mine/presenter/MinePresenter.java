@@ -45,16 +45,17 @@ public class MinePresenter extends BasePresenter<IMineView> {
             if (ShopApplication.userInfo != null && ShopApplication.hasLogin) {
                 mineView.enterWinRecord();
             } else {
-                mView.enterLogin();
+                mineView.enterLogin();
             }
         }
     }
+
     public void clickMyCollect() {
         if (mineView != null) {
             if (ShopApplication.userInfo != null && ShopApplication.hasLogin) {
                 mineView.enterMyCollect();
             } else {
-                mView.enterLogin();
+                mineView.enterLogin();
             }
         }
     }
@@ -68,7 +69,7 @@ public class MinePresenter extends BasePresenter<IMineView> {
             if (ShopApplication.userInfo != null && ShopApplication.hasLogin) {
                 mineView.enterMineShare();
             } else {
-                mView.enterLogin();
+                mineView.enterLogin();
             }
         }
     }
@@ -78,7 +79,7 @@ public class MinePresenter extends BasePresenter<IMineView> {
             if (ShopApplication.userInfo != null && ShopApplication.hasLogin) {
                 mineView.enterMineRed();
             } else {
-                mView.enterLogin();
+                mineView.enterLogin();
             }
         }
     }
@@ -88,8 +89,20 @@ public class MinePresenter extends BasePresenter<IMineView> {
             if (ShopApplication.userInfo != null && ShopApplication.hasLogin) {
                 mineView.enterReceiverAddress();
             } else {
-                mView.enterLogin();
+                mineView.enterLogin();
             }
+        }
+    }
+
+    public void clickMineBankCard() {
+        try {
+            if(ShopApplication.userInfo!=null&&ShopApplication.hasLogin){
+                mineView.enterMineBankCard();
+            }else{
+                mineView.enterLogin();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
