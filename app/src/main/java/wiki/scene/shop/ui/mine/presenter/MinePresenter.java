@@ -120,6 +120,18 @@ public class MinePresenter extends BasePresenter<IMineView> {
         }
     }
 
+    public void clickDrawCashRecord(){
+        try{
+            if (ShopApplication.userInfo != null && ShopApplication.hasLogin) {
+                mineView.enterDrawCashRecord();
+            } else {
+                mineView.enterLogin();
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
     /**
      * 夺宝记录
      */

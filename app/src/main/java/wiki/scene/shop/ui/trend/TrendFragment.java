@@ -102,19 +102,31 @@ public class TrendFragment extends BaseMainMvpFragment<ITrendView, TrendPresente
 
     @Override
     public void showLoading(int resId) {
-
+        try {
+            statusLayout.showLoading();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void hideLoading() {
-
+        try {
+            statusLayout.showContent();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void getTrendDataSuccess(List<WinCodeInfo> dataList) {
-        list.clear();
-        list.addAll(dataList);
-        mAdapter.notifyDataSetChangedHF();
+        try {
+            list.clear();
+            list.addAll(dataList);
+            mAdapter.notifyDataSetChangedHF();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
