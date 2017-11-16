@@ -40,4 +40,8 @@ public interface IMineView extends BaseView {
     void enterMineBankCard();
 
     void enterDrawCashRecord();
+
+    void enterExchangeRecord();
+
+    void enterBindPhone();
 }

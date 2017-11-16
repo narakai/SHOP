@@ -96,9 +96,9 @@ public class MinePresenter extends BasePresenter<IMineView> {
 
     public void clickMineBankCard() {
         try {
-            if(ShopApplication.userInfo!=null&&ShopApplication.hasLogin){
+            if (ShopApplication.userInfo != null && ShopApplication.hasLogin) {
                 mineView.enterMineBankCard();
-            }else{
+            } else {
                 mineView.enterLogin();
             }
         } catch (Exception e) {
@@ -120,10 +120,34 @@ public class MinePresenter extends BasePresenter<IMineView> {
         }
     }
 
-    public void clickDrawCashRecord(){
-        try{
+    public void clickDrawCashRecord() {
+        try {
             if (ShopApplication.userInfo != null && ShopApplication.hasLogin) {
                 mineView.enterDrawCashRecord();
+            } else {
+                mineView.enterLogin();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void clickExchangeRecord() {
+        try {
+            if (ShopApplication.userInfo != null && ShopApplication.hasLogin) {
+                mineView.enterExchangeRecord();
+            } else {
+                mineView.enterLogin();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void clickMinePhone(){
+        try{
+            if (ShopApplication.userInfo != null && ShopApplication.hasLogin) {
+                mineView.enterBindPhone();
             } else {
                 mineView.enterLogin();
             }

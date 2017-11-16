@@ -1,8 +1,10 @@
 package wiki.scene.shop.ui.mine;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -94,10 +96,21 @@ public class RechargeFragment extends BaseBackMvpFragment<IRechargeView, Recharg
                 try {
                     if (v == priceCustom && hasFocus) {
                         radioGroup.clearCheck();
+                        priceCustom.setTextColor(ContextCompat.getColor(getContext(), R.color.color_theme));
+                    } else {
+                        hideSoftInput();
+                        priceCustom.setTextColor(Color.parseColor("#999999"));
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+            }
+        });
+        priceCustom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                radioGroup.clearCheck();
+                priceCustom.setTextColor(ContextCompat.getColor(getContext(), R.color.color_theme));
             }
         });
 
@@ -106,6 +119,34 @@ public class RechargeFragment extends BaseBackMvpFragment<IRechargeView, Recharg
         } else {
             radioAlipay.setChecked(true);
         }
+        money1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                hideSoftInput();
+                priceCustom.setTextColor(Color.parseColor("#999999"));
+            }
+        });
+        money2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                hideSoftInput();
+                priceCustom.setTextColor(Color.parseColor("#999999"));
+            }
+        });
+        money3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                hideSoftInput();
+                priceCustom.setTextColor(Color.parseColor("#999999"));
+            }
+        });
+        money4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                hideSoftInput();
+                priceCustom.setTextColor(Color.parseColor("#999999"));
+            }
+        });
     }
 
     @Override

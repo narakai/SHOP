@@ -156,6 +156,16 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
         presenter.clickDrawCashRecord();
     }
 
+    @OnClick(R.id.exchange_record)
+    public void onClickExchangeRecord() {
+        presenter.clickExchangeRecord();
+    }
+
+    @OnClick(R.id.mine_phone)
+    public void onClickMinePhone() {
+        presenter.clickMinePhone();
+    }
+
     @Override
     public void showLoading(@StringRes int resId) {
         loadingDialog.showLoadingDialog(getString(resId));
@@ -287,6 +297,16 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
     @Override
     public void enterDrawCashRecord() {
         EventBus.getDefault().post(new StartBrotherEvent(CashRecordFragment.newInstance()));
+    }
+
+    @Override
+    public void enterExchangeRecord() {
+        EventBus.getDefault().post(new StartBrotherEvent(ExchangeRecordFragment.newInstance()));
+    }
+
+    @Override
+    public void enterBindPhone() {
+        EventBus.getDefault().post(new StartBrotherEvent(BindPhoneFragment.newInstance()));
     }
 
     @Override
