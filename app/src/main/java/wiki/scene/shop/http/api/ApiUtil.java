@@ -158,9 +158,14 @@ public class ApiUtil {
     public static final String FIND_PASSWORD_RESET = "/user/reset_password";
     public static final String FIND_PASSWORD_RESET_TAG = "FIND_PASSWORD_RESET_TAG";
     //开奖走势列表
-    public static final String TREND_LIST="/new_opened";
-    public static final String TREND_LIST_TAG="TREND_LIST";
-
+    public static final String TREND_LIST = "/new_opened";
+    public static final String TREND_LIST_TAG = "TREND_LIST";
+    //获取绑定手机短信验证码
+    public static final String RESET_PHONE_SMS = "/personal/profile/reset_mobile_sms";
+    public static final String RESET_PHONE_SMS_TAG = "RESET_PHONE_SMS";
+    //重置手机号
+    public static final String RESET_PHONE="/personal/profile/reset_mobile";
+    public static final String RESET_PHONE_TAG="RESET_PHONE";
     /**
      * Case By:创建参数基础信息
      * Author: scene on 2017/5/19 13:19

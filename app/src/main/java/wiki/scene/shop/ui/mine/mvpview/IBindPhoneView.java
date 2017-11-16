@@ -8,4 +8,15 @@ import wiki.scene.shop.mvp.BaseView;
  */
 
 public interface IBindPhoneView extends BaseView {
+    String getPhoneNumber();
+
+    void showMessage(String message);
+
+    void getSMSSuccess();
+
+    String getPassword();
+
+    String getCode();
+
+    void resetPhoneNumberSuccess();
 }

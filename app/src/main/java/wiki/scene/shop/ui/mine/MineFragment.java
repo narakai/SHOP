@@ -264,7 +264,7 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
     @Override
     public void enterSetting() {
         if (ShopApplication.hasLogin) {
-            startActivity(new Intent(_mActivity, MineInfoActivity.class));
+            EventBus.getDefault().post(new StartBrotherEvent(SettingFragment.newInstance()));
         } else {
             enterLogin();
         }
