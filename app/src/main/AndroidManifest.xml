@@ -23,8 +23,8 @@
         android:theme="@style/AppTheme.NoActionBar">
         <!-- 配置Glide -->
         <!--<meta-data-->
-            <!--android:name="com.bumptech.glide.integration.okhttp3.OkHttpGlideModule"-->
-            <!--android:value="GlideModule" />-->
+        <!--android:name="com.bumptech.glide.integration.okhttp3.OkHttpGlideModule"-->
+        <!--android:value="GlideModule" />-->
 
         <activity
             android:name=".activity.LauncherActivity"
@@ -37,7 +37,14 @@
         </activity>
         <activity
             android:name=".MainActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait" />
+        <!--等待登录注册-->
+        <activity
+            android:name=".activity.LoginWaitActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar.SwipeBack"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <!--登录-->
         <activity
             android:name=".activity.LoginActivity"

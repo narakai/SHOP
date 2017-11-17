@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
 import com.sunfusheng.glideimageview.GlideImageView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -31,7 +30,6 @@ import wiki.scene.shop.event.StartBrotherEvent;
 import wiki.scene.shop.mvp.BaseMainMvpFragment;
 import wiki.scene.shop.ui.mine.mvpview.IMineView;
 import wiki.scene.shop.ui.mine.presenter.MinePresenter;
-import wiki.scene.shop.utils.SharedPreferencesUtil;
 import wiki.scene.shop.widgets.LoadingDialog;
 
 /**
@@ -323,9 +321,7 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onRegisterSuccess(RegisterSuccessEvent event) {
         if (event != null) {
-            SharedPreferencesUtil.putString(_mActivity, ShopApplication.USER_INFO_KEY, new Gson().toJson(event.getUserInfo()));
-            ShopApplication.userInfo = event.getUserInfo();
-            ShopApplication.hasLogin = true;
+
             hasLogin();
         }
     }

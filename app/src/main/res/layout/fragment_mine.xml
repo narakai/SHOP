@@ -64,7 +64,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="5dp"
                     android:background="@drawable/shape_white_borad_round"
-                    android:text="用户ID:12346"
+                    android:text="用户ID:0"
                     android:textColor="#F7CBC2" />
 
                 <LinearLayout
@@ -94,7 +94,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
-                            android:text="1000"
+                            android:text="0"
                             android:textColor="@color/white"
                             android:textSize="@dimen/text_size_big" />
 
@@ -124,7 +124,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
-                            android:text="1000"
+                            android:text="0"
                             android:textColor="@color/white"
                             android:textSize="@dimen/text_size_big" />
                     </LinearLayout>
@@ -153,7 +153,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
-                            android:text="1000"
+                            android:text="0"
                             android:textColor="@color/white"
                             android:textSize="@dimen/text_size_big" />
                     </LinearLayout>
@@ -237,7 +237,7 @@
                     android:id="@+id/today_join"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="今日参与：10"
+                    android:text="今日参与：0"
                     android:textColor="@color/white"
                     android:textSize="@dimen/text_size_middle" />
 
@@ -246,7 +246,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:text="今日佣金：10"
+                    android:text="今日佣金：0"
                     android:textColor="@color/white"
                     android:textSize="@dimen/text_size_middle" />
 
@@ -255,7 +255,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:text="今日获胜：10"
+                    android:text="今日获胜：0"
                     android:textColor="@color/white"
                     android:textSize="@dimen/text_size_middle" />
             </RelativeLayout>

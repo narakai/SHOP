@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.umeng.socialize.UMAuthListener;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
@@ -21,12 +22,15 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import wiki.scene.shop.MainActivity;
 import wiki.scene.shop.R;
+import wiki.scene.shop.ShopApplication;
 import wiki.scene.shop.activity.mvpview.ILoginView;
 import wiki.scene.shop.activity.presenter.LoginPresenter;
 import wiki.scene.shop.entity.UserInfo;
 import wiki.scene.shop.event.RegisterSuccessEvent;
 import wiki.scene.shop.mvp.BaseMvpActivity;
+import wiki.scene.shop.utils.SharedPreferencesUtil;
 import wiki.scene.shop.utils.ToastUtils;
 import wiki.scene.shop.widgets.LoadingDialog;
 
@@ -113,7 +117,17 @@ public class LoginActivity extends BaseMvpActivity<ILoginView, LoginPresenter> i
 
     @Override
     public void loginSuccess(UserInfo userInfo) {
-        EventBus.getDefault().post(new RegisterSuccessEvent(userInfo));
+        try {
+            if (userInfo != null) {
+                EventBus.getDefault().post(new RegisterSuccessEvent(userInfo));
+                SharedPreferencesUtil.putString(this, ShopApplication.USER_INFO_KEY, new Gson().toJson(userInfo));
+                ShopApplication.userInfo = userInfo;
+                ShopApplication.hasLogin = true;
+                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -134,7 +148,7 @@ public class LoginActivity extends BaseMvpActivity<ILoginView, LoginPresenter> i
 
     @Override
     public void enterLosePasswordActivity() {
-        startActivity(new Intent(LoginActivity.this,FindPasswordActivity.class));
+        startActivity(new Intent(LoginActivity.this, FindPasswordActivity.class));
     }
 
     @Override
@@ -159,7 +173,7 @@ public class LoginActivity extends BaseMvpActivity<ILoginView, LoginPresenter> i
     }
 
     @OnClick(R.id.lose_password)
-    public void onClickLosePassword(){
+    public void onClickLosePassword() {
         presenter.enterLosePassword();
     }
 

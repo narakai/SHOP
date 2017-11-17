@@ -24,6 +24,8 @@ public abstract class BaseMainFragment extends SupportFragment {
     public boolean onBackPressedSupport() {
         if (System.currentTimeMillis() - TOUCH_TIME < WAIT_TIME) {
             _mActivity.finish();
+            android.os.Process.killProcess(android.os.Process.myPid());
+            System.exit(1);
         } else {
             TOUCH_TIME = System.currentTimeMillis();
             ToastUtils.getInstance(_mActivity).showToast(getString(R.string.press_again_exit));

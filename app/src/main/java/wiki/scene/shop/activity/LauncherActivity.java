@@ -112,10 +112,9 @@ public class LauncherActivity extends BaseMvpActivity<ILauncherView, LauncherPre
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
+                        checkHasLogin();
                         beginTime = System.currentTimeMillis();
                         presenter.getAppConfig();
-                        checkHasLogin();
-
                     }
 
                     @Override
@@ -194,8 +193,13 @@ public class LauncherActivity extends BaseMvpActivity<ILauncherView, LauncherPre
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        startActivity(new Intent(LauncherActivity.this, MainActivity.class));
+                                        if (ShopApplication.hasLogin) {
+                                            startActivity(new Intent(LauncherActivity.this, MainActivity.class));
+                                        } else {
+                                            startActivity(new Intent(LauncherActivity.this, LoginWaitActivity.class));
+                                        }
                                         LauncherActivity.this.finish();
+
                                     }
                                 });
                             }
