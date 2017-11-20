@@ -13,6 +13,8 @@ import com.blankj.utilcode.util.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -23,13 +25,17 @@ import wiki.scene.loadmore.PtrFrameLayout;
 import wiki.scene.loadmore.StatusViewLayout;
 import wiki.scene.loadmore.recyclerview.RecyclerAdapterWithHF;
 import wiki.scene.loadmore.utils.PtrLocalDisplay;
+import wiki.scene.shop.MainActivity;
 import wiki.scene.shop.R;
+import wiki.scene.shop.ShopApplication;
 import wiki.scene.shop.adapter.TrendAdapter;
 import wiki.scene.shop.entity.WinCodeInfo;
 import wiki.scene.shop.itemDecoration.SpacesItemDecoration;
 import wiki.scene.shop.mvp.BaseMainMvpFragment;
 import wiki.scene.shop.ui.trend.presenter.TrendPresenter;
 import wiki.scene.shop.ui.trend.view.ITrendView;
+import wiki.scene.shop.utils.DateFormatUtils;
+import wiki.scene.shop.utils.ThreadPoolUtils;
 
 /**
  * 开奖走势
@@ -50,6 +56,8 @@ public class TrendFragment extends BaseMainMvpFragment<ITrendView, TrendPresente
     private RecyclerAdapterWithHF mAdapter;
     private TextView countdownView;
 
+    private ThreadPoolUtils timeThreadPoolUtils;
+    private ScheduledFuture timeScheduledFuture;
 
     public static TrendFragment newInstance() {
         Bundle args = new Bundle();
@@ -97,8 +105,34 @@ public class TrendFragment extends BaseMainMvpFragment<ITrendView, TrendPresente
         View headerView = LayoutInflater.from(getContext()).inflate(R.layout.fragment_trend_header, null);
         countdownView = (TextView) headerView.findViewById(R.id.countdownView);
         mAdapter.addHeader(headerView);
+        startCountDown();
     }
 
+    private void startCountDown() {
+        timeThreadPoolUtils = new ThreadPoolUtils(ThreadPoolUtils.SingleThread, 1);
+        timeScheduledFuture = timeThreadPoolUtils.scheduleWithFixedRate(new Runnable() {
+            @Override
+            public void run() {
+                _mActivity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            if (ShopApplication.currentCycleInfo.getOpen_time() * 1000 <= System.currentTimeMillis()) {
+                                if (!countdownView.getText().toString().equals("开奖中")) {
+                                    ((MainActivity) _mActivity).getCurrentCycleData();
+                                }
+                                countdownView.setText("开奖中");
+                            } else {
+                                countdownView.setText(DateFormatUtils.getHoursByNow(ShopApplication.currentCycleInfo.getOpen_time()));
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+            }
+        }, 1, 1, TimeUnit.SECONDS);
+    }
 
     @Override
     public void showLoading(int resId) {

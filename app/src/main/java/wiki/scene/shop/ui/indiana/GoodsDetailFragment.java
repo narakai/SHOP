@@ -6,6 +6,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -108,6 +109,16 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
     TextView tenPrice;
     @BindView(R.id.countdownView)
     TextView countdownView;
+    @BindView(R.id.danmuUserAvatar)
+    ImageView danmuUserAvatar;
+    @BindView(R.id.danmuUsername)
+    TextView danmuUsername;
+    @BindView(R.id.danmuBuyNumber)
+    TextView danmuBuyNumber;
+    @BindView(R.id.danmuGoodsName)
+    TextView danmuGoodsName;
+    @BindView(R.id.danmuLayout)
+    LinearLayout danmuLayout;
     private int goodsId;
 
     private GoodsDetailWinCodeAdapter winCodeAdapter;
@@ -122,10 +133,14 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
     private ThreadPoolUtils getDataThreadPoolUtils;
     private ThreadPoolUtils timeThreadPoolUtils;
     private ScheduledFuture timeScheduledFuture;
+    private ThreadPoolUtils danmuThreadPoolUtils;
+    private ScheduledFuture danmuScheduledFuture;
 
     private ChooseGoodsNumberPopupWindow popupWindow;
 
     private GoodsDetailInfo.GoodsInfo goodsInfo;
+
+    private int danmuPosition = 0;
 
     public static GoodsDetailFragment newInstance(int goodsId) {
         Bundle args = new Bundle();
@@ -341,6 +356,7 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
         } else {
             buyAdapter.notifyDataSetChanged();
         }
+
     }
 
     /**
@@ -426,12 +442,60 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
         }, 1, 1, TimeUnit.SECONDS);
     }
 
+    private void showDanmu(final List<NewestWinInfo> list) {
+        if (list == null || list.size() == 0) {
+            return;
+        }
+        danmuThreadPoolUtils = new ThreadPoolUtils(ThreadPoolUtils.SingleThread, 1);
+        danmuScheduledFuture = danmuThreadPoolUtils.scheduleWithFixedRate(new Runnable() {
+            @Override
+            public void run() {
+                _mActivity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            if (danmuLayout.getVisibility() == View.GONE) {
+                                danmuPosition += 1;
+                                NewestWinInfo info = list.get(danmuPosition % list.size());
+                                danmuBuyNumber.setText(String.valueOf(info.getNumber()));
+                                danmuUsername.setText(info.getNickname());
+                                danmuGoodsName.setText(info.getProduct_name());
+                                GlideImageLoader.create(danmuUserAvatar).loadCircleImage(ShopApplication.configInfo.getFile_domain() + info.getAvatar(), R.drawable.ic_default_avater);
+                                danmuLayout.setVisibility(View.VISIBLE);
+                            } else {
+                                danmuLayout.setVisibility(View.GONE);
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+            }
+        }, 3, 3, TimeUnit.SECONDS);
+    }
+
+    private void cancelDanmuThread() {
+        try {
+            if (danmuScheduledFuture != null) {
+                danmuScheduledFuture.cancel(true);
+            }
+            if (danmuThreadPoolUtils != null) {
+                danmuThreadPoolUtils.shutDownNow();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
     @Override
     public void onStop() {
         super.onStop();
         cancelGetDataThread();
         cancelListAutoScroolThread();
         cancelCountDown();
+        cancelDanmuThread();
     }
 
     @Override

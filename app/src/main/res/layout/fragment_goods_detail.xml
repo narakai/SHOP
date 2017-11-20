@@ -54,14 +54,16 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerHorizontal="true"
                                 android:layout_marginTop="20dp"
+                                android:visibility="gone"
+                                android:background="@drawable/shape_translate_round"
                                 android:gravity="center_vertical"
                                 android:orientation="horizontal"
-                                android:visibility="gone">
+                                android:padding="3dp">
 
                                 <ImageView
                                     android:id="@+id/danmuUserAvatar"
-                                    android:layout_width="30dp"
-                                    android:layout_height="30dp"
+                                    android:layout_width="22dp"
+                                    android:layout_height="22dp"
                                     android:src="@drawable/ic_default_avater" />
 
                                 <TextView
@@ -71,41 +73,46 @@
                                     android:layout_marginLeft="5dp"
                                     android:layout_marginRight="5dp"
                                     android:text="快乐一生"
-                                    android:textColor="@color/color_theme"
-                                    android:textSize="@dimen/text_size_middle" />
+                                    android:textColor="#F1F100"
+                                    android:textSize="@dimen/text_size_small" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="抢购"
-                                    android:textColor="@color/text_color_title"
-                                    android:textSize="@dimen/text_size_middle" />
+                                    android:text="参与"
+                                    android:textColor="@color/white"
+                                    android:textSize="@dimen/text_size_small" />
 
                                 <TextView
                                     android:id="@+id/danmuBuyNumber"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="2"
-                                    android:textColor="@color/color_theme"
-                                    android:textSize="@dimen/text_size_middle" />
+                                    android:textColor="#32A5EB"
+                                    android:textSize="@dimen/text_size_small" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="组"
-                                    android:textColor="@color/text_color_title"
-                                    android:textSize="@dimen/text_size_middle" />
+                                    android:textColor="@color/white"
+                                    android:textSize="@dimen/text_size_small" />
 
                                 <TextView
-                                    android:id="@+id/danmuTime"
+                                    android:id="@+id/danmuGoodsName"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginRight="5dp"
-                                    android:ellipsize="end"
-                                    android:gravity="right"
-                                    android:lines="1"
-                                    android:text="5秒前"
-                                    android:textColor="@color/text_color_des" />
+                                    android:text="20元充值卡"
+                                    android:textColor="#32A5EB"
+                                    android:textSize="@dimen/text_size_small" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="夺宝"
+                                    android:layout_marginRight="10dp"
+                                    android:textColor="@color/white"
+                                    android:textSize="@dimen/text_size_small" />
                             </LinearLayout>
                         </RelativeLayout>
 
