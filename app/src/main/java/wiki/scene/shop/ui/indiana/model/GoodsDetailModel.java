@@ -4,8 +4,6 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.model.HttpParams;
 import com.lzy.okgo.model.Response;
 
-import java.util.List;
-
 import wiki.scene.shop.entity.AddCartResultInfo;
 import wiki.scene.shop.entity.CreateOrderInfo;
 import wiki.scene.shop.entity.GoodsDetailInfo;
@@ -106,29 +104,6 @@ public class GoodsDetailModel {
                 });
     }
 
-
-    public void getDanmu(HttpParams params, final HttpResultListener<List<GoodsDetailInfo.LogInfo>> listener) {
-        OkGo.<LzyResponse<List<GoodsDetailInfo.LogInfo>>>get(ApiUtil.API_PRE + ApiUtil.DANMU)
-                .tag(ApiUtil.DANMU_TAG)
-                .params(params)
-                .execute(new JsonCallback<LzyResponse<List<GoodsDetailInfo.LogInfo>>>() {
-                    @Override
-                    public void onSuccess(Response<LzyResponse<List<GoodsDetailInfo.LogInfo>>> response) {
-                        listener.onSuccess(response.body().data);
-                    }
-
-                    @Override
-                    public void onError(Response<LzyResponse<List<GoodsDetailInfo.LogInfo>>> response) {
-                        super.onError(response);
-                    }
-
-                    @Override
-                    public void onFinish() {
-                        super.onFinish();
-                        listener.onFinish();
-                    }
-                });
-    }
 
     public void addCollection(HttpParams params, final HttpResultListener<String> listener) {
         OkGo.<LzyResponse<String>>post(ApiUtil.API_PRE + ApiUtil.ADD_COLLECTION)

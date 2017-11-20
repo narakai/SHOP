@@ -1,16 +1,17 @@
 package wiki.scene.shop.ui.mine;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ToastUtils;
+import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 
 import java.util.concurrent.ScheduledFuture;
@@ -21,10 +22,13 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import wiki.scene.shop.R;
+import wiki.scene.shop.ShopApplication;
+import wiki.scene.shop.activity.LoginActivity;
 import wiki.scene.shop.http.api.ApiUtil;
 import wiki.scene.shop.mvp.BaseBackMvpFragment;
 import wiki.scene.shop.ui.mine.mvpview.IBindPhoneView;
 import wiki.scene.shop.ui.mine.presenter.BindPhonePresenter;
+import wiki.scene.shop.utils.SharedPreferencesUtil;
 import wiki.scene.shop.utils.ThreadPoolUtils;
 import wiki.scene.shop.widgets.LoadingDialog;
 
@@ -46,8 +50,6 @@ public class BindPhoneFragment extends BaseBackMvpFragment<IBindPhoneView, BindP
     EditText verification;
     @BindView(R.id.get_verification)
     TextView getVerification;
-    @BindView(R.id.next_step)
-    Button nextStep;
     Unbinder unbinder;
 
     private ThreadPoolUtils threadPoolUtils;
@@ -83,6 +85,11 @@ public class BindPhoneFragment extends BaseBackMvpFragment<IBindPhoneView, BindP
     @OnClick(R.id.get_verification)
     public void onClickGetSMS() {
         presenter.getSMS();
+    }
+
+    @OnClick(R.id.submit)
+    public void onClickSubmit() {
+        presenter.resetPhoneMumber();
     }
 
     @Override
@@ -127,12 +134,12 @@ public class BindPhoneFragment extends BaseBackMvpFragment<IBindPhoneView, BindP
     @Override
     public void getSMSSuccess() {
         ToastUtils.showShort("验证码已发送，请注意查收");
-
+        showCountDownTimer();
     }
 
     @Override
     public String getPassword() {
-        return password.getText().toString();
+        return password.getText().toString().trim();
     }
 
     @Override
@@ -142,7 +149,15 @@ public class BindPhoneFragment extends BaseBackMvpFragment<IBindPhoneView, BindP
 
     @Override
     public void resetPhoneNumberSuccess() {
-        presenter.resetPhoneMumber();
+        try {
+            ShopApplication.hasLogin=false;
+            SharedPreferencesUtil.deleteByKey(_mActivity,ShopApplication.USER_INFO_KEY);
+            ToastUtils.showShort("手机号修改成功！请重新登录");
+            startActivity(new Intent(_mActivity, LoginActivity.class));
+            _mActivity.finish();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void showCountDownTimer() {

@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.suke.widget.SwitchButton;
@@ -51,6 +52,8 @@ public class SettingFragment extends BaseBackMvpFragment<ISettingView, SettingPr
     Toolbar toolbar;
     @BindView(R.id.toolbar_title)
     TextView toolbarTitle;
+    @BindView(R.id.exit_login)
+    Button exitLogin;
 
     private LoadingDialog loadingDialog;
 
@@ -80,6 +83,11 @@ public class SettingFragment extends BaseBackMvpFragment<ISettingView, SettingPr
     private void initView() {
         cacheSize.setText(GlideCacheUtil.getInstance().getCacheSize(_mActivity));
         loadingDialog = LoadingDialog.getInstance(_mActivity);
+        if (ShopApplication.hasLogin) {
+            exitLogin.setVisibility(View.VISIBLE);
+        } else {
+            exitLogin.setVisibility(View.GONE);
+        }
     }
 
     @OnClick(R.id.clear_cache)

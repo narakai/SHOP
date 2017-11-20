@@ -42,6 +42,7 @@
         <!--等待登录注册-->
         <activity
             android:name=".activity.LoginWaitActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar.SwipeBack"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />

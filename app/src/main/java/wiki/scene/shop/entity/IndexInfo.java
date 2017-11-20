@@ -57,7 +57,7 @@ public class IndexInfo implements Serializable {
 
         private int id;
         private String cycle_code;
-        private int result;
+        private String result;
         private int open_time;
         private int actual_open_time;
         private int status;
@@ -79,11 +79,11 @@ public class IndexInfo implements Serializable {
             this.cycle_code = cycle_code;
         }
 
-        public int getResult() {
+        public String getResult() {
             return result;
         }
 
-        public void setResult(int result) {
+        public void setResult(String result) {
             this.result = result;
         }
 

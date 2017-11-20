@@ -13,7 +13,7 @@ import wiki.scene.shop.utils.MD5Util;
 
 public class ApiUtil {
     private static final String SIGN_KEY = "045448f765b0c0592563123a2652fb63";
-    public static final String API_PRE = "http://192.168.0.111:8082";
+    public static final String API_PRE = "http://api.tianya-wz.cn";
 
     //获取APP的配置文件
     public static final String APP_CONFIG = "/common";
@@ -86,7 +86,7 @@ public class ApiUtil {
     public static final String WINNER_NOTICE = "/winning_notice";
     public static final String WINNER_NOTICE_TAG = "WINNER_NOTICE_TAG";
     //产品详情
-    public static final String GOODS_DETAIL = "/cycle/overview";
+    public static final String GOODS_DETAIL = "/business/detail";
     public static final String GOODS_DETAIL_TAG = "GOODS_DETAIL_TAG";
     //弹幕
     public static final String DANMU = "/cycle/danmu";
@@ -164,8 +164,15 @@ public class ApiUtil {
     public static final String RESET_PHONE_SMS = "/personal/profile/reset_mobile_sms";
     public static final String RESET_PHONE_SMS_TAG = "RESET_PHONE_SMS";
     //重置手机号
-    public static final String RESET_PHONE="/personal/profile/reset_mobile";
-    public static final String RESET_PHONE_TAG="RESET_PHONE";
+    public static final String RESET_PHONE = "/personal/profile/reset_mobile";
+    public static final String RESET_PHONE_TAG = "RESET_PHONE";
+    //最新获奖
+    public static final String NEWEST_WIN = "/business/newest_win";
+    public static final String NEWEST_WIN_TAG = "NEWEST_WIN";
+    //最新参与
+    public static final String NEWEST_BUY = "/business/newest_buy";
+    public static final String NEWEST_BUY_TAG = "NEWEST_BUY";
+
     /**
      * Case By:创建参数基础信息
      * Author: scene on 2017/5/19 13:19

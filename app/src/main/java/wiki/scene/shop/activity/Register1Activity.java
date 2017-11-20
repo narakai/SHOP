@@ -10,6 +10,8 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -22,12 +24,15 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import wiki.scene.loadmore.utils.SceneLogUtil;
+import wiki.scene.shop.MainActivity;
 import wiki.scene.shop.R;
+import wiki.scene.shop.ShopApplication;
 import wiki.scene.shop.activity.mvpview.IRegister1View;
 import wiki.scene.shop.activity.presenter.Register1Presenter;
 import wiki.scene.shop.entity.UserInfo;
 import wiki.scene.shop.event.RegisterSuccessEvent;
 import wiki.scene.shop.mvp.BaseMvpActivity;
+import wiki.scene.shop.utils.SharedPreferencesUtil;
 import wiki.scene.shop.utils.ToastUtils;
 import wiki.scene.shop.widgets.LoadingDialog;
 
@@ -121,8 +126,18 @@ public class Register1Activity extends BaseMvpActivity<IRegister1View, Register1
 
     @Override
     public void registerSuccess(UserInfo userInfo) {
-        EventBus.getDefault().post(new RegisterSuccessEvent(userInfo));
-        onBackPressed();
+        try {
+            if (userInfo != null) {
+                EventBus.getDefault().post(new RegisterSuccessEvent(userInfo));
+                SharedPreferencesUtil.putString(this, ShopApplication.USER_INFO_KEY, new Gson().toJson(userInfo));
+                ShopApplication.userInfo = userInfo;
+                ShopApplication.hasLogin = true;
+            }
+            startActivity(new Intent(Register1Activity.this, MainActivity.class));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override

@@ -102,11 +102,12 @@
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
                         android:paddingTop="2dp"
-                        android:text="时时彩开奖公布"
+                        android:text="时时彩"
                         android:textColor="@color/white"
                         android:textSize="@dimen/text_size_middle" />
 
                     <TextView
+                        android:id="@+id/cycle_code"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
@@ -115,6 +116,7 @@
                         android:textSize="@dimen/text_size_middle" />
 
                     <TextView
+                        android:id="@+id/cycle_number_1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/shape_trend_round_gray"
@@ -124,16 +126,7 @@
                         android:textSize="@dimen/text_size_middle" />
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:background="@drawable/shape_trend_round_gray"
-                        android:gravity="center"
-                        android:text="1"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/text_size_middle" />
-
-                    <TextView
+                        android:id="@+id/cycle_number_2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
@@ -144,6 +137,18 @@
                         android:textSize="@dimen/text_size_middle" />
 
                     <TextView
+                        android:id="@+id/cycle_number_3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:background="@drawable/shape_trend_round_gray"
+                        android:gravity="center"
+                        android:text="1"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_middle" />
+
+                    <TextView
+                        android:id="@+id/cycle_number_4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
@@ -154,6 +159,7 @@
                         android:textSize="@dimen/text_size_middle" />
 
                     <TextView
+                        android:id="@+id/cycle_number_5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
@@ -192,7 +198,6 @@
                         android:marqueeRepeatLimit="marquee_forever"
                         android:scrollHorizontally="true"
                         android:singleLine="true"
-                        android:text="恭喜XXXXX获胜8组       恭喜XXXXX获胜8组       恭喜XXXXX获胜8组       恭喜XXXXX获胜8组       恭喜XXXXX获胜8组"
                         android:textColor="@color/color_theme"
                         android:textSize="@dimen/text_size_middle" />
                 </LinearLayout>

@@ -8,461 +8,129 @@ import java.util.List;
  */
 
 public class GoodsDetailInfo {
+    private GoodsInfo data;
+    private List<WinCodeInfo> current_cycle;
 
-    private GoodsDetailInfoData data;
-    private List<LogInfo> log;
-    private List<DanmuInfo> danmu;
-    private List<BuyersInfo> buyers;
-    private boolean collection;
-
-    public GoodsDetailInfoData getData() {
+    public GoodsInfo getData() {
         return data;
     }
 
-    public void setData(GoodsDetailInfoData data) {
+    public void setData(GoodsInfo data) {
         this.data = data;
     }
 
-    public List<LogInfo> getLog() {
-        return log;
+    public List<WinCodeInfo> getCurrent_cycle() {
+        return current_cycle;
     }
 
-    public void setLog(List<LogInfo> log) {
-        this.log = log;
+    public void setCurrent_cycle(List<WinCodeInfo> current_cycle) {
+        this.current_cycle = current_cycle;
     }
 
-    public List<DanmuInfo> getDanmu() {
-        return danmu;
-    }
+    public static class GoodsInfo {
 
-    public void setDanmu(List<DanmuInfo> danmu) {
-        this.danmu = danmu;
-    }
+        /**
+         * id : 1
+         * name : 中国电信话费50元
+         * price_type : 1
+         * thumb : /img/1.jpg
+         * description :
+         * created_at : 2017-08-08 10:37:33
+         * updated_at : 2017-08-08 10:37:33
+         * two_price : 2800
+         * four_price : 1400
+         * ten_price : 600
+         */
 
-    public List<BuyersInfo> getBuyers() {
-        return buyers;
-    }
+        private int id;
+        private String name;
+        private int price_type;
+        private String thumb;
+        private String description;
+        private String created_at;
+        private String updated_at;
+        private String two_price;
+        private String four_price;
+        private String ten_price;
 
-    public void setBuyers(List<BuyersInfo> buyers) {
-        this.buyers = buyers;
-    }
-
-    public boolean isCollection() {
-        return collection;
-    }
-
-    public void setCollection(boolean collection) {
-        this.collection = collection;
-    }
-
-    public class GoodsDetailInfoData {
-        private String id;
-        private String title;
-        private String second_title;
-        private String cycle_code;
-        private int need_source;
-        private int current_source;
-        private String product_id;
-        private int status;
-        private String lucky_user_id;
-        private String lucky_code;
-        private List<String> images;
-        private int my_source;
-        private List<String> my_codes;
-        private List<ListGoodsInfo> hot;
-        private WinnerInfo winner;
-        private long open_time;
-
-        public String getId() {
+        public int getId() {
             return id;
         }
 
-        public void setId(String id) {
+        public void setId(int id) {
             this.id = id;
         }
 
-        public String getTitle() {
-            return title;
+        public String getName() {
+            return name;
         }
 
-        public void setTitle(String title) {
-            this.title = title;
+        public void setName(String name) {
+            this.name = name;
         }
 
-        public String getSecond_title() {
-            return second_title;
+        public int getPrice_type() {
+            return price_type;
         }
 
-        public void setSecond_title(String second_title) {
-            this.second_title = second_title;
+        public void setPrice_type(int price_type) {
+            this.price_type = price_type;
         }
 
-        public String getCycle_code() {
-            return cycle_code;
+        public String getThumb() {
+            return thumb;
         }
 
-        public void setCycle_code(String cycle_code) {
-            this.cycle_code = cycle_code;
+        public void setThumb(String thumb) {
+            this.thumb = thumb;
         }
 
-        public int getNeed_source() {
-            return need_source;
+        public String getDescription() {
+            return description;
         }
 
-        public void setNeed_source(int need_source) {
-            this.need_source = need_source;
+        public void setDescription(String description) {
+            this.description = description;
         }
 
-        public int getCurrent_source() {
-            return current_source;
+        public String getCreated_at() {
+            return created_at;
         }
 
-        public void setCurrent_source(int current_source) {
-            this.current_source = current_source;
+        public void setCreated_at(String created_at) {
+            this.created_at = created_at;
         }
 
-        public String getProduct_id() {
-            return product_id;
+        public String getUpdated_at() {
+            return updated_at;
         }
 
-        public void setProduct_id(String product_id) {
-            this.product_id = product_id;
+        public void setUpdated_at(String updated_at) {
+            this.updated_at = updated_at;
         }
 
-        public int getStatus() {
-            return status;
+        public String getTwo_price() {
+            return two_price;
         }
 
-        public void setStatus(int status) {
-            this.status = status;
+        public void setTwo_price(String two_price) {
+            this.two_price = two_price;
         }
 
-        public String getLucky_user_id() {
-            return lucky_user_id;
+        public String getFour_price() {
+            return four_price;
         }
 
-        public void setLucky_user_id(String lucky_user_id) {
-            this.lucky_user_id = lucky_user_id;
+        public void setFour_price(String four_price) {
+            this.four_price = four_price;
         }
 
-        public String getLucky_code() {
-            return lucky_code;
+        public String getTen_price() {
+            return ten_price;
         }
 
-        public void setLucky_code(String lucky_code) {
-            this.lucky_code = lucky_code;
-        }
-
-        public List<String> getImages() {
-            return images;
-        }
-
-        public void setImages(List<String> images) {
-            this.images = images;
-        }
-
-        public int getMy_source() {
-            return my_source;
-        }
-
-        public void setMy_source(int my_source) {
-            this.my_source = my_source;
-        }
-
-        public List<String> getMy_codes() {
-            return my_codes;
-        }
-
-        public void setMy_codes(List<String> my_codes) {
-            this.my_codes = my_codes;
-        }
-
-        public List<ListGoodsInfo> getHot() {
-            return hot;
-        }
-
-        public void setHot(List<ListGoodsInfo> hot) {
-            this.hot = hot;
-        }
-
-        public WinnerInfo getWinner() {
-            return winner;
-        }
-
-        public void setWinner(WinnerInfo winner) {
-            this.winner = winner;
-        }
-
-        public long getOpen_time() {
-            return open_time;
-        }
-
-        public void setOpen_time(long open_time) {
-            this.open_time = open_time;
-        }
-    }
-
-    public class WinnerInfo {
-        private List<String> lucky_user_codes;
-        private String user_id;
-        private String ip;
-        private String area;
-        private String nickname;
-        private String avatar;
-
-        public List<String> getLucky_user_codes() {
-            return lucky_user_codes;
-        }
-
-        public void setLucky_user_codes(List<String> lucky_user_codes) {
-            this.lucky_user_codes = lucky_user_codes;
-        }
-
-        public String getUser_id() {
-            return user_id;
-        }
-
-        public void setUser_id(String user_id) {
-            this.user_id = user_id;
-        }
-
-        public String getIp() {
-            return ip;
-        }
-
-        public void setIp(String ip) {
-            this.ip = ip;
-        }
-
-        public String getArea() {
-            return area;
-        }
-
-        public void setArea(String area) {
-            this.area = area;
-        }
-
-        public String getNickname() {
-            return nickname;
-        }
-
-        public void setNickname(String nickname) {
-            this.nickname = nickname;
-        }
-
-        public String getAvatar() {
-            return avatar;
-        }
-
-        public void setAvatar(String avatar) {
-            this.avatar = avatar;
-        }
-    }
-
-    public class LogInfo {
-        private String id;
-        private String user_id;
-        private int number;
-        private long create_time;
-        private String order_id;
-        private String ip;
-        private String area;
-        private String nickname;
-        private String avatar;
-
-        public String getId() {
-            return id;
-        }
-
-        public void setId(String id) {
-            this.id = id;
-        }
-
-        public String getUser_id() {
-            return user_id;
-        }
-
-        public void setUser_id(String user_id) {
-            this.user_id = user_id;
-        }
-
-        public int getNumber() {
-            return number;
-        }
-
-        public void setNumber(int number) {
-            this.number = number;
-        }
-
-        public long getCreate_time() {
-            return create_time;
-        }
-
-        public void setCreate_time(long create_time) {
-            this.create_time = create_time;
-        }
-
-        public String getOrder_id() {
-            return order_id;
-        }
-
-        public void setOrder_id(String order_id) {
-            this.order_id = order_id;
-        }
-
-        public String getIp() {
-            return ip;
-        }
-
-        public void setIp(String ip) {
-            this.ip = ip;
-        }
-
-        public String getArea() {
-            return area;
-        }
-
-        public void setArea(String area) {
-            this.area = area;
-        }
-
-        public String getNickname() {
-            return nickname;
-        }
-
-        public void setNickname(String nickname) {
-            this.nickname = nickname;
-        }
-
-        public String getAvatar() {
-            return avatar;
-        }
-
-        public void setAvatar(String avatar) {
-            this.avatar = avatar;
-        }
-    }
-
-    public class DanmuInfo {
-        private String id;
-        private String user_id;
-        private int number;
-        private long create_time;
-        private String order_id;
-        private String ip;
-        private String area;
-        private String nickname;
-        private String avatar;
-
-        public String getId() {
-            return id;
-        }
-
-        public void setId(String id) {
-            this.id = id;
-        }
-
-        public String getUser_id() {
-            return user_id;
-        }
-
-        public void setUser_id(String user_id) {
-            this.user_id = user_id;
-        }
-
-        public int getNumber() {
-            return number;
-        }
-
-        public void setNumber(int number) {
-            this.number = number;
-        }
-
-        public long getCreate_time() {
-            return create_time;
-        }
-
-        public void setCreate_time(long create_time) {
-            this.create_time = create_time;
-        }
-
-        public String getOrder_id() {
-            return order_id;
-        }
-
-        public void setOrder_id(String order_id) {
-            this.order_id = order_id;
-        }
-
-        public String getIp() {
-            return ip;
-        }
-
-        public void setIp(String ip) {
-            this.ip = ip;
-        }
-
-        public String getArea() {
-            return area;
-        }
-
-        public void setArea(String area) {
-            this.area = area;
-        }
-
-        public String getNickname() {
-            return nickname;
-        }
-
-        public void setNickname(String nickname) {
-            this.nickname = nickname;
-        }
-
-        public String getAvatar() {
-            return avatar;
-        }
-
-        public void setAvatar(String avatar) {
-            this.avatar = avatar;
-        }
-    }
-
-    public class BuyersInfo {
-        int number;
-        String type;
-        String avatar;
-        String nickname;
-
-        public int getNumber() {
-            return number;
-        }
-
-        public void setNumber(int number) {
-            this.number = number;
-        }
-
-        public String getType() {
-            return type;
-        }
-
-        public void setType(String type) {
-            this.type = type;
-        }
-
-        public String getAvatar() {
-            return avatar;
-        }
-
-        public void setAvatar(String avatar) {
-            this.avatar = avatar;
-        }
-
-        public String getNickname() {
-            return nickname;
-        }
-
-        public void setNickname(String nickname) {
-            this.nickname = nickname;
+        public void setTen_price(String ten_price) {
+            this.ten_price = ten_price;
         }
     }
 }

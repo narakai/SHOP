@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.lzy.okgo.OkGo;
@@ -30,7 +31,9 @@ import wiki.scene.shop.R;
 import wiki.scene.shop.ShopApplication;
 import wiki.scene.shop.adapter.IndianaCanyuAdapter;
 import wiki.scene.shop.adapter.IndianaGoodsAdapter;
+import wiki.scene.shop.adapter.IndianaWinAdapter;
 import wiki.scene.shop.entity.IndexInfo;
+import wiki.scene.shop.entity.NewestWinInfo;
 import wiki.scene.shop.event.StartBrotherEvent;
 import wiki.scene.shop.http.api.ApiUtil;
 import wiki.scene.shop.mvp.BaseMainMvpFragment;
@@ -48,7 +51,7 @@ import wiki.scene.shop.widgets.NoTouchListView;
  * Author：scene on 2017/6/28 17:36
  */
 
-public class IndianaFragment extends BaseMainMvpFragment<IIndianaView, IndianaPresenter> implements IIndianaView, View.OnClickListener {
+public class IndianaFragment extends BaseMainMvpFragment<IIndianaView, IndianaPresenter> implements IIndianaView {
 
     @BindView(R.id.gridView)
     CustomeGridView gridView;
@@ -69,12 +72,31 @@ public class IndianaFragment extends BaseMainMvpFragment<IIndianaView, IndianaPr
     Unbinder unbinder;
     @BindView(R.id.notice)
     MarqueeView notice;
+    @BindView(R.id.cycle_code)
+    TextView cycleCode;
+    @BindView(R.id.cycle_number_1)
+    TextView cycleNumber1;
+    @BindView(R.id.cycle_number_2)
+    TextView cycleNumber2;
+    @BindView(R.id.cycle_number_3)
+    TextView cycleNumber3;
+    @BindView(R.id.cycle_number_4)
+    TextView cycleNumber4;
+    @BindView(R.id.cycle_number_5)
+    TextView cycleNumber5;
 
     private List<IndexInfo.ProductsBean> goodsList = new ArrayList<>();
     private IndianaGoodsAdapter goodsAdapter;
 
     private ScheduledFuture scheduledFuture;
     private ThreadPoolUtils threadPoolUtils;
+    private ScheduledFuture getDataScheduledFuture;
+    private ThreadPoolUtils getDataThreadPoolUtils;
+
+    private List<NewestWinInfo> newestBuyList = new ArrayList<>();
+    private List<NewestWinInfo> newestWinList = new ArrayList<>();
+    private IndianaCanyuAdapter canyuAdapter;
+    private IndianaWinAdapter winAdapter;
 
     public static IndianaFragment newInstance() {
         Bundle args = new Bundle();
@@ -124,13 +146,6 @@ public class IndianaFragment extends BaseMainMvpFragment<IIndianaView, IndianaPr
             }
         });
 
-        List<String> list = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            list.add("用户：" + (i + 1));
-        }
-        IndianaCanyuAdapter adapter = new IndianaCanyuAdapter(getContext(), list);
-        canyuListView.setAdapter(adapter);
-        huojiangListView.setAdapter(adapter);
         threadPoolUtils = new ThreadPoolUtils(ThreadPoolUtils.SingleThread, 1);
         scheduledFuture = threadPoolUtils.scheduleWithFixedDelay(new Runnable() {
             @Override
@@ -160,12 +175,28 @@ public class IndianaFragment extends BaseMainMvpFragment<IIndianaView, IndianaPr
         notice.setFocusable(true);
         notice.setFocusableInTouchMode(true);
         notice.requestFocus();
+        getWinAndBuyDataByWhile();
+        presenter.getNewestBuyInfo();
+        presenter.getNewestWinInfo();
     }
 
-
-    @Override
-    public void onClick(View view) {
-
+    /**
+     * 循环获取数据
+     */
+    private void getWinAndBuyDataByWhile() {
+        getDataThreadPoolUtils = new ThreadPoolUtils(ThreadPoolUtils.SingleThread, 1);
+        getDataScheduledFuture = getDataThreadPoolUtils.scheduleWithFixedRate(new Runnable() {
+            @Override
+            public void run() {
+                _mActivity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        presenter.getNewestBuyInfo();
+                        presenter.getNewestWinInfo();
+                    }
+                });
+            }
+        }, 30 * 1000, 30 * 1000, TimeUnit.SECONDS);
     }
 
     @Override
@@ -206,11 +237,12 @@ public class IndianaFragment extends BaseMainMvpFragment<IIndianaView, IndianaPr
             }
         }
         goodsAdapter.notifyDataSetChanged();
+        refreshCurrentCycleCode(indexInfo.getLast_ssc_result());
     }
 
     @Override
     public void showMessage(String msg) {
-
+        ToastUtils.showShort(msg);
     }
 
     @Override
@@ -241,6 +273,55 @@ public class IndianaFragment extends BaseMainMvpFragment<IIndianaView, IndianaPr
         }
     }
 
+    /**
+     * 获取最新获奖信息成功
+     *
+     * @param list 集合
+     */
+    @Override
+    public void getNewestWinSuccess(List<NewestWinInfo> list) {
+        if (list == null || list.size() == 0) {
+            return;
+        }
+        newestWinList.clear();
+        newestWinList.addAll(list);
+        if (winAdapter == null) {
+            winAdapter = new IndianaWinAdapter(getContext(), newestWinList);
+            huojiangListView.setAdapter(winAdapter);
+        } else {
+            winAdapter.notifyDataSetChanged();
+        }
+        //绑定跑马灯的数据
+        StringBuilder text = new StringBuilder();
+        for (NewestWinInfo info : list) {
+            text.append("恭喜【").append(info.getNickname()).append("】获胜").append(info.getNumber()).append("组\t");
+        }
+        notice.setText(text.toString());
+        notice.setFocusable(true);
+        notice.setFocusableInTouchMode(true);
+        notice.requestFocus();
+    }
+
+    /**
+     * 获取最新参与信息成功
+     *
+     * @param list 集合
+     */
+    @Override
+    public void getNewestBuySuccess(List<NewestWinInfo> list) {
+        if (list == null || list.size() == 0) {
+            return;
+        }
+        newestBuyList.clear();
+        newestBuyList.addAll(list);
+        if (canyuAdapter == null) {
+            canyuAdapter = new IndianaCanyuAdapter(getContext(), newestBuyList);
+            canyuListView.setAdapter(canyuAdapter);
+        } else {
+            canyuAdapter.notifyDataSetChanged();
+        }
+    }
+
     @Override
     public IndianaPresenter initPresenter() {
         return new IndianaPresenter(this);
@@ -263,14 +344,53 @@ public class IndianaFragment extends BaseMainMvpFragment<IIndianaView, IndianaPr
 
     @Override
     public void onDestroyView() {
-        if (scheduledFuture != null) {
-            scheduledFuture.cancel(true);
-        }
-        if (threadPoolUtils != null && !threadPoolUtils.isShutDown()) {
-            threadPoolUtils.shutDownNow();
-        }
+        cancelListAutoScroolThread();
+        cancelGetDataThread();
         OkGo.getInstance().cancelTag(ApiUtil.INDEX_TAG);
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+
+    private void cancelListAutoScroolThread() {
+        try {
+            if (scheduledFuture != null) {
+                scheduledFuture.cancel(true);
+            }
+            if (threadPoolUtils != null && !threadPoolUtils.isShutDown()) {
+                threadPoolUtils.shutDownNow();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void cancelGetDataThread() {
+        try {
+            if (getDataScheduledFuture != null) {
+                getDataScheduledFuture.cancel(true);
+            }
+            if (getDataThreadPoolUtils != null) {
+                getDataThreadPoolUtils.shutDownNow();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void refreshCurrentCycleCode(IndexInfo.LastSscResultBean cycleInfo) {
+        try {
+            cycleCode.setText("第" + cycleInfo.getCycle_code() + "期：");
+            char[] cycleNumbers = cycleInfo.getResult().toCharArray();
+            if (cycleNumbers.length > 4) {
+                cycleNumber1.setText(String.valueOf(cycleNumbers[0]));
+                cycleNumber2.setText(String.valueOf(cycleNumbers[1]));
+                cycleNumber3.setText(String.valueOf(cycleNumbers[2]));
+                cycleNumber4.setText(String.valueOf(cycleNumbers[3]));
+                cycleNumber5.setText(String.valueOf(cycleNumbers[4]));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

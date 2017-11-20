@@ -15,7 +15,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import wiki.scene.shop.R;
-import wiki.scene.shop.ShopApplication;
 import wiki.scene.shop.entity.NewestWinInfo;
 
 /**
@@ -23,12 +22,12 @@ import wiki.scene.shop.entity.NewestWinInfo;
  * Created by scene on 2017/11/9.
  */
 
-public class IndianaCanyuAdapter extends BaseAdapter {
+public class IndianaWinAdapter extends BaseAdapter {
     private Context context;
     private List<NewestWinInfo> list;
     private LayoutInflater mInflater;
 
-    public IndianaCanyuAdapter(Context context, List<NewestWinInfo> list) {
+    public IndianaWinAdapter(Context context, List<NewestWinInfo> list) {
         this.context = context;
         this.list = list;
         mInflater = LayoutInflater.from(context);
@@ -64,8 +63,8 @@ public class IndianaCanyuAdapter extends BaseAdapter {
         viewHolder.goodsName.setText(info.getProduct_name());
         viewHolder.time.setText(TimeUtils.getFriendlyTimeSpanByNow(info.getCreate_time() * 1000));
         viewHolder.number.setText(String.valueOf(info.getNumber()));
-        viewHolder.status.setText("参与");
-        viewHolder.userAvater.loadCircleImage(ShopApplication.configInfo.getFile_domain() + info.getAvatar(), R.drawable.ic_default_avater);
+        viewHolder.status.setText("获胜");
+        //viewHolder.userAvater.loadCircleImage(ShopApplication.configInfo.getFile_domain()+ info.get)
         return convertView;
     }
 

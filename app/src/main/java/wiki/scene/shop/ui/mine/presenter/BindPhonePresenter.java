@@ -11,6 +11,7 @@ import wiki.scene.shop.http.listener.HttpResultListener;
 import wiki.scene.shop.mvp.BasePresenter;
 import wiki.scene.shop.ui.mine.model.BindPhoneModel;
 import wiki.scene.shop.ui.mine.mvpview.IBindPhoneView;
+import wiki.scene.shop.utils.MD5Util;
 
 /**
  * 绑定手机号
@@ -39,9 +40,10 @@ public class BindPhonePresenter extends BasePresenter<IBindPhoneView> {
             }
             HttpParams params = new HttpParams();
             params.put(ApiUtil.createParams());
-            params.put("mobile", bindPhoneView.getPhoneNumber());
             params.put("user_id", ShopApplication.userInfo.getUser_id());
             params.put("access_token", ShopApplication.userInfo.getAccess_token());
+            params.put("target_mobile", bindPhoneView.getPhoneNumber());
+
             bindPhoneView.showLoading(R.string.loading);
             bindPhoneModel.getResetPhoneSMS(params, new HttpResultListener<String>() {
                 @Override
@@ -79,7 +81,7 @@ public class BindPhonePresenter extends BasePresenter<IBindPhoneView> {
     public void resetPhoneMumber() {
         try {
             String phoneNumber = bindPhoneView.getPhoneNumber();
-            String password = bindPhoneView.getPassword();
+            String password = bindPhoneView.getPassword().trim();
             String code = bindPhoneView.getCode();
             if (StringUtils.isTrimEmpty(phoneNumber)) {
                 bindPhoneView.showMessage("请输入手机号");
@@ -99,10 +101,10 @@ public class BindPhonePresenter extends BasePresenter<IBindPhoneView> {
             }
             HttpParams params = new HttpParams();
             params.put(ApiUtil.createParams());
-            params.put("mobile", phoneNumber);
+            params.put("target_mobile", phoneNumber);
             params.put("user_id", ShopApplication.userInfo.getUser_id());
-            params.put("access_token", ShopApplication.userInfo.getAccess_token());
             params.put("code", code);
+            params.put("password", MD5Util.string2Md5(password, "UTF-8"));
             bindPhoneView.showLoading(R.string.loading);
             bindPhoneModel.resetPhoneNumber(params, new HttpResultListener<String>() {
                 @Override

@@ -52,6 +52,19 @@
             android:textColor="@color/white"
             android:textSize="@dimen/text_size_middle"
             android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/service_center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:drawablePadding="3dp"
+            android:drawableTop="@drawable/ic_toolbar_service_center"
+            android:text="客服"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_small" />
     </RelativeLayout>
 
 </android.support.design.widget.AppBarLayout>

@@ -28,15 +28,9 @@ public interface IGoodsDetailView extends BaseView {
 
     void refreshComplete();
 
-    void bindGoodsInfo(GoodsDetailInfo.GoodsDetailInfoData goodsDetailInfo);
+    void bindGoodsInfo(GoodsDetailInfo.GoodsInfo goodsInfo);
 
     void showFailPage();
-
-    void bindJoinRecord(List<GoodsDetailInfo.LogInfo> logInfo);
-
-    void bindTuhaoRank(List<GoodsDetailInfo.BuyersInfo> buyersInfo);
-
-    void bindGuessLike(List<ListGoodsInfo> listGoodsInfoList);
 
     void createOrderSuccess(CreateOrderInfo info);
 

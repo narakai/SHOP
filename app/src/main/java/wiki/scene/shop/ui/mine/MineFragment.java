@@ -261,18 +261,9 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
      */
     @Override
     public void enterSetting() {
-        if (ShopApplication.hasLogin) {
-            EventBus.getDefault().post(new StartBrotherEvent(SettingFragment.newInstance()));
-        } else {
-            enterLogin();
-        }
+        EventBus.getDefault().post(new StartBrotherEvent(SettingFragment.newInstance()));
     }
 
-    @Override
-    public void hasNoLogin() {
-        username.setText(R.string.please_login);
-        userAvater.loadLocalCircleImage(R.drawable.ic_default_avater, R.drawable.ic_default_avater);
-    }
 
     @Override
     public void enterRecharge() {
@@ -311,6 +302,14 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
     public void hasLogin() {
         username.setText(ShopApplication.userInfo.getNickname().isEmpty() ? ShopApplication.userInfo.getMobile() : ShopApplication.userInfo.getNickname());
         userAvater.loadCircleImage(ShopApplication.userInfo.getAvatar(), R.drawable.ic_default_avater);
+        userId.setText("用户ID:" + ShopApplication.userInfo.getUser_id());
+    }
+
+    @Override
+    public void hasNoLogin() {
+        username.setText(R.string.please_login);
+        userAvater.loadLocalCircleImage(R.drawable.ic_default_avater, R.drawable.ic_default_avater);
+        userId.setText("用户ID:0");
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -321,7 +320,6 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onRegisterSuccess(RegisterSuccessEvent event) {
         if (event != null) {
-
             hasLogin();
         }
     }

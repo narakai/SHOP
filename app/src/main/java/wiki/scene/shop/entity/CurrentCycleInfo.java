@@ -21,7 +21,7 @@ public class CurrentCycleInfo implements Serializable {
 
     private int id;
     private String cycle_code;
-    private int result;
+    private String result;
     private long open_time;
     private long actual_open_time;
     private int status;
@@ -43,11 +43,11 @@ public class CurrentCycleInfo implements Serializable {
         this.cycle_code = cycle_code;
     }
 
-    public int getResult() {
+    public String getResult() {
         return result;
     }
 
-    public void setResult(int result) {
+    public void setResult(String result) {
         this.result = result;
     }
 

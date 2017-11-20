@@ -29,7 +29,6 @@ import wiki.scene.shop.adapter.GoodsDetailBuyAdapter;
 import wiki.scene.shop.adapter.GoodsDetailWinCodeAdapter;
 import wiki.scene.shop.entity.CreateOrderInfo;
 import wiki.scene.shop.entity.GoodsDetailInfo;
-import wiki.scene.shop.entity.ListGoodsInfo;
 import wiki.scene.shop.mvp.BaseBackMvpFragment;
 import wiki.scene.shop.ui.indiana.mvpview.IGoodsDetailView;
 import wiki.scene.shop.ui.indiana.presenter.GoodsDetailPresenter;
@@ -256,27 +255,12 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
     }
 
     @Override
-    public void bindGoodsInfo(GoodsDetailInfo.GoodsDetailInfoData goodsDetailInfo) {
+    public void bindGoodsInfo(GoodsDetailInfo.GoodsInfo goodsDetailInfo) {
 
     }
 
     @Override
     public void showFailPage() {
-
-    }
-
-    @Override
-    public void bindJoinRecord(List<GoodsDetailInfo.LogInfo> logInfo) {
-
-    }
-
-    @Override
-    public void bindTuhaoRank(List<GoodsDetailInfo.BuyersInfo> buyersInfo) {
-
-    }
-
-    @Override
-    public void bindGuessLike(List<ListGoodsInfo> listGoodsInfoList) {
 
     }
 

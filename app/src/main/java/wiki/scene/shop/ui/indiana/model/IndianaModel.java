@@ -6,6 +6,7 @@ import com.lzy.okgo.model.Response;
 import java.util.List;
 
 import wiki.scene.shop.entity.IndexInfo;
+import wiki.scene.shop.entity.NewestWinInfo;
 import wiki.scene.shop.entity.WinningNoticeInfo;
 import wiki.scene.shop.http.api.ApiUtil;
 import wiki.scene.shop.http.base.LzyResponse;
@@ -54,6 +55,58 @@ public class IndianaModel {
 
                     @Override
                     public void onError(Response<LzyResponse<List<WinningNoticeInfo>>> response) {
+                        super.onError(response);
+                        listener.onFail(response.getException() != null && response.getException().getMessage() != null ? response.getException().getMessage() : response.message());
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        super.onFinish();
+                        listener.onFinish();
+                    }
+                });
+    }
+
+    /**
+     * 最新获奖
+     */
+    public void getNewestWin(final HttpResultListener<List<NewestWinInfo>> listener) {
+        OkGo.<LzyResponse<List<NewestWinInfo>>>get(ApiUtil.API_PRE + ApiUtil.NEWEST_WIN)
+                .tag(ApiUtil.NEWEST_WIN_TAG)
+                .execute(new JsonCallback<LzyResponse<List<NewestWinInfo>>>() {
+                    @Override
+                    public void onSuccess(Response<LzyResponse<List<NewestWinInfo>>> response) {
+                        listener.onSuccess(response.body().data);
+                    }
+
+                    @Override
+                    public void onError(Response<LzyResponse<List<NewestWinInfo>>> response) {
+                        super.onError(response);
+                        listener.onFail(response.getException() != null && response.getException().getMessage() != null ? response.getException().getMessage() : response.message());
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        super.onFinish();
+                        listener.onFinish();
+                    }
+                });
+    }
+
+    /**
+     * 最新参与
+     */
+    public void getNewestBuy(final HttpResultListener<List<NewestWinInfo>> listener) {
+        OkGo.<LzyResponse<List<NewestWinInfo>>>get(ApiUtil.API_PRE + ApiUtil.NEWEST_BUY)
+                .tag(ApiUtil.NEWEST_BUY_TAG)
+                .execute(new JsonCallback<LzyResponse<List<NewestWinInfo>>>() {
+                    @Override
+                    public void onSuccess(Response<LzyResponse<List<NewestWinInfo>>> response) {
+                        listener.onSuccess(response.body().data);
+                    }
+
+                    @Override
+                    public void onError(Response<LzyResponse<List<NewestWinInfo>>> response) {
                         super.onError(response);
                         listener.onFail(response.getException() != null && response.getException().getMessage() != null ? response.getException().getMessage() : response.message());
                     }

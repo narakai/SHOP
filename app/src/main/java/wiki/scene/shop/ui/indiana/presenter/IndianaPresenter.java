@@ -4,7 +4,7 @@ import java.util.List;
 
 import wiki.scene.shop.R;
 import wiki.scene.shop.entity.IndexInfo;
-import wiki.scene.shop.entity.WinningNoticeInfo;
+import wiki.scene.shop.entity.NewestWinInfo;
 import wiki.scene.shop.http.listener.HttpResultListener;
 import wiki.scene.shop.mvp.BasePresenter;
 import wiki.scene.shop.ui.indiana.model.IndianaModel;
@@ -62,29 +62,62 @@ public class IndianaPresenter extends BasePresenter<IIndianaView> {
     }
 
     /**
-     * 获取中奖通知
+     * 获取最新中奖信息
      */
-    public void getWinnerNotice() {
-        try {
-            model.getWinNotice(new HttpResultListener<List<WinningNoticeInfo>>() {
-                @Override
-                public void onSuccess(List<WinningNoticeInfo> data) {
-
+    public void getNewestWinInfo() {
+        model.getNewestWin(new HttpResultListener<List<NewestWinInfo>>() {
+            @Override
+            public void onSuccess(List<NewestWinInfo> data) {
+                try {
+                    indianaView.getNewestWinSuccess(data);
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
+            }
 
-                @Override
-                public void onFail(String message) {
-                }
+            @Override
+            public void onFail(String message) {
+//                try{
+//                    indianaView.showMessage(message);
+//                }catch (Exception e){
+//                    e.printStackTrace();
+//                }
+            }
 
-                @Override
-                public void onFinish() {
-
-                }
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+            @Override
+            public void onFinish() {
+            }
+        });
     }
 
+    /**
+     * 获取最新中奖信息
+     */
+    public void getNewestBuyInfo() {
+        model.getNewestBuy(new HttpResultListener<List<NewestWinInfo>>() {
+            @Override
+            public void onSuccess(List<NewestWinInfo> data) {
+                try {
+                    indianaView.getNewestBuySuccess(data);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFail(String message) {
+//                try{
+//                    indianaView.showMessage(message);
+//                }catch (Exception e){
+//                    e.printStackTrace();
+//                }
+            }
+
+            @Override
+            public void onFinish() {
+
+            }
+
+        });
+    }
 }

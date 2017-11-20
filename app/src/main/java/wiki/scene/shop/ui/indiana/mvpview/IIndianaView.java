@@ -1,6 +1,9 @@
 package wiki.scene.shop.ui.indiana.mvpview;
 
+import java.util.List;
+
 import wiki.scene.shop.entity.IndexInfo;
+import wiki.scene.shop.entity.NewestWinInfo;
 import wiki.scene.shop.mvp.BaseView;
 
 /**
@@ -20,4 +23,8 @@ public interface IIndianaView extends BaseView {
     void refreshComplete();
 
     void refrshFail(String message);
+
+    void getNewestWinSuccess(List<NewestWinInfo> list);
+
+    void getNewestBuySuccess(List<NewestWinInfo> list);
 }

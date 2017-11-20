@@ -29,6 +29,7 @@ import wiki.scene.loadmore.utils.SceneLogUtil;
 import wiki.scene.shop.config.AppConfig;
 import wiki.scene.shop.entity.CurrentCycleInfo;
 import wiki.scene.shop.event.ChooseAvaterResultEvent;
+import wiki.scene.shop.event.GetCurrentCycleSuccessEvent;
 import wiki.scene.shop.http.api.ApiUtil;
 import wiki.scene.shop.http.base.LzyResponse;
 import wiki.scene.shop.http.callback.JsonCallback;
@@ -153,6 +154,7 @@ public class MainActivity extends SupportActivity {
                     public void onSuccess(Response<LzyResponse<CurrentCycleInfo>> response) {
                         ShopApplication.currentCycleInfo = response.body().data;
                         getCurrentCycle();
+                        //EventBus.getDefault().post(new GetCurrentCycleSuccessEvent(response.body().data));
                     }
 
                     @Override
