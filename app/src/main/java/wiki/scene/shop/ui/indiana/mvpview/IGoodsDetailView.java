@@ -7,6 +7,8 @@ import java.util.List;
 import wiki.scene.shop.entity.CreateOrderInfo;
 import wiki.scene.shop.entity.GoodsDetailInfo;
 import wiki.scene.shop.entity.ListGoodsInfo;
+import wiki.scene.shop.entity.NewestWinInfo;
+import wiki.scene.shop.entity.WinCodeInfo;
 import wiki.scene.shop.mvp.BaseView;
 
 /**
@@ -20,8 +22,6 @@ public interface IGoodsDetailView extends BaseView {
 
     void showMessage(@StringRes int resId);
 
-    void addCartSuccess();
-
     void showProgressDialog(@StringRes int resId);
 
     void hideProgressDialog();
@@ -34,9 +34,7 @@ public interface IGoodsDetailView extends BaseView {
 
     void createOrderSuccess(CreateOrderInfo info);
 
-    void hasCollected();
+    void bindWinCodeInfo(List<WinCodeInfo> winCodeInfoList);
 
-    void noCollected();
-
-    void showCollectionStatus(boolean collectionStatus);
+    void getNewestBuySuccess(List<NewestWinInfo> list);
 }

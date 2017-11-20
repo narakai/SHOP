@@ -18,7 +18,6 @@ import cn.iwgang.countdownview.CountdownView;
 import wiki.scene.shop.R;
 import wiki.scene.shop.ShopApplication;
 import wiki.scene.shop.entity.NewestResultInfo;
-import wiki.scene.shop.utils.DateUtil;
 import wiki.scene.shop.widgets.RatioImageView;
 
 /**
@@ -59,12 +58,6 @@ public class NewestAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             viewHolder.layoutHasTime.setVisibility(View.GONE);
             viewHolder.layoutNoTime.setVisibility(View.VISIBLE);
             viewHolder.isAnnouncing.setVisibility(View.GONE);
-            if (info.getWinner() != null) {
-                viewHolder.username.setText(info.getWinner().getNickname());
-                //viewHolder.personTimes.setText(info.get);
-                viewHolder.luckCode.setText(info.getLucky_code());
-                viewHolder.announcedTime.setText(DateUtil.timeStampToStr(info.getOpen_time()));
-            }
         }
         GlideImageLoader.create(viewHolder.goodsImage).loadImage(ShopApplication.configInfo.getFile_domain() + info.getThumb(), R.drawable.ic_default_goods_image);
         viewHolder.goodsTime.setText(String.format(context.getString(R.string.times_code), info.getCycle_code()));

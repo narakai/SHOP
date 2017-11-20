@@ -54,7 +54,6 @@ public class NewestResultInfo implements Serializable {
         private String lucky_code;
         private long open_time;
         private String thumb;
-        private GoodsDetailInfo.WinnerInfo winner;
 
         public String getId() {
             return id;
@@ -152,13 +151,6 @@ public class NewestResultInfo implements Serializable {
             this.thumb = thumb;
         }
 
-        public GoodsDetailInfo.WinnerInfo getWinner() {
-            return winner;
-        }
-
-        public void setWinner(GoodsDetailInfo.WinnerInfo winner) {
-            this.winner = winner;
-        }
     }
 
     public class WinnerInfo {

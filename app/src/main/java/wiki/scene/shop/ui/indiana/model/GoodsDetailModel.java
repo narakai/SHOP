@@ -4,9 +4,12 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.model.HttpParams;
 import com.lzy.okgo.model.Response;
 
+import java.util.List;
+
 import wiki.scene.shop.entity.AddCartResultInfo;
 import wiki.scene.shop.entity.CreateOrderInfo;
 import wiki.scene.shop.entity.GoodsDetailInfo;
+import wiki.scene.shop.entity.NewestWinInfo;
 import wiki.scene.shop.http.api.ApiUtil;
 import wiki.scene.shop.http.base.LzyResponse;
 import wiki.scene.shop.http.callback.JsonCallback;
@@ -104,21 +107,23 @@ public class GoodsDetailModel {
                 });
     }
 
-
-    public void addCollection(HttpParams params, final HttpResultListener<String> listener) {
-        OkGo.<LzyResponse<String>>post(ApiUtil.API_PRE + ApiUtil.ADD_COLLECTION)
-                .tag(ApiUtil.ADD_COLLECTION_TAG)
+    /**
+     * 最新参与
+     */
+    public void getNewestBuy(HttpParams params, final HttpResultListener<List<NewestWinInfo>> listener) {
+        OkGo.<LzyResponse<List<NewestWinInfo>>>get(ApiUtil.API_PRE + ApiUtil.NEWEST_BUY_GOODS)
+                .tag(ApiUtil.NEWEST_BUY_GOODS_TAG)
                 .params(params)
-                .execute(new JsonCallback<LzyResponse<String>>() {
+                .execute(new JsonCallback<LzyResponse<List<NewestWinInfo>>>() {
                     @Override
-                    public void onSuccess(Response<LzyResponse<String>> response) {
-                        listener.onSuccess("");
+                    public void onSuccess(Response<LzyResponse<List<NewestWinInfo>>> response) {
+                        listener.onSuccess(response.body().data);
                     }
 
                     @Override
-                    public void onError(Response<LzyResponse<String>> response) {
+                    public void onError(Response<LzyResponse<List<NewestWinInfo>>> response) {
                         super.onError(response);
-                        listener.onFail(response.getException() == null ? response.message() : response.getException().getMessage());
+                        listener.onFail(response.getException() != null && response.getException().getMessage() != null ? response.getException().getMessage() : response.message());
                     }
 
                     @Override
@@ -129,27 +134,4 @@ public class GoodsDetailModel {
                 });
     }
 
-    public void cancelCollection(HttpParams params, final HttpResultListener<String> listener) {
-        OkGo.<LzyResponse<String>>post(ApiUtil.API_PRE + ApiUtil.CANCEL_COLLECTION)
-                .tag(ApiUtil.CANCEL_COLLECTION_TAG)
-                .params(params)
-                .execute(new JsonCallback<LzyResponse<String>>() {
-                    @Override
-                    public void onSuccess(Response<LzyResponse<String>> response) {
-                        listener.onSuccess("");
-                    }
-
-                    @Override
-                    public void onError(Response<LzyResponse<String>> response) {
-                        super.onError(response);
-                        listener.onFail(response.getException() == null ? response.message() : response.getException().getMessage());
-                    }
-
-                    @Override
-                    public void onFinish() {
-                        super.onFinish();
-                        listener.onFinish();
-                    }
-                });
-    }
 }

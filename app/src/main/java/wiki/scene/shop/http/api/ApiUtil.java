@@ -172,6 +172,9 @@ public class ApiUtil {
     //最新参与
     public static final String NEWEST_BUY = "/business/newest_buy";
     public static final String NEWEST_BUY_TAG = "NEWEST_BUY";
+    //最新参与指定产品
+    public static final String NEWEST_BUY_GOODS = "/business/newest_buy_detail";
+    public static final String NEWEST_BUY_GOODS_TAG = "NEWEST_BUY_GOODS";
 
     /**
      * Case By:创建参数基础信息

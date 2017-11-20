@@ -12,6 +12,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import wiki.scene.shop.R;
+import wiki.scene.shop.entity.WinCodeInfo;
 
 /**
  * 商品详情开奖记录
@@ -20,10 +21,10 @@ import wiki.scene.shop.R;
 
 public class GoodsDetailWinCodeAdapter extends BaseAdapter {
     private Context context;
-    private List<String> list;
+    private List<WinCodeInfo> list;
     private LayoutInflater inflater;
 
-    public GoodsDetailWinCodeAdapter(Context context, List<String> list) {
+    public GoodsDetailWinCodeAdapter(Context context, List<WinCodeInfo> list) {
         this.context = context;
         this.list = list;
         inflater = LayoutInflater.from(context);
@@ -54,6 +55,10 @@ public class GoodsDetailWinCodeAdapter extends BaseAdapter {
         } else {
             viewHolder = (GoodsDetailWinCodeViewHolder) view.getTag();
         }
+        WinCodeInfo info = list.get(i);
+        viewHolder.lastCycleCode.setText(info.getCycle_code());
+        viewHolder.lastOpenResult.setText("(" + info.getResult_text() + ")");
+        viewHolder.lastWinCode.setText(info.getResult());
         return view;
     }
 

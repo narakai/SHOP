@@ -91,7 +91,7 @@ public class IndianaPresenter extends BasePresenter<IIndianaView> {
     }
 
     /**
-     * 获取最新中奖信息
+     * 获取最新参与信息
      */
     public void getNewestBuyInfo() {
         model.getNewestBuy(new HttpResultListener<List<NewestWinInfo>>() {
@@ -106,11 +106,6 @@ public class IndianaPresenter extends BasePresenter<IIndianaView> {
 
             @Override
             public void onFail(String message) {
-//                try{
-//                    indianaView.showMessage(message);
-//                }catch (Exception e){
-//                    e.printStackTrace();
-//                }
             }
 
             @Override

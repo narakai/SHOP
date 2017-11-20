@@ -9,7 +9,7 @@ import java.util.List;
 
 public class GoodsDetailInfo {
     private GoodsInfo data;
-    private List<WinCodeInfo> current_cycle;
+    private List<WinCodeInfo> cycle_history;
 
     public GoodsInfo getData() {
         return data;
@@ -19,12 +19,12 @@ public class GoodsDetailInfo {
         this.data = data;
     }
 
-    public List<WinCodeInfo> getCurrent_cycle() {
-        return current_cycle;
+    public List<WinCodeInfo> getCycle_history() {
+        return cycle_history;
     }
 
-    public void setCurrent_cycle(List<WinCodeInfo> current_cycle) {
-        this.current_cycle = current_cycle;
+    public void setCycle_history(List<WinCodeInfo> cycle_history) {
+        this.cycle_history = cycle_history;
     }
 
     public static class GoodsInfo {
@@ -49,9 +49,9 @@ public class GoodsDetailInfo {
         private String description;
         private String created_at;
         private String updated_at;
-        private String two_price;
-        private String four_price;
-        private String ten_price;
+        private int two_price;
+        private int four_price;
+        private int ten_price;
 
         public int getId() {
             return id;
@@ -109,27 +109,27 @@ public class GoodsDetailInfo {
             this.updated_at = updated_at;
         }
 
-        public String getTwo_price() {
+        public int getTwo_price() {
             return two_price;
         }
 
-        public void setTwo_price(String two_price) {
+        public void setTwo_price(int two_price) {
             this.two_price = two_price;
         }
 
-        public String getFour_price() {
+        public int getFour_price() {
             return four_price;
         }
 
-        public void setFour_price(String four_price) {
+        public void setFour_price(int four_price) {
             this.four_price = four_price;
         }
 
-        public String getTen_price() {
+        public int getTen_price() {
             return ten_price;
         }
 
-        public void setTen_price(String ten_price) {
+        public void setTen_price(int ten_price) {
             this.ten_price = ten_price;
         }
     }

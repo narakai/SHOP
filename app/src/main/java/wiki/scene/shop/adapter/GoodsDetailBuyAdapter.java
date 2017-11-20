@@ -5,13 +5,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.blankj.utilcode.util.TimeUtils;
+import com.sunfusheng.glideimageview.GlideImageLoader;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import wiki.scene.shop.R;
+import wiki.scene.shop.ShopApplication;
+import wiki.scene.shop.entity.NewestWinInfo;
 
 /**
  * 商品详情开奖记录
@@ -20,10 +26,10 @@ import wiki.scene.shop.R;
 
 public class GoodsDetailBuyAdapter extends BaseAdapter {
     private Context context;
-    private List<String> list;
+    private List<NewestWinInfo> list;
     private LayoutInflater inflater;
 
-    public GoodsDetailBuyAdapter(Context context, List<String> list) {
+    public GoodsDetailBuyAdapter(Context context, List<NewestWinInfo> list) {
         this.context = context;
         this.list = list;
         inflater = LayoutInflater.from(context);
@@ -31,17 +37,17 @@ public class GoodsDetailBuyAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return list.size();
+        return Integer.MAX_VALUE;
     }
 
     @Override
     public Object getItem(int i) {
-        return list.get(i);
+        return list.get(i % list.size());
     }
 
     @Override
     public long getItemId(int i) {
-        return i;
+        return i % list.size();
     }
 
     @Override
@@ -54,14 +60,23 @@ public class GoodsDetailBuyAdapter extends BaseAdapter {
         } else {
             viewHolder = (GoodsDetailBuyViewHolder) view.getTag();
         }
+        NewestWinInfo info = list.get(i % list.size());
+        viewHolder.username.setText(info.getNickname());
+        viewHolder.number.setText(String.valueOf(info.getNumber()));
+        viewHolder.time.setText(TimeUtils.getFriendlyTimeSpanByNow(info.getCreate_time() * 1000));
+        GlideImageLoader.create(viewHolder.userAvater).loadCircleImage(ShopApplication.configInfo.getFile_domain() + info.getAvatar(), R.drawable.ic_default_avater);
         return view;
     }
 
     static class GoodsDetailBuyViewHolder {
+        @BindView(R.id.user_avater)
+        ImageView userAvater;
         @BindView(R.id.username)
         TextView username;
         @BindView(R.id.number)
         TextView number;
+        @BindView(R.id.time)
+        TextView time;
 
         GoodsDetailBuyViewHolder(View view) {
             ButterKnife.bind(this, view);

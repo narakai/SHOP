@@ -18,7 +18,6 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-
             <wiki.scene.loadmore.PtrClassicFrameLayout
                 android:id="@+id/ptrLayout"
                 android:layout_width="match_parent"
@@ -70,7 +69,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
                                 android:layout_centerVertical="true"
-                                android:text="第12345646784期"
+                                android:text="第12345678912期"
                                 android:textColor="@color/text_color_content"
                                 android:textSize="@dimen/text_size_small" />
 
@@ -83,7 +82,7 @@
                                 android:layout_toLeftOf="@+id/cycle_code"
                                 android:ellipsize="end"
                                 android:lines="1"
-                                android:text="20元商品"
+                                android:text=""
                                 android:textColor="@color/text_color_title"
                                 android:textSize="@dimen/text_size_big" />
                         </RelativeLayout>
@@ -112,9 +111,10 @@
                                 android:orientation="vertical">
 
                                 <TextView
+                                    android:id="@+id/two_price"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="12"
+                                    android:text="0"
                                     android:textColor="@color/color_theme"
                                     android:textSize="@dimen/text_size_small" />
 
@@ -134,9 +134,10 @@
                                 android:orientation="vertical">
 
                                 <TextView
+                                    android:id="@+id/four_price"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="12"
+                                    android:text="0"
                                     android:textColor="@color/color_theme"
                                     android:textSize="@dimen/text_size_small" />
 
@@ -156,9 +157,10 @@
                                 android:orientation="vertical">
 
                                 <TextView
+                                    android:id="@+id/ten_price"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="12"
+                                    android:text="0"
                                     android:textColor="@color/color_theme"
                                     android:textSize="@dimen/text_size_small" />
 
@@ -183,7 +185,7 @@
                                 android:paddingLeft="10dp"
                                 android:paddingRight="10dp"
                                 android:paddingTop="3dp"
-                                android:text="04:28"
+                                android:text="00:00"
                                 android:textColor="@color/white"
                                 android:textSize="@dimen/text_size_big" />
                         </LinearLayout>
