@@ -29,7 +29,6 @@ import wiki.scene.loadmore.utils.SceneLogUtil;
 import wiki.scene.shop.config.AppConfig;
 import wiki.scene.shop.entity.CurrentCycleInfo;
 import wiki.scene.shop.event.ChooseAvaterResultEvent;
-import wiki.scene.shop.event.GetCurrentCycleSuccessEvent;
 import wiki.scene.shop.http.api.ApiUtil;
 import wiki.scene.shop.http.base.LzyResponse;
 import wiki.scene.shop.http.callback.JsonCallback;
@@ -132,6 +131,12 @@ public class MainActivity extends SupportActivity {
     private void getCurrentCycle() {
         long time = ShopApplication.currentCycleInfo.getOpen_time() * 1000 - System.currentTimeMillis();
         long delay = time > 0 ? time : 1;
+        if (scheduledFuture != null) {
+            scheduledFuture.cancel(true);
+        }
+        if (poolUtils != null) {
+            poolUtils.shutDownNow();
+        }
         poolUtils = new ThreadPoolUtils(ThreadPoolUtils.SingleThread, 1);
         scheduledFuture = poolUtils.schedule(new Runnable() {
             @Override
@@ -146,7 +151,7 @@ public class MainActivity extends SupportActivity {
         }, delay, TimeUnit.SECONDS);
     }
 
-    private void getCurrentCycleData() {
+    public void getCurrentCycleData() {
         OkGo.<LzyResponse<CurrentCycleInfo>>get(ApiUtil.API_PRE + ApiUtil.CURRENT_CYCLE)
                 .tag(ApiUtil.CURRENT_CYCLE_TAG)
                 .execute(new JsonCallback<LzyResponse<CurrentCycleInfo>>() {

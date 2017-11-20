@@ -47,6 +47,66 @@
                                 app:base="horizontal"
                                 app:horizontal_weight="370"
                                 app:vertical_weight="232" />
+
+                            <LinearLayout
+                                android:id="@+id/danmuLayout"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="20dp"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal"
+                                android:visibility="gone">
+
+                                <ImageView
+                                    android:id="@+id/danmuUserAvatar"
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:src="@drawable/ic_default_avater" />
+
+                                <TextView
+                                    android:id="@+id/danmuUsername"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="5dp"
+                                    android:layout_marginRight="5dp"
+                                    android:text="快乐一生"
+                                    android:textColor="@color/color_theme"
+                                    android:textSize="@dimen/text_size_middle" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="抢购"
+                                    android:textColor="@color/text_color_title"
+                                    android:textSize="@dimen/text_size_middle" />
+
+                                <TextView
+                                    android:id="@+id/danmuBuyNumber"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="2"
+                                    android:textColor="@color/color_theme"
+                                    android:textSize="@dimen/text_size_middle" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="组"
+                                    android:textColor="@color/text_color_title"
+                                    android:textSize="@dimen/text_size_middle" />
+
+                                <TextView
+                                    android:id="@+id/danmuTime"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginRight="5dp"
+                                    android:ellipsize="end"
+                                    android:gravity="right"
+                                    android:lines="1"
+                                    android:text="5秒前"
+                                    android:textColor="@color/text_color_des" />
+                            </LinearLayout>
                         </RelativeLayout>
 
                         <View
@@ -178,6 +238,7 @@
                                 android:layout_weight="1" />
 
                             <TextView
+                                android:id="@+id/countdownView"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/shape_btn_theme_orange"
@@ -185,7 +246,7 @@
                                 android:paddingLeft="10dp"
                                 android:paddingRight="10dp"
                                 android:paddingTop="3dp"
-                                android:text="00:00"
+                                android:text="00:00:00"
                                 android:textColor="@color/white"
                                 android:textSize="@dimen/text_size_big" />
                         </LinearLayout>

@@ -28,6 +28,7 @@ import wiki.scene.loadmore.PtrClassicFrameLayout;
 import wiki.scene.loadmore.PtrDefaultHandler;
 import wiki.scene.loadmore.PtrFrameLayout;
 import wiki.scene.loadmore.StatusViewLayout;
+import wiki.scene.shop.MainActivity;
 import wiki.scene.shop.R;
 import wiki.scene.shop.ShopApplication;
 import wiki.scene.shop.adapter.GoodsDetailBuyAdapter;
@@ -40,6 +41,7 @@ import wiki.scene.shop.http.api.ApiUtil;
 import wiki.scene.shop.mvp.BaseBackMvpFragment;
 import wiki.scene.shop.ui.indiana.mvpview.IGoodsDetailView;
 import wiki.scene.shop.ui.indiana.presenter.GoodsDetailPresenter;
+import wiki.scene.shop.utils.DateFormatUtils;
 import wiki.scene.shop.utils.PriceUtil;
 import wiki.scene.shop.utils.ThreadPoolUtils;
 import wiki.scene.shop.utils.ViewUtils;
@@ -104,6 +106,8 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
     TextView fourPrice;
     @BindView(R.id.ten_price)
     TextView tenPrice;
+    @BindView(R.id.countdownView)
+    TextView countdownView;
     private int goodsId;
 
     private GoodsDetailWinCodeAdapter winCodeAdapter;
@@ -116,6 +120,8 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
     private ScheduledFuture scheduledFuture;
     private ScheduledFuture getDataScheduledFuture;
     private ThreadPoolUtils getDataThreadPoolUtils;
+    private ThreadPoolUtils timeThreadPoolUtils;
+    private ScheduledFuture timeScheduledFuture;
 
     private ChooseGoodsNumberPopupWindow popupWindow;
 
@@ -192,7 +198,8 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
                 });
             }
         }, 3, 3, TimeUnit.SECONDS);
-
+        //倒计时
+        startCountDown();
     }
 
     /**
@@ -380,11 +387,51 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
         }
     }
 
+    private void cancelCountDown() {
+        try {
+            if (timeScheduledFuture != null) {
+                timeScheduledFuture.cancel(true);
+            }
+            if (timeThreadPoolUtils != null) {
+                timeThreadPoolUtils.shutDownNow();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void startCountDown() {
+        timeThreadPoolUtils = new ThreadPoolUtils(ThreadPoolUtils.SingleThread, 1);
+        timeScheduledFuture = timeThreadPoolUtils.scheduleWithFixedRate(new Runnable() {
+            @Override
+            public void run() {
+                _mActivity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            if (ShopApplication.currentCycleInfo.getOpen_time() * 1000 <= System.currentTimeMillis()) {
+                                if (!countdownView.getText().toString().equals("开奖中")) {
+                                    ((MainActivity) _mActivity).getCurrentCycleData();
+                                }
+                                countdownView.setText("开奖中");
+                            } else {
+                                countdownView.setText(DateFormatUtils.getHoursByNow(ShopApplication.currentCycleInfo.getOpen_time()));
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+            }
+        }, 1, 1, TimeUnit.SECONDS);
+    }
+
     @Override
     public void onStop() {
         super.onStop();
         cancelGetDataThread();
         cancelListAutoScroolThread();
+        cancelCountDown();
     }
 
     @Override
