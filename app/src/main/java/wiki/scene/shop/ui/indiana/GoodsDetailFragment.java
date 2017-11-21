@@ -397,16 +397,21 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
 
     @Override
     public void getNewestBuySuccess(List<NewestWinInfo> list) {
-        if (list == null || list.size() == 0) {
-            return;
-        }
-        buyList.clear();
-        buyList.addAll(list);
-        if (buyAdapter == null) {
-            buyAdapter = new GoodsDetailBuyAdapter(getContext(), buyList);
-            buyListView.setAdapter(buyAdapter);
-        } else {
-            buyAdapter.notifyDataSetChanged();
+        try {
+            if (list == null || list.size() == 0) {
+                return;
+            }
+            buyList.clear();
+            buyList.addAll(list);
+            if (buyAdapter == null) {
+                buyAdapter = new GoodsDetailBuyAdapter(getContext(), buyList);
+                buyListView.setAdapter(buyAdapter);
+            } else {
+                buyAdapter.notifyDataSetChanged();
+            }
+            showDanmu(list);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
     }

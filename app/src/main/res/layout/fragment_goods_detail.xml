@@ -43,8 +43,8 @@
                                 android:id="@+id/goods_image"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:background="@drawable/ic_default_goods_image"
                                 app:base="horizontal"
+                                android:scaleType="centerCrop"
                                 app:horizontal_weight="370"
                                 app:vertical_weight="232" />
 
