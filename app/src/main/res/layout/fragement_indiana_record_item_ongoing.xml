@@ -68,11 +68,11 @@
 
             <TextView
                 android:id="@+id/goods_name"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:lines="1"
-                android:text="Apple iphone 7 plus 128G"
+                android:text="Apple plus 128G"
                 android:textColor="@color/text_color_title"
                 android:textSize="@dimen/text_size_big" />
 

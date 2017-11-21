@@ -1,7 +1,6 @@
 package wiki.scene.shop.entity;
 
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * 订单信息
@@ -9,144 +8,66 @@ import java.util.List;
  */
 
 public class MineOrderInfo implements Serializable {
-    private String cycle_id;
-    private int type;//1:秒开，2：1块，3：10块
-    private String thumb;
-    private String title;
-    private String cycle_code;
-    private int cycle_status;
-    private long open_time;
-    private String lucky_code;
-    private String lucky_user_id;
-    private int need_source;
-    private int current_source;
-    private String id;
-    private String user_id;
-    private List<String> my_codes;
+
+    /**
+     * product_id : 1
+     * play_type : 1
+     * buy_type : 2
+     * number : 5
+     * price_type : 1
+     * price : 2800
+     * cost : 14000
+     * cycle_id : 80
+     * cycle_code : 20171109043
+     * open_time : 1510204200
+     * done_time : 0
+     * status : 2   1 => '待支付',2 => '已支付',3 => '中奖',4 => '未中奖'
+     * name : 中国电信话费50元
+     * thumb : /img/1.jpg
+     * ssc_result : 0
+     * ssc_status : 1
+     */
+
+    private int product_id;
+    private int play_type;
+    private int buy_type;
     private int number;
-    private int order_status; //1未支付  2已支付（完成） 3中奖   4过期
-    private List<String> winner_codes;
-    private String winner_nickname;
-    private boolean showed;
+    private int price_type;
+    private int price;
+    private int cost;
+    private int cycle_id;
+    private String cycle_code;
+    private long open_time;
+    private long done_time;
+    private int status;
+    private String name;
+    private String thumb;
+    private String ssc_result;
+    private int ssc_status;
+    private long create_time;
 
-    public String getCycle_id() {
-        return cycle_id;
+    public int getProduct_id() {
+        return product_id;
     }
 
-    public void setCycle_id(String cycle_id) {
-        this.cycle_id = cycle_id;
+    public void setProduct_id(int product_id) {
+        this.product_id = product_id;
     }
 
-    public int getType() {
-        return type;
+    public int getPlay_type() {
+        return play_type;
     }
 
-    public void setType(int type) {
-        this.type = type;
+    public void setPlay_type(int play_type) {
+        this.play_type = play_type;
     }
 
-    public String getThumb() {
-        return thumb;
+    public int getBuy_type() {
+        return buy_type;
     }
 
-    public void setThumb(String thumb) {
-        this.thumb = thumb;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getCycle_code() {
-        return cycle_code;
-    }
-
-    public void setCycle_code(String cycle_code) {
-        this.cycle_code = cycle_code;
-    }
-
-    public int getCycle_status() {
-        return cycle_status;
-    }
-
-    public void setCycle_status(int cycle_status) {
-        this.cycle_status = cycle_status;
-    }
-
-    public long getOpen_time() {
-        return open_time;
-    }
-
-    public void setOpen_time(long open_time) {
-        this.open_time = open_time;
-    }
-
-    public String getLucky_code() {
-        return lucky_code;
-    }
-
-    public void setLucky_code(String lucky_code) {
-        this.lucky_code = lucky_code;
-    }
-
-    public String getLucky_user_id() {
-        return lucky_user_id;
-    }
-
-    public void setLucky_user_id(String lucky_user_id) {
-        this.lucky_user_id = lucky_user_id;
-    }
-
-    public int getNeed_source() {
-        return need_source;
-    }
-
-    public void setNeed_source(int need_source) {
-        this.need_source = need_source;
-    }
-
-    public int getCurrent_source() {
-        return current_source;
-    }
-
-    public void setCurrent_source(int current_source) {
-        this.current_source = current_source;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getUser_id() {
-        return user_id;
-    }
-
-    public void setUser_id(String user_id) {
-        this.user_id = user_id;
-    }
-
-    public List<String> getMy_codes() {
-        return my_codes;
-    }
-
-    public void setMy_codes(List<String> my_codes) {
-        this.my_codes = my_codes;
-    }
-
-    public int getOrder_status() {
-        return order_status;
-    }
-
-    public void setOrder_status(int order_status) {
-        this.order_status = order_status;
+    public void setBuy_type(int buy_type) {
+        this.buy_type = buy_type;
     }
 
     public int getNumber() {
@@ -157,27 +78,107 @@ public class MineOrderInfo implements Serializable {
         this.number = number;
     }
 
-    public List<String> getWinner_codes() {
-        return winner_codes;
+    public int getPrice_type() {
+        return price_type;
     }
 
-    public void setWinner_codes(List<String> winner_codes) {
-        this.winner_codes = winner_codes;
+    public void setPrice_type(int price_type) {
+        this.price_type = price_type;
     }
 
-    public String getWinner_nickname() {
-        return winner_nickname;
+    public int getPrice() {
+        return price;
     }
 
-    public void setWinner_nickname(String winner_nickname) {
-        this.winner_nickname = winner_nickname;
+    public void setPrice(int price) {
+        this.price = price;
     }
 
-    public boolean isShowed() {
-        return showed;
+    public int getCost() {
+        return cost;
     }
 
-    public void setShowed(boolean showed) {
-        this.showed = showed;
+    public void setCost(int cost) {
+        this.cost = cost;
+    }
+
+    public int getCycle_id() {
+        return cycle_id;
+    }
+
+    public void setCycle_id(int cycle_id) {
+        this.cycle_id = cycle_id;
+    }
+
+    public String getCycle_code() {
+        return cycle_code;
+    }
+
+    public void setCycle_code(String cycle_code) {
+        this.cycle_code = cycle_code;
+    }
+
+    public long getOpen_time() {
+        return open_time;
+    }
+
+    public void setOpen_time(long open_time) {
+        this.open_time = open_time;
+    }
+
+    public long getDone_time() {
+        return done_time;
+    }
+
+    public void setDone_time(long done_time) {
+        this.done_time = done_time;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getThumb() {
+        return thumb;
+    }
+
+    public void setThumb(String thumb) {
+        this.thumb = thumb;
+    }
+
+    public String getSsc_result() {
+        return ssc_result;
+    }
+
+    public void setSsc_result(String ssc_result) {
+        this.ssc_result = ssc_result;
+    }
+
+    public int getSsc_status() {
+        return ssc_status;
+    }
+
+    public void setSsc_status(int ssc_status) {
+        this.ssc_status = ssc_status;
+    }
+
+    public long getCreate_time() {
+        return create_time;
+    }
+
+    public void setCreate_time(long create_time) {
+        this.create_time = create_time;
     }
 }

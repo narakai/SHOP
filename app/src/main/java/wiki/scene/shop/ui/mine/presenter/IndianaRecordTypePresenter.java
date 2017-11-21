@@ -4,11 +4,9 @@ import com.lzy.okgo.model.HttpParams;
 
 import wiki.scene.shop.R;
 import wiki.scene.shop.ShopApplication;
-import wiki.scene.shop.entity.CreateOrderInfo;
 import wiki.scene.shop.entity.MineOrderResultInfo;
 import wiki.scene.shop.http.listener.HttpResultListener;
 import wiki.scene.shop.mvp.BasePresenter;
-import wiki.scene.shop.ui.mine.IndianaRecordTypeFragment;
 import wiki.scene.shop.ui.mine.model.IndianaRecordModel;
 import wiki.scene.shop.ui.mine.mvpview.IIndianaRecordTypeView;
 
@@ -26,15 +24,13 @@ public class IndianaRecordTypePresenter extends BasePresenter<IIndianaRecordType
         model = new IndianaRecordModel();
     }
 
-    public void getIndianaRecordData( final int page, final boolean isLoading) {
+    public void getIndianaRecordData(final int page, final boolean isLoading) {
         try {
             if (isLoading) {
                 mView.showLoading();
             }
             HttpParams params = new HttpParams();
             if (ShopApplication.hasLogin) {
-                params.put("user_id", ShopApplication.userInfo.getUser_id());
-                params.put("status", IndianaRecordTypeFragment.INDIANA_RECORD_TYPE_ALL);
                 params.put("page", page);
                 model.getIndianaRecordData(params, new HttpResultListener<MineOrderResultInfo>() {
                     @Override
@@ -84,19 +80,25 @@ public class IndianaRecordTypePresenter extends BasePresenter<IIndianaRecordType
         }
     }
 
-
-    public void toPay(String orderId) {
+    public void getWinIndianaRecordData(final int page, final boolean isLoading) {
         try {
-            mView.showProgressDialog(R.string.loading);
+            if (isLoading) {
+                mView.showLoading();
+            }
             HttpParams params = new HttpParams();
             if (ShopApplication.hasLogin) {
-                params.put("user_id", ShopApplication.userInfo.getUser_id());
-                params.put("order_id", orderId);
-                model.toPay(params, new HttpResultListener<CreateOrderInfo>() {
+                params.put("page", page);
+                model.getWinIndianaRecordData(params, new HttpResultListener<MineOrderResultInfo>() {
                     @Override
-                    public void onSuccess(CreateOrderInfo data) {
+                    public void onSuccess(MineOrderResultInfo data) {
                         try {
-                            mView.toPaySuccess(data);
+                            mView.changePage(page);
+                            if (isLoading) {
+                                mView.showContent();
+                            } else {
+                                mView.refreshComplete();
+                            }
+                            mView.getDataSuccess(data);
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -105,7 +107,18 @@ public class IndianaRecordTypePresenter extends BasePresenter<IIndianaRecordType
                     @Override
                     public void onFail(String message) {
                         try {
-                            mView.showMessage(message);
+                            if (isLoading) {
+                                mView.showFail();
+                            } else {
+                                mView.showMessage(message);
+
+                            }
+                            if (page == 1) {
+                                mView.refreshComplete();
+                            } else {
+                                mView.changePage(page - 1);
+                                mView.loadmoreFail();
+                            }
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -113,12 +126,6 @@ public class IndianaRecordTypePresenter extends BasePresenter<IIndianaRecordType
 
                     @Override
                     public void onFinish() {
-                        try {
-                            mView.hideProgessDialog();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-
                     }
                 });
             } else {
@@ -128,4 +135,5 @@ public class IndianaRecordTypePresenter extends BasePresenter<IIndianaRecordType
             e.printStackTrace();
         }
     }
+
 }

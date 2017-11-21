@@ -45,23 +45,23 @@ public class IndianaRecordModel {
                 });
     }
 
-    public void toPay(HttpParams params, final HttpResultListener<CreateOrderInfo> listener) {
-        OkGo.<LzyResponse<CreateOrderInfo>>get(ApiUtil.API_PRE + ApiUtil.ORDER_DETAIL_TO_PAY)
-                .tag(ApiUtil.ORDER_DETAIL_TO_PAY_TAG)
+    public void getWinIndianaRecordData(HttpParams params, final HttpResultListener<MineOrderResultInfo> listener) {
+        OkGo.<LzyResponse<MineOrderResultInfo>>get(ApiUtil.API_PRE + ApiUtil.WIN_RECORD)
+                .tag(ApiUtil.WIN_RECORD_TAG)
                 .params(params)
-                .execute(new JsonCallback<LzyResponse<CreateOrderInfo>>() {
+                .execute(new JsonCallback<LzyResponse<MineOrderResultInfo>>() {
                     @Override
-                    public void onSuccess(Response<LzyResponse<CreateOrderInfo>> response) {
+                    public void onSuccess(Response<LzyResponse<MineOrderResultInfo>> response) {
                         listener.onSuccess(response.body().data);
                     }
 
                     @Override
-                    public void onError(Response<LzyResponse<CreateOrderInfo>> response) {
+                    public void onError(Response<LzyResponse<MineOrderResultInfo>> response) {
                         super.onError(response);
-                        if (response.getException().getMessage().isEmpty()) {
-                            listener.onFail(response.message());
-                        } else {
+                        if (response.getException() != null) {
                             listener.onFail(response.getException().getMessage());
+                        } else {
+                            listener.onFail(response.message());
                         }
                     }
 

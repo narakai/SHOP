@@ -1,6 +1,7 @@
 package wiki.scene.shop.adapter;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.TimeUtils;
 import com.sunfusheng.glideimageview.GlideImageLoader;
 
 import java.util.List;
@@ -17,7 +19,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import wiki.scene.shop.R;
 import wiki.scene.shop.ShopApplication;
+import wiki.scene.shop.config.AppConfig;
 import wiki.scene.shop.entity.MineOrderInfo;
+import wiki.scene.shop.utils.PriceUtil;
 import wiki.scene.shop.widgets.RatioImageView;
 
 /**
@@ -51,17 +55,109 @@ public class IndianaRecordAdapter extends RecyclerView.Adapter<RecyclerView.View
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         final MineOrderInfo info = list.get(position);
         IndianaRecordViewHolder viewHolder = (IndianaRecordViewHolder) holder;
-        viewHolder.goodsName.setText(info.getTitle());
-        GlideImageLoader.create(viewHolder.goodsImage).loadRoundCornerImage(ShopApplication.configInfo.getFile_domain() + info.getThumb(), R.drawable.ic_default_goods_image, 5);
+        if (info.getStatus() == 2) {
+            //已支付未开奖
+            if (info.getOpen_time() > System.currentTimeMillis()) {
+                //需要倒计时
+                viewHolder.imageGoodsStatus.setImageResource(R.drawable.ic_goods_state_wait);
+                viewHolder.imageGoodsStatus.setVisibility(View.VISIBLE);
+                viewHolder.stateImage.setVisibility(View.GONE);
+                viewHolder.winCode.setText("待揭晓...");
+            } else {
+                //不需要倒计时
+                viewHolder.textGoodsStatus.setText("正在开奖");
+                viewHolder.textGoodsStatus.setTextColor(ContextCompat.getColor(context, R.color.text_color_title));
+                viewHolder.imageGoodsStatus.setVisibility(View.GONE);
+                viewHolder.stateImage.setVisibility(View.GONE);
+                viewHolder.winCode.setText("待揭晓...");
+            }
+        } else if (info.getStatus() == 3) {
+            //中奖
+            viewHolder.imageGoodsStatus.setImageResource(R.drawable.ic_goods_state_win);
+            viewHolder.textGoodsStatus.setText("恭喜获胜");
+            viewHolder.textGoodsStatus.setTextColor(ContextCompat.getColor(context, R.color.color_theme));
+            viewHolder.imageGoodsStatus.setVisibility(View.VISIBLE);
+            viewHolder.stateImage.setVisibility(View.VISIBLE);
+            viewHolder.winCode.setText(info.getSsc_result());
+        } else {
+            //未中奖
+            viewHolder.imageGoodsStatus.setImageResource(R.drawable.ic_goods_state_fail);
+            viewHolder.textGoodsStatus.setText("再接再厉");
+            viewHolder.textGoodsStatus.setTextColor(ContextCompat.getColor(context, R.color.text_color_title));
+            viewHolder.imageGoodsStatus.setVisibility(View.VISIBLE);
+            viewHolder.stateImage.setVisibility(View.GONE);
+            viewHolder.winCode.setText(info.getSsc_result());
+        }
+        viewHolder.goodsCycleCode.setText("第" + info.getCycle_code() + "期");
+        viewHolder.buyTime.setText(TimeUtils.millis2String(info.getCreate_time() * 1000));
+        viewHolder.goodsName.setText(info.getName());
+        GlideImageLoader.create(viewHolder.goodsImage).loadImage(ShopApplication.configInfo.getFile_domain() + info.getThumb(), R.drawable.ic_default_goods_image);
+        viewHolder.buyMoney.setText("￥" + PriceUtil.getPrice(info.getCost()));
+        viewHolder.cycleCode.setText(info.getCycle_code());
+        String playWayStr = "";
+        switch (info.getBuy_type()) {
+            case AppConfig.BUY_TYPE_BIG:
+                playWayStr = "[尾号：大]";
+                break;
+            case AppConfig.BUY_TYPE_SMALL:
+                playWayStr = "[尾号：小]";
+                break;
+            case AppConfig.BUY_TYPE_SINGLE:
+                playWayStr = "[尾号：单数]";
+                break;
+            case AppConfig.BUY_TYPE_DOUBLE:
+                playWayStr = "[尾号：双数]";
+                break;
+            case AppConfig.BUY_TYPE_BIG_SINGLE:
+                playWayStr = "[后2位：大单]";
+                break;
+            case AppConfig.BUY_TYPE_BIG_DOUBLE:
+                playWayStr = "[后2位：大双]";
+                break;
+            case AppConfig.BUY_TYPE_SMALL_SINGLE:
+                playWayStr = "[后2位：小单]";
+                break;
+            case AppConfig.BUY_TYPE_SMALL_DOUBLE:
+                playWayStr = "[后2位：小双]";
+                break;
+            case AppConfig.BUY_TYPE_NUM_1:
+                playWayStr = "[尾号：1]";
+                break;
+            case AppConfig.BUY_TYPE_NUM_2:
+                playWayStr = "[尾号：2]";
+                break;
+            case AppConfig.BUY_TYPE_NUM_3:
+                playWayStr = "[尾号：3]";
+                break;
+            case AppConfig.BUY_TYPE_NUM_4:
+                playWayStr = "[尾号：4]";
+                break;
+            case AppConfig.BUY_TYPE_NUM_5:
+                playWayStr = "[尾号：5]";
+                break;
+            case AppConfig.BUY_TYPE_NUM_6:
+                playWayStr = "[尾号：6]";
+                break;
+            case AppConfig.BUY_TYPE_NUM_7:
+                playWayStr = "[尾号：7]";
+                break;
+            case AppConfig.BUY_TYPE_NUM_8:
+                playWayStr = "[尾号：8]";
+                break;
+            case AppConfig.BUY_TYPE_NUM_9:
+                playWayStr = "[尾号：9]";
+                break;
+            case AppConfig.BUY_TYPE_NUM_0:
+                playWayStr = "[尾号：0]";
+                break;
+        }
+        playWayStr = playWayStr + "*" + info.getNumber();
+        viewHolder.playWay.setText(playWayStr);
         viewHolder.goonIndiana.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 if (indianaRecordItemButtonClickListener != null) {
-                    if (info.getOrder_status() == 1) {
-                        indianaRecordItemButtonClickListener.onClickItemPay(position);
-                    } else {
-                        indianaRecordItemButtonClickListener.toGoodsDetail(position);
-                    }
+                    indianaRecordItemButtonClickListener.onClickGoonIndiana();
                 }
             }
         });
@@ -75,13 +171,7 @@ public class IndianaRecordAdapter extends RecyclerView.Adapter<RecyclerView.View
 
 
     public interface IndianaRecordItemButtonClickListener {
-        void onClickItemPay(int position);
-
-        void toGoodsDetail(int position);
-
-        void seeAllCodes(int position);
-
-        void goToShareOrder(int position);
+        void onClickGoonIndiana();
     }
 
 
