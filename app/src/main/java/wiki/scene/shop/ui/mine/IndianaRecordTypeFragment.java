@@ -167,9 +167,13 @@ public class IndianaRecordTypeFragment extends BaseMvpFragment<IIndianaRecordTyp
 
     @Override
     public void onDestroyView() {
-        OkGo.getInstance().cancelTag(ApiUtil.MINE_ORDER_TAG);
-        OkGo.getInstance().cancelTag(ApiUtil.WIN_RECORD_TAG);
-
+        try {
+            OkGo.getInstance().cancelTag(ApiUtil.MINE_ORDER_TAG);
+            OkGo.getInstance().cancelTag(ApiUtil.WIN_RECORD_TAG);
+            adapter.cancelAllTimers();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         super.onDestroyView();
         unbinder.unbind();
     }

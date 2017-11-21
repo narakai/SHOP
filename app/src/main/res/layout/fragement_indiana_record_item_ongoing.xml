@@ -218,7 +218,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@+id/image_goods_status"
-            android:text="18:12"
+            android:text="00:00:00"
             android:textColor="@color/color_theme"
             android:textSize="@dimen/text_size_middle"
             android:visibility="gone" />

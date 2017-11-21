@@ -44,9 +44,9 @@ public class TrendAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         viewHolder.number3.setText(numbers[2]+"");
         viewHolder.number4.setText(numbers[3]+"");
         viewHolder.number5.setText(numbers[4]+"");
-        String result1 = numbers[4] > 4 ? "大" : "小";
-        String result2 = numbers[4] % 2 == 0 ? "双" : "单";
-        String result3 = numbers[3] > 4 ? "大" : "小";
+        String result1 = Integer.parseInt(String.valueOf(numbers[4])) > 4 ? "大" : "小";
+        String result2 = Integer.parseInt(String.valueOf(numbers[4])) % 2 == 0 ? "双" : "单";
+        String result3 = Integer.parseInt(String.valueOf(numbers[3])) > 4 ? "大" : "小";
         viewHolder.result1.setText(result1);
         viewHolder.result2.setText(result2);
         viewHolder.result3.setText(result3 + result2);

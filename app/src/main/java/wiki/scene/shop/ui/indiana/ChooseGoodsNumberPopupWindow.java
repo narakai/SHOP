@@ -480,6 +480,7 @@ public class ChooseGoodsNumberPopupWindow extends PopupWindow implements View.On
     public void setAccountBalance(int balance) {
         this.balance = balance;
         accountBalance.setText(PriceUtil.getPrice(balance));
+        setTotalPrice();
     }
 
     /**

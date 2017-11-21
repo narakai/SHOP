@@ -1,8 +1,10 @@
 package wiki.scene.shop.adapter;
 
 import android.content.Context;
+import android.os.CountDownTimer;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +23,7 @@ import wiki.scene.shop.R;
 import wiki.scene.shop.ShopApplication;
 import wiki.scene.shop.config.AppConfig;
 import wiki.scene.shop.entity.MineOrderInfo;
+import wiki.scene.shop.utils.DateFormatUtils;
 import wiki.scene.shop.utils.PriceUtil;
 import wiki.scene.shop.widgets.RatioImageView;
 
@@ -34,10 +37,28 @@ public class IndianaRecordAdapter extends RecyclerView.Adapter<RecyclerView.View
     private Context context;
     private List<MineOrderInfo> list;
     private IndianaRecordItemButtonClickListener indianaRecordItemButtonClickListener;
+    //用于退出 Activity,避免 Countdown，造成资源浪费。
+    private SparseArray<CountDownTimer> countDownCounters;
 
     public IndianaRecordAdapter(Context context, List<MineOrderInfo> list) {
         this.context = context;
         this.list = list;
+        this.countDownCounters = new SparseArray<>();
+    }
+
+    /**
+     * 清空当前 CountTimeDown 资源
+     */
+    public void cancelAllTimers() {
+        if (countDownCounters == null) {
+            return;
+        }
+        for (int i = 0, length = countDownCounters.size(); i < length; i++) {
+            CountDownTimer cdt = countDownCounters.get(countDownCounters.keyAt(i));
+            if (cdt != null) {
+                cdt.cancel();
+            }
+        }
     }
 
     public void setIndianaRecordItemButtonClickListener(IndianaRecordItemButtonClickListener indianaRecordItemButtonClickListener) {
@@ -54,15 +75,44 @@ public class IndianaRecordAdapter extends RecyclerView.Adapter<RecyclerView.View
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         final MineOrderInfo info = list.get(position);
-        IndianaRecordViewHolder viewHolder = (IndianaRecordViewHolder) holder;
+        final IndianaRecordViewHolder viewHolder = (IndianaRecordViewHolder) holder;
+        //倒计时
+        CountDownTimer countDownTimer = countDownCounters.get(viewHolder.countdownView.hashCode());
+        if (countDownTimer != null) {
+            //将复用的倒计时清除
+            countDownTimer.cancel();
+        }
+        long timer = info.getOpen_time() * 1000 - System.currentTimeMillis();
+        if (timer > 0) {
+            countDownTimer = new CountDownTimer(timer, 1000) {
+                public void onTick(long millisUntilFinished) {
+                    viewHolder.countdownView.setText(DateFormatUtils.getHoursByNow(info.getOpen_time()));
+                }
+
+                public void onFinish() {
+                    viewHolder.countdownView.setText("正在开奖");
+                    viewHolder.countdownView.setVisibility(View.GONE);
+                    viewHolder.textGoodsStatus.setVisibility(View.VISIBLE);
+                }
+            }.start();
+            //将此 countDownTimer 放入list.
+            countDownCounters.put(viewHolder.countdownView.hashCode(), countDownTimer);
+        } else {
+            viewHolder.countdownView.setText("正在开奖");
+            viewHolder.countdownView.setVisibility(View.GONE);
+            viewHolder.textGoodsStatus.setVisibility(View.VISIBLE);
+        }
+
         if (info.getStatus() == 2) {
             //已支付未开奖
-            if (info.getOpen_time() > System.currentTimeMillis()) {
+            if (info.getOpen_time() * 1000 > System.currentTimeMillis()) {
                 //需要倒计时
                 viewHolder.imageGoodsStatus.setImageResource(R.drawable.ic_goods_state_wait);
                 viewHolder.imageGoodsStatus.setVisibility(View.VISIBLE);
                 viewHolder.stateImage.setVisibility(View.GONE);
                 viewHolder.winCode.setText("待揭晓...");
+                viewHolder.countdownView.setVisibility(View.VISIBLE);
+                viewHolder.textGoodsStatus.setVisibility(View.GONE);
             } else {
                 //不需要倒计时
                 viewHolder.textGoodsStatus.setText("正在开奖");
@@ -70,6 +120,8 @@ public class IndianaRecordAdapter extends RecyclerView.Adapter<RecyclerView.View
                 viewHolder.imageGoodsStatus.setVisibility(View.GONE);
                 viewHolder.stateImage.setVisibility(View.GONE);
                 viewHolder.winCode.setText("待揭晓...");
+                viewHolder.countdownView.setVisibility(View.GONE);
+                viewHolder.textGoodsStatus.setVisibility(View.VISIBLE);
             }
         } else if (info.getStatus() == 3) {
             //中奖
@@ -79,6 +131,8 @@ public class IndianaRecordAdapter extends RecyclerView.Adapter<RecyclerView.View
             viewHolder.imageGoodsStatus.setVisibility(View.VISIBLE);
             viewHolder.stateImage.setVisibility(View.VISIBLE);
             viewHolder.winCode.setText(info.getSsc_result());
+            viewHolder.countdownView.setVisibility(View.GONE);
+            viewHolder.textGoodsStatus.setVisibility(View.VISIBLE);
         } else {
             //未中奖
             viewHolder.imageGoodsStatus.setImageResource(R.drawable.ic_goods_state_fail);
@@ -87,6 +141,8 @@ public class IndianaRecordAdapter extends RecyclerView.Adapter<RecyclerView.View
             viewHolder.imageGoodsStatus.setVisibility(View.VISIBLE);
             viewHolder.stateImage.setVisibility(View.GONE);
             viewHolder.winCode.setText(info.getSsc_result());
+            viewHolder.countdownView.setVisibility(View.GONE);
+            viewHolder.textGoodsStatus.setVisibility(View.VISIBLE);
         }
         viewHolder.goodsCycleCode.setText("第" + info.getCycle_code() + "期");
         viewHolder.buyTime.setText(TimeUtils.millis2String(info.getCreate_time() * 1000));

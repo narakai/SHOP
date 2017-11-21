@@ -11,11 +11,7 @@ import android.widget.TextView;
 
 import com.sunfusheng.glideimageview.GlideImageLoader;
 
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -23,7 +19,6 @@ import wiki.scene.loadmore.utils.PtrLocalDisplay;
 import wiki.scene.shop.R;
 import wiki.scene.shop.ShopApplication;
 import wiki.scene.shop.entity.IndexInfo;
-import wiki.scene.shop.utils.CountDownUtil;
 import wiki.scene.shop.utils.DateFormatUtils;
 import wiki.scene.shop.utils.PriceUtil;
 import wiki.scene.shop.widgets.RatioImageView;
@@ -135,7 +130,4 @@ public class IndianaGoodsAdapter extends BaseAdapter {
         }
     }
 
-    public interface UpdateCountDownView {
-
-    }
 }
