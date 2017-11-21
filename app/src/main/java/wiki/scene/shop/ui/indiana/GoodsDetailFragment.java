@@ -622,5 +622,4 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
         unbinder.unbind();
     }
 
-
 }

@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 
 import com.lzy.okgo.OkGo;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +26,8 @@ import wiki.scene.loadmore.StatusViewLayout;
 import wiki.scene.loadmore.loadmore.OnLoadMoreListener;
 import wiki.scene.loadmore.recyclerview.RecyclerAdapterWithHF;
 import wiki.scene.loadmore.utils.PtrLocalDisplay;
+import wiki.scene.shop.MainActivity;
+import wiki.scene.shop.MainFragment;
 import wiki.scene.shop.R;
 import wiki.scene.shop.adapter.IndianaRecordAdapter;
 import wiki.scene.shop.config.AppConfig;
@@ -31,6 +35,8 @@ import wiki.scene.shop.entity.CreateOrderInfo;
 import wiki.scene.shop.entity.MineOrderInfo;
 import wiki.scene.shop.entity.MineOrderResultInfo;
 import wiki.scene.shop.entity.ResultPageInfo;
+import wiki.scene.shop.event.TabSelectedEvent;
+import wiki.scene.shop.event.ToIndexPageEvent;
 import wiki.scene.shop.http.api.ApiUtil;
 import wiki.scene.shop.itemDecoration.SpacesItemDecoration;
 import wiki.scene.shop.mvp.BaseBackMvpFragment;
@@ -139,7 +145,7 @@ public class IndianaRecordTypeFragment extends BaseMvpFragment<IIndianaRecordTyp
         adapter.setIndianaRecordItemButtonClickListener(new IndianaRecordAdapter.IndianaRecordItemButtonClickListener() {
             @Override
             public void onClickGoonIndiana() {
-                popTo(IndianaFragment.class, true);
+                _mActivity.onBackPressed();
             }
         });
     }

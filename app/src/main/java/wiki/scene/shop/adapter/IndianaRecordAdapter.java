@@ -94,6 +94,7 @@ public class IndianaRecordAdapter extends RecyclerView.Adapter<RecyclerView.View
                     viewHolder.textGoodsStatus.setTextColor(ContextCompat.getColor(context, R.color.text_color_title));
                     viewHolder.countdownView.setVisibility(View.GONE);
                     viewHolder.textGoodsStatus.setVisibility(View.VISIBLE);
+                    viewHolder.imageGoodsStatus.setVisibility(View.GONE);
                 }
             }.start();
             //将此 countDownTimer 放入list.
@@ -103,6 +104,7 @@ public class IndianaRecordAdapter extends RecyclerView.Adapter<RecyclerView.View
             viewHolder.textGoodsStatus.setTextColor(ContextCompat.getColor(context, R.color.text_color_title));
             viewHolder.countdownView.setVisibility(View.GONE);
             viewHolder.textGoodsStatus.setVisibility(View.VISIBLE);
+            viewHolder.imageGoodsStatus.setVisibility(View.GONE);
         }
 
         if (info.getStatus() == 2) {

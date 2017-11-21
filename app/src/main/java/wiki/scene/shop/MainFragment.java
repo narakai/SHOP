@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,6 +72,7 @@ public class MainFragment extends SupportFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
         unbinder = ButterKnife.bind(this, view);
+        EventBus.getDefault().register(this);
         initView(view);
         return view;
     }
@@ -109,8 +111,6 @@ public class MainFragment extends SupportFragment {
     }
 
     private void initView(View view) {
-        EventBus.getDefault().register(this);
-
         mBottomBar
                 .addItem(new BottomBarTab(_mActivity, R.drawable.ic_tab_index_d, R.drawable.ic_tab_index_s, getString(R.string.bottom_tab_indiana)))
                 .addItem(new BottomBarTab(_mActivity, R.drawable.ic_tab_trend_d, R.drawable.ic_tab_trend_s, getString(R.string.bottom_tab_trend)))
