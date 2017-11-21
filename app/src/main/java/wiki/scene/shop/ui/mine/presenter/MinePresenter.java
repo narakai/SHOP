@@ -1,6 +1,9 @@
 package wiki.scene.shop.ui.mine.presenter;
 
 import wiki.scene.shop.ShopApplication;
+import wiki.scene.shop.entity.MineInfo;
+import wiki.scene.shop.http.listener.HttpResultListener;
+import wiki.scene.shop.ui.mine.model.MineModel;
 import wiki.scene.shop.ui.mine.mvpview.IMineView;
 import wiki.scene.shop.mvp.BasePresenter;
 
@@ -12,9 +15,11 @@ import wiki.scene.shop.mvp.BasePresenter;
 
 public class MinePresenter extends BasePresenter<IMineView> {
     private IMineView mineView;
+    private MineModel model;
 
     public MinePresenter(IMineView mineView) {
         this.mineView = mineView;
+        model = new MineModel();
     }
 
     /**
@@ -144,14 +149,14 @@ public class MinePresenter extends BasePresenter<IMineView> {
         }
     }
 
-    public void clickMinePhone(){
-        try{
+    public void clickMinePhone() {
+        try {
             if (ShopApplication.userInfo != null && ShopApplication.hasLogin) {
                 mineView.enterBindPhone();
             } else {
                 mineView.enterLogin();
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -163,6 +168,49 @@ public class MinePresenter extends BasePresenter<IMineView> {
         if (mineView != null) {
             //需要判断是否登录
             mineView.enterLogin();
+        }
+    }
+
+    /**
+     * 获取个人资料
+     */
+    public void getMineInfo(final boolean isFirst) {
+        try {
+            if (isFirst) {
+                mineView.showLoadingPage();
+            }
+            model.getMineInfo(new HttpResultListener<MineInfo>() {
+                @Override
+                public void onSuccess(MineInfo data) {
+                    try {
+                        if (isFirst) {
+                            mineView.showContentPage();
+                        } else {
+                            mineView.refreshComplite();
+                        }
+                        mineView.bindMineInfo(data);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFail(String message) {
+                    if (isFirst) {
+                        mineView.showFailPage();
+                    } else {
+                        mineView.refreshComplite();
+                        mineView.showMessage(message);
+                    }
+                }
+
+                @Override
+                public void onFinish() {
+
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

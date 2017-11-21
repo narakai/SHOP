@@ -1,5 +1,6 @@
 package wiki.scene.shop.ui.mine.mvpview;
 
+import wiki.scene.shop.entity.MineInfo;
 import wiki.scene.shop.mvp.BaseView;
 
 /**
@@ -44,4 +45,16 @@ public interface IMineView extends BaseView {
     void enterExchangeRecord();
 
     void enterBindPhone();
+
+    void showLoadingPage();
+
+    void showContentPage();
+
+    void showFailPage();
+
+    void refreshComplite();
+
+    void showMessage(String message);
+
+    void bindMineInfo(MineInfo mineInfo);
 }

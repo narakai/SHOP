@@ -6,18 +6,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import com.sunfusheng.glideimageview.GlideImageLoader;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import wiki.scene.shop.R;
-import wiki.scene.shop.ShopApplication;
 import wiki.scene.shop.config.AppConfig;
 import wiki.scene.shop.entity.BankInfo;
 
@@ -47,13 +43,20 @@ public class BankAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         if (info.getType() == AppConfig.BANK_TYPE_BANK_CARD) {
             viewHolder.bankName.setText(info.getBank());
             viewHolder.itemLayout.setBackgroundResource(R.drawable.shape_bankcard_bg);
+            viewHolder.logo.setImageResource(R.drawable.ic_unionpay);
         } else {
             viewHolder.bankName.setText("支付宝");
             viewHolder.itemLayout.setBackgroundResource(R.drawable.shape_alipay_bg);
+            viewHolder.logo.setImageResource(R.drawable.ic_alipay_logo);
         }
-        viewHolder.bankAccount.setText(info.getAccount());
+        String accountStr = info.getAccount();
+        if (accountStr.length() > 8) {
+            accountStr = accountStr.replace(accountStr.substring(4, accountStr.length() - 4), "****");
+            viewHolder.bankAccount.setText(accountStr);
+        } else {
+            viewHolder.bankAccount.setText(accountStr);
+        }
         viewHolder.realName.setText(info.getName());
-        GlideImageLoader.create(viewHolder.logo).loadCircleImage(ShopApplication.configInfo.getFile_domain() + "", R.drawable.ic_default_avater);
     }
 
     @Override

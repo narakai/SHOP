@@ -32,16 +32,17 @@ public class AddBankPresenter extends BasePresenter<IAddBankView> {
             params.put("account", bankInfo.getAccount());
             params.put("type", AppConfig.BANK_TYPE_BANK_CARD);
             params.put("bank", bankInfo.getBank());
+            params.put("open_bank", bankInfo.getOpen_bank());
             bankView.showLoading(R.string.loading);
             model.addBankCard(params, new HttpResultListener<AddBankResultInfo>() {
                 @Override
                 public void onSuccess(AddBankResultInfo data) {
                     try {
                         if (data != null && data.getBank_id() != 0) {
-                            bankView.showMessage("支付宝账号绑定成功");
+                            bankView.showMessage("银行卡绑定成功");
                             bankView.bindOrUpdateSuccess();
                         } else {
-                            bankView.showMessage("支付宝账号绑定失败");
+                            bankView.showMessage("银行卡绑定失败");
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -79,16 +80,17 @@ public class AddBankPresenter extends BasePresenter<IAddBankView> {
             params.put("type", AppConfig.BANK_TYPE_BANK_CARD);
             params.put("bank_id", bankInfo.getId());
             params.put("bank", bankInfo.getBank());
+            params.put("open_bank", bankInfo.getOpen_bank());
             bankView.showLoading(R.string.loading);
             model.addBankCard(params, new HttpResultListener<AddBankResultInfo>() {
                 @Override
                 public void onSuccess(AddBankResultInfo data) {
                     try {
                         if (data != null && data.getBank_id() != 0) {
-                            bankView.showMessage("支付宝账号修改成功");
+                            bankView.showMessage("银行卡修改成功");
                             bankView.bindOrUpdateSuccess();
                         } else {
-                            bankView.showMessage("支付宝账号修改失败");
+                            bankView.showMessage("银行卡修改失败");
                         }
                     } catch (Exception e) {
                         e.printStackTrace();

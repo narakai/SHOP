@@ -176,12 +176,14 @@ public class ApiUtil {
     public static final String NEWEST_BUY_GOODS = "/business/newest_buy_detail";
     public static final String NEWEST_BUY_GOODS_TAG = "NEWEST_BUY_GOODS";
     //银行卡列表
-    public static final String BANK_LIST="/personal/bank";
-    public static final String BANK_LIST_TAG="BANK_LIST_TAG";
+    public static final String BANK_LIST = "/personal/bank";
+    public static final String BANK_LIST_TAG = "BANK_LIST_TAG";
     //添加收款方式
-    public static final String ADD_BANK_CARD="/personal/bank/edit";
-    public static final String ADD_BANK_CARD_TAG="ADD_BANK_CARD_TAG";
-
+    public static final String ADD_BANK_CARD = "/personal/bank/edit";
+    public static final String ADD_BANK_CARD_TAG = "ADD_BANK_CARD_TAG";
+    //个人资料
+    public static final String MINE_INFO = "/personal/profile";
+    public static final String MINE_INFO_TAG = "MINE_INFO_TAG";
 
     /**
      * Case By:创建参数基础信息

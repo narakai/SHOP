@@ -47,6 +47,8 @@ public class AddBankFragment extends BaseBackMvpFragment<IAddBankView, AddBankPr
     Unbinder unbinder;
     @BindView(R.id.add)
     TextView add;
+    @BindView(R.id.open_bank)
+    EditText openBank;
 
     private LoadingDialog loadingDialog;
 
@@ -92,6 +94,7 @@ public class AddBankFragment extends BaseBackMvpFragment<IAddBankView, AddBankPr
             realName.setText(bankInfo.getName());
             account.setText(bankInfo.getAccount());
             bank.setText(bankInfo.getBank());
+            openBank.setText(bankInfo.getOpen_bank());
         }
     }
 
@@ -141,9 +144,15 @@ public class AddBankFragment extends BaseBackMvpFragment<IAddBankView, AddBankPr
     @OnClick(R.id.add)
     public void onClickAdd() {
         BankInfo info = new BankInfo();
+
         String realNameStr = realName.getText().toString().trim();
         String accountStr = account.getText().toString().trim();
         String bankStr = bank.getText().toString().trim();
+        String openBankStr = openBank.getText().toString().trim();
+        if (StringUtils.isEmpty(bankStr)) {
+            showMessage("请输入银行名称");
+            return;
+        }
         if (StringUtils.isEmpty(realNameStr)) {
             showMessage("请输入持卡人姓名");
             return;
@@ -152,13 +161,15 @@ public class AddBankFragment extends BaseBackMvpFragment<IAddBankView, AddBankPr
             showMessage("请输入卡号");
             return;
         }
-        if (StringUtils.isEmpty(bankStr)) {
+
+        if (StringUtils.isEmpty(openBankStr)) {
             showMessage("请输入开户行");
             return;
         }
         info.setName(realNameStr);
         info.setAccount(accountStr);
         info.setBank(bankStr);
+        info.setOpen_bank(openBankStr);
         if (bankInfo == null) {
             presenter.addBankCard(info);
         } else {

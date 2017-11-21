@@ -13,7 +13,7 @@
         android:id="@+id/logo"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:src="@drawable/ic_default_avater" />
+        android:src="@drawable/ic_unionpay" />
 
     <TextView
         android:id="@+id/bank_name"
@@ -24,7 +24,7 @@
         android:ellipsize="end"
         android:gravity="center_vertical"
         android:lines="1"
-        android:text="支付宝"
+        android:text=""
         android:textColor="@color/white"
         android:textSize="@dimen/text_size_big" />
 
@@ -35,8 +35,11 @@
         android:layout_below="@+id/logo"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="20dp"
+        android:layout_toLeftOf="@+id/bank_account"
         android:layout_toRightOf="@+id/logo"
-        android:text="张三"
+        android:ellipsize="end"
+        android:lines="1"
+        android:text=""
         android:textColor="@color/white"
         android:textSize="@dimen/text_size_big" />
 
@@ -48,7 +51,9 @@
         android:layout_below="@+id/logo"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="20dp"
-        android:text="13246578@qq.com"
+        android:gravity="right"
+        android:lines="1"
+        android:text=""
         android:textColor="@color/white"
         android:textSize="@dimen/text_size_big" />
 </RelativeLayout>

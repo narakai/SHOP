@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.sunfusheng.glideimageview.GlideImageView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -20,13 +21,19 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import wiki.scene.loadmore.PtrClassicFrameLayout;
+import wiki.scene.loadmore.PtrDefaultHandler;
+import wiki.scene.loadmore.PtrFrameLayout;
+import wiki.scene.loadmore.StatusViewLayout;
 import wiki.scene.shop.R;
 import wiki.scene.shop.ShopApplication;
 import wiki.scene.shop.activity.LoginActivity;
+import wiki.scene.shop.entity.MineInfo;
 import wiki.scene.shop.event.ChooseAvaterResultEvent;
 import wiki.scene.shop.event.LoginOutEvent;
 import wiki.scene.shop.event.RegisterSuccessEvent;
 import wiki.scene.shop.event.StartBrotherEvent;
+import wiki.scene.shop.event.TabSelectedEvent;
 import wiki.scene.shop.mvp.BaseMainMvpFragment;
 import wiki.scene.shop.ui.mine.mvpview.IMineView;
 import wiki.scene.shop.ui.mine.presenter.MinePresenter;
@@ -80,6 +87,10 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
     TextView todayWin;
 
     Unbinder unbinder;
+    @BindView(R.id.ptrLayout)
+    PtrClassicFrameLayout ptrLayout;
+    @BindView(R.id.status_layout)
+    StatusViewLayout statusLayout;
 
     private LoadingDialog loadingDialog;
 
@@ -103,9 +114,25 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
         super.onLazyInitView(savedInstanceState);
         EventBus.getDefault().register(this);
         initView();
+        if (ShopApplication.hasLogin) {
+            presenter.getMineInfo(true);
+        } else {
+            showContentPage();
+        }
     }
 
     private void initView() {
+        ptrLayout.setLastUpdateTimeRelateObject(this);
+        ptrLayout.setPtrHandler(new PtrDefaultHandler() {
+            @Override
+            public void onRefreshBegin(PtrFrameLayout frame) {
+                if (ShopApplication.hasLogin) {
+                    presenter.getMineInfo(false);
+                } else {
+                    ptrLayout.refreshComplete();
+                }
+            }
+        });
         loadingDialog = LoadingDialog.getInstance(_mActivity);
         if (ShopApplication.hasLogin) {
             hasLogin();
@@ -299,6 +326,59 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
     }
 
     @Override
+    public void showLoadingPage() {
+        try {
+            statusLayout.showLoading();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void showContentPage() {
+        try {
+            statusLayout.showContent();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void showFailPage() {
+        try {
+            statusLayout.showFailed(retryListener);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void refreshComplite() {
+        try {
+            ptrLayout.refreshComplete();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void showMessage(String message) {
+        ToastUtils.showShort(message);
+    }
+
+    @Override
+    public void bindMineInfo(MineInfo mineInfo) {
+
+    }
+
+    private View.OnClickListener retryListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            presenter.getMineInfo(true);
+        }
+    };
+
+    @Override
     public void hasLogin() {
         username.setText(ShopApplication.userInfo.getNickname().isEmpty() ? ShopApplication.userInfo.getMobile() : ShopApplication.userInfo.getNickname());
         userAvater.loadCircleImage(ShopApplication.userInfo.getAvatar(), R.drawable.ic_default_avater);
@@ -327,6 +407,11 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onLoginOut(LoginOutEvent event) {
         hasNoLogin();
+    }
+
+    @Subscribe
+    public void reshowMinePage(TabSelectedEvent event) {
+        ptrLayout.autoRefresh();
     }
 
     @Override

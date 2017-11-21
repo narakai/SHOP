@@ -21,6 +21,7 @@ public class BankInfo implements Serializable {
     private String name;
     private String account;
     private String bank;
+    private String open_bank;
 
     public int getType() {
         return type;
@@ -60,5 +61,13 @@ public class BankInfo implements Serializable {
 
     public void setBank(String bank) {
         this.bank = bank;
+    }
+
+    public String getOpen_bank() {
+        return open_bank;
+    }
+
+    public void setOpen_bank(String open_bank) {
+        this.open_bank = open_bank;
     }
 }

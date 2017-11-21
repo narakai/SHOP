@@ -140,7 +140,9 @@ public class MainFragment extends SupportFragment {
 
             @Override
             public void onTabReselected(int position) {
-
+                if (position == FOUR) {
+                    EventBus.getDefault().post(new TabSelectedEvent(FOUR));
+                }
             }
         });
     }
