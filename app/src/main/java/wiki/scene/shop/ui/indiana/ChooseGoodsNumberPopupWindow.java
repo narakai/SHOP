@@ -209,6 +209,7 @@ public class ChooseGoodsNumberPopupWindow extends PopupWindow implements View.On
             @Override
             public void onClick(View view) {
                 if (onClickPopWindowPayListener != null) {
+                    getBuyType();
                     if (totalPrice > balance) {
                         onClickPopWindowPayListener.onClickToRecharge();
                     } else {

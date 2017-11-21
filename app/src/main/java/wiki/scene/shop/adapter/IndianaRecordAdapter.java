@@ -90,7 +90,8 @@ public class IndianaRecordAdapter extends RecyclerView.Adapter<RecyclerView.View
                 }
 
                 public void onFinish() {
-                    viewHolder.countdownView.setText("正在开奖");
+                    viewHolder.textGoodsStatus.setText("正在开奖");
+                    viewHolder.textGoodsStatus.setTextColor(ContextCompat.getColor(context, R.color.text_color_title));
                     viewHolder.countdownView.setVisibility(View.GONE);
                     viewHolder.textGoodsStatus.setVisibility(View.VISIBLE);
                 }
@@ -98,7 +99,8 @@ public class IndianaRecordAdapter extends RecyclerView.Adapter<RecyclerView.View
             //将此 countDownTimer 放入list.
             countDownCounters.put(viewHolder.countdownView.hashCode(), countDownTimer);
         } else {
-            viewHolder.countdownView.setText("正在开奖");
+            viewHolder.textGoodsStatus.setText("正在开奖");
+            viewHolder.textGoodsStatus.setTextColor(ContextCompat.getColor(context, R.color.text_color_title));
             viewHolder.countdownView.setVisibility(View.GONE);
             viewHolder.textGoodsStatus.setVisibility(View.VISIBLE);
         }
