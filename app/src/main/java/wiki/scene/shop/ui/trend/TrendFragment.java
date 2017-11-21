@@ -211,4 +211,17 @@ public class TrendFragment extends BaseMainMvpFragment<ITrendView, TrendPresente
         super.onDestroyView();
         unbinder.unbind();
     }
+
+    private void cancelPoolThread() {
+        try {
+            if (timeScheduledFuture != null) {
+                timeScheduledFuture.cancel(true);
+            }
+            if (timeThreadPoolUtils != null) {
+                timeThreadPoolUtils.shutDownNow();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

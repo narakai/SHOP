@@ -19,7 +19,7 @@ import wiki.scene.shop.entity.WinCodeInfo;
  * Created by scene on 2017/11/14.
  */
 
-public class TrendAdapter extends RecyclerView.Adapter {
+public class TrendAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context context;
     private List<WinCodeInfo> list;
 
