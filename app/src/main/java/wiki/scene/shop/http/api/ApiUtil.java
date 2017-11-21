@@ -175,6 +175,10 @@ public class ApiUtil {
     //最新参与指定产品
     public static final String NEWEST_BUY_GOODS = "/business/newest_buy_detail";
     public static final String NEWEST_BUY_GOODS_TAG = "NEWEST_BUY_GOODS";
+    //银行卡列表
+    public static final String BANK_LIST="/personal/bank";
+    public static final String BANK_LIST_TAG="BANK_LIST_TAG";
+
 
     /**
      * Case By:创建参数基础信息

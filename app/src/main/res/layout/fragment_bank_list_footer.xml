@@ -3,40 +3,43 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
-    android:padding="15dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="15dp">
 
     <LinearLayout
+        android:id="@+id/add_bank_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/shape_choose_type_gray"
         android:gravity="center"
         android:orientation="horizontal"
         android:paddingBottom="10dp"
-        android:background="@drawable/shape_choose_type_gray"
         android:paddingTop="10dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawablePadding="8dp"
             android:drawableLeft="@drawable/ic_add_bank"
+            android:drawablePadding="8dp"
             android:text="添加银行卡" />
     </LinearLayout>
+
     <LinearLayout
+        android:id="@+id/add_alipay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/shape_choose_type_gray"
         android:gravity="center"
         android:orientation="horizontal"
         android:paddingBottom="10dp"
-        android:layout_marginTop="15dp"
-        android:background="@drawable/shape_choose_type_gray"
         android:paddingTop="10dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawablePadding="8dp"
             android:drawableLeft="@drawable/ic_add_bank"
+            android:drawablePadding="8dp"
             android:text="添加支付宝" />
     </LinearLayout>
 </LinearLayout>
