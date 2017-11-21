@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.sunfusheng.glideimageview.GlideImageLoader;
@@ -42,10 +44,12 @@ public class BankAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         BankInfo info = list.get(position);
         BankViewHolder viewHolder = (BankViewHolder) holder;
-        if(info.getType()== AppConfig.BANK_TYPE_BANK_CARD){
+        if (info.getType() == AppConfig.BANK_TYPE_BANK_CARD) {
             viewHolder.bankName.setText(info.getBank());
-        }else{
+            viewHolder.itemLayout.setBackgroundResource(R.drawable.shape_bankcard_bg);
+        } else {
             viewHolder.bankName.setText("支付宝");
+            viewHolder.itemLayout.setBackgroundResource(R.drawable.shape_alipay_bg);
         }
         viewHolder.bankAccount.setText(info.getAccount());
         viewHolder.realName.setText(info.getName());
@@ -67,6 +71,8 @@ public class BankAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         TextView realName;
         @BindView(R.id.bank_account)
         TextView bankAccount;
+        @BindView(R.id.itemLayout)
+        RelativeLayout itemLayout;
 
         BankViewHolder(View view) {
             super(view);
