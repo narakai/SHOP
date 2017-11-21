@@ -54,8 +54,6 @@ public class LoadingDialog {
     public void cancelLoadingDialog() {
         if (dialog != null && dialogBuilder != null && dialog.isShowing()) {
             dialog.cancel();
-//            dialog = null;
-//            dialogBuilder = null;
         }
     }
 }

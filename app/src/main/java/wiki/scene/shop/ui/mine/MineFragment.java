@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ToastUtils;
+import com.google.gson.Gson;
 import com.sunfusheng.glideimageview.GlideImageView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -38,6 +39,7 @@ import wiki.scene.shop.mvp.BaseMainMvpFragment;
 import wiki.scene.shop.ui.mine.mvpview.IMineView;
 import wiki.scene.shop.ui.mine.presenter.MinePresenter;
 import wiki.scene.shop.utils.PriceUtil;
+import wiki.scene.shop.utils.SharedPreferencesUtil;
 import wiki.scene.shop.widgets.LoadingDialog;
 
 /**
@@ -369,12 +371,19 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
 
     @Override
     public void bindMineInfo(MineInfo mineInfo) {
-        winTime.setText(PriceUtil.getPrice(mineInfo.getToday_win()));
-        coin.setText(PriceUtil.getPrice(mineInfo.getMoney()));
-        commission.setText("0");
-        todayCommission.setText("今日佣金：0");
-        todayJoin.setText("今日参与：0");
-        todayWin.setText("今日获胜：0");
+        try {
+            ShopApplication.userInfo.setMoney(mineInfo.getMoney());
+            SharedPreferencesUtil.putString(_mActivity, ShopApplication.USER_INFO_KEY, new Gson().toJson(ShopApplication.userInfo));
+            winTime.setText(PriceUtil.getPrice(mineInfo.getToday_win()));
+            coin.setText(PriceUtil.getPrice(mineInfo.getMoney()));
+            commission.setText("0");
+            todayCommission.setText("今日佣金：0");
+            todayJoin.setText("今日参与：0");
+            todayWin.setText("今日获胜：0");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     private View.OnClickListener retryListener = new View.OnClickListener() {

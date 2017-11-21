@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_white_solid_bg"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingBottom="40dp"
+    android:paddingTop="40dp">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_order_buy_success" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="恭喜您，购买成功"
+        android:textColor="@color/color_theme"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/see_order"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/shape_theme_round_corner_small"
+        android:paddingBottom="10dp"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp"
+        android:paddingTop="10dp"
+        android:text="查看订单"
+        android:textColor="@color/color_theme"
+        android:textSize="@dimen/text_size_big" />
+
+    <TextView
+        android:id="@+id/goon_buy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/shape_btn_theme_orange"
+        android:paddingBottom="10dp"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp"
+        android:paddingTop="10dp"
+        android:text="继续购买"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_big" />
+</LinearLayout>

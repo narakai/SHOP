@@ -14,6 +14,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ToastUtils;
+import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.sunfusheng.glideimageview.GlideImageLoader;
 
@@ -39,17 +40,22 @@ import wiki.scene.shop.adapter.GoodsDetailWinCodeAdapter;
 import wiki.scene.shop.entity.CreateOrderInfo;
 import wiki.scene.shop.entity.GoodsDetailInfo;
 import wiki.scene.shop.entity.NewestWinInfo;
+import wiki.scene.shop.entity.OrderBuyResultInfo;
 import wiki.scene.shop.entity.WinCodeInfo;
 import wiki.scene.shop.http.api.ApiUtil;
 import wiki.scene.shop.mvp.BaseBackMvpFragment;
 import wiki.scene.shop.ui.indiana.mvpview.IGoodsDetailView;
 import wiki.scene.shop.ui.indiana.presenter.GoodsDetailPresenter;
+import wiki.scene.shop.ui.mine.IndianaRecordFragment;
 import wiki.scene.shop.ui.mine.RechargeFragment;
 import wiki.scene.shop.utils.DateFormatUtils;
 import wiki.scene.shop.utils.PriceUtil;
+import wiki.scene.shop.utils.SharedPreferencesUtil;
 import wiki.scene.shop.utils.ThreadPoolUtils;
 import wiki.scene.shop.utils.ViewUtils;
+import wiki.scene.shop.widgets.BuyGoodsSuccessDialog;
 import wiki.scene.shop.widgets.CustomListView;
+import wiki.scene.shop.widgets.LoadingDialog;
 import wiki.scene.shop.widgets.NoTouchListView;
 import wiki.scene.shop.widgets.RatioImageView;
 
@@ -144,6 +150,8 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
     private GoodsDetailInfo.GoodsInfo goodsInfo;
 
     private int danmuPosition = 0;
+
+    private LoadingDialog loadingDialog;
 
     public static GoodsDetailFragment newInstance(int goodsId) {
         Bundle args = new Bundle();
@@ -250,7 +258,9 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
                 popupWindow.setOnClickPopWindowPayListener(new ChooseGoodsNumberPopupWindow.OnClickPopWindowPayListener() {
                     @Override
                     public void onClickToPay(int playType, int buyType, int buyNumber) {
-
+                        if (goodsId != 0) {
+                            presenter.orderBuy(goodsId, buyNumber, playType, buyType);
+                        }
                     }
 
                     @Override
@@ -307,12 +317,25 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
 
     @Override
     public void showProgressDialog(int resId) {
-
+        try {
+            if (loadingDialog == null) {
+                loadingDialog = LoadingDialog.getInstance(getContext());
+            }
+            loadingDialog.showLoadingDialog(getString(resId));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void hideProgressDialog() {
-
+        try {
+            if (loadingDialog != null) {
+                loadingDialog.cancelLoadingDialog();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -385,6 +408,43 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
         } else {
             buyAdapter.notifyDataSetChanged();
         }
+
+    }
+
+    private BuyGoodsSuccessDialog successDialog;
+    private BuyGoodsSuccessDialog.Builder builder;
+
+    @Override
+    public void orderBuySuccess(OrderBuyResultInfo info) {
+        try {
+            ShopApplication.userInfo.setMoney(info.getMoney());
+            SharedPreferencesUtil.putString(_mActivity, ShopApplication.USER_INFO_KEY, new Gson().toJson(ShopApplication.userInfo));
+            if (popupWindow != null) {
+                popupWindow.dismiss();
+            }
+            if (builder == null) {
+                builder = new BuyGoodsSuccessDialog.Builder(getContext());
+                builder.setOnClickBuyGoodsSuccessDialogListener(new BuyGoodsSuccessDialog.OnClickBuyGoodsSuccessDialogListener() {
+                    @Override
+                    public void onClickGoonBuy() {
+                        cancelDialog();
+                    }
+
+                    @Override
+                    public void onClickSeeOrder() {
+                        start(IndianaRecordFragment.newInstance());
+                        cancelDialog();
+                    }
+                });
+            }
+            if (successDialog == null) {
+                successDialog = builder.create();
+            }
+            successDialog.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
 
     }
 
@@ -523,6 +583,16 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
 
     }
 
+    private void cancelDialog() {
+        try {
+            if (successDialog != null) {
+                successDialog.cancel();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
 
     @Override
     public void onStop() {
@@ -538,6 +608,8 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
         try {
             OkGo.getInstance().cancelTag(ApiUtil.GOODS_DETAIL_TAG);
             OkGo.getInstance().cancelTag(ApiUtil.NEWEST_BUY_GOODS_TAG);
+            hideProgressDialog();
+            cancelDialog();
         } catch (Exception e) {
             e.printStackTrace();
         }

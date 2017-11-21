@@ -1,16 +1,14 @@
 package wiki.scene.shop.ui.indiana.presenter;
 
-import android.content.Context;
-
 import com.lzy.okgo.model.HttpParams;
 
 import java.util.List;
 
 import wiki.scene.shop.R;
 import wiki.scene.shop.ShopApplication;
-import wiki.scene.shop.entity.CreateOrderInfo;
 import wiki.scene.shop.entity.GoodsDetailInfo;
 import wiki.scene.shop.entity.NewestWinInfo;
+import wiki.scene.shop.entity.OrderBuyResultInfo;
 import wiki.scene.shop.http.listener.HttpResultListener;
 import wiki.scene.shop.mvp.BasePresenter;
 import wiki.scene.shop.ui.indiana.model.GoodsDetailModel;
@@ -79,43 +77,6 @@ public class GoodsDetailPresenter extends BasePresenter<IGoodsDetailView> {
         }
     }
 
-    public void createOrder(Context context, String cycleId, int number) {
-        try {
-            if (ShopApplication.hasLogin) {
-                mView.showProgressDialog(R.string.loading);
-                HttpParams params = new HttpParams();
-                params.put("user_id", ShopApplication.userInfo.getUser_id());
-                params.put("cycle_id", cycleId);
-                params.put("mobile", ShopApplication.userInfo.getMobile());
-                if (number != -1) {
-                    params.put("number", number);
-                } else {
-                    params.put("baowei", 1);
-                }
-                model.createOrder(params, new HttpResultListener<CreateOrderInfo>() {
-                    @Override
-                    public void onSuccess(CreateOrderInfo data) {
-                        mView.createOrderSuccess(data);
-                    }
-
-                    @Override
-                    public void onFail(String message) {
-                        mView.showMessage(message);
-                    }
-
-                    @Override
-                    public void onFinish() {
-                        mView.hideProgressDialog();
-                    }
-                });
-            } else {
-                mView.showMessage(context.getString(R.string.you_has_no_login_please_login));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     /**
      * 获取最新参与信息
      */
@@ -142,5 +103,49 @@ public class GoodsDetailPresenter extends BasePresenter<IGoodsDetailView> {
             }
 
         });
+    }
+
+    /**
+     * 直接购买
+     */
+    public void orderBuy(int goodsId, int number, int playType, int buyType) {
+        try {
+            HttpParams params = new HttpParams();
+            params.put("product_id", goodsId);
+            params.put("number", number);
+            params.put("play_type", playType);
+            params.put("buy_type", buyType);
+            this.mView.showProgressDialog(R.string.loading);
+            model.orderBuy(params, new HttpResultListener<OrderBuyResultInfo>() {
+                @Override
+                public void onSuccess(OrderBuyResultInfo data) {
+                    try {
+                        mView.orderBuySuccess(data);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFail(String message) {
+                    try {
+                        mView.showMessage(message);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFinish() {
+                    try {
+                        mView.hideProgressDialog();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

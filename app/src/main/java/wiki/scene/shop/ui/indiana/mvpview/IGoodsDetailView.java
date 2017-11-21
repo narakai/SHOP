@@ -8,6 +8,7 @@ import wiki.scene.shop.entity.CreateOrderInfo;
 import wiki.scene.shop.entity.GoodsDetailInfo;
 import wiki.scene.shop.entity.ListGoodsInfo;
 import wiki.scene.shop.entity.NewestWinInfo;
+import wiki.scene.shop.entity.OrderBuyResultInfo;
 import wiki.scene.shop.entity.WinCodeInfo;
 import wiki.scene.shop.mvp.BaseView;
 
@@ -37,4 +38,6 @@ public interface IGoodsDetailView extends BaseView {
     void bindWinCodeInfo(List<WinCodeInfo> winCodeInfoList);
 
     void getNewestBuySuccess(List<NewestWinInfo> list);
+
+    void orderBuySuccess(OrderBuyResultInfo info);
 }

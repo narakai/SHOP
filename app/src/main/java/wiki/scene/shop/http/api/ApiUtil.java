@@ -184,6 +184,9 @@ public class ApiUtil {
     //个人资料
     public static final String MINE_INFO = "/personal/profile";
     public static final String MINE_INFO_TAG = "MINE_INFO_TAG";
+    //使用夺宝币购买商品
+    public static final String ORDER_BUY="/business/order";
+    public static final String ORDER_BUY_TAG="ORDER_BUY_TAG";
 
     /**
      * Case By:创建参数基础信息

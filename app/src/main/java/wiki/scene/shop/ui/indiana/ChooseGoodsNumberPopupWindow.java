@@ -153,7 +153,7 @@ public class ChooseGoodsNumberPopupWindow extends PopupWindow implements View.On
         if (totalPrice > balance) {
             toPay.setText("余额不足，去充值");
         } else {
-            toPay.setText("去支付");
+            toPay.setText("确定购买");
         }
     }
 

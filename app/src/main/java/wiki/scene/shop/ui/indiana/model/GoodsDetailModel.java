@@ -10,6 +10,7 @@ import wiki.scene.shop.entity.AddCartResultInfo;
 import wiki.scene.shop.entity.CreateOrderInfo;
 import wiki.scene.shop.entity.GoodsDetailInfo;
 import wiki.scene.shop.entity.NewestWinInfo;
+import wiki.scene.shop.entity.OrderBuyResultInfo;
 import wiki.scene.shop.http.api.ApiUtil;
 import wiki.scene.shop.http.base.LzyResponse;
 import wiki.scene.shop.http.callback.JsonCallback;
@@ -46,66 +47,6 @@ public class GoodsDetailModel {
                 });
     }
 
-    //加入购物车
-    public void joinCar(HttpParams params, final HttpResultListener<AddCartResultInfo> resultListener) {
-        OkGo.<LzyResponse<AddCartResultInfo>>
-                post(ApiUtil.API_PRE + ApiUtil.JOIN_CAR)
-                .tag(ApiUtil.JOIN_CAR_TAG)
-                .params(params)
-                .execute(new JsonCallback<LzyResponse<AddCartResultInfo>>() {
-                    @Override
-                    public void onSuccess(Response<LzyResponse<AddCartResultInfo>> response) {
-                        resultListener.onSuccess(response.body().data);
-                    }
-
-                    @Override
-                    public void onError(Response<LzyResponse<AddCartResultInfo>> response) {
-                        super.onError(response);
-                        if (response.getException() != null) {
-                            resultListener.onFail(response.getException().getMessage());
-                        } else {
-                            resultListener.onFail(response.message());
-                        }
-                    }
-
-                    @Override
-                    public void onFinish() {
-                        super.onFinish();
-                        resultListener.onFinish();
-                    }
-                });
-    }
-
-    /**
-     * 创建订单
-     */
-    public void createOrder(HttpParams params, final HttpResultListener<CreateOrderInfo> resultListener) {
-        OkGo.<LzyResponse<CreateOrderInfo>>post(ApiUtil.API_PRE + ApiUtil.CREATE_ORDER)
-                .tag(ApiUtil.CREATE_ORDER_TAG)
-                .params(params)
-                .execute(new JsonCallback<LzyResponse<CreateOrderInfo>>() {
-                    @Override
-                    public void onSuccess(Response<LzyResponse<CreateOrderInfo>> response) {
-                        resultListener.onSuccess(response.body().data);
-                    }
-
-                    @Override
-                    public void onError(Response<LzyResponse<CreateOrderInfo>> response) {
-                        super.onError(response);
-                        if (response.getException().getMessage().isEmpty()) {
-                            resultListener.onFail(response.message());
-                        } else {
-                            resultListener.onFail(response.getException().getMessage());
-                        }
-                    }
-
-                    @Override
-                    public void onFinish() {
-                        super.onFinish();
-                        resultListener.onFinish();
-                    }
-                });
-    }
 
     /**
      * 最新参与
@@ -123,7 +64,39 @@ public class GoodsDetailModel {
                     @Override
                     public void onError(Response<LzyResponse<List<NewestWinInfo>>> response) {
                         super.onError(response);
-                        listener.onFail(response.getException() != null && response.getException().getMessage() != null ? response.getException().getMessage() : response.message());
+                        try{
+                            listener.onFail(response.getException() != null && response.getException().getMessage() != null ? response.getException().getMessage() : response.message());
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        super.onFinish();
+                        listener.onFinish();
+                    }
+                });
+    }
+
+    public void orderBuy(HttpParams params,final HttpResultListener<OrderBuyResultInfo> listener) {
+        OkGo.<LzyResponse<OrderBuyResultInfo>>post(ApiUtil.API_PRE + ApiUtil.ORDER_BUY)
+                .tag(ApiUtil.ORDER_BUY_TAG)
+                .params(params)
+                .execute(new JsonCallback<LzyResponse<OrderBuyResultInfo>>() {
+                    @Override
+                    public void onSuccess(Response<LzyResponse<OrderBuyResultInfo>> response) {
+                        listener.onSuccess(response.body().data);
+                    }
+
+                    @Override
+                    public void onError(Response<LzyResponse<OrderBuyResultInfo>> response) {
+                        super.onError(response);
+                        try{
+                            listener.onFail(response.getException() != null && response.getException().getMessage() != null ? response.getException().getMessage() : response.message());
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
                     }
 
                     @Override
