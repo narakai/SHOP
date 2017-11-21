@@ -1,5 +1,6 @@
 package wiki.scene.shop.ui.indiana;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
@@ -32,6 +33,7 @@ import wiki.scene.loadmore.StatusViewLayout;
 import wiki.scene.shop.MainActivity;
 import wiki.scene.shop.R;
 import wiki.scene.shop.ShopApplication;
+import wiki.scene.shop.activity.LoginActivity;
 import wiki.scene.shop.adapter.GoodsDetailBuyAdapter;
 import wiki.scene.shop.adapter.GoodsDetailWinCodeAdapter;
 import wiki.scene.shop.entity.CreateOrderInfo;
@@ -42,6 +44,7 @@ import wiki.scene.shop.http.api.ApiUtil;
 import wiki.scene.shop.mvp.BaseBackMvpFragment;
 import wiki.scene.shop.ui.indiana.mvpview.IGoodsDetailView;
 import wiki.scene.shop.ui.indiana.presenter.GoodsDetailPresenter;
+import wiki.scene.shop.ui.mine.RechargeFragment;
 import wiki.scene.shop.utils.DateFormatUtils;
 import wiki.scene.shop.utils.PriceUtil;
 import wiki.scene.shop.utils.ThreadPoolUtils;
@@ -234,10 +237,36 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
 
     @OnClick(R.id.buy)
     public void onClickBuy() {
-        if (popupWindow == null) {
-            popupWindow = new ChooseGoodsNumberPopupWindow(_mActivity);
+        if (goodsInfo != null && ShopApplication.currentCycleInfo != null) {
+            if (ShopApplication.userInfo != null) {
+                if (popupWindow == null) {
+                    popupWindow = new ChooseGoodsNumberPopupWindow(_mActivity);
+                }
+                popupWindow.setTwoPrice(goodsInfo.getTwo_price());
+                popupWindow.setFourPrice(goodsInfo.getFour_price());
+                popupWindow.setTenPrice(goodsInfo.getTen_price());
+                popupWindow.setCycleCode(ShopApplication.currentCycleInfo.getCycle_code());
+                popupWindow.setAccountBalance(ShopApplication.userInfo.getMoney());
+                popupWindow.setOnClickPopWindowPayListener(new ChooseGoodsNumberPopupWindow.OnClickPopWindowPayListener() {
+                    @Override
+                    public void onClickToPay(int playType, int buyType, int buyNumber) {
+
+                    }
+
+                    @Override
+                    public void onClickToRecharge() {
+                        start(RechargeFragment.newInstance());
+                        if (popupWindow != null) {
+                            popupWindow.dismiss();
+                        }
+                    }
+                });
+                popupWindow.show(buy);
+            } else {
+                startActivity(new Intent(getContext(), LoginActivity.class));
+            }
         }
-        popupWindow.show(buy);
+
     }
 
     @Override
@@ -430,8 +459,14 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
                                     ((MainActivity) _mActivity).getCurrentCycleData();
                                 }
                                 countdownView.setText("开奖中");
+                                if (popupWindow != null) {
+                                    popupWindow.setCountDownView("开奖中");
+                                }
                             } else {
                                 countdownView.setText(DateFormatUtils.getHoursByNow(ShopApplication.currentCycleInfo.getOpen_time()));
+                                if (popupWindow != null) {
+                                    popupWindow.setCountDownView(DateFormatUtils.getHoursByNow(ShopApplication.currentCycleInfo.getOpen_time()));
+                                }
                             }
                         } catch (Exception e) {
                             e.printStackTrace();

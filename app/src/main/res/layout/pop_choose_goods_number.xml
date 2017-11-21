@@ -399,6 +399,7 @@
         android:paddingRight="20dp">
 
         <TextView
+            android:id="@+id/num_1"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -414,6 +415,7 @@
             android:layout_height="1dp" />
 
         <TextView
+            android:id="@+id/num_10"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -429,6 +431,7 @@
             android:layout_height="1dp" />
 
         <TextView
+            android:id="@+id/num_30"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -444,6 +447,7 @@
             android:layout_height="1dp" />
 
         <TextView
+            android:id="@+id/num_50"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -459,6 +463,7 @@
             android:layout_height="1dp" />
 
         <TextView
+            android:id="@+id/num_100"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -547,6 +552,7 @@
                 android:textSize="@dimen/text_size_small" />
 
             <TextView
+                android:id="@+id/cycle_code"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="2017070211111"
@@ -589,6 +595,7 @@
                 android:textSize="@dimen/text_size_middle" />
 
             <TextView
+                android:id="@+id/pay_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="100"
@@ -612,6 +619,7 @@
                 android:textSize="@dimen/text_size_middle" />
 
             <TextView
+                android:id="@+id/account_balance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="100"
@@ -634,23 +642,24 @@
                 android:textSize="@dimen/text_size_middle" />
 
             <TextView
+                android:id="@+id/countdownView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:text="18:11"
+                android:text="00:00:00"
                 android:textColor="@color/color_theme"
                 android:textSize="@dimen/text_size_middle" />
         </LinearLayout>
     </RelativeLayout>
 
     <TextView
-        android:id="@+id/immediately_indiana"
+        android:id="@+id/to_pay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/color_theme"
         android:gravity="center"
         android:padding="10dp"
-        android:text="@string/immediately_indiana"
+        android:text="去支付"
         android:textColor="@color/white"
         android:textSize="18sp" />
 </LinearLayout>
