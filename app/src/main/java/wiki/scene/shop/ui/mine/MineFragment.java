@@ -37,6 +37,7 @@ import wiki.scene.shop.event.TabSelectedEvent;
 import wiki.scene.shop.mvp.BaseMainMvpFragment;
 import wiki.scene.shop.ui.mine.mvpview.IMineView;
 import wiki.scene.shop.ui.mine.presenter.MinePresenter;
+import wiki.scene.shop.utils.PriceUtil;
 import wiki.scene.shop.widgets.LoadingDialog;
 
 /**
@@ -368,7 +369,12 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
 
     @Override
     public void bindMineInfo(MineInfo mineInfo) {
-
+        winTime.setText(PriceUtil.getPrice(mineInfo.getToday_win()));
+        coin.setText(PriceUtil.getPrice(mineInfo.getMoney()));
+        commission.setText("0");
+        todayCommission.setText("今日佣金：0");
+        todayJoin.setText("今日参与：0");
+        todayWin.setText("今日获胜：0");
     }
 
     private View.OnClickListener retryListener = new View.OnClickListener() {
@@ -383,6 +389,7 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
         username.setText(ShopApplication.userInfo.getNickname().isEmpty() ? ShopApplication.userInfo.getMobile() : ShopApplication.userInfo.getNickname());
         userAvater.loadCircleImage(ShopApplication.userInfo.getAvatar(), R.drawable.ic_default_avater);
         userId.setText("用户ID:" + ShopApplication.userInfo.getUser_id());
+        ptrLayout.autoRefresh();
     }
 
     @Override
@@ -390,6 +397,12 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
         username.setText(R.string.please_login);
         userAvater.loadLocalCircleImage(R.drawable.ic_default_avater, R.drawable.ic_default_avater);
         userId.setText("用户ID:0");
+        winTime.setText(PriceUtil.getPrice(0));
+        coin.setText(PriceUtil.getPrice(0));
+        commission.setText("0");
+        todayCommission.setText("今日佣金：0");
+        todayJoin.setText("今日参与：0");
+        todayWin.setText("今日获胜：0");
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -411,7 +424,11 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
 
     @Subscribe
     public void reshowMinePage(TabSelectedEvent event) {
-        ptrLayout.autoRefresh();
+        try {
+            ptrLayout.autoRefresh();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

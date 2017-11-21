@@ -98,6 +98,7 @@ public class MineInfoActivity extends BaseMvpActivity<IMineInfoView, MineInfoPre
         username.setText(ShopApplication.userInfo.getNickname());
         phoneNumber.setText(ShopApplication.userInfo.getMobile());
         sexRadiogroup.check(ShopApplication.userInfo.getSex() == 1 ? R.id.sex_male : R.id.sex_female);
+        username.setSelection(username.getText().toString().trim().length());
     }
 
     private ImageLoader loader = new ImageLoader() {

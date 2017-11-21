@@ -119,10 +119,10 @@ public class LoginActivity extends BaseMvpActivity<ILoginView, LoginPresenter> i
     public void loginSuccess(UserInfo userInfo) {
         try {
             if (userInfo != null) {
-                EventBus.getDefault().post(new RegisterSuccessEvent(userInfo));
                 SharedPreferencesUtil.putString(this, ShopApplication.USER_INFO_KEY, new Gson().toJson(userInfo));
                 ShopApplication.userInfo = userInfo;
                 ShopApplication.hasLogin = true;
+                EventBus.getDefault().post(new RegisterSuccessEvent(userInfo));
                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
             }
         } catch (Exception e) {

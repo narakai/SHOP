@@ -124,6 +124,9 @@ public class MainFragment extends SupportFragment {
                 showHideFragment(mFragments[position], mFragments[prePosition]);
                 toolbarTitle.setText(tabNames.get(position));
                 toolbarMessage.setVisibility(View.GONE);
+                if (position == tabNames.size() - 1) {
+                    EventBus.getDefault().post(new TabSelectedEvent(position));
+                }
 //                if (position != tabNames.size() - 1) {
 //                    toolbarLayout.setVisibility(View.VISIBLE);
 //
@@ -140,9 +143,6 @@ public class MainFragment extends SupportFragment {
 
             @Override
             public void onTabReselected(int position) {
-                if (position == FOUR) {
-                    EventBus.getDefault().post(new TabSelectedEvent(FOUR));
-                }
             }
         });
     }
