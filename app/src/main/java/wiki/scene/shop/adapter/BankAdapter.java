@@ -16,6 +16,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import wiki.scene.shop.R;
 import wiki.scene.shop.ShopApplication;
+import wiki.scene.shop.config.AppConfig;
 import wiki.scene.shop.entity.BankInfo;
 
 /**
@@ -41,7 +42,11 @@ public class BankAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         BankInfo info = list.get(position);
         BankViewHolder viewHolder = (BankViewHolder) holder;
-        viewHolder.bankName.setText(info.getBank());
+        if(info.getType()== AppConfig.BANK_TYPE_BANK_CARD){
+            viewHolder.bankName.setText(info.getBank());
+        }else{
+            viewHolder.bankName.setText("支付宝");
+        }
         viewHolder.bankAccount.setText(info.getAccount());
         viewHolder.realName.setText(info.getName());
         GlideImageLoader.create(viewHolder.logo).loadCircleImage(ShopApplication.configInfo.getFile_domain() + "", R.drawable.ic_default_avater);

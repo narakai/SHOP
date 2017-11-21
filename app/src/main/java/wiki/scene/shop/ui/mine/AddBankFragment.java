@@ -6,15 +6,27 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
+
+import com.blankj.utilcode.util.StringUtils;
+import com.blankj.utilcode.util.ToastUtils;
+import com.lzy.okgo.OkGo;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 import wiki.scene.shop.R;
+import wiki.scene.shop.entity.BankInfo;
+import wiki.scene.shop.event.AddBankCardSuccessEvent;
+import wiki.scene.shop.http.api.ApiUtil;
 import wiki.scene.shop.mvp.BaseBackMvpFragment;
 import wiki.scene.shop.ui.mine.mvpview.IAddBankView;
 import wiki.scene.shop.ui.mine.presenter.AddBankPresenter;
+import wiki.scene.shop.widgets.LoadingDialog;
 
 /**
  * 添加银行卡
@@ -26,13 +38,36 @@ public class AddBankFragment extends BaseBackMvpFragment<IAddBankView, AddBankPr
     Toolbar toolbar;
     @BindView(R.id.toolbar_title)
     TextView toolbarTitle;
+    @BindView(R.id.real_name)
+    EditText realName;
+    @BindView(R.id.account)
+    EditText account;
+    @BindView(R.id.bank)
+    EditText bank;
     Unbinder unbinder;
+    @BindView(R.id.add)
+    TextView add;
 
-    public static AddBankFragment newInstance() {
+    private LoadingDialog loadingDialog;
+
+    private BankInfo bankInfo = null;
+
+    public static AddBankFragment newInstance(BankInfo bankInfo) {
         Bundle args = new Bundle();
+        if (bankInfo != null) {
+            args.putSerializable("info", bankInfo);
+        }
         AddBankFragment fragment = new AddBankFragment();
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            bankInfo = (BankInfo) getArguments().getSerializable("info");
+        }
     }
 
     @Nullable
@@ -46,27 +81,102 @@ public class AddBankFragment extends BaseBackMvpFragment<IAddBankView, AddBankPr
     @Override
     public void onEnterAnimationEnd(Bundle savedInstanceState) {
         super.onEnterAnimationEnd(savedInstanceState);
-        toolbarTitle.setText("添加银行卡");
+        toolbarTitle.setText(bankInfo == null ? "添加银行卡" : "修改银行卡");
         initToolbarNav(toolbar);
+        add.setText(bankInfo == null ? "添加" : "修改");
+        initView();
+    }
+
+    private void initView() {
+        if (bankInfo != null) {
+            realName.setText(bankInfo.getName());
+            account.setText(bankInfo.getAccount());
+            bank.setText(bankInfo.getBank());
+        }
     }
 
     @Override
     public void showLoading(int resId) {
-
+        try {
+            if (loadingDialog == null) {
+                loadingDialog = LoadingDialog.getInstance(getContext());
+            }
+            loadingDialog.showLoadingDialog(getString(resId));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void hideLoading() {
-
+        try {
+            if (loadingDialog != null) {
+                loadingDialog.cancelLoadingDialog();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public AddBankPresenter initPresenter() {
-        return null;
+        return new AddBankPresenter(this);
+    }
+
+    @Override
+    public void showMessage(String message) {
+        ToastUtils.showShort(message);
+    }
+
+    @Override
+    public void bindOrUpdateSuccess() {
+        try {
+            EventBus.getDefault().post(new AddBankCardSuccessEvent());
+            _mActivity.onBackPressed();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @OnClick(R.id.add)
+    public void onClickAdd() {
+        BankInfo info = new BankInfo();
+        String realNameStr = realName.getText().toString().trim();
+        String accountStr = account.getText().toString().trim();
+        String bankStr = bank.getText().toString().trim();
+        if (StringUtils.isEmpty(realNameStr)) {
+            showMessage("请输入持卡人姓名");
+            return;
+        }
+        if (StringUtils.isEmpty(accountStr)) {
+            showMessage("请输入卡号");
+            return;
+        }
+        if (StringUtils.isEmpty(bankStr)) {
+            showMessage("请输入开户行");
+            return;
+        }
+        info.setName(realNameStr);
+        info.setAccount(accountStr);
+        info.setBank(bankStr);
+        if (bankInfo == null) {
+            presenter.addBankCard(info);
+        } else {
+            info.setId(bankInfo.getId());
+            presenter.updateBankCard(info);
+        }
+    }
+
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        hideLoading();
     }
 
     @Override
     public void onDestroyView() {
+        OkGo.getInstance().cancelTag(ApiUtil.ADD_BANK_CARD_TAG);
         super.onDestroyView();
         unbinder.unbind();
     }

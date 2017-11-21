@@ -31,7 +31,8 @@ import wiki.scene.loadmore.recyclerview.RecyclerAdapterWithHF;
 import wiki.scene.loadmore.utils.PtrLocalDisplay;
 import wiki.scene.shop.R;
 import wiki.scene.shop.adapter.BankAdapter;
-import wiki.scene.shop.entity.AddBankCardSuccess;
+import wiki.scene.shop.config.AppConfig;
+import wiki.scene.shop.event.AddBankCardSuccessEvent;
 import wiki.scene.shop.entity.BankInfo;
 import wiki.scene.shop.http.api.ApiUtil;
 import wiki.scene.shop.itemDecoration.SpacesItemDecoration;
@@ -95,10 +96,22 @@ public class BankListFragment extends BaseBackMvpFragment<IBankListView, BankLis
         });
         BankAdapter adapter = new BankAdapter(getContext(), list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.addItemDecoration(new SpacesItemDecoration(PtrLocalDisplay.dp2px(10)));
+        recyclerView.addItemDecoration(new SpacesItemDecoration(PtrLocalDisplay.dp2px(10), true, false));
         mAdapter = new RecyclerAdapterWithHF(adapter);
         recyclerView.setAdapter(mAdapter);
         initFooter();
+        mAdapter.setOnItemClickListener(new RecyclerAdapterWithHF.OnItemClickListener() {
+            @Override
+            public void onItemClick(RecyclerAdapterWithHF adapter, RecyclerView.ViewHolder vh, int position) {
+                if (position < list.size()) {
+                    if (list.get(position).getType() == AppConfig.BANK_TYPE_BANK_CARD) {
+                        start(AddBankFragment.newInstance(list.get(position)));
+                    } else {
+                        start(AddAlipayFragment.newInstance(list.get(position)));
+                    }
+                }
+            }
+        });
     }
 
     private void initFooter() {
@@ -108,14 +121,14 @@ public class BankListFragment extends BaseBackMvpFragment<IBankListView, BankLis
         addBankCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                start(AddBankFragment.newInstance(null));
             }
         });
 
         addAlipay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                start(AddAlipayFragment.newInstance(null));
             }
         });
         mAdapter.addFooter(footerView);
@@ -200,8 +213,7 @@ public class BankListFragment extends BaseBackMvpFragment<IBankListView, BankLis
     }
 
     @Subscribe
-    public void addBankCarSuccess(AddBankCardSuccess addBankCardSuccess) {
-        list.add(0, addBankCardSuccess.getBankInfo());
-        mAdapter.notifyDataSetChangedHF();
+    public void addBankCarSuccess(AddBankCardSuccessEvent addBankCardSuccess) {
+        ptrLayout.autoRefresh();
     }
 }

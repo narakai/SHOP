@@ -8,4 +8,7 @@ import wiki.scene.shop.mvp.BaseView;
  */
 
 public interface IAddBankView extends BaseView {
+    void showMessage(String message);
+
+    void bindOrUpdateSuccess();
 }

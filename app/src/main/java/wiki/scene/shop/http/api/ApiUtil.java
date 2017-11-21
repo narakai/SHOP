@@ -178,6 +178,9 @@ public class ApiUtil {
     //银行卡列表
     public static final String BANK_LIST="/personal/bank";
     public static final String BANK_LIST_TAG="BANK_LIST_TAG";
+    //添加收款方式
+    public static final String ADD_BANK_CARD="/personal/bank/edit";
+    public static final String ADD_BANK_CARD_TAG="ADD_BANK_CARD_TAG";
 
 
     /**
