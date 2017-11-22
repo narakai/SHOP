@@ -1,5 +1,9 @@
 package wiki.scene.shop.ui.mine;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,9 +18,10 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.lzy.okgo.OkGo;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,6 +32,9 @@ import wiki.scene.shop.config.AppConfig;
 import wiki.scene.shop.entity.RechargeInfo;
 import wiki.scene.shop.http.api.ApiUtil;
 import wiki.scene.shop.mvp.BaseBackMvpFragment;
+import wiki.scene.shop.pay.AliPayActivity;
+import wiki.scene.shop.pay.WechatPayActivity;
+import wiki.scene.shop.pay.WxQRCodePayDialog;
 import wiki.scene.shop.ui.mine.mvpview.IRechargeView;
 import wiki.scene.shop.ui.mine.presenter.RechargePresenter;
 import wiki.scene.shop.widgets.LoadingDialog;
@@ -220,7 +228,38 @@ public class RechargeFragment extends BaseBackMvpFragment<IRechargeView, Recharg
 
     @Override
     public void getRechargeOrderSuccess(RechargeInfo data) {
-        LogUtils.e(data.toString());
+        try {
+            if (data != null) {
+                if (data.getPay_type() == AppConfig.API_TYPE_WX_SCAN) {
+                    WxQRCodePayDialog.Builder builder = new WxQRCodePayDialog.Builder(getContext(), data.getCode_url());
+                    WxQRCodePayDialog wxQRCodePayDialog = builder.create();
+                    wxQRCodePayDialog.show();
+                } else if (data.getPay_type() == AppConfig.API_TYPE_WX_GZH_CHANGE) {
+                    //公众号跳转
+                    if (isWeixinAvilible(getContext())) {
+                        //打开微信
+                        Intent intent2 = _mActivity.getPackageManager().getLaunchIntentForPackage("com.tencent.mm");
+                        _mActivity.startActivity(intent2);
+                        //跳转支付
+                        Intent intent = new Intent(_mActivity, WechatPayActivity.class);
+                        intent.putExtra(WechatPayActivity.WECHAT_PAY_URL, data.getUrl());
+                        _mActivity.startActivity(intent);
+                    } else {
+                        ToastUtils.showShort("请先安装微信");
+                    }
+                } else if (data.getPay_type() == AppConfig.API_TYPE_ALIPAY_SCAN) {
+                    Intent intent = new Intent(_mActivity, AliPayActivity.class);
+                    intent.putExtra(AliPayActivity.ALIPAY_URL, data.getCode_url());
+                    _mActivity.startActivity(intent);
+                }
+            } else {
+                showMessage("充值失败，请重试！");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            showMessage("充值失败，请重试！");
+        }
+
     }
 
     @Override
@@ -229,5 +268,19 @@ public class RechargeFragment extends BaseBackMvpFragment<IRechargeView, Recharg
         OkGo.getInstance().cancelTag(ApiUtil.RECHARGE_TAG);
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    public static boolean isWeixinAvilible(Context context) {
+        final PackageManager packageManager = context.getPackageManager();// 获取packagemanager
+        List<PackageInfo> pinfo = packageManager.getInstalledPackages(0);// 获取所有已安装程序的包信息
+        if (pinfo != null) {
+            for (int i = 0; i < pinfo.size(); i++) {
+                String pn = pinfo.get(i).packageName;
+                if (pn.equals("com.tencent.mm")) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

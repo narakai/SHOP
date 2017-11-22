@@ -57,4 +57,8 @@ public class AppConfig {
     //银行卡分类
     public static final int BANK_TYPE_BANK_CARD = 1;
     public static final int BANK_TYPE_ALIPAY = 2;
+    //真实支付方式
+    public static final int API_TYPE_WX_SCAN = 1;
+    public static final int API_TYPE_WX_GZH_CHANGE = 2;
+    public static final int API_TYPE_ALIPAY_SCAN = 3;
 }
