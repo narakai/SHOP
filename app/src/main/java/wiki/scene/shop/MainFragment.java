@@ -18,6 +18,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 import me.yokeyword.fragmentation.SupportFragment;
 import wiki.scene.loadmore.utils.SceneLogUtil;
@@ -26,6 +27,7 @@ import wiki.scene.shop.event.TabSelectedEvent;
 import wiki.scene.shop.ui.indiana.IndianaFragment;
 import wiki.scene.shop.ui.mine.MineFragment;
 import wiki.scene.shop.ui.rank.RankFragment;
+import wiki.scene.shop.ui.servicecenter.ServiceCenterFragment;
 import wiki.scene.shop.ui.trend.TrendFragment;
 import wiki.scene.shop.view.BottomBar;
 import wiki.scene.shop.view.BottomBarTab;
@@ -173,5 +175,10 @@ public class MainFragment extends SupportFragment {
         EventBus.getDefault().unregister(this);
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @OnClick(R.id.service_center)
+    public void onClickServiceCenter() {
+        start(ServiceCenterFragment.newInstance());
     }
 }
