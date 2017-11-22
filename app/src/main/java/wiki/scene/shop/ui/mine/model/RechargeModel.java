@@ -6,6 +6,7 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.model.HttpParams;
 import com.lzy.okgo.model.Response;
 
+import wiki.scene.shop.entity.RechargeInfo;
 import wiki.scene.shop.http.api.ApiUtil;
 import wiki.scene.shop.http.base.LzyResponse;
 import wiki.scene.shop.http.callback.JsonCallback;
@@ -17,18 +18,18 @@ import wiki.scene.shop.http.listener.HttpResultListener;
  */
 
 public class RechargeModel {
-    public void rechage(HttpParams params, final HttpResultListener<String> listener) {
-        OkGo.<LzyResponse<String>>post(ApiUtil.API_PRE + ApiUtil.RECHARGE)
+    public void rechage(HttpParams params, final HttpResultListener<RechargeInfo> listener) {
+        OkGo.<LzyResponse<RechargeInfo>>post(ApiUtil.API_PRE + ApiUtil.RECHARGE)
                 .tag(ApiUtil.RECHARGE_TAG)
                 .params(params)
-                .execute(new JsonCallback<LzyResponse<String>>() {
+                .execute(new JsonCallback<LzyResponse<RechargeInfo>>() {
                     @Override
-                    public void onSuccess(Response<LzyResponse<String>> response) {
-                        listener.onSuccess("");
+                    public void onSuccess(Response<LzyResponse<RechargeInfo>> response) {
+                        listener.onSuccess(response.body().data);
                     }
 
                     @Override
-                    public void onError(Response<LzyResponse<String>> response) {
+                    public void onError(Response<LzyResponse<RechargeInfo>> response) {
                         super.onError(response);
                         if (response.getException() != null && !TextUtils.isEmpty(response.getException().getMessage())) {
                             listener.onFail(response.getException().getMessage());

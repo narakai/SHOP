@@ -14,6 +14,8 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.lzy.okgo.OkGo;
 
 import butterknife.BindView;
@@ -22,11 +24,11 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import wiki.scene.shop.R;
 import wiki.scene.shop.config.AppConfig;
+import wiki.scene.shop.entity.RechargeInfo;
 import wiki.scene.shop.http.api.ApiUtil;
 import wiki.scene.shop.mvp.BaseBackMvpFragment;
 import wiki.scene.shop.ui.mine.mvpview.IRechargeView;
 import wiki.scene.shop.ui.mine.presenter.RechargePresenter;
-import wiki.scene.shop.utils.ToastUtils;
 import wiki.scene.shop.widgets.LoadingDialog;
 
 /**
@@ -61,7 +63,7 @@ public class RechargeFragment extends BaseBackMvpFragment<IRechargeView, Recharg
     @BindView(R.id.priceCustom)
     EditText priceCustom;
 
-    private int currentChoosedPosition = 0;
+    private int cost = 100;
 
     private LoadingDialog loadingDialog;
 
@@ -97,6 +99,7 @@ public class RechargeFragment extends BaseBackMvpFragment<IRechargeView, Recharg
                     if (v == priceCustom && hasFocus) {
                         radioGroup.clearCheck();
                         priceCustom.setTextColor(ContextCompat.getColor(getContext(), R.color.color_theme));
+                        cost = 0;
                     } else {
                         hideSoftInput();
                         priceCustom.setTextColor(Color.parseColor("#999999"));
@@ -111,6 +114,7 @@ public class RechargeFragment extends BaseBackMvpFragment<IRechargeView, Recharg
             public void onClick(View view) {
                 radioGroup.clearCheck();
                 priceCustom.setTextColor(ContextCompat.getColor(getContext(), R.color.color_theme));
+                cost = 0;
             }
         });
 
@@ -124,6 +128,7 @@ public class RechargeFragment extends BaseBackMvpFragment<IRechargeView, Recharg
             public void onClick(View view) {
                 hideSoftInput();
                 priceCustom.setTextColor(Color.parseColor("#999999"));
+                cost = 100;
             }
         });
         money2.setOnClickListener(new View.OnClickListener() {
@@ -131,6 +136,7 @@ public class RechargeFragment extends BaseBackMvpFragment<IRechargeView, Recharg
             public void onClick(View view) {
                 hideSoftInput();
                 priceCustom.setTextColor(Color.parseColor("#999999"));
+                cost = 200;
             }
         });
         money3.setOnClickListener(new View.OnClickListener() {
@@ -138,6 +144,7 @@ public class RechargeFragment extends BaseBackMvpFragment<IRechargeView, Recharg
             public void onClick(View view) {
                 hideSoftInput();
                 priceCustom.setTextColor(Color.parseColor("#999999"));
+                cost = 500;
             }
         });
         money4.setOnClickListener(new View.OnClickListener() {
@@ -145,6 +152,7 @@ public class RechargeFragment extends BaseBackMvpFragment<IRechargeView, Recharg
             public void onClick(View view) {
                 hideSoftInput();
                 priceCustom.setTextColor(Color.parseColor("#999999"));
+                cost = 1000;
             }
         });
     }
@@ -168,68 +176,58 @@ public class RechargeFragment extends BaseBackMvpFragment<IRechargeView, Recharg
         return new RechargePresenter(this);
     }
 
+
+    @OnClick(R.id.recharge)
+    public void onClickRecharge() {
+        try {
+            int payType = 0;
+            if (rgPayType.getCheckedRadioButtonId() == R.id.radio_wechat_pay) {
+                payType = AppConfig.PAY_TYPE_WECHAT;
+            } else if (rgPayType.getCheckedRadioButtonId() == R.id.radio_alipay) {
+                payType = AppConfig.PAY_TYPE_ALPAY;
+            }
+            if (payType == 0) {
+                showMessage("请选择支付方式");
+                return;
+            }
+            int realCost;
+            if (cost == 0) {
+                String realCostStr = priceCustom.getText().toString().trim();
+                realCost = Integer.parseInt(realCostStr);
+            } else {
+                realCost = cost;
+            }
+            if (realCost == 0) {
+                showMessage("请输入你要充值的金额");
+                return;
+            }
+            presenter.recharge(realCost * 100, payType);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @Override
+    public void showMessage(String message) {
+        ToastUtils.showShort(message);
+    }
+
+    @Override
+    public void showMessage(@StringRes int resId) {
+        ToastUtils.showShort(resId);
+    }
+
+    @Override
+    public void getRechargeOrderSuccess(RechargeInfo data) {
+        LogUtils.e(data.toString());
+    }
+
     @Override
     public void onDestroyView() {
         hideLoading();
         OkGo.getInstance().cancelTag(ApiUtil.RECHARGE_TAG);
         super.onDestroyView();
         unbinder.unbind();
-    }
-
-    @OnClick(R.id.recharge)
-    public void onClickRecharge() {
-        int cost = 0;
-        int pay_type;
-        switch (currentChoosedPosition) {
-            case 0:
-                cost = 20 * 100;
-                break;
-            case 1:
-                cost = 50 * 100;
-                break;
-            case 2:
-                cost = 100 * 100;
-                break;
-            case 3:
-                cost = 300 * 100;
-                break;
-            case 4:
-                cost = 500 * 100;
-                break;
-            case 5:
-                try {
-                    cost = Integer.valueOf(priceCustom.getText().toString().trim());
-                } catch (Exception e) {
-                    ToastUtils.getInstance(getContext()).showToast(R.string.input_right_number);
-                    return;
-                }
-                break;
-        }
-        if (cost == 0) {
-            ToastUtils.getInstance(getContext()).showToast(R.string.input_right_number);
-            return;
-        }
-        if (rgPayType.getCheckedRadioButtonId() == R.id.radio_wechat_pay) {
-            pay_type = 2;
-        } else {
-            pay_type = 3;
-        }
-
-        presenter.recharge(cost, pay_type);
-    }
-
-    @Override
-    public void showMessage(String message) {
-        ToastUtils.getInstance(_mActivity).showToast(message);
-    }
-
-    @Override
-    public void showMessage(@StringRes int resId) {
-        ToastUtils.getInstance(_mActivity).showToast(resId);
-    }
-
-    @Override
-    public void getRechargeOrderSuccess() {
-
     }
 }

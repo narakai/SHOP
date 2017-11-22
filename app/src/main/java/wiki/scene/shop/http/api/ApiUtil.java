@@ -146,7 +146,7 @@ public class ApiUtil {
     public static final String MINE_RED = "/personal/coupon";
     public static final String MINE_RED_TAG = "MINE_RED_TAG";
     //充值
-    public static final String RECHARGE = "/personal/recharge";
+    public static final String RECHARGE = "/recharge";
     public static final String RECHARGE_TAG = "RECHARGE_TAG";
     //排行榜
     public static final String RANK = "/ranking";

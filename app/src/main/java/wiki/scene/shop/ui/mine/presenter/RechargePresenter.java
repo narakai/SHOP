@@ -4,6 +4,7 @@ import com.lzy.okgo.model.HttpParams;
 
 import wiki.scene.shop.R;
 import wiki.scene.shop.ShopApplication;
+import wiki.scene.shop.entity.RechargeInfo;
 import wiki.scene.shop.http.listener.HttpResultListener;
 import wiki.scene.shop.mvp.BasePresenter;
 import wiki.scene.shop.ui.mine.model.RechargeModel;
@@ -28,14 +29,13 @@ public class RechargePresenter extends BasePresenter<IRechargeView> {
             if (ShopApplication.hasLogin && ShopApplication.userInfo != null) {
                 mView.showLoading(R.string.loading);
                 HttpParams params = new HttpParams();
-                params.put("user_id", ShopApplication.userInfo.getUser_id());
                 params.put("cost", cost);
                 params.put("pay_type", payType);
-                model.rechage(params, new HttpResultListener<String>() {
+                model.rechage(params, new HttpResultListener<RechargeInfo>() {
                     @Override
-                    public void onSuccess(String data) {
+                    public void onSuccess(RechargeInfo data) {
                         try {
-                            mView.getRechargeOrderSuccess();
+                            mView.getRechargeOrderSuccess(data);
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
