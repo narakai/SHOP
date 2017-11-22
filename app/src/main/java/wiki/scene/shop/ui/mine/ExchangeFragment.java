@@ -1,5 +1,7 @@
 package wiki.scene.shop.ui.mine;
 
+import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -13,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ToastUtils;
+import com.zhl.cbdialog.CBDialogBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -253,6 +256,52 @@ public class ExchangeFragment extends BaseBackMvpFragment<IExchangeView, Exchang
 
     }
 
+    @Override
+    public String getPrizeIds() {
+        StringBuilder idsBuilder = new StringBuilder();
+        for (PrizeInfo info : list) {
+            if (info.isChecked()) {
+                idsBuilder.append(info.getId()).append(",");
+            }
+        }
+        String ids = idsBuilder.toString();
+        ids = ids.substring(0, ids.length() - 1);
+        return ids;
+    }
+
+    @Override
+    public String getNumbers() {
+        StringBuilder numbersBuilder = new StringBuilder();
+        for (PrizeInfo info : list) {
+            if (info.isChecked()) {
+                numbersBuilder.append(info.getCheckedNumber()).append(",");
+            }
+        }
+        String numbers = numbersBuilder.toString();
+        numbers = numbers.substring(0, numbers.length() - 1);
+        return numbers;
+    }
+
+    @Override
+    public void exchangeSuccess() {
+        try {
+            showOpenViewDialog("恭喜您兑换成功");
+            ptrLayout.autoRefresh();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @Override
+    public void exchangeFail() {
+        try {
+            showOpenViewDialog("兑换失败，请重试");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     View.OnClickListener retryListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
@@ -287,11 +336,42 @@ public class ExchangeFragment extends BaseBackMvpFragment<IExchangeView, Exchang
         checkAll.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(getContext(), isCheckedAll ? R.drawable.ic_address_choosed_s : R.drawable.ic_address_choosed_d), null, null, null);
     }
 
+    @OnClick(R.id.exchange)
+    public void onClickExchange() {
+        presenter.exchange();
+    }
+
     @Override
     public void onDestroyView() {
         hideLoading();
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    private void showOpenViewDialog(String message) {
+        CBDialogBuilder builder = new CBDialogBuilder(getContext());
+        TextView titleView = builder.getView(R.id.dialog_title);
+        titleView.setSingleLine(false);
+        builder.setTouchOutSideCancelable(false)
+                .showCancelButton(false)
+                .setTitle(message)
+                .setMessage("")
+                .setCustomIcon(0)
+                .setConfirmButtonText("确定")
+                .setDialogAnimation(CBDialogBuilder.DIALOG_ANIM_SLID_BOTTOM)
+                .setButtonClickListener(true, new CBDialogBuilder.onDialogbtnClickListener() {
+                    @Override
+                    public void onDialogbtnClick(Context context, Dialog dialog, int whichBtn) {
+                        switch (whichBtn) {
+                            case BUTTON_CONFIRM:
+                                dialog.cancel();
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                })
+                .create().show();
     }
 
 }

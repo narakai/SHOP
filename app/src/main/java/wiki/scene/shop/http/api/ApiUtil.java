@@ -190,6 +190,9 @@ public class ApiUtil {
     //奖品列表
     public static final String PRIZE_LIST = "/exchange";
     public static final String PRIZE_LIST_TAG = "PRIZE_LIST_TAG";
+    //兑换
+    public static final String EXCHANGE = "/exchange/submit";
+    public static final String EXCHANGE_TAG = "EXCHANGE_TAG";
 
     /**
      * Case By:创建参数基础信息

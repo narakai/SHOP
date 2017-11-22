@@ -1,7 +1,12 @@
 package wiki.scene.shop.ui.mine.presenter;
 
+import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.StringUtils;
+import com.lzy.okgo.model.HttpParams;
+
 import java.util.List;
 
+import wiki.scene.shop.R;
 import wiki.scene.shop.entity.PrizeInfo;
 import wiki.scene.shop.http.listener.HttpResultListener;
 import wiki.scene.shop.mvp.BasePresenter;
@@ -64,6 +69,52 @@ public class ExchangePresenter extends BasePresenter<IExchangeView> {
                 }
             });
 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 兑换
+     */
+    public void exchange() {
+        try {
+            if (StringUtils.isEmpty(mView.getPrizeIds()) || StringUtils.isEmpty(mView.getNumbers())) {
+                mView.showMessage("请选择你要兑换的奖品");
+                return;
+            }
+            mView.showLoading(R.string.loading);
+            HttpParams params = new HttpParams();
+            params.put("prize_ids", mView.getPrizeIds());
+            params.put("numbers", mView.getNumbers());
+            model.exchangePrize(params, new HttpResultListener<String>() {
+                @Override
+                public void onSuccess(String data) {
+                    try {
+                        mView.exchangeSuccess();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFail(String message) {
+                    try {
+                        mView.exchangeFail();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFinish() {
+                    try {
+                        mView.hideLoading();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
         } catch (Exception e) {
             e.printStackTrace();
         }

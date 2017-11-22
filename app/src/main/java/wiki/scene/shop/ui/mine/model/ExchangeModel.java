@@ -48,4 +48,43 @@ public class ExchangeModel {
                     }
                 });
     }
+
+    /**
+     * 兑换
+     */
+    public void exchangePrize(HttpParams params, final HttpResultListener<String> listener) {
+        OkGo.<LzyResponse<String>>post(ApiUtil.API_PRE + ApiUtil.EXCHANGE)
+                .tag(ApiUtil.EXCHANGE_TAG)
+                .params(params)
+                .execute(new JsonCallback<LzyResponse<String>>() {
+                    @Override
+                    public void onSuccess(Response<LzyResponse<String>> response) {
+                        try {
+                            listener.onSuccess(response.body().data);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Response<LzyResponse<String>> response) {
+                        super.onError(response);
+                        try {
+                            listener.onFail(response.getException().getMessage() != null ? response.getException().getMessage() : response.message());
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        super.onFinish();
+                        try {
+                            listener.onFinish();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+    }
 }

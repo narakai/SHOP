@@ -23,4 +23,12 @@ public interface IExchangeView extends BaseView {
     void showMessage(String message);
 
     void getPrizeInfoListSuccess(List<PrizeInfo> data);
+
+    String getPrizeIds();
+
+    String getNumbers();
+
+    void exchangeSuccess();
+
+    void exchangeFail();
 }
