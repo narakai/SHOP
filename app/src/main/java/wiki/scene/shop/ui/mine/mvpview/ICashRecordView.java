@@ -1,5 +1,6 @@
 package wiki.scene.shop.ui.mine.mvpview;
 
+import wiki.scene.shop.entity.CashRecordResultInfo;
 import wiki.scene.shop.mvp.BaseView;
 
 /**
@@ -8,4 +9,17 @@ import wiki.scene.shop.mvp.BaseView;
  */
 
 public interface ICashRecordView extends BaseView {
+    void showLoadingPage();
+
+    void showContentPage();
+
+    void showFailPage();
+
+    void refreshComplite();
+
+    void loadmoreCompliteSuccess(boolean hasMore);
+
+    void loadmoreCompliteFail();
+
+    void getRecordDataSuccess(CashRecordResultInfo data, int currentPage);
 }

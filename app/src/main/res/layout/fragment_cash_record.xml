@@ -12,25 +12,26 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <wiki.scene.loadmore.PtrClassicFrameLayout
-            android:id="@+id/ptrLayout"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <LinearLayout
+            <include layout="@layout/fragment_cash_record_header" />
+
+            <wiki.scene.loadmore.PtrClassicFrameLayout
+                android:id="@+id/ptrLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <include layout="@layout/fragment_cash_record_header" />
+                android:layout_height="match_parent">
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
-            </LinearLayout>
 
-        </wiki.scene.loadmore.PtrClassicFrameLayout>
+            </wiki.scene.loadmore.PtrClassicFrameLayout>
+        </LinearLayout>
+
     </wiki.scene.loadmore.StatusViewLayout>
 
 </LinearLayout>
