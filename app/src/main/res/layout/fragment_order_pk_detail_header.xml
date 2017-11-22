@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/color_theme"
+    android:orientation="vertical"
+    android:paddingBottom="10dp"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp"
+    android:paddingTop="10dp">
+
+    <TextView
+        android:id="@+id/cycle_code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="开奖期号："
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_middle" />
+
+    <TextView
+        android:id="@+id/result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="开奖结果："
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_middle" />
+
+</LinearLayout>

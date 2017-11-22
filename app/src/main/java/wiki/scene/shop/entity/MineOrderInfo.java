@@ -27,7 +27,7 @@ public class MineOrderInfo implements Serializable {
      * ssc_result : 0
      * ssc_status : 1
      */
-
+    private int order_id;
     private int product_id;
     private int play_type;
     private int buy_type;
@@ -45,6 +45,14 @@ public class MineOrderInfo implements Serializable {
     private String ssc_result;
     private int ssc_status;
     private long create_time;
+
+    public int getOrder_id() {
+        return order_id;
+    }
+
+    public void setOrder_id(int order_id) {
+        this.order_id = order_id;
+    }
 
     public int getProduct_id() {
         return product_id;

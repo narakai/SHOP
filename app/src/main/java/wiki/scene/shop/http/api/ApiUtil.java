@@ -199,6 +199,9 @@ public class ApiUtil {
     //PK
     public static final String PK = "/personal/order/pk";
     public static final String PK_TAG = "PK";
+    //申请提现
+    public static final String APPPY_CASH = "/personal/withdraw/request";
+    public static final String APPLY_CASH_TAG = "APPLY_CASH";
 
     /**
      * Case By:创建参数基础信息

@@ -22,6 +22,7 @@ public class BankInfo implements Serializable {
     private String account;
     private String bank;
     private String open_bank;
+    private boolean isChecked;
 
     public int getType() {
         return type;
@@ -69,5 +70,13 @@ public class BankInfo implements Serializable {
 
     public void setOpen_bank(String open_bank) {
         this.open_bank = open_bank;
+    }
+
+    public boolean isChecked() {
+        return isChecked;
+    }
+
+    public void setChecked(boolean checked) {
+        isChecked = checked;
     }
 }

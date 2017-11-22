@@ -26,10 +26,10 @@ public class MineInfo {
     private int money;
     private String nickname;
     private int sex;
-    private Object avatar;
+    private String avatar;
     private int today_buy;
     private int today_win;
-    private String total_win;
+    private int total_win;
 
     public int getId() {
         return id;
@@ -79,11 +79,11 @@ public class MineInfo {
         this.sex = sex;
     }
 
-    public Object getAvatar() {
+    public String getAvatar() {
         return avatar;
     }
 
-    public void setAvatar(Object avatar) {
+    public void setAvatar(String avatar) {
         this.avatar = avatar;
     }
 
@@ -103,11 +103,11 @@ public class MineInfo {
         this.today_win = today_win;
     }
 
-    public String getTotal_win() {
+    public int getTotal_win() {
         return total_win;
     }
 
-    public void setTotal_win(String total_win) {
+    public void setTotal_win(int total_win) {
         this.total_win = total_win;
     }
 }

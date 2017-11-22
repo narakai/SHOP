@@ -127,8 +127,10 @@ public class IndianaRecordAdapter extends RecyclerView.Adapter<RecyclerView.View
                 viewHolder.countdownView.setVisibility(View.GONE);
                 viewHolder.textGoodsStatus.setVisibility(View.VISIBLE);
             }
+            viewHolder.pkDetail.setVisibility(View.GONE);
         } else if (info.getStatus() == 3) {
             //中奖
+            viewHolder.pkDetail.setVisibility(View.VISIBLE);
             viewHolder.imageGoodsStatus.setImageResource(R.drawable.ic_goods_state_win);
             viewHolder.textGoodsStatus.setText("恭喜获胜");
             viewHolder.textGoodsStatus.setTextColor(ContextCompat.getColor(context, R.color.color_theme));
@@ -139,6 +141,7 @@ public class IndianaRecordAdapter extends RecyclerView.Adapter<RecyclerView.View
             viewHolder.textGoodsStatus.setVisibility(View.VISIBLE);
         } else {
             //未中奖
+            viewHolder.pkDetail.setVisibility(View.VISIBLE);
             viewHolder.imageGoodsStatus.setImageResource(R.drawable.ic_goods_state_fail);
             viewHolder.textGoodsStatus.setText("再接再厉");
             viewHolder.textGoodsStatus.setTextColor(ContextCompat.getColor(context, R.color.text_color_title));
@@ -221,6 +224,14 @@ public class IndianaRecordAdapter extends RecyclerView.Adapter<RecyclerView.View
                 }
             }
         });
+        viewHolder.pkDetail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (indianaRecordItemButtonClickListener != null) {
+                    indianaRecordItemButtonClickListener.onClickPKDetail(position);
+                }
+            }
+        });
     }
 
 
@@ -232,6 +243,8 @@ public class IndianaRecordAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     public interface IndianaRecordItemButtonClickListener {
         void onClickGoonIndiana();
+
+        void onClickPKDetail(int position);
     }
 
 
@@ -264,6 +277,8 @@ public class IndianaRecordAdapter extends RecyclerView.Adapter<RecyclerView.View
         TextView countdownView;
         @BindView(R.id.goon_indiana)
         TextView goonIndiana;
+        @BindView(R.id.pk_detail)
+        TextView pkDetail;
 
         IndianaRecordViewHolder(View view) {
             super(view);

@@ -160,10 +160,23 @@ public class MinePresenter extends BasePresenter<IMineView> {
             e.printStackTrace();
         }
     }
+
     public void clickExchange() {
         try {
             if (ShopApplication.userInfo != null && ShopApplication.hasLogin) {
                 mineView.enterExchange();
+            } else {
+                mineView.enterLogin();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void clickDrawCash() {
+        try {
+            if (ShopApplication.userInfo != null && ShopApplication.hasLogin) {
+                mineView.enterDrawCash();
             } else {
                 mineView.enterLogin();
             }

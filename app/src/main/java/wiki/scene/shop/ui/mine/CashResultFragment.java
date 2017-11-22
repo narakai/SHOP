@@ -8,13 +8,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.TimeUtils;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 import wiki.scene.shop.R;
+import wiki.scene.shop.entity.BankInfo;
 import wiki.scene.shop.mvp.BaseBackMvpFragment;
 import wiki.scene.shop.ui.mine.mvpview.ICashResultView;
 import wiki.scene.shop.ui.mine.presenter.CashResultPresenter;
+import wiki.scene.shop.utils.PriceUtil;
 
 /**
  * 申请提现结果
@@ -27,12 +32,33 @@ public class CashResultFragment extends BaseBackMvpFragment<ICashResultView, Cas
     @BindView(R.id.toolbar_title)
     TextView toolbarTitle;
     Unbinder unbinder;
+    @BindView(R.id.time)
+    TextView time;
+    @BindView(R.id.bank)
+    TextView bank;
+    @BindView(R.id.money)
+    TextView tvMoney;
 
-    public static CashResultFragment newInstance() {
+    private BankInfo bankInfo;
+    private int money;
+
+    public static CashResultFragment newInstance(BankInfo bankInfo, int money) {
         Bundle args = new Bundle();
+        args.putInt("money", money);
+        args.putSerializable("info", bankInfo);
         CashResultFragment fragment = new CashResultFragment();
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            bankInfo = (BankInfo) bundle.getSerializable("info");
+            money = bundle.getInt("money");
+        }
     }
 
     @Nullable
@@ -48,6 +74,36 @@ public class CashResultFragment extends BaseBackMvpFragment<ICashResultView, Cas
         super.onEnterAnimationEnd(savedInstanceState);
         toolbarTitle.setText("账户提现");
         initToolbarNav(toolbar);
+        initView();
+    }
+
+    private void initView() {
+        time.setText(TimeUtils.getNowString());
+        if (bankInfo != null) {
+            StringBuilder builder = new StringBuilder();
+            if (bankInfo.getType() == 1) {
+                builder.append(bankInfo.getBank());
+                String account = bankInfo.getAccount();
+                if (account.length() > 4) {
+                    account = account.substring(account.length() - 4);
+                }
+                builder.append("\t");
+                builder.append("尾号");
+                builder.append(account);
+            } else {
+                builder.append("支付宝");
+                builder.append("\t");
+                String account = bankInfo.getAccount();
+                if (account.length() > 8) {
+                    account = account.replace(account.substring(4, account.length() - 4), "****");
+                }
+                builder.append(account);
+            }
+            bank.setText(builder.toString());
+        }
+        if (money != 0) {
+            tvMoney.setText("￥" + PriceUtil.getPrice(money));
+        }
     }
 
     @Override
@@ -63,6 +119,11 @@ public class CashResultFragment extends BaseBackMvpFragment<ICashResultView, Cas
     @Override
     public CashResultPresenter initPresenter() {
         return new CashResultPresenter(this);
+    }
+
+    @OnClick(R.id.complite)
+    public void onClickComplite() {
+        _mActivity.onBackPressed();
     }
 
     @Override

@@ -199,6 +199,11 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
         presenter.clickExchange();
     }
 
+    @OnClick(R.id.draw_cash)
+    public void onClickDrawCash() {
+        presenter.clickDrawCash();
+    }
+
     @Override
     public void showLoading(@StringRes int resId) {
         loadingDialog.showLoadingDialog(getString(resId));
@@ -379,12 +384,13 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
         try {
             ShopApplication.userInfo.setMoney(mineInfo.getMoney());
             SharedPreferencesUtil.putString(_mActivity, ShopApplication.USER_INFO_KEY, new Gson().toJson(ShopApplication.userInfo));
-            winTime.setText(PriceUtil.getPrice(mineInfo.getToday_win()));
-            coin.setText(PriceUtil.getPrice(mineInfo.getMoney()));
+            winTime.setText(PriceUtil.getPrice(mineInfo.getTotal_win()) + "次");
             commission.setText("0");
+            coin.setText(PriceUtil.getPrice(mineInfo.getMoney()));
+
+            todayJoin.setText("今日参与：" + mineInfo.getToday_buy() + "次");
             todayCommission.setText("今日佣金：0");
-            todayJoin.setText("今日参与：0");
-            todayWin.setText("今日获胜：0");
+            todayWin.setText("今日获胜：" + mineInfo.getToday_win() + "次");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -395,6 +401,15 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
     public void enterExchange() {
         try {
             EventBus.getDefault().post(new StartBrotherEvent(ExchangeFragment.newInstance()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void enterDrawCash() {
+        try {
+            EventBus.getDefault().post(new StartBrotherEvent(CashFragment.newInstance()));
         } catch (Exception e) {
             e.printStackTrace();
         }

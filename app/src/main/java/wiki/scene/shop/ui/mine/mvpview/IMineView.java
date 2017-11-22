@@ -59,4 +59,6 @@ public interface IMineView extends BaseView {
     void bindMineInfo(MineInfo mineInfo);
 
     void enterExchange();
+
+    void enterDrawCash();
 }
