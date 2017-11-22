@@ -57,4 +57,6 @@ public interface IMineView extends BaseView {
     void showMessage(String message);
 
     void bindMineInfo(MineInfo mineInfo);
+
+    void enterExchange();
 }

@@ -187,6 +187,9 @@ public class ApiUtil {
     //使用夺宝币购买商品
     public static final String ORDER_BUY = "/business/order";
     public static final String ORDER_BUY_TAG = "ORDER_BUY_TAG";
+    //奖品列表
+    public static final String PRIZE_LIST = "/exchange";
+    public static final String PRIZE_LIST_TAG = "PRIZE_LIST_TAG";
 
     /**
      * Case By:创建参数基础信息

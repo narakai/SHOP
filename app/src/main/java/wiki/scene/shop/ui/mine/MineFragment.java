@@ -26,7 +26,6 @@ import wiki.scene.loadmore.PtrClassicFrameLayout;
 import wiki.scene.loadmore.PtrDefaultHandler;
 import wiki.scene.loadmore.PtrFrameLayout;
 import wiki.scene.loadmore.StatusViewLayout;
-import wiki.scene.shop.MainFragment;
 import wiki.scene.shop.R;
 import wiki.scene.shop.ShopApplication;
 import wiki.scene.shop.activity.LoginActivity;
@@ -36,7 +35,6 @@ import wiki.scene.shop.event.LoginOutEvent;
 import wiki.scene.shop.event.RegisterSuccessEvent;
 import wiki.scene.shop.event.StartBrotherEvent;
 import wiki.scene.shop.event.TabSelectedEvent;
-import wiki.scene.shop.event.ToIndexPageEvent;
 import wiki.scene.shop.mvp.BaseMainMvpFragment;
 import wiki.scene.shop.ui.mine.mvpview.IMineView;
 import wiki.scene.shop.ui.mine.presenter.MinePresenter;
@@ -194,6 +192,11 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
     @OnClick(R.id.mine_phone)
     public void onClickMinePhone() {
         presenter.clickMinePhone();
+    }
+
+    @OnClick(R.id.exchange)
+    public void onClickExchange() {
+        presenter.clickExchange();
     }
 
     @Override
@@ -386,6 +389,15 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
             e.printStackTrace();
         }
 
+    }
+
+    @Override
+    public void enterExchange() {
+        try {
+            EventBus.getDefault().post(new StartBrotherEvent(ExchangeFragment.newInstance()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private View.OnClickListener retryListener = new View.OnClickListener() {
