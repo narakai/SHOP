@@ -2,6 +2,7 @@ package wiki.scene.shop.ui.mine.presenter;
 
 import com.lzy.okgo.model.HttpParams;
 
+import wiki.scene.shop.entity.PkResultInfo;
 import wiki.scene.shop.http.listener.HttpResultListener;
 import wiki.scene.shop.mvp.BasePresenter;
 import wiki.scene.shop.ui.mine.model.OrderPkDetailModel;
@@ -20,23 +21,33 @@ public class OrderPkDetailPresenter extends BasePresenter<IOrderPkDetailView> {
         model = new OrderPkDetailModel();
     }
 
-    public void getPkDetailInfo(int id){
-        try{
-            if(id==0){
+    public void getPkDetailInfo(int id) {
+        try {
+            if (id == 0) {
                 mView.showFailPage();
                 return;
             }
-            HttpParams params=new HttpParams();
-            params.put("order_id",id);
-            model.getPKDetail(params, new HttpResultListener<String>() {
+            mView.showLoadingPage();
+            HttpParams params = new HttpParams();
+            params.put("order_id", id);
+            model.getPKDetail(params, new HttpResultListener<PkResultInfo>() {
                 @Override
-                public void onSuccess(String data) {
-
+                public void onSuccess(PkResultInfo data) {
+                    try {
+                        mView.showContentPage();
+                        mView.getPkInfoSuccess(data);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
 
                 @Override
                 public void onFail(String message) {
-
+                    try {
+                        mView.showFailPage();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
 
                 @Override
@@ -44,7 +55,7 @@ public class OrderPkDetailPresenter extends BasePresenter<IOrderPkDetailView> {
 
                 }
             });
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

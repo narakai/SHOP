@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.TimeUtils;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import butterknife.BindView;
@@ -40,7 +41,7 @@ public class CashRecordAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         CashRecordViewHolder viewHolder = (CashRecordViewHolder) holder;
         CashRecordInfo info = list.get(position);
-        viewHolder.time.setText(TimeUtils.millis2String(info.getDone_time() * 1000));
+        viewHolder.time.setText(TimeUtils.millis2String(info.getDone_time() * 1000,new SimpleDateFormat("yyyy.MM.dd")));
         viewHolder.money.setText(PriceUtil.getPrice(info.getMoney()));
         viewHolder.coin.setText(PriceUtil.getPrice(info.getSpend()));
     }

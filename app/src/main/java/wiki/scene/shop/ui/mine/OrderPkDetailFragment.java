@@ -14,8 +14,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import wiki.scene.loadmore.StatusViewLayout;
+import wiki.scene.loadmore.recyclerview.RecyclerAdapterWithHF;
 import wiki.scene.loadmore.utils.PtrLocalDisplay;
 import wiki.scene.shop.R;
+import wiki.scene.shop.adapter.PkAdapter;
+import wiki.scene.shop.entity.PkMineInfo;
+import wiki.scene.shop.entity.PkResultInfo;
 import wiki.scene.shop.itemDecoration.SpacesItemDecoration;
 import wiki.scene.shop.mvp.BaseBackMvpFragment;
 import wiki.scene.shop.ui.mine.mvpview.IOrderPkDetailView;
@@ -37,6 +41,8 @@ public class OrderPkDetailFragment extends BaseBackMvpFragment<IOrderPkDetailVie
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
     private int orderId = 0;
+
+    private RecyclerAdapterWithHF mAdapter;
 
     public static OrderPkDetailFragment newInstance(int orderId) {
         Bundle args = new Bundle();
@@ -72,8 +78,7 @@ public class OrderPkDetailFragment extends BaseBackMvpFragment<IOrderPkDetailVie
     }
 
     private void initView() {
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.addItemDecoration(new SpacesItemDecoration(PtrLocalDisplay.dp2px(10)));
+
     }
 
     @Override
@@ -125,8 +130,31 @@ public class OrderPkDetailFragment extends BaseBackMvpFragment<IOrderPkDetailVie
     }
 
     @Override
-    public void getPkInfoSuccess() {
+    public void getPkInfoSuccess(PkResultInfo info) {
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.addItemDecoration(new SpacesItemDecoration(PtrLocalDisplay.dp2px(1)));
+        PkMineInfo mineInfo = new PkMineInfo();
+        mineInfo.setAvatar(info.getAvatar());
+        mineInfo.setUsername(info.getNickname());
+        mineInfo.setBuy_type(info.getBuy_type());
+        PkAdapter adapter = new PkAdapter(getContext(), info.getPk(), mineInfo);
+        mAdapter = new RecyclerAdapterWithHF(adapter);
+        recyclerView.setAdapter(mAdapter);
+        initHeaderView(info.getCycle(), info.getResult());
+    }
 
+    private void initHeaderView(String cycleCode, String resultCode) {
+        View headerView = LayoutInflater.from(getContext()).inflate(R.layout.fragment_order_pk_detail_header, null);
+        TextView tvCycleCode = (TextView) headerView.findViewById(R.id.cycle_code);
+        TextView tvResult = (TextView) headerView.findViewById(R.id.result);
+        tvCycleCode.setText("开奖期号：" + cycleCode);
+        char[] numbers = resultCode.toCharArray();
+        String result1 = Integer.parseInt(String.valueOf(numbers[4])) > 4 ? "大" : "小";
+        String result2 = Integer.parseInt(String.valueOf(numbers[4])) % 2 == 0 ? "双" : "单";
+        String result3 = Integer.parseInt(String.valueOf(numbers[3])) > 4 ? "大" : "小";
+        String result = result1 + "|" + result2 + "|" + result3 + result2;
+        tvResult.setText("开奖结果：" + resultCode + "(" + result + ")");
+        mAdapter.addHeader(headerView);
     }
 
     private View.OnClickListener retryListener = new View.OnClickListener() {

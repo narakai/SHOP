@@ -1,5 +1,6 @@
 package wiki.scene.shop.ui.mine.mvpview;
 
+import wiki.scene.shop.entity.PkResultInfo;
 import wiki.scene.shop.mvp.BaseView;
 
 /**
@@ -14,5 +15,5 @@ public interface IOrderPkDetailView extends BaseView {
 
     void showFailPage();
 
-    void getPkInfoSuccess();
+    void getPkInfoSuccess(PkResultInfo info);
 }

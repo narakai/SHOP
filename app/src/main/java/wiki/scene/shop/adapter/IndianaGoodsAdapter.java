@@ -85,7 +85,7 @@ public class IndianaGoodsAdapter extends BaseAdapter {
         }
         final IndexInfo.ProductsBean info = list.get(i);
         viewHolder.goodsName.setText(info.getName());
-        GlideImageLoader.create(viewHolder.goodsImage).loadRoundCornerImage(ShopApplication.configInfo.getFile_domain(), R.drawable.ic_default_goods_image, PtrLocalDisplay.dp2px(3));
+        GlideImageLoader.create(viewHolder.goodsImage).loadRoundCornerImage(ShopApplication.configInfo.getFile_domain()+info.getThumb(), R.drawable.ic_default_goods_image, PtrLocalDisplay.dp2px(3));
         viewHolder.goodsPrice.setText(PriceUtil.getPrice(info.getTen_price()) + "/" + PriceUtil.getPrice(info.getFour_price()) + "/" + PriceUtil.getPrice(info.getTwo_price()));
         //倒计时
         CountDownTimer countDownTimer = countDownCounters.get(viewHolder.countdownView.hashCode());
