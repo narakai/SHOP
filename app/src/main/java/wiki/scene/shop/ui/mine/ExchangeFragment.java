@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ToastUtils;
+import com.lzy.okgo.OkGo;
 import com.zhl.cbdialog.CBDialogBuilder;
 
 import java.util.ArrayList;
@@ -32,6 +33,7 @@ import wiki.scene.loadmore.utils.PtrLocalDisplay;
 import wiki.scene.shop.R;
 import wiki.scene.shop.adapter.ExchangeAdapter;
 import wiki.scene.shop.entity.PrizeInfo;
+import wiki.scene.shop.http.api.ApiUtil;
 import wiki.scene.shop.itemDecoration.SpacesItemDecoration;
 import wiki.scene.shop.mvp.BaseBackMvpFragment;
 import wiki.scene.shop.ui.mine.mvpview.IExchangeView;
@@ -343,6 +345,12 @@ public class ExchangeFragment extends BaseBackMvpFragment<IExchangeView, Exchang
 
     @Override
     public void onDestroyView() {
+        try {
+            OkGo.getInstance().cancelTag(ApiUtil.PRIZE_LIST_TAG);
+            OkGo.getInstance().cancelTag(ApiUtil.EXCHANGE_TAG);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         hideLoading();
         super.onDestroyView();
         unbinder.unbind();

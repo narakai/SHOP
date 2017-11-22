@@ -193,6 +193,12 @@ public class ApiUtil {
     //兑换
     public static final String EXCHANGE = "/exchange/submit";
     public static final String EXCHANGE_TAG = "EXCHANGE_TAG";
+    //兑换记录
+    public static final String EXCHANGE_RECORD = "/personal/exchange";
+    public static final String EXCHANGE_RECORD_TAG = "EXCHANGE_RECORD";
+    //PK
+    public static final String PK = "/personal/order/pk";
+    public static final String PK_TAG = "PK";
 
     /**
      * Case By:创建参数基础信息
