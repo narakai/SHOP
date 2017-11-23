@@ -42,4 +42,15 @@ public class LauncherModel {
                     }
                 });
     }
+
+    public void startApp() {
+        OkGo.<LzyResponse<String>>get(ApiUtil.API_PRE + ApiUtil.APP_START)
+                .tag(ApiUtil.APP_START_TAG)
+                .execute(new JsonCallback<LzyResponse<String>>() {
+                    @Override
+                    public void onSuccess(Response<LzyResponse<String>> response) {
+
+                    }
+                });
+    }
 }

@@ -211,6 +211,16 @@ public class ApiUtil {
     //检查更新
     public static final String UPDATE_VERSION = "/version/android";
     public static final String UPDATE_VERSION_TAG = "UPDATE_VERSION_TAG";
+    //启动
+    public static final String APP_START = "/data/start";
+    public static final String APP_START_TAG = "APP_START";
+    //上报停留时间
+    public static final String UPDATE_STAY = "/data/stay";
+    public static final String UPDATE_STAY_TAG = "UPDATE_STAY_TAG";
+    //上报界面
+    public static final String UPDATE_PAGE = "/data/position";
+    public static final String UPDATE_PAGE_TAG = "/data/position";
+
 
     /**
      * Case By:创建参数基础信息

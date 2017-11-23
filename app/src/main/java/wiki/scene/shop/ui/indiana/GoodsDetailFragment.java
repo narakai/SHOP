@@ -1,6 +1,7 @@
 package wiki.scene.shop.ui.indiana;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
@@ -134,6 +135,10 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
     ImageView goodsGuige;
     @BindView(R.id.goods_shouhou)
     ImageView goodsShouhou;
+    @BindView(R.id.service_center)
+    TextView serviceCenter;
+    @BindView(R.id.layout_shouhou)
+    LinearLayout layoutShouhou;
     private int goodsId;
 
     private GoodsDetailWinCodeAdapter winCodeAdapter;
@@ -239,15 +244,15 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
                 if (i == R.id.rd_jieshao) {
                     goodsJieshao.setVisibility(View.VISIBLE);
                     goodsGuige.setVisibility(View.GONE);
-                    goodsShouhou.setVisibility(View.GONE);
+                    layoutShouhou.setVisibility(View.GONE);
                 } else if (i == R.id.rd_guige) {
                     goodsJieshao.setVisibility(View.GONE);
                     goodsGuige.setVisibility(View.VISIBLE);
-                    goodsShouhou.setVisibility(View.GONE);
+                    layoutShouhou.setVisibility(View.GONE);
                 } else if (i == R.id.rd_shouhou) {
                     goodsJieshao.setVisibility(View.GONE);
                     goodsGuige.setVisibility(View.GONE);
-                    goodsShouhou.setVisibility(View.VISIBLE);
+                    layoutShouhou.setVisibility(View.VISIBLE);
                 }
             }
         });
@@ -266,6 +271,16 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
     @OnClick(R.id.layout_win_code_history)
     public void onClickWinCode() {
         winCodeHistoryListview.setVisibility(winCodeHistoryListview.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
+    }
+
+    @OnClick(R.id.service_center)
+    public void onClickServiceCenter() {
+        try {
+            String qqUrl = "mqqwpa://im/chat?chat_type=wpa&uin=170059106&version=1";
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(qqUrl)));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @OnClick(R.id.buy)

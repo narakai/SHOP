@@ -58,6 +58,9 @@ import wiki.scene.shop.widgets.LoadingDialog;
 public class MainActivity extends SupportActivity {
     private LoadingDialog loadingDialog;
 
+    private ThreadPoolUtils updateStayPoolUtils;
+    private ScheduledFuture updateStayFuture;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +70,7 @@ public class MainActivity extends SupportActivity {
         }
         getCurrentCycle();
         getUpdateVersion(false);
+        updateStay();
         if (getIntent() != null) {
             Intent intent = getIntent();
             boolean isRegister = intent.getBooleanExtra("isRegister", false);
@@ -187,6 +191,12 @@ public class MainActivity extends SupportActivity {
             }
             if (poolUtils != null && !poolUtils.isShutDown()) {
                 poolUtils.shutDownNow();
+            }
+            if (updateStayFuture != null) {
+                updateStayFuture.cancel(true);
+            }
+            if (updateStayPoolUtils != null && !updateStayPoolUtils.isShutDown()) {
+                updateStayPoolUtils.shutDownNow();
             }
             OkGo.getInstance().cancelTag(ApiUtil.CURRENT_CYCLE_TAG);
             OkGo.getInstance().cancelTag(ApiUtil.CHECK_PAY_RESULT_TAG);
@@ -456,4 +466,30 @@ public class MainActivity extends SupportActivity {
             }
         });
     }
+
+
+    private void updateStay() {
+        updateStayPoolUtils = new ThreadPoolUtils(ThreadPoolUtils.SingleThread, 1);
+        updateStayFuture = updateStayPoolUtils.scheduleWithFixedRate(new Runnable() {
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        OkGo.<LzyResponse<String>>get(ApiUtil.API_PRE + ApiUtil.UPDATE_STAY)
+                                .tag(ApiUtil.UPDATE_STAY_TAG)
+                                .execute(new JsonCallback<LzyResponse<String>>() {
+                                    @Override
+                                    public void onSuccess(Response<LzyResponse<String>> response) {
+
+                                    }
+                                });
+                    }
+                });
+            }
+        }, 1, 30, TimeUnit.SECONDS);
+
+
+    }
+
 }

@@ -48,6 +48,7 @@ public class LauncherActivity extends BaseMvpActivity<ILauncherView, LauncherPre
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launcher);
+        presenter.startApp();
         applyPermission();
     }
 

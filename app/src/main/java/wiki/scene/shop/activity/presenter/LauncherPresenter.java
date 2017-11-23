@@ -41,4 +41,8 @@ public class LauncherPresenter extends BasePresenter<ILauncherView> {
             }
         });
     }
+
+    public void startApp(){
+        model.startApp();
+    }
 }
