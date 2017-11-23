@@ -203,7 +203,7 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
         hideLoading();
         initView();
         presenter.getGoodsDetailInfo(true, goodsId);
-        UpdatePageUtils.updatePagePosition(AppConfig.POSITION_GOODS_DETAIL, 0);
+        UpdatePageUtils.updatePagePosition(AppConfig.POSITION_GOODS_DETAIL, goodsId);
     }
 
     private void initView() {

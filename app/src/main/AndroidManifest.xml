@@ -68,6 +68,9 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar.SwipeBack"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+        <activity
+            android:name=".ui.mine.UserAgreementActivity"
+            android:screenOrientation="portrait" />
         <!--支付-->
         <activity android:name="wiki.scene.shop.pay.AliPayActivity" />
         <activity android:name="wiki.scene.shop.pay.WechatPayActivity" />

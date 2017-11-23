@@ -33,6 +33,7 @@ import wiki.scene.shop.config.AppConfig;
 import wiki.scene.shop.entity.UserInfo;
 import wiki.scene.shop.event.RegisterSuccessEvent;
 import wiki.scene.shop.mvp.BaseMvpActivity;
+import wiki.scene.shop.ui.mine.UserAgreementActivity;
 import wiki.scene.shop.utils.SharedPreferencesUtil;
 import wiki.scene.shop.utils.ToastUtils;
 import wiki.scene.shop.utils.UpdatePageUtils;
@@ -276,5 +277,14 @@ public class Register1Activity extends BaseMvpActivity<IRegister1View, Register1
         }
         super.onDestroy();
         unbinder.unbind();
+    }
+
+    @OnClick(R.id.agreement)
+    public void onClickAgreement() {
+        try {
+            startActivity(new Intent(Register1Activity.this, UserAgreementActivity.class));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -1,5 +1,6 @@
 package wiki.scene.shop.ui.mine;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
@@ -127,6 +128,14 @@ public class SettingFragment extends BaseBackMvpFragment<ISettingView, SettingPr
         presenter.loginOut(_mActivity);
     }
 
+    @OnClick(R.id.user_agreement)
+    public void onClickUserAgreement() {
+        try {
+            startActivity(new Intent(_mActivity, UserAgreementActivity.class));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public void showLoading(@StringRes int resId) {
