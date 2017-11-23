@@ -1,5 +1,6 @@
 package wiki.scene.shop.ui.indiana;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -22,6 +23,7 @@ import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 import wiki.scene.loadmore.PtrClassicFrameLayout;
 import wiki.scene.loadmore.PtrDefaultHandler;
@@ -29,9 +31,11 @@ import wiki.scene.loadmore.PtrFrameLayout;
 import wiki.scene.loadmore.StatusViewLayout;
 import wiki.scene.shop.R;
 import wiki.scene.shop.ShopApplication;
+import wiki.scene.shop.activity.LoginActivity;
 import wiki.scene.shop.adapter.IndianaCanyuAdapter;
 import wiki.scene.shop.adapter.IndianaGoodsAdapter;
 import wiki.scene.shop.adapter.IndianaWinAdapter;
+import wiki.scene.shop.config.AppConfig;
 import wiki.scene.shop.entity.IndexInfo;
 import wiki.scene.shop.entity.NewestWinInfo;
 import wiki.scene.shop.event.StartBrotherEvent;
@@ -39,7 +43,11 @@ import wiki.scene.shop.http.api.ApiUtil;
 import wiki.scene.shop.mvp.BaseMainMvpFragment;
 import wiki.scene.shop.ui.indiana.mvpview.IIndianaView;
 import wiki.scene.shop.ui.indiana.presenter.IndianaPresenter;
+import wiki.scene.shop.ui.mine.CashFragment;
+import wiki.scene.shop.ui.mine.ExchangeFragment;
+import wiki.scene.shop.ui.mine.RechargeFragment;
 import wiki.scene.shop.utils.ThreadPoolUtils;
+import wiki.scene.shop.utils.UpdatePageUtils;
 import wiki.scene.shop.utils.ViewUtils;
 import wiki.scene.shop.widgets.CustomeGridView;
 import wiki.scene.shop.widgets.MarqueeView;
@@ -119,6 +127,7 @@ public class IndianaFragment extends BaseMainMvpFragment<IIndianaView, IndianaPr
         statusLayout.showContent();
         initView();
         presenter.getIndianaData(false);
+        UpdatePageUtils.updatePagePosition(AppConfig.POSITION_INDEX, 0);
     }
 
     private void initView() {
@@ -323,6 +332,37 @@ public class IndianaFragment extends BaseMainMvpFragment<IIndianaView, IndianaPr
     }
 
     @Override
+    public void enterExchange() {
+        try {
+            EventBus.getDefault().post(new StartBrotherEvent(ExchangeFragment.newInstance()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void enterRecharge() {
+        EventBus.getDefault().post(new StartBrotherEvent(RechargeFragment.newInstance()));
+    }
+
+    @Override
+    public void enterDrawCash() {
+        try {
+            EventBus.getDefault().post(new StartBrotherEvent(CashFragment.newInstance()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 登录
+     */
+    @Override
+    public void enterLogin() {
+        startActivity(new Intent(_mActivity, LoginActivity.class));
+    }
+
+    @Override
     public IndianaPresenter initPresenter() {
         return new IndianaPresenter(this);
     }
@@ -393,4 +433,21 @@ public class IndianaFragment extends BaseMainMvpFragment<IIndianaView, IndianaPr
             e.printStackTrace();
         }
     }
+
+    @OnClick(R.id.recharge)
+    public void onClickRecharge() {
+        presenter.clickRecharge();
+    }
+
+    @OnClick(R.id.exchange)
+    public void onClickExchange() {
+        presenter.clickExchange();
+    }
+
+    @OnClick(R.id.cash)
+    public void onClickCash() {
+        presenter.clickDrawCash();
+    }
+
+
 }

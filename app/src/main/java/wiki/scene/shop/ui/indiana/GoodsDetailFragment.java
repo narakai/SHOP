@@ -38,6 +38,7 @@ import wiki.scene.shop.ShopApplication;
 import wiki.scene.shop.activity.LoginActivity;
 import wiki.scene.shop.adapter.GoodsDetailBuyAdapter;
 import wiki.scene.shop.adapter.GoodsDetailWinCodeAdapter;
+import wiki.scene.shop.config.AppConfig;
 import wiki.scene.shop.entity.CreateOrderInfo;
 import wiki.scene.shop.entity.GoodsDetailInfo;
 import wiki.scene.shop.entity.NewestWinInfo;
@@ -53,6 +54,7 @@ import wiki.scene.shop.utils.DateFormatUtils;
 import wiki.scene.shop.utils.PriceUtil;
 import wiki.scene.shop.utils.SharedPreferencesUtil;
 import wiki.scene.shop.utils.ThreadPoolUtils;
+import wiki.scene.shop.utils.UpdatePageUtils;
 import wiki.scene.shop.utils.ViewUtils;
 import wiki.scene.shop.widgets.BuyGoodsSuccessDialog;
 import wiki.scene.shop.widgets.CustomListView;
@@ -201,6 +203,7 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
         hideLoading();
         initView();
         presenter.getGoodsDetailInfo(true, goodsId);
+        UpdatePageUtils.updatePagePosition(AppConfig.POSITION_GOODS_DETAIL, 0);
     }
 
     private void initView() {
@@ -397,7 +400,9 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
             twoPrice.setText(PriceUtil.getPrice(goodsInfo.getTwo_price()));
             fourPrice.setText(PriceUtil.getPrice(goodsInfo.getFour_price()));
             tenPrice.setText(PriceUtil.getPrice(goodsInfo.getTen_price()));
-
+            GlideImageLoader.create(goodsJieshao).loadImage(ShopApplication.configInfo.getFile_domain() + goodsInfo.getThumb_js(), 0);
+            GlideImageLoader.create(goodsGuige).loadImage(ShopApplication.configInfo.getFile_domain() + goodsInfo.getThumb_gg(), 0);
+            GlideImageLoader.create(goodsShouhou).loadImage(ShopApplication.configInfo.getFile_domain() + goodsInfo.getThumb_sh(), 0);
         } catch (Exception e) {
             e.printStackTrace();
         }

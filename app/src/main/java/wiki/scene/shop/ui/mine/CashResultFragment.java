@@ -15,11 +15,13 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import wiki.scene.shop.R;
+import wiki.scene.shop.config.AppConfig;
 import wiki.scene.shop.entity.BankInfo;
 import wiki.scene.shop.mvp.BaseBackMvpFragment;
 import wiki.scene.shop.ui.mine.mvpview.ICashResultView;
 import wiki.scene.shop.ui.mine.presenter.CashResultPresenter;
 import wiki.scene.shop.utils.PriceUtil;
+import wiki.scene.shop.utils.UpdatePageUtils;
 
 /**
  * 申请提现结果
@@ -75,6 +77,7 @@ public class CashResultFragment extends BaseBackMvpFragment<ICashResultView, Cas
         toolbarTitle.setText("账户提现");
         initToolbarNav(toolbar);
         initView();
+        UpdatePageUtils.updatePagePosition(AppConfig.POSITION_CASH_RESULT, 0);
     }
 
     private void initView() {

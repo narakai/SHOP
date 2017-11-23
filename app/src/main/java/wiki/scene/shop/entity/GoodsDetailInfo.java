@@ -52,6 +52,9 @@ public class GoodsDetailInfo {
         private int two_price;
         private int four_price;
         private int ten_price;
+        private String thumb_js;
+        private String thumb_gg;
+        private String thumb_sh;
 
         public int getId() {
             return id;
@@ -131,6 +134,30 @@ public class GoodsDetailInfo {
 
         public void setTen_price(int ten_price) {
             this.ten_price = ten_price;
+        }
+
+        public String getThumb_js() {
+            return thumb_js;
+        }
+
+        public void setThumb_js(String thumb_js) {
+            this.thumb_js = thumb_js;
+        }
+
+        public String getThumb_gg() {
+            return thumb_gg;
+        }
+
+        public void setThumb_gg(String thumb_gg) {
+            this.thumb_gg = thumb_gg;
+        }
+
+        public String getThumb_sh() {
+            return thumb_sh;
+        }
+
+        public void setThumb_sh(String thumb_sh) {
+            this.thumb_sh = thumb_sh;
         }
     }
 }

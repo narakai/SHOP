@@ -39,6 +39,7 @@ import wiki.scene.shop.ui.car.PayOrderFragment;
 import wiki.scene.shop.ui.mine.mvpview.IIndianaRecordTypeView;
 import wiki.scene.shop.ui.mine.presenter.IndianaRecordTypePresenter;
 import wiki.scene.shop.utils.ToastUtils;
+import wiki.scene.shop.utils.UpdatePageUtils;
 import wiki.scene.shop.widgets.LoadingDialog;
 
 /**
@@ -98,8 +99,10 @@ public class IndianaRecordTypeFragment extends BaseMvpFragment<IIndianaRecordTyp
         initView();
         if (type == INDIANA_RECORD_TYPE_ALL) {
             presenter.getIndianaRecordData(page, true);
+            UpdatePageUtils.updatePagePosition(AppConfig.POSITION_INDIANA_RECORD_ALL, 0);
         } else {
             presenter.getWinIndianaRecordData(page, true);
+            UpdatePageUtils.updatePagePosition(AppConfig.POSITION_INDIANA_RECORD_WIN, 0);
         }
     }
 

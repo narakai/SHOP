@@ -27,11 +27,13 @@ import wiki.scene.shop.R;
 import wiki.scene.shop.ShopApplication;
 import wiki.scene.shop.activity.mvpview.ILoginView;
 import wiki.scene.shop.activity.presenter.LoginPresenter;
+import wiki.scene.shop.config.AppConfig;
 import wiki.scene.shop.entity.UserInfo;
 import wiki.scene.shop.event.RegisterSuccessEvent;
 import wiki.scene.shop.mvp.BaseMvpActivity;
 import wiki.scene.shop.utils.SharedPreferencesUtil;
 import wiki.scene.shop.utils.ToastUtils;
+import wiki.scene.shop.utils.UpdatePageUtils;
 import wiki.scene.shop.widgets.LoadingDialog;
 
 /**
@@ -68,6 +70,7 @@ public class LoginActivity extends BaseMvpActivity<ILoginView, LoginPresenter> i
         unbinder = ButterKnife.bind(this);
         initToolbar();
         initView();
+        UpdatePageUtils.updatePagePosition(AppConfig.POSITION_LOGIN, 0);
     }
 
     @Override

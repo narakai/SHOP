@@ -27,6 +27,7 @@ import wiki.scene.loadmore.recyclerview.RecyclerAdapterWithHF;
 import wiki.scene.loadmore.utils.PtrLocalDisplay;
 import wiki.scene.shop.R;
 import wiki.scene.shop.adapter.CashRecordAdapter;
+import wiki.scene.shop.config.AppConfig;
 import wiki.scene.shop.entity.CashRecordInfo;
 import wiki.scene.shop.entity.CashRecordResultInfo;
 import wiki.scene.shop.http.api.ApiUtil;
@@ -34,6 +35,7 @@ import wiki.scene.shop.itemDecoration.SpacesItemDecoration;
 import wiki.scene.shop.mvp.BaseBackMvpFragment;
 import wiki.scene.shop.ui.mine.mvpview.ICashRecordView;
 import wiki.scene.shop.ui.mine.presenter.CashRecordPresenter;
+import wiki.scene.shop.utils.UpdatePageUtils;
 
 /**
  * 提现记录
@@ -80,6 +82,7 @@ public class CashRecordFragment extends BaseBackMvpFragment<ICashRecordView, Cas
         initToolbarNav(toolbar);
         initView();
         presenter.getExchangeRecord(true, 1);
+        UpdatePageUtils.updatePagePosition(AppConfig.POSITION_CASH_RECORD, 0);
     }
 
     private void initView() {

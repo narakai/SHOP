@@ -27,4 +27,12 @@ public interface IIndianaView extends BaseView {
     void getNewestWinSuccess(List<NewestWinInfo> list);
 
     void getNewestBuySuccess(List<NewestWinInfo> list);
+
+    void enterRecharge();
+
+    void enterExchange();
+
+    void enterDrawCash();
+
+    void enterLogin();
 }

@@ -18,12 +18,14 @@ import wiki.scene.loadmore.recyclerview.RecyclerAdapterWithHF;
 import wiki.scene.loadmore.utils.PtrLocalDisplay;
 import wiki.scene.shop.R;
 import wiki.scene.shop.adapter.PkAdapter;
+import wiki.scene.shop.config.AppConfig;
 import wiki.scene.shop.entity.PkMineInfo;
 import wiki.scene.shop.entity.PkResultInfo;
 import wiki.scene.shop.itemDecoration.SpacesItemDecoration;
 import wiki.scene.shop.mvp.BaseBackMvpFragment;
 import wiki.scene.shop.ui.mine.mvpview.IOrderPkDetailView;
 import wiki.scene.shop.ui.mine.presenter.OrderPkDetailPresenter;
+import wiki.scene.shop.utils.UpdatePageUtils;
 
 /**
  * pk详情
@@ -75,6 +77,7 @@ public class OrderPkDetailFragment extends BaseBackMvpFragment<IOrderPkDetailVie
         initToolbarNav(toolbar);
         initView();
         presenter.getPkDetailInfo(orderId);
+        UpdatePageUtils.updatePagePosition(AppConfig.POSITION_INDIANA_PK, orderId);
     }
 
     private void initView() {

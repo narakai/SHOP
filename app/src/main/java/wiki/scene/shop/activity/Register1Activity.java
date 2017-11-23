@@ -29,11 +29,13 @@ import wiki.scene.shop.R;
 import wiki.scene.shop.ShopApplication;
 import wiki.scene.shop.activity.mvpview.IRegister1View;
 import wiki.scene.shop.activity.presenter.Register1Presenter;
+import wiki.scene.shop.config.AppConfig;
 import wiki.scene.shop.entity.UserInfo;
 import wiki.scene.shop.event.RegisterSuccessEvent;
 import wiki.scene.shop.mvp.BaseMvpActivity;
 import wiki.scene.shop.utils.SharedPreferencesUtil;
 import wiki.scene.shop.utils.ToastUtils;
+import wiki.scene.shop.utils.UpdatePageUtils;
 import wiki.scene.shop.widgets.LoadingDialog;
 
 /**
@@ -79,6 +81,7 @@ public class Register1Activity extends BaseMvpActivity<IRegister1View, Register1
         setContentView(R.layout.activity_register1);
         unbinder = ButterKnife.bind(this);
         initToolbar();
+        UpdatePageUtils.updatePagePosition(AppConfig.POSITION_REGISTER, 0);
         if (getIntent() != null) {
             unionid = getIntent().getStringExtra("unionid");
             nickName = getIntent().getStringExtra("nickName");

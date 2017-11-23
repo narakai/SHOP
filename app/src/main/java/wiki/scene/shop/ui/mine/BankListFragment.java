@@ -39,6 +39,7 @@ import wiki.scene.shop.itemDecoration.SpacesItemDecoration;
 import wiki.scene.shop.mvp.BaseBackMvpFragment;
 import wiki.scene.shop.ui.mine.mvpview.IBankListView;
 import wiki.scene.shop.ui.mine.presenter.BankListPresenter;
+import wiki.scene.shop.utils.UpdatePageUtils;
 
 /**
  * 收款账号
@@ -84,6 +85,7 @@ public class BankListFragment extends BaseBackMvpFragment<IBankListView, BankLis
         initToolbarNav(toolbar);
         initView();
         presenter.getBankListData(true);
+        UpdatePageUtils.updatePagePosition(AppConfig.POSITION_MINE_BANK_CARD, 0);
     }
 
     private void initView() {

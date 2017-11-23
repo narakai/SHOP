@@ -20,12 +20,14 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import wiki.scene.shop.R;
+import wiki.scene.shop.config.AppConfig;
 import wiki.scene.shop.entity.BankInfo;
 import wiki.scene.shop.event.AddBankCardSuccessEvent;
 import wiki.scene.shop.http.api.ApiUtil;
 import wiki.scene.shop.mvp.BaseBackMvpFragment;
 import wiki.scene.shop.ui.mine.mvpview.IAddBankView;
 import wiki.scene.shop.ui.mine.presenter.AddBankPresenter;
+import wiki.scene.shop.utils.UpdatePageUtils;
 import wiki.scene.shop.widgets.LoadingDialog;
 
 /**
@@ -87,6 +89,7 @@ public class AddBankFragment extends BaseBackMvpFragment<IAddBankView, AddBankPr
         initToolbarNav(toolbar);
         add.setText(bankInfo == null ? "添加" : "修改");
         initView();
+        UpdatePageUtils.updatePagePosition(AppConfig.POSITION_BIND_BANK_CARD, 0);
     }
 
     private void initView() {

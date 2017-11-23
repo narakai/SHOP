@@ -41,6 +41,7 @@ import wiki.scene.shop.mvp.BaseMvpActivity;
 import wiki.scene.shop.ui.mine.mvpview.IMineInfoView;
 import wiki.scene.shop.ui.mine.presenter.MineInfoPresenter;
 import wiki.scene.shop.utils.ToastUtils;
+import wiki.scene.shop.utils.UpdatePageUtils;
 import wiki.scene.shop.widgets.LoadingDialog;
 
 /**
@@ -79,6 +80,7 @@ public class MineInfoActivity extends BaseMvpActivity<IMineInfoView, MineInfoPre
         ButterKnife.bind(this);
         initToolbar();
         initView();
+        UpdatePageUtils.updatePagePosition(AppConfig.POSITION_SETTING_AVATAR, 0);
     }
 
     private void initToolbar() {

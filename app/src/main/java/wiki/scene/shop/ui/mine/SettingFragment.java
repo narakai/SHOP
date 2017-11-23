@@ -20,12 +20,14 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import wiki.scene.shop.R;
 import wiki.scene.shop.ShopApplication;
+import wiki.scene.shop.config.AppConfig;
 import wiki.scene.shop.event.LoginOutEvent;
 import wiki.scene.shop.mvp.BaseBackMvpFragment;
 import wiki.scene.shop.ui.mine.mvpview.ISettingView;
 import wiki.scene.shop.ui.mine.presenter.SettingPresenter;
 import wiki.scene.shop.utils.GlideCacheUtil;
 import wiki.scene.shop.utils.SharedPreferencesUtil;
+import wiki.scene.shop.utils.UpdatePageUtils;
 import wiki.scene.shop.widgets.LoadingDialog;
 
 /**
@@ -78,6 +80,7 @@ public class SettingFragment extends BaseBackMvpFragment<ISettingView, SettingPr
         toolbarTitle.setText(R.string.setting);
         initToolbarNav(toolbar);
         initView();
+        UpdatePageUtils.updatePagePosition(AppConfig.POSITION_SETTING, 0);
     }
 
     private void initView() {

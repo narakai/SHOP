@@ -61,4 +61,61 @@ public class AppConfig {
     public static final int API_TYPE_WX_SCAN = 1;
     public static final int API_TYPE_WX_GZH_CHANGE = 2;
     public static final int API_TYPE_ALIPAY_SCAN = 3;
+    //页面position
+    //首页
+    public static final int POSITION_INDEX = 1;
+    //商品详情
+    public static final int POSITION_GOODS_DETAIL = 2;
+    //开奖走势
+    public static final int POSITION_TRENT = 3;
+    //排行榜
+    public static final int POSITION_RANK = 4;
+    //我的
+    public static final int POSITION_MINE = 5;
+    //设置
+    public static final int POSITION_SETTING = 6;
+    //客服中心
+    public static final int POSITION_SERVICE_CENTER = 7;
+    //设置头像昵称等
+    public static final int POSITION_SETTING_AVATAR = 8;
+    //充值
+    public static final int POSITION_RECHARGE = 9;
+    //兑换
+    public static final int POSITION_EXCHANGE = 10;
+    //提现
+    public static final int POSITION_CASH = 11;
+    //夺宝记录 全部
+    public static final int POSITION_INDIANA_RECORD_ALL = 12;
+    //夺宝记录 获胜
+    public static final int POSITION_INDIANA_RECORD_WIN = 13;
+    //PK详情
+    public static final int POSITION_INDIANA_PK = 14;
+    //兑换记录
+    public static final int POSITION_EXCHANGE_RECORD = 15;
+    //提现记录
+    public static final int POSITION_CASH_RECORD = 16;
+    //绑定手机号
+    public static final int POSITION_MINE_PHONE = 17;
+    //我的收款账号
+    public static final int POSITION_MINE_BANK_CARD = 18;
+    //绑定银行卡
+    public static final int POSITION_BIND_BANK_CARD = 19;
+    //绑定支付宝
+    public static final int POSITION_BIND_ALIPAY = 20;
+    //意见反馈
+    public static final int POSITION_BUG_FEEDBACK = 21;
+    //用户协议
+    public static final int POSITION_USER_AGREEMENT = 22;
+    //关于我们
+    public static final int POSITION_ABOUT_US = 23;
+    //登录
+    public static final int POSITION_LOGIN = 24;
+    //注册
+    public static final int POSITION_REGISTER = 25;
+    //找回密码
+    public static final int POSITION_FIND_PASSWORD = 26;
+    //登录和注册的那个新界面
+    public static final int POSITION_LOGIN_AND_REGISTER = 27;
+    //提现结果
+    public static final int POSITION_CASH_RESULT = 28;
 }

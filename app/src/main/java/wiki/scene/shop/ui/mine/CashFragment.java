@@ -26,11 +26,13 @@ import butterknife.Unbinder;
 import wiki.scene.loadmore.StatusViewLayout;
 import wiki.scene.shop.R;
 import wiki.scene.shop.adapter.CashBankAdapter;
+import wiki.scene.shop.config.AppConfig;
 import wiki.scene.shop.entity.BankInfo;
 import wiki.scene.shop.http.api.ApiUtil;
 import wiki.scene.shop.mvp.BaseBackMvpFragment;
 import wiki.scene.shop.ui.mine.mvpview.ICashView;
 import wiki.scene.shop.ui.mine.presenter.CashPresenter;
+import wiki.scene.shop.utils.UpdatePageUtils;
 import wiki.scene.shop.widgets.CustomListView;
 import wiki.scene.shop.widgets.LoadingDialog;
 
@@ -79,6 +81,7 @@ public class CashFragment extends BaseBackMvpFragment<ICashView, CashPresenter> 
         initToolbarNav(toolbar);
         initView();
         presenter.getBankData();
+        UpdatePageUtils.updatePagePosition(AppConfig.POSITION_CASH, 0);
     }
 
     private void initView() {

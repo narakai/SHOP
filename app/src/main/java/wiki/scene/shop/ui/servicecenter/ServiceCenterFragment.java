@@ -15,9 +15,11 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import wiki.scene.shop.R;
+import wiki.scene.shop.config.AppConfig;
 import wiki.scene.shop.mvp.BaseBackMvpFragment;
 import wiki.scene.shop.ui.servicecenter.presenter.ServiceCenterPresenter;
 import wiki.scene.shop.ui.servicecenter.view.IServiceCenterView;
+import wiki.scene.shop.utils.UpdatePageUtils;
 
 /**
  * 客服中心
@@ -56,6 +58,7 @@ public class ServiceCenterFragment extends BaseBackMvpFragment<IServiceCenterVie
         super.onEnterAnimationEnd(savedInstanceState);
         toolbarTitle.setText("客服中心");
         initToolbarNav(toolbar);
+        UpdatePageUtils.updatePagePosition(AppConfig.POSITION_SERVICE_CENTER, 0);
     }
 
     @Override

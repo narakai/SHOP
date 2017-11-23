@@ -29,12 +29,14 @@ import wiki.scene.loadmore.utils.PtrLocalDisplay;
 import wiki.scene.shop.R;
 import wiki.scene.shop.ShopApplication;
 import wiki.scene.shop.adapter.RankAdapter;
+import wiki.scene.shop.config.AppConfig;
 import wiki.scene.shop.entity.RankInfo;
 import wiki.scene.shop.itemDecoration.SpacesItemDecoration;
 import wiki.scene.shop.mvp.BaseMainMvpFragment;
 import wiki.scene.shop.ui.rank.presenter.RankPresenter;
 import wiki.scene.shop.ui.rank.view.IRankView;
 import wiki.scene.shop.utils.ToastUtils;
+import wiki.scene.shop.utils.UpdatePageUtils;
 
 /**
  * 排行榜
@@ -87,6 +89,7 @@ public class RankFragment extends BaseMainMvpFragment<IRankView, RankPresenter> 
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
         initView();
+        UpdatePageUtils.updatePagePosition(AppConfig.POSITION_RANK, 0);
     }
 
     private void initView() {

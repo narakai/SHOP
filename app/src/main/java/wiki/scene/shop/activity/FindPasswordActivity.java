@@ -21,9 +21,11 @@ import wiki.scene.loadmore.utils.SceneLogUtil;
 import wiki.scene.shop.R;
 import wiki.scene.shop.activity.mvpview.IFindPasswordView;
 import wiki.scene.shop.activity.presenter.FindPasswordPresenter;
+import wiki.scene.shop.config.AppConfig;
 import wiki.scene.shop.http.api.ApiUtil;
 import wiki.scene.shop.mvp.BaseMvpActivity;
 import wiki.scene.shop.utils.ToastUtils;
+import wiki.scene.shop.utils.UpdatePageUtils;
 import wiki.scene.shop.widgets.LoadingDialog;
 
 /**
@@ -64,6 +66,7 @@ public class FindPasswordActivity extends BaseMvpActivity<IFindPasswordView, Fin
         unbinder = ButterKnife.bind(this);
         initToolbar();
         initView();
+        UpdatePageUtils.updatePagePosition(AppConfig.POSITION_FIND_PASSWORD, 0);
     }
 
     private void initToolbar() {

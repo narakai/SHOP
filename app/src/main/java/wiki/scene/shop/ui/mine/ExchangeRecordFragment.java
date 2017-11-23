@@ -27,6 +27,7 @@ import wiki.scene.loadmore.recyclerview.RecyclerAdapterWithHF;
 import wiki.scene.loadmore.utils.PtrLocalDisplay;
 import wiki.scene.shop.R;
 import wiki.scene.shop.adapter.ExchangeRecordAdapter;
+import wiki.scene.shop.config.AppConfig;
 import wiki.scene.shop.entity.ExchangeRecordInfo;
 import wiki.scene.shop.entity.ExchangeRecordResultInfo;
 import wiki.scene.shop.http.api.ApiUtil;
@@ -34,6 +35,7 @@ import wiki.scene.shop.itemDecoration.SpacesItemDecoration;
 import wiki.scene.shop.mvp.BaseBackMvpFragment;
 import wiki.scene.shop.ui.mine.mvpview.IExchangeRecordView;
 import wiki.scene.shop.ui.mine.presenter.ExchangeRecordPresenter;
+import wiki.scene.shop.utils.UpdatePageUtils;
 
 /**
  * 兑换记录
@@ -80,6 +82,7 @@ public class ExchangeRecordFragment extends BaseBackMvpFragment<IExchangeRecordV
         initToolbarNav(toolbar);
         initView();
         presenter.getExchangeRecord(true, 1);
+        UpdatePageUtils.updatePagePosition(AppConfig.POSITION_EXCHANGE_RECORD, 0);
     }
 
     private void initView() {

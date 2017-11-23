@@ -38,6 +38,7 @@ import wiki.scene.shop.pay.WechatPayActivity;
 import wiki.scene.shop.pay.WxQRCodePayDialog;
 import wiki.scene.shop.ui.mine.mvpview.IRechargeView;
 import wiki.scene.shop.ui.mine.presenter.RechargePresenter;
+import wiki.scene.shop.utils.UpdatePageUtils;
 import wiki.scene.shop.widgets.LoadingDialog;
 
 /**
@@ -98,6 +99,7 @@ public class RechargeFragment extends BaseBackMvpFragment<IRechargeView, Recharg
         initToolbarNav(toolbar);
         loadingDialog = LoadingDialog.getInstance(getContext());
         initView();
+        UpdatePageUtils.updatePagePosition(AppConfig.POSITION_RECHARGE, 0);
     }
 
     private void initView() {

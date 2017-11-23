@@ -198,6 +198,7 @@ public class MainActivity extends SupportActivity {
             if (updateStayPoolUtils != null && !updateStayPoolUtils.isShutDown()) {
                 updateStayPoolUtils.shutDownNow();
             }
+            OkGo.getInstance().cancelTag(ApiUtil.UPDATE_STAY_TAG);
             OkGo.getInstance().cancelTag(ApiUtil.CURRENT_CYCLE_TAG);
             OkGo.getInstance().cancelTag(ApiUtil.CHECK_PAY_RESULT_TAG);
         } catch (Exception e) {
@@ -488,7 +489,6 @@ public class MainActivity extends SupportActivity {
                 });
             }
         }, 1, 30, TimeUnit.SECONDS);
-
 
     }
 

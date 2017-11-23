@@ -1,5 +1,7 @@
 package wiki.scene.shop.http.api;
 
+import com.blankj.utilcode.util.AppUtils;
+
 import java.util.HashMap;
 
 import wiki.scene.shop.ShopApplication;
@@ -235,7 +237,7 @@ public class ApiUtil {
         params.put("signature", getSign(ShopApplication.CHANNEL_ID + "", timestamp + ""));
         params.put("app_type", "1");
         params.put("uuid", ShopApplication.UUID);
-        params.put("version", ShopApplication.versionCode + "");
+        params.put("version", AppUtils.getAppVersionCode() + "");
         return params;
     }
 
@@ -244,6 +246,6 @@ public class ApiUtil {
      * Author: scene on 2017/5/19 13:19
      */
     private static String getSign(String agent_id, String timestamp) {
-        return MD5Util.string2Md5(MD5Util.string2Md5(agent_id + 1 + ShopApplication.RESOURCE_ID + timestamp + ShopApplication.UUID + ShopApplication.versionCode, "UTF-8") + SIGN_KEY, "UTF-8");
+        return MD5Util.string2Md5(MD5Util.string2Md5(agent_id + 1 + ShopApplication.RESOURCE_ID + timestamp + ShopApplication.UUID + AppUtils.getAppVersionCode(), "UTF-8") + SIGN_KEY, "UTF-8");
     }
 }

@@ -3,6 +3,7 @@ package wiki.scene.shop.ui.indiana.presenter;
 import java.util.List;
 
 import wiki.scene.shop.R;
+import wiki.scene.shop.ShopApplication;
 import wiki.scene.shop.entity.IndexInfo;
 import wiki.scene.shop.entity.NewestWinInfo;
 import wiki.scene.shop.http.listener.HttpResultListener;
@@ -114,5 +115,47 @@ public class IndianaPresenter extends BasePresenter<IIndianaView> {
             }
 
         });
+    }
+
+    /**
+     * 充值
+     */
+    public void clickRecharge() {
+        try {
+            if (indianaView != null) {
+                if (ShopApplication.hasLogin) {
+                    indianaView.enterRecharge();
+                } else {
+                    indianaView.enterLogin();
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void clickExchange() {
+        try {
+            if (ShopApplication.userInfo != null && ShopApplication.hasLogin) {
+                indianaView.enterExchange();
+            } else {
+                indianaView.enterLogin();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void clickDrawCash() {
+        try {
+            if (ShopApplication.userInfo != null && ShopApplication.hasLogin) {
+                indianaView.enterDrawCash();
+            } else {
+                indianaView.enterLogin();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -32,6 +32,7 @@ import wiki.scene.loadmore.StatusViewLayout;
 import wiki.scene.loadmore.utils.PtrLocalDisplay;
 import wiki.scene.shop.R;
 import wiki.scene.shop.adapter.ExchangeAdapter;
+import wiki.scene.shop.config.AppConfig;
 import wiki.scene.shop.entity.PrizeInfo;
 import wiki.scene.shop.http.api.ApiUtil;
 import wiki.scene.shop.itemDecoration.SpacesItemDecoration;
@@ -39,6 +40,7 @@ import wiki.scene.shop.mvp.BaseBackMvpFragment;
 import wiki.scene.shop.ui.mine.mvpview.IExchangeView;
 import wiki.scene.shop.ui.mine.presenter.ExchangePresenter;
 import wiki.scene.shop.utils.PriceUtil;
+import wiki.scene.shop.utils.UpdatePageUtils;
 import wiki.scene.shop.widgets.LoadingDialog;
 
 /**
@@ -94,6 +96,7 @@ public class ExchangeFragment extends BaseBackMvpFragment<IExchangeView, Exchang
         initToolbarNav(toolbar);
         initView();
         presenter.getPrizeData(true);
+        UpdatePageUtils.updatePagePosition(AppConfig.POSITION_EXCHANGE, 0);
     }
 
     private void initView() {

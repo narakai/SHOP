@@ -29,6 +29,7 @@ import wiki.scene.loadmore.StatusViewLayout;
 import wiki.scene.shop.R;
 import wiki.scene.shop.ShopApplication;
 import wiki.scene.shop.activity.LoginActivity;
+import wiki.scene.shop.config.AppConfig;
 import wiki.scene.shop.entity.MineInfo;
 import wiki.scene.shop.event.ChooseAvaterResultEvent;
 import wiki.scene.shop.event.LoginOutEvent;
@@ -41,6 +42,7 @@ import wiki.scene.shop.ui.mine.mvpview.IMineView;
 import wiki.scene.shop.ui.mine.presenter.MinePresenter;
 import wiki.scene.shop.utils.PriceUtil;
 import wiki.scene.shop.utils.SharedPreferencesUtil;
+import wiki.scene.shop.utils.UpdatePageUtils;
 import wiki.scene.shop.widgets.LoadingDialog;
 
 /**
@@ -117,6 +119,7 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
         EventBus.getDefault().register(this);
+        UpdatePageUtils.updatePagePosition(AppConfig.POSITION_MINE, 0);
         initView();
         if (ShopApplication.hasLogin) {
             presenter.getMineInfo(true);

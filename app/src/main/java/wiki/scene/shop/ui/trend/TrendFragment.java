@@ -29,6 +29,7 @@ import wiki.scene.shop.MainActivity;
 import wiki.scene.shop.R;
 import wiki.scene.shop.ShopApplication;
 import wiki.scene.shop.adapter.TrendAdapter;
+import wiki.scene.shop.config.AppConfig;
 import wiki.scene.shop.entity.WinCodeInfo;
 import wiki.scene.shop.itemDecoration.SpacesItemDecoration;
 import wiki.scene.shop.mvp.BaseMainMvpFragment;
@@ -36,6 +37,7 @@ import wiki.scene.shop.ui.trend.presenter.TrendPresenter;
 import wiki.scene.shop.ui.trend.view.ITrendView;
 import wiki.scene.shop.utils.DateFormatUtils;
 import wiki.scene.shop.utils.ThreadPoolUtils;
+import wiki.scene.shop.utils.UpdatePageUtils;
 
 /**
  * 开奖走势
@@ -84,6 +86,7 @@ public class TrendFragment extends BaseMainMvpFragment<ITrendView, TrendPresente
         super.onLazyInitView(savedInstanceState);
         initView();
         presenter.getTrendData(true);
+        UpdatePageUtils.updatePagePosition(AppConfig.POSITION_TRENT, 0);
     }
 
     private void initView() {

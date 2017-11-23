@@ -15,8 +15,10 @@ import wiki.scene.shop.MainActivity;
 import wiki.scene.shop.R;
 import wiki.scene.shop.activity.mvpview.ILoginWaitView;
 import wiki.scene.shop.activity.presenter.LoginWaitPresenter;
+import wiki.scene.shop.config.AppConfig;
 import wiki.scene.shop.event.RegisterSuccessEvent;
 import wiki.scene.shop.mvp.BaseMvpActivity;
+import wiki.scene.shop.utils.UpdatePageUtils;
 
 /**
  * 选择登陆注册的界面
@@ -35,6 +37,7 @@ public class LoginWaitActivity extends BaseMvpActivity<ILoginWaitView, LoginWait
         EventBus.getDefault().register(this);
         setContentView(R.layout.activity_login_wait);
         ButterKnife.bind(this);
+        UpdatePageUtils.updatePagePosition(AppConfig.POSITION_LOGIN_AND_REGISTER, 0);
     }
 
     @Override

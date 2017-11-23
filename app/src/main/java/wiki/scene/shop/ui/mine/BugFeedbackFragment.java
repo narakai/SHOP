@@ -18,10 +18,12 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import wiki.scene.shop.R;
+import wiki.scene.shop.config.AppConfig;
 import wiki.scene.shop.http.api.ApiUtil;
 import wiki.scene.shop.mvp.BaseBackMvpFragment;
 import wiki.scene.shop.ui.mine.mvpview.IBugFeedbackView;
 import wiki.scene.shop.ui.mine.presenter.BugFeedBackPresenter;
+import wiki.scene.shop.utils.UpdatePageUtils;
 
 /**
  * Case By:问题反馈
@@ -60,6 +62,7 @@ public class BugFeedbackFragment extends BaseBackMvpFragment<IBugFeedbackView, B
         super.onEnterAnimationEnd(savedInstanceState);
         toolbarTitle.setText(R.string.bug_feedback);
         initToolbarNav(toolbar);
+        UpdatePageUtils.updatePagePosition(AppConfig.POSITION_BUG_FEEDBACK, 0);
     }
 
     @Override

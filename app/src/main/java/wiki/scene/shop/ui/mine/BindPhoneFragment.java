@@ -24,12 +24,14 @@ import butterknife.Unbinder;
 import wiki.scene.shop.R;
 import wiki.scene.shop.ShopApplication;
 import wiki.scene.shop.activity.LoginActivity;
+import wiki.scene.shop.config.AppConfig;
 import wiki.scene.shop.http.api.ApiUtil;
 import wiki.scene.shop.mvp.BaseBackMvpFragment;
 import wiki.scene.shop.ui.mine.mvpview.IBindPhoneView;
 import wiki.scene.shop.ui.mine.presenter.BindPhonePresenter;
 import wiki.scene.shop.utils.SharedPreferencesUtil;
 import wiki.scene.shop.utils.ThreadPoolUtils;
+import wiki.scene.shop.utils.UpdatePageUtils;
 import wiki.scene.shop.widgets.LoadingDialog;
 
 /**
@@ -79,6 +81,7 @@ public class BindPhoneFragment extends BaseBackMvpFragment<IBindPhoneView, BindP
         toolbarTitle.setText("绑定手机");
         initToolbarNav(toolbar);
         loadingDialog = LoadingDialog.getInstance(getContext());
+        UpdatePageUtils.updatePagePosition(AppConfig.POSITION_MINE_PHONE, 0);
     }
 
 
