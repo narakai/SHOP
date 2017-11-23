@@ -128,12 +128,14 @@ public class Register1Activity extends BaseMvpActivity<IRegister1View, Register1
     public void registerSuccess(UserInfo userInfo) {
         try {
             if (userInfo != null) {
-                EventBus.getDefault().post(new RegisterSuccessEvent(userInfo));
                 SharedPreferencesUtil.putString(this, ShopApplication.USER_INFO_KEY, new Gson().toJson(userInfo));
                 ShopApplication.userInfo = userInfo;
                 ShopApplication.hasLogin = true;
+                EventBus.getDefault().post(new RegisterSuccessEvent(userInfo));
             }
-            startActivity(new Intent(Register1Activity.this, MainActivity.class));
+            Intent intent = new Intent(Register1Activity.this, MainActivity.class);
+            intent.putExtra("isRegister", true);
+            startActivity(intent);
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -2,11 +2,13 @@ package wiki.scene.shop;
 
 import android.Manifest;
 import android.app.Dialog;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.widget.TextView;
 
@@ -37,6 +39,7 @@ import me.yokeyword.fragmentation.anim.FragmentAnimator;
 import wiki.scene.loadmore.utils.SceneLogUtil;
 import wiki.scene.shop.config.AppConfig;
 import wiki.scene.shop.dialog.DownLoadDialog;
+import wiki.scene.shop.dialog.RegisterDialog;
 import wiki.scene.shop.entity.CheckPayResultInfo;
 import wiki.scene.shop.entity.CurrentCycleInfo;
 import wiki.scene.shop.entity.UpdateVersionInfo;
@@ -66,6 +69,44 @@ public class MainActivity extends SupportActivity {
         }
         getCurrentCycle();
         getUpdateVersion(false);
+        if (getIntent() != null) {
+            Intent intent = getIntent();
+            boolean isRegister = intent.getBooleanExtra("isRegister", false);
+            if (isRegister) {
+                showRegisterDialog();
+            }
+        }
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        if (intent != null) {
+            boolean isRegister = intent.getBooleanExtra("isRegister", false);
+            if (isRegister) {
+                showRegisterDialog();
+            }
+        }
+    }
+
+    private void showRegisterDialog() {
+        try {
+            RegisterDialog.Builder builder = new RegisterDialog.Builder(MainActivity.this);
+            final RegisterDialog registerDialog = builder.create();
+            builder.setListener(new RegisterDialog.RegisterDialogConfirmListener() {
+                @Override
+                public void onClickConfirm() {
+                    try {
+                        registerDialog.dismiss();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+            registerDialog.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
