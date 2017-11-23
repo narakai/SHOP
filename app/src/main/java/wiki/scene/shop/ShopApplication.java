@@ -46,8 +46,10 @@ public class ShopApplication extends Application {
     public static boolean hasLogin = false;
     public static UserInfo userInfo;
     public static ConfigInfo configInfo;
-
     public static CurrentCycleInfo currentCycleInfo;
+
+    public static boolean isNeedCheckOrder = false;
+    public static int orderIdInt = 0;
 
     @Override
     public void onCreate() {

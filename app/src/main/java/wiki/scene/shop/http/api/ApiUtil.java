@@ -203,9 +203,14 @@ public class ApiUtil {
     public static final String APPPY_CASH = "/personal/withdraw/request";
     public static final String APPLY_CASH_TAG = "APPLY_CASH";
     //提现记录
-    public static final String CASH_RECORD="/personal/withdraw";
-    public static final String CASH_RECORD_TAG="CASH_RECORD";
-
+    public static final String CASH_RECORD = "/personal/withdraw";
+    public static final String CASH_RECORD_TAG = "CASH_RECORD";
+    //检查支付结果
+    public static final String CHECK_PAY_RESULT = "/recharge/is_success";
+    public static final String CHECK_PAY_RESULT_TAG = "CHECK_PAY_RESULT";
+    //检查更新
+    public static final String UPDATE_VERSION = "/version/android";
+    public static final String UPDATE_VERSION_TAG = "UPDATE_VERSION_TAG";
 
     /**
      * Case By:创建参数基础信息

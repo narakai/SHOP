@@ -32,6 +32,7 @@ import wiki.scene.shop.activity.LoginActivity;
 import wiki.scene.shop.entity.MineInfo;
 import wiki.scene.shop.event.ChooseAvaterResultEvent;
 import wiki.scene.shop.event.LoginOutEvent;
+import wiki.scene.shop.event.RefreshMineEvent;
 import wiki.scene.shop.event.RegisterSuccessEvent;
 import wiki.scene.shop.event.StartBrotherEvent;
 import wiki.scene.shop.event.TabSelectedEvent;
@@ -384,7 +385,7 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
         try {
             ShopApplication.userInfo.setMoney(mineInfo.getMoney());
             SharedPreferencesUtil.putString(_mActivity, ShopApplication.USER_INFO_KEY, new Gson().toJson(ShopApplication.userInfo));
-            winTime.setText(PriceUtil.getPrice(mineInfo.getTotal_win()) + "次");
+            winTime.setText(mineInfo.getWin_times() + "次");
             commission.setText("0");
             coin.setText(PriceUtil.getPrice(mineInfo.getMoney()));
 
@@ -462,6 +463,15 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
 
     @Subscribe
     public void reshowMinePage(TabSelectedEvent event) {
+        try {
+            ptrLayout.autoRefresh();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Subscribe
+    public void refreshMine(RefreshMineEvent event) {
         try {
             ptrLayout.autoRefresh();
         } catch (Exception e) {

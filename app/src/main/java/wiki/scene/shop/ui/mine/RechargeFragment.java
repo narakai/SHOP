@@ -28,6 +28,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import wiki.scene.shop.R;
+import wiki.scene.shop.ShopApplication;
 import wiki.scene.shop.config.AppConfig;
 import wiki.scene.shop.entity.RechargeInfo;
 import wiki.scene.shop.http.api.ApiUtil;
@@ -212,6 +213,7 @@ public class RechargeFragment extends BaseBackMvpFragment<IRechargeView, Recharg
             presenter.recharge(realCost * 100, payType);
         } catch (Exception e) {
             e.printStackTrace();
+            showMessage("请输入你要充值的金额");
         }
 
     }
@@ -252,6 +254,8 @@ public class RechargeFragment extends BaseBackMvpFragment<IRechargeView, Recharg
                     intent.putExtra(AliPayActivity.ALIPAY_URL, data.getCode_url());
                     _mActivity.startActivity(intent);
                 }
+                ShopApplication.isNeedCheckOrder = true;
+                ShopApplication.orderIdInt = data.getOrder_id();
             } else {
                 showMessage("充值失败，请重试！");
             }

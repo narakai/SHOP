@@ -30,6 +30,7 @@ public class MineInfo {
     private int today_buy;
     private int today_win;
     private int total_win;
+    private int win_times;
 
     public int getId() {
         return id;
@@ -109,5 +110,13 @@ public class MineInfo {
 
     public void setTotal_win(int total_win) {
         this.total_win = total_win;
+    }
+
+    public int getWin_times() {
+        return win_times;
+    }
+
+    public void setWin_times(int win_times) {
+        this.win_times = win_times;
     }
 }
