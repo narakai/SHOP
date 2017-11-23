@@ -16,6 +16,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import wiki.scene.shop.R;
+import wiki.scene.shop.ShopApplication;
 import wiki.scene.shop.entity.BankInfo;
 
 /**
@@ -75,7 +76,7 @@ public class CashBankAdapter extends BaseAdapter {
             }
             holder.bankInfo.setText(accountStr);
         }
-        holder.serviceCharge.setText("提现收取手续费1%");
+        holder.serviceCharge.setText("提现收取手续费" + ShopApplication.configInfo.getWithdraw_fee() + "%");
         if (info.isChecked()) {
             holder.serviceCharge.setTextColor(ContextCompat.getColor(context, R.color.white));
             holder.cashWay.setTextColor(ContextCompat.getColor(context, R.color.white));

@@ -19,6 +19,7 @@ public class ConfigInfo implements Serializable {
     private String user_agreement;
     private String intro;
     private String file_domain;
+    private String withdraw_fee;
 
     public String getUser_agreement() {
         return user_agreement;
@@ -42,5 +43,13 @@ public class ConfigInfo implements Serializable {
 
     public void setFile_domain(String file_domain) {
         this.file_domain = file_domain;
+    }
+
+    public String getWithdraw_fee() {
+        return withdraw_fee;
+    }
+
+    public void setWithdraw_fee(String withdraw_fee) {
+        this.withdraw_fee = withdraw_fee;
     }
 }
