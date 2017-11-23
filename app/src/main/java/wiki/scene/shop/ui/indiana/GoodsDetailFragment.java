@@ -60,7 +60,7 @@ import wiki.scene.shop.widgets.NoTouchListView;
 import wiki.scene.shop.widgets.RatioImageView;
 
 /**
- * Case By:
+ * Case By:商品详情
  * package:wiki.scene.shop.ui.indiana
  * Author：scene on 2017/7/4 11:40
  */
@@ -128,6 +128,12 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
     TextView danmuGoodsName;
     @BindView(R.id.danmuLayout)
     LinearLayout danmuLayout;
+    @BindView(R.id.goods_jieshao)
+    ImageView goodsJieshao;
+    @BindView(R.id.goods_guige)
+    ImageView goodsGuige;
+    @BindView(R.id.goods_shouhou)
+    ImageView goodsShouhou;
     private int goodsId;
 
     private GoodsDetailWinCodeAdapter winCodeAdapter;
@@ -226,6 +232,25 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
         }, 3, 3, TimeUnit.SECONDS);
         //倒计时
         startCountDown();
+
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                if (i == R.id.rd_jieshao) {
+                    goodsJieshao.setVisibility(View.VISIBLE);
+                    goodsGuige.setVisibility(View.GONE);
+                    goodsShouhou.setVisibility(View.GONE);
+                } else if (i == R.id.rd_guige) {
+                    goodsJieshao.setVisibility(View.GONE);
+                    goodsGuige.setVisibility(View.VISIBLE);
+                    goodsShouhou.setVisibility(View.GONE);
+                } else if (i == R.id.rd_shouhou) {
+                    goodsJieshao.setVisibility(View.GONE);
+                    goodsGuige.setVisibility(View.GONE);
+                    goodsShouhou.setVisibility(View.VISIBLE);
+                }
+            }
+        });
     }
 
     /**

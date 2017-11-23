@@ -60,16 +60,22 @@
         android:background="@color/white"
         android:orientation="vertical">
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="15dp"
             android:background="@drawable/bg_text_boder"
-            android:fadeScrollbars="false"
-            android:gravity="top"
-            android:padding="10dp"
-            android:scrollbars="vertical"
-            android:text="" />
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="常见问题自助查询"
+                android:textColor="@color/text_color_title"
+                android:textSize="@dimen/text_size_big" />
+        </LinearLayout>
+
     </LinearLayout>
 
 

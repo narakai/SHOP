@@ -294,7 +294,7 @@ public class IndianaFragment extends BaseMainMvpFragment<IIndianaView, IndianaPr
         //绑定跑马灯的数据
         StringBuilder text = new StringBuilder();
         for (NewestWinInfo info : list) {
-            text.append("恭喜【").append(info.getNickname()).append("】获胜").append(info.getNumber()).append("组\t");
+            text.append("恭喜【").append(info.getNickname()).append("】获胜").append(info.getNumber()).append("组    ");
         }
         notice.setText(text.toString());
         notice.setFocusable(true);

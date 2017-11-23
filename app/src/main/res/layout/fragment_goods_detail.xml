@@ -43,8 +43,8 @@
                                 android:id="@+id/goods_image"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                app:base="horizontal"
                                 android:scaleType="centerCrop"
+                                app:base="horizontal"
                                 app:horizontal_weight="370"
                                 app:vertical_weight="232" />
 
@@ -54,11 +54,11 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerHorizontal="true"
                                 android:layout_marginTop="20dp"
-                                android:visibility="gone"
                                 android:background="@drawable/shape_translate_round"
                                 android:gravity="center_vertical"
                                 android:orientation="horizontal"
-                                android:padding="3dp">
+                                android:padding="3dp"
+                                android:visibility="gone">
 
                                 <ImageView
                                     android:id="@+id/danmuUserAvatar"
@@ -109,8 +109,8 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="夺宝"
                                     android:layout_marginRight="10dp"
+                                    android:text="夺宝"
                                     android:textColor="@color/white"
                                     android:textSize="@dimen/text_size_small" />
                             </LinearLayout>
@@ -537,10 +537,32 @@
                             android:layout_height="1dp"
                             android:background="#F0F0F0" />
 
-                        <ImageView
+                        <RelativeLayout
                             android:layout_width="match_parent"
-                            android:layout_height="300dp"
-                            android:background="@color/white" />
+                            android:layout_height="wrap_content">
+
+                            <ImageView
+                                android:id="@+id/goods_jieshao"
+                                android:layout_width="match_parent"
+                                android:layout_height="300dp"
+                                android:background="@color/white"
+                                android:visibility="visible" />
+
+                            <ImageView
+                                android:id="@+id/goods_guige"
+                                android:layout_width="match_parent"
+                                android:layout_height="300dp"
+                                android:background="#FF0000"
+                                android:visibility="gone" />
+
+                            <ImageView
+                                android:id="@+id/goods_shouhou"
+                                android:layout_width="match_parent"
+                                android:layout_height="300dp"
+                                android:background="#0073FF"
+                                android:visibility="gone" />
+                        </RelativeLayout>
+
                     </LinearLayout>
                 </ScrollView>
             </wiki.scene.loadmore.PtrClassicFrameLayout>
