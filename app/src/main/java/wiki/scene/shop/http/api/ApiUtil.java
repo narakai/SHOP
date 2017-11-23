@@ -122,7 +122,7 @@ public class ApiUtil {
     public static final String ADD_WISH_GOODS = "/personal/feedback/wish";
     public static final String ADD_WISH_GOODS_TAG = "ADD_WISH_GOODS_TAG";
     //问题反馈
-    public static final String BUG_FEED_BACK = "/personal/feedback/question";
+    public static final String BUG_FEED_BACK = "/personal/feedback";
     public static final String BUG_FEED_BACK_TAG = "BUG_FEED_BACK_TAG";
     //我的中奖记录
     public static final String MINE_WIN_LIST = "/personal/order/win";

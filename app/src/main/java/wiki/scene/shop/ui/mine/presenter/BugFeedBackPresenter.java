@@ -39,7 +39,6 @@ public class BugFeedBackPresenter extends BasePresenter<IBugFeedbackView> {
             if (ShopApplication.hasLogin && ShopApplication.userInfo != null) {
                 mView.showLoading(R.string.loading);
                 HttpParams params = new HttpParams();
-                params.put("user_id", ShopApplication.userInfo.getUser_id());
                 params.put("content", goodsName);
                 params.put("contact", contact);
                 model.bugFeedBack(params, new HttpResultListener<String>() {

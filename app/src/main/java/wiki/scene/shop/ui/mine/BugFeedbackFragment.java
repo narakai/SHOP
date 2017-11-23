@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.lzy.okgo.OkGo;
 
 import butterknife.BindView;
@@ -21,7 +22,6 @@ import wiki.scene.shop.http.api.ApiUtil;
 import wiki.scene.shop.mvp.BaseBackMvpFragment;
 import wiki.scene.shop.ui.mine.mvpview.IBugFeedbackView;
 import wiki.scene.shop.ui.mine.presenter.BugFeedBackPresenter;
-import wiki.scene.shop.utils.ToastUtils;
 
 /**
  * Case By:问题反馈
@@ -79,12 +79,12 @@ public class BugFeedbackFragment extends BaseBackMvpFragment<IBugFeedbackView, B
 
     @Override
     public void showMessage(@StringRes int resId) {
-        ToastUtils.getInstance(_mActivity).showToast(resId);
+        ToastUtils.showShort(resId);
     }
 
     @Override
     public void showMessage(String message) {
-        ToastUtils.getInstance(_mActivity).showToast(message);
+        ToastUtils.showShort(message);
     }
 
     @Override
