@@ -28,6 +28,7 @@ import wiki.scene.shop.ShopApplication;
 import wiki.scene.shop.activity.mvpview.ILoginView;
 import wiki.scene.shop.activity.presenter.LoginPresenter;
 import wiki.scene.shop.config.AppConfig;
+import wiki.scene.shop.entity.PasswordInfo;
 import wiki.scene.shop.entity.UserInfo;
 import wiki.scene.shop.event.RegisterSuccessEvent;
 import wiki.scene.shop.mvp.BaseMvpActivity;
@@ -123,6 +124,10 @@ public class LoginActivity extends BaseMvpActivity<ILoginView, LoginPresenter> i
         try {
             if (userInfo != null) {
                 SharedPreferencesUtil.putString(this, ShopApplication.USER_INFO_KEY, new Gson().toJson(userInfo));
+                PasswordInfo passwordInfo = new PasswordInfo();
+                passwordInfo.setAccount(getPhoneNumber());
+                passwordInfo.setPassword(getPassword());
+                SharedPreferencesUtil.putString(this, "password", new Gson().toJson(passwordInfo));
                 ShopApplication.userInfo = userInfo;
                 ShopApplication.hasLogin = true;
                 EventBus.getDefault().post(new RegisterSuccessEvent(userInfo));

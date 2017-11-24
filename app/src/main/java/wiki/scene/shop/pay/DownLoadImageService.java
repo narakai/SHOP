@@ -15,6 +15,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import wiki.scene.shop.utils.NetTimeUtils;
+
 /**
  * 图片下载
  */
@@ -58,7 +60,7 @@ public class DownLoadImageService implements Runnable {
     public void saveImageToGallery(Context context, Bitmap bmp) {
         // 首先保存图片  
         File file = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getAbsoluteFile();//注意小米手机必须这样获得public绝对路径
-        String fileName = System.currentTimeMillis() + ".jpg";
+        String fileName = NetTimeUtils.getWebsiteDatetime() + ".jpg";
         currentFile = new File(file, fileName);
         FileOutputStream fos = null;
         try {

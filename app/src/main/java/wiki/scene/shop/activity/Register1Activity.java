@@ -30,6 +30,7 @@ import wiki.scene.shop.ShopApplication;
 import wiki.scene.shop.activity.mvpview.IRegister1View;
 import wiki.scene.shop.activity.presenter.Register1Presenter;
 import wiki.scene.shop.config.AppConfig;
+import wiki.scene.shop.entity.PasswordInfo;
 import wiki.scene.shop.entity.UserInfo;
 import wiki.scene.shop.event.RegisterSuccessEvent;
 import wiki.scene.shop.mvp.BaseMvpActivity;
@@ -133,6 +134,10 @@ public class Register1Activity extends BaseMvpActivity<IRegister1View, Register1
         try {
             if (userInfo != null) {
                 SharedPreferencesUtil.putString(this, ShopApplication.USER_INFO_KEY, new Gson().toJson(userInfo));
+                PasswordInfo passwordInfo = new PasswordInfo();
+                passwordInfo.setAccount(getPhoneNumber());
+                passwordInfo.setPassword(getPassword());
+                SharedPreferencesUtil.putString(Register1Activity.this, "password", new Gson().toJson(passwordInfo));
                 ShopApplication.userInfo = userInfo;
                 ShopApplication.hasLogin = true;
                 EventBus.getDefault().post(new RegisterSuccessEvent(userInfo));

@@ -35,4 +35,6 @@ public interface IIndianaView extends BaseView {
     void enterDrawCash();
 
     void enterLogin();
+
+    void refreshGoodsInfo(IndexInfo.CurrentCycleBean currentCycleBean);
 }

@@ -18,6 +18,7 @@ import cn.iwgang.countdownview.CountdownView;
 import wiki.scene.shop.R;
 import wiki.scene.shop.ShopApplication;
 import wiki.scene.shop.entity.MineCollectionResultInfo;
+import wiki.scene.shop.utils.NetTimeUtils;
 
 /**
  * 我的收藏
@@ -63,7 +64,7 @@ public class MineCollectAdapter extends RecyclerView.Adapter {
             ViewHolderType2 viewHolderType2 = (ViewHolderType2) holder;
             viewHolderType2.goodsName.setText(info.getTitle());
             viewHolderType2.goodsImage.loadImage(ShopApplication.configInfo.getFile_domain() + info.getThumb(), R.drawable.ic_default_goods_image);
-            viewHolderType2.refreshTime(info.getOpen_time() * 1000 - System.currentTimeMillis());
+            viewHolderType2.refreshTime(info.getOpen_time() * 1000 - NetTimeUtils.getWebsiteDatetime());
             setGoodsTag(viewHolderType2.goodsTag, info.getType());
         } else {
             ViewHolderType3 viewHolderType3 = (ViewHolderType3) holder;
@@ -117,7 +118,7 @@ public class MineCollectAdapter extends RecyclerView.Adapter {
         int pos = holder.getAdapterPosition();
         MineCollectionResultInfo.MineCollectionInfo mineCollectionInfo = list.get(pos);
         if (holder instanceof ViewHolderType2) {
-            ((ViewHolderType2) holder).refreshTime(mineCollectionInfo.getOpen_time() * 1000 - System.currentTimeMillis());
+            ((ViewHolderType2) holder).refreshTime(mineCollectionInfo.getOpen_time() * 1000 - NetTimeUtils.getWebsiteDatetime());
         }
     }
 

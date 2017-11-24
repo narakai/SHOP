@@ -30,40 +30,41 @@ public class TrendPresenter extends BasePresenter<ITrendView> {
             if (isFirst) {
                 trendView.showLoadingPage();
             }
+            HttpParams params = new HttpParams();
+            params.put(ApiUtil.createParams());
+            model.getTreandListData(params, new HttpResultListener<List<WinCodeInfo>>() {
+                @Override
+                public void onSuccess(List<WinCodeInfo> data) {
+                    try {
+                        trendView.getTrendDataSuccess(data);
+                        if (isFirst) {
+                            trendView.hideLoading();
+                        } else {
+                            trendView.refreshComplete();
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFail(String message) {
+                    if (isFirst) {
+                        trendView.showFailPage();
+                    } else {
+                        trendView.refreshComplete();
+                        trendView.showMessage(message);
+                    }
+                }
+
+                @Override
+                public void onFinish() {
+
+                }
+            });
         } catch (Exception e) {
             e.printStackTrace();
         }
-        HttpParams params = new HttpParams();
-        params.put(ApiUtil.createParams());
-        model.getTreandListData(params, new HttpResultListener<List<WinCodeInfo>>() {
-            @Override
-            public void onSuccess(List<WinCodeInfo> data) {
-                try {
-                    trendView.getTrendDataSuccess(data);
-                    if (isFirst) {
-                        trendView.hideLoading();
-                    } else {
-                        trendView.refreshComplete();
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
 
-            @Override
-            public void onFail(String message) {
-                if (isFirst) {
-                    trendView.showFailPage();
-                } else {
-                    trendView.refreshComplete();
-                    trendView.showMessage(message);
-                }
-            }
-
-            @Override
-            public void onFinish() {
-
-            }
-        });
     }
 }

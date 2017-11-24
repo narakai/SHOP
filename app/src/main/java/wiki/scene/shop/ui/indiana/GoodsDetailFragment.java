@@ -51,6 +51,7 @@ import wiki.scene.shop.ui.indiana.presenter.GoodsDetailPresenter;
 import wiki.scene.shop.ui.mine.IndianaRecordFragment;
 import wiki.scene.shop.ui.mine.RechargeFragment;
 import wiki.scene.shop.utils.DateFormatUtils;
+import wiki.scene.shop.utils.NetTimeUtils;
 import wiki.scene.shop.utils.PriceUtil;
 import wiki.scene.shop.utils.SharedPreferencesUtil;
 import wiki.scene.shop.utils.ThreadPoolUtils;
@@ -564,7 +565,7 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
                     @Override
                     public void run() {
                         try {
-                            if (ShopApplication.currentCycleInfo.getOpen_time() * 1000 <= System.currentTimeMillis()) {
+                            if (ShopApplication.currentCycleInfo.getOpen_time() * 1000 <= NetTimeUtils.getWebsiteDatetime()) {
                                 if (!countdownView.getText().toString().equals("开奖中")) {
                                     ((MainActivity) _mActivity).getCurrentCycleData();
                                 }
@@ -572,6 +573,7 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
                                 if (popupWindow != null) {
                                     popupWindow.setCountDownView("开奖中");
                                 }
+
                             } else {
                                 countdownView.setText(DateFormatUtils.getHoursByNow(ShopApplication.currentCycleInfo.getOpen_time()));
                                 if (popupWindow != null) {

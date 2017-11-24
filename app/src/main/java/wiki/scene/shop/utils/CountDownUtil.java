@@ -20,7 +20,7 @@ public class CountDownUtil extends CountDownTimer {
 
     @Override
     public void onTick(long millisUntilFinished) {
-        if (millisUntilFinished * 1000 <= System.currentTimeMillis()) {
+        if (millisUntilFinished * 1000 <= NetTimeUtils.getWebsiteDatetime()) {
             tv.setText("等待开奖");//设置时间
         } else {
             tv.setText(DateFormatUtils.getHoursByNow(millisUntilFinished));//设置时间

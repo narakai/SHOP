@@ -18,6 +18,7 @@ import cn.iwgang.countdownview.CountdownView;
 import wiki.scene.shop.R;
 import wiki.scene.shop.ShopApplication;
 import wiki.scene.shop.entity.NewestResultInfo;
+import wiki.scene.shop.utils.NetTimeUtils;
 import wiki.scene.shop.widgets.RatioImageView;
 
 /**
@@ -49,7 +50,7 @@ public class NewestAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             viewHolder.layoutHasTime.setVisibility(View.VISIBLE);
             viewHolder.layoutNoTime.setVisibility(View.GONE);
             viewHolder.isAnnouncing.setVisibility(View.GONE);
-            viewHolder.refreshTime(info.getOpen_time() * 1000 - System.currentTimeMillis());
+            viewHolder.refreshTime(info.getOpen_time() * 1000 - NetTimeUtils.getWebsiteDatetime());
         } else if (info.getStatus() == 3) {
             viewHolder.layoutHasTime.setVisibility(View.GONE);
             viewHolder.layoutNoTime.setVisibility(View.GONE);
@@ -68,7 +69,7 @@ public class NewestAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         int pos = holder.getAdapterPosition();
         NewestResultInfo.NewestInfo info = list.get(pos);
         if (holder instanceof NewestViewHolder) {
-            ((NewestViewHolder) holder).refreshTime(info.getOpen_time() * 1000 - System.currentTimeMillis());
+            ((NewestViewHolder) holder).refreshTime(info.getOpen_time() * 1000 - NetTimeUtils.getWebsiteDatetime());
         }
     }
 

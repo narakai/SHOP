@@ -6,6 +6,7 @@ import java.util.HashMap;
 
 import wiki.scene.shop.ShopApplication;
 import wiki.scene.shop.utils.MD5Util;
+import wiki.scene.shop.utils.NetTimeUtils;
 
 /**
  * Case By:API
@@ -230,7 +231,7 @@ public class ApiUtil {
      */
     public static HashMap<String, String> createParams() {
         HashMap<String, String> params = new HashMap<>();
-        long timestamp = System.currentTimeMillis();
+        long timestamp = NetTimeUtils.getWebsiteDatetime();
         params.put("agent_id", ShopApplication.CHANNEL_ID + "");
         params.put("resource_id", ShopApplication.RESOURCE_ID + "");
         params.put("timestamp", timestamp + "");

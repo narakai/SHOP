@@ -42,10 +42,12 @@ import wiki.scene.shop.entity.CheckPayResultInfo;
 import wiki.scene.shop.entity.CurrentCycleInfo;
 import wiki.scene.shop.entity.UpdateVersionInfo;
 import wiki.scene.shop.event.ChooseAvaterResultEvent;
+import wiki.scene.shop.event.GetCurrentCycleSuccessEvent;
 import wiki.scene.shop.event.RefreshMineEvent;
 import wiki.scene.shop.http.api.ApiUtil;
 import wiki.scene.shop.http.base.LzyResponse;
 import wiki.scene.shop.http.callback.JsonCallback;
+import wiki.scene.shop.utils.NetTimeUtils;
 import wiki.scene.shop.utils.PriceUtil;
 import wiki.scene.shop.utils.ThreadPoolUtils;
 import wiki.scene.shop.widgets.LoadingDialog;
@@ -212,8 +214,6 @@ public class MainActivity extends SupportActivity {
     private ScheduledFuture scheduledFuture;
 
     private void getCurrentCycle() {
-        long time = ShopApplication.currentCycleInfo.getOpen_time() * 1000 - System.currentTimeMillis();
-        long delay = time > 0 ? time : 1;
         if (scheduledFuture != null) {
             scheduledFuture.cancel(true);
         }
@@ -221,17 +221,19 @@ public class MainActivity extends SupportActivity {
             poolUtils.shutDownNow();
         }
         poolUtils = new ThreadPoolUtils(ThreadPoolUtils.SingleThread, 1);
-        scheduledFuture = poolUtils.schedule(new Runnable() {
+        scheduledFuture = poolUtils.scheduleWithFixedRate(new Runnable() {
             @Override
             public void run() {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        getCurrentCycleData();
+                        if (ShopApplication.currentCycleInfo.getOpen_time() * 1000 < NetTimeUtils.getWebsiteDatetime()) {
+                            getCurrentCycleData();
+                        }
                     }
                 });
             }
-        }, delay, TimeUnit.SECONDS);
+        }, 1, 1, TimeUnit.SECONDS);
     }
 
     public void getCurrentCycleData() {
@@ -242,7 +244,7 @@ public class MainActivity extends SupportActivity {
                     public void onSuccess(Response<LzyResponse<CurrentCycleInfo>> response) {
                         ShopApplication.currentCycleInfo = response.body().data;
                         getCurrentCycle();
-                        //EventBus.getDefault().post(new GetCurrentCycleSuccessEvent(response.body().data));
+                        EventBus.getDefault().post(new GetCurrentCycleSuccessEvent(response.body().data));
                     }
 
                     @Override

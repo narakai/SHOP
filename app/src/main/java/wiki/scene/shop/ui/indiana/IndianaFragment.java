@@ -15,6 +15,7 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.lzy.okgo.OkGo;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,8 +37,10 @@ import wiki.scene.shop.adapter.IndianaCanyuAdapter;
 import wiki.scene.shop.adapter.IndianaGoodsAdapter;
 import wiki.scene.shop.adapter.IndianaWinAdapter;
 import wiki.scene.shop.config.AppConfig;
+import wiki.scene.shop.entity.CurrentCycleInfo;
 import wiki.scene.shop.entity.IndexInfo;
 import wiki.scene.shop.entity.NewestWinInfo;
+import wiki.scene.shop.event.GetCurrentCycleSuccessEvent;
 import wiki.scene.shop.event.StartBrotherEvent;
 import wiki.scene.shop.http.api.ApiUtil;
 import wiki.scene.shop.mvp.BaseMainMvpFragment;
@@ -49,7 +52,7 @@ import wiki.scene.shop.ui.mine.RechargeFragment;
 import wiki.scene.shop.utils.ThreadPoolUtils;
 import wiki.scene.shop.utils.UpdatePageUtils;
 import wiki.scene.shop.utils.ViewUtils;
-import wiki.scene.shop.widgets.CustomeGridView;
+import wiki.scene.shop.widgets.CustomListView;
 import wiki.scene.shop.widgets.MarqueeView;
 import wiki.scene.shop.widgets.NoTouchListView;
 
@@ -62,7 +65,7 @@ import wiki.scene.shop.widgets.NoTouchListView;
 public class IndianaFragment extends BaseMainMvpFragment<IIndianaView, IndianaPresenter> implements IIndianaView {
 
     @BindView(R.id.gridView)
-    CustomeGridView gridView;
+    CustomListView gridView;
     @BindView(R.id.radioGroup)
     RadioGroup radioGroup;
     @BindView(R.id.rd_canyu)
@@ -106,6 +109,8 @@ public class IndianaFragment extends BaseMainMvpFragment<IIndianaView, IndianaPr
     private IndianaCanyuAdapter canyuAdapter;
     private IndianaWinAdapter winAdapter;
 
+    private String currentCycleCode;
+
     public static IndianaFragment newInstance() {
         Bundle args = new Bundle();
         IndianaFragment fragment = new IndianaFragment();
@@ -118,6 +123,7 @@ public class IndianaFragment extends BaseMainMvpFragment<IIndianaView, IndianaPr
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_indiana, container, false);
         unbinder = ButterKnife.bind(this, view);
+        EventBus.getDefault().post(this);
         return view;
     }
 
@@ -126,8 +132,9 @@ public class IndianaFragment extends BaseMainMvpFragment<IIndianaView, IndianaPr
         super.onLazyInitView(savedInstanceState);
         statusLayout.showContent();
         initView();
-        presenter.getIndianaData(false);
+        presenter.getIndianaData(true, false);
         UpdatePageUtils.updatePagePosition(AppConfig.POSITION_INDEX, 0);
+
     }
 
     private void initView() {
@@ -151,7 +158,7 @@ public class IndianaFragment extends BaseMainMvpFragment<IIndianaView, IndianaPr
         ptrLayout.setPtrHandler(new PtrDefaultHandler() {
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
-                presenter.getIndianaData(true);
+                presenter.getIndianaData(false, false);
             }
         });
 
@@ -171,7 +178,7 @@ public class IndianaFragment extends BaseMainMvpFragment<IIndianaView, IndianaPr
                     }
                 });
             }
-        }, 3, 3, TimeUnit.SECONDS);
+        }, 1, 1, TimeUnit.SECONDS);
 
         goodsAdapter = new IndianaGoodsAdapter(getContext(), goodsList);
         gridView.setAdapter(goodsAdapter);
@@ -179,6 +186,16 @@ public class IndianaFragment extends BaseMainMvpFragment<IIndianaView, IndianaPr
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 EventBus.getDefault().post(new StartBrotherEvent(GoodsDetailFragment.newInstance(goodsList.get(i).getId())));
+            }
+        });
+        goodsAdapter.setTimeDownListener(new IndianaGoodsAdapter.IndianaTimeDownListener() {
+            @Override
+            public void onTimeDownListener() {
+                try {
+                    presenter.getIndianaData(false, true);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
         notice.setFocusable(true);
@@ -228,25 +245,31 @@ public class IndianaFragment extends BaseMainMvpFragment<IIndianaView, IndianaPr
 
     @Override
     public void getDataSuccess(IndexInfo indexInfo) {
-        if (goodsAdapter != null) {
-            goodsAdapter.cancelAllTimers();
-        }
-        goodsList.clear();
-        goodsList.addAll(indexInfo.getProducts());
-        int size = goodsList.size();
-        for (int i = 0; i < size; i++) {
-            if (indexInfo.getCurrent_cycle() != null && indexInfo.getCurrent_cycle().getOpen_time() != 0) {
-                goodsList.get(i).setOpen_time(indexInfo.getCurrent_cycle().getOpen_time());
-            } else {
-                if (ShopApplication.currentCycleInfo != null && ShopApplication.currentCycleInfo.getOpen_time() != 0) {
-                    goodsList.get(i).setOpen_time(ShopApplication.currentCycleInfo.getOpen_time());
+        try {
+            if (goodsAdapter != null) {
+                goodsAdapter.cancelAllTimers();
+            }
+            goodsList.clear();
+            goodsList.addAll(indexInfo.getProducts());
+            int size = goodsList.size();
+            for (int i = 0; i < size; i++) {
+                if (indexInfo.getCurrent_cycle() != null && indexInfo.getCurrent_cycle().getOpen_time() != 0) {
+                    goodsList.get(i).setOpen_time(indexInfo.getCurrent_cycle().getOpen_time());
                 } else {
-                    goodsList.get(i).setOpen_time(0L);
+                    if (ShopApplication.currentCycleInfo != null && ShopApplication.currentCycleInfo.getOpen_time() != 0) {
+                        goodsList.get(i).setOpen_time(ShopApplication.currentCycleInfo.getOpen_time());
+                    } else {
+                        goodsList.get(i).setOpen_time(0L);
+                    }
                 }
             }
+            goodsAdapter.notifyDataSetChanged();
+            refreshCurrentCycleCode(indexInfo.getLast_ssc_result());
+            currentCycleCode = indexInfo.getCurrent_cycle().getCycle_code();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        goodsAdapter.notifyDataSetChanged();
-        refreshCurrentCycleCode(indexInfo.getLast_ssc_result());
+
     }
 
     @Override
@@ -363,6 +386,30 @@ public class IndianaFragment extends BaseMainMvpFragment<IIndianaView, IndianaPr
     }
 
     @Override
+    public void refreshGoodsInfo(IndexInfo.CurrentCycleBean currentCycleBean) {
+        try {
+            if (goodsAdapter != null) {
+                goodsAdapter.cancelAllTimers();
+            }
+            int size = goodsList.size();
+            for (int i = 0; i < size; i++) {
+                if (currentCycleBean != null && currentCycleBean.getOpen_time() != 0) {
+                    goodsList.get(i).setOpen_time(currentCycleBean.getOpen_time());
+                } else {
+                    if (ShopApplication.currentCycleInfo != null && ShopApplication.currentCycleInfo.getOpen_time() != 0) {
+                        goodsList.get(i).setOpen_time(ShopApplication.currentCycleInfo.getOpen_time());
+                    } else {
+                        goodsList.get(i).setOpen_time(0L);
+                    }
+                }
+            }
+            goodsAdapter.notifyDataSetChanged();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
     public IndianaPresenter initPresenter() {
         return new IndianaPresenter(this);
     }
@@ -370,7 +417,7 @@ public class IndianaFragment extends BaseMainMvpFragment<IIndianaView, IndianaPr
     private View.OnClickListener retryListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            presenter.getIndianaData(false);
+            presenter.getIndianaData(true, false);
         }
     };
 
@@ -384,6 +431,7 @@ public class IndianaFragment extends BaseMainMvpFragment<IIndianaView, IndianaPr
 
     @Override
     public void onDestroyView() {
+        EventBus.getDefault().unregister(this);
         cancelListAutoScroolThread();
         cancelGetDataThread();
         OkGo.getInstance().cancelTag(ApiUtil.INDEX_TAG);
@@ -449,5 +497,36 @@ public class IndianaFragment extends BaseMainMvpFragment<IIndianaView, IndianaPr
         presenter.clickDrawCash();
     }
 
+    @Subscribe
+    public void refreshTime(GetCurrentCycleSuccessEvent event) {
+        try {
+            int size = goodsList.size();
+            for (int i = 0; i < size; i++) {
+                CurrentCycleInfo currentCycleInfo = event.cycleInfo;
+                if (currentCycleInfo.getCycle_code() != null && currentCycleInfo.getOpen_time() != 0) {
+                    goodsList.get(i).setOpen_time(currentCycleInfo.getOpen_time());
+                } else {
+                    if (ShopApplication.currentCycleInfo != null && ShopApplication.currentCycleInfo.getOpen_time() != 0) {
+                        goodsList.get(i).setOpen_time(ShopApplication.currentCycleInfo.getOpen_time());
+                    } else {
+                        goodsList.get(i).setOpen_time(0L);
+                    }
+                }
+            }
+            goodsAdapter.notifyDataSetChanged();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        try {
+            goodsAdapter.notifyDataSetChanged();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

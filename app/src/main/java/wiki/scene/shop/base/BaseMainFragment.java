@@ -3,6 +3,7 @@ package wiki.scene.shop.base;
 import butterknife.Unbinder;
 import me.yokeyword.fragmentation.SupportFragment;
 import wiki.scene.shop.R;
+import wiki.scene.shop.utils.NetTimeUtils;
 import wiki.scene.shop.utils.ToastUtils;
 
 /**
@@ -22,12 +23,12 @@ public abstract class BaseMainFragment extends SupportFragment {
      */
     @Override
     public boolean onBackPressedSupport() {
-        if (System.currentTimeMillis() - TOUCH_TIME < WAIT_TIME) {
+        if (NetTimeUtils.getWebsiteDatetime() - TOUCH_TIME < WAIT_TIME) {
             _mActivity.finish();
             android.os.Process.killProcess(android.os.Process.myPid());
             System.exit(1);
         } else {
-            TOUCH_TIME = System.currentTimeMillis();
+            TOUCH_TIME = NetTimeUtils.getWebsiteDatetime();
             ToastUtils.getInstance(_mActivity).showToast(getString(R.string.press_again_exit));
         }
         return true;

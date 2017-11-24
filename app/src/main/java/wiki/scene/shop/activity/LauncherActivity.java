@@ -10,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.telephony.TelephonyManager;
 
+import com.blankj.utilcode.util.StringUtils;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.model.Response;
@@ -27,11 +28,13 @@ import wiki.scene.shop.activity.mvpview.ILauncherView;
 import wiki.scene.shop.activity.presenter.LauncherPresenter;
 import wiki.scene.shop.entity.ConfigInfo;
 import wiki.scene.shop.entity.CurrentCycleInfo;
+import wiki.scene.shop.entity.PasswordInfo;
 import wiki.scene.shop.entity.UserInfo;
 import wiki.scene.shop.http.api.ApiUtil;
 import wiki.scene.shop.http.base.LzyResponse;
 import wiki.scene.shop.http.callback.JsonCallback;
 import wiki.scene.shop.mvp.BaseMvpActivity;
+import wiki.scene.shop.utils.NetTimeUtils;
 import wiki.scene.shop.utils.SharedPreferencesUtil;
 import wiki.scene.shop.utils.ToastUtils;
 
@@ -48,7 +51,6 @@ public class LauncherActivity extends BaseMvpActivity<ILauncherView, LauncherPre
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launcher);
-        presenter.startApp();
         applyPermission();
     }
 
@@ -69,12 +71,13 @@ public class LauncherActivity extends BaseMvpActivity<ILauncherView, LauncherPre
     }
 
     private void checkHasLogin() {
-        if (ShopApplication.userInfo == null) {
-            //验证登录是否过期
-            String userInfoStr = SharedPreferencesUtil.getString(this, ShopApplication.USER_INFO_KEY, "");
-            ShopApplication.userInfo = new Gson().fromJson(userInfoStr, UserInfo.class);
+        String passwordStr = SharedPreferencesUtil.getString(LauncherActivity.this, "password", "");
+        if (StringUtils.isEmpty(passwordStr)) {
+            loginFail();
+        } else {
+            PasswordInfo passwordInfo = new Gson().fromJson(passwordStr, PasswordInfo.class);
+            presenter.login(passwordInfo.getAccount(), passwordInfo.getPassword());
         }
-        ShopApplication.hasLogin = !(ShopApplication.userInfo == null || System.currentTimeMillis() > ShopApplication.userInfo.getExpired_time());
     }
 
     @Override
@@ -92,6 +95,28 @@ public class LauncherActivity extends BaseMvpActivity<ILauncherView, LauncherPre
     public void getConfigFail(String res) {
         ToastUtils.getInstance(LauncherActivity.this).showToast(res);
         finish();
+    }
+
+    @Override
+    public void loginFail() {
+        try {
+            ShopApplication.hasLogin = false;
+            ShopApplication.userInfo = null;
+            presenter.getAppConfig();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void loginSuccess(UserInfo userInfo) {
+        try {
+            ShopApplication.hasLogin = true;
+            ShopApplication.userInfo = userInfo;
+            presenter.getAppConfig();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void applyPermission() {
@@ -113,9 +138,8 @@ public class LauncherActivity extends BaseMvpActivity<ILauncherView, LauncherPre
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-                        checkHasLogin();
                         beginTime = System.currentTimeMillis();
-                        presenter.getAppConfig();
+                        checkHasLogin();
                     }
 
                     @Override
@@ -200,6 +224,7 @@ public class LauncherActivity extends BaseMvpActivity<ILauncherView, LauncherPre
                                             startActivity(new Intent(LauncherActivity.this, LoginWaitActivity.class));
                                         }
                                         LauncherActivity.this.finish();
+                                        presenter.startApp();
 
                                     }
                                 });
@@ -215,4 +240,5 @@ public class LauncherActivity extends BaseMvpActivity<ILauncherView, LauncherPre
                     }
                 });
     }
+
 }

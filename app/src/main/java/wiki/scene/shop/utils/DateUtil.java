@@ -32,7 +32,7 @@ public class DateUtil {
      * 获取格林威治时间 即1970年至今的秒数
      */
     public static long getGMTime2() {
-        int round = (int) (System.currentTimeMillis() / 1000);
+        int round = (int) (NetTimeUtils.getWebsiteDatetime() / 1000);
         return round;
     }
 
@@ -194,7 +194,7 @@ public class DateUtil {
         try {
             date = sdf.parse(time);
             long t = date.getTime();
-            long round = System.currentTimeMillis();
+            long round = NetTimeUtils.getWebsiteDatetime();
             if (t - round > 0) {
                 return true;
             } else {
@@ -214,7 +214,7 @@ public class DateUtil {
      * @return
      */
     public static boolean judgeCurrTime(long time) {
-        long round = System.currentTimeMillis();
+        long round = NetTimeUtils.getWebsiteDatetime();
         if (time - round > 0) {
             return true;
         } else {
@@ -284,7 +284,7 @@ public class DateUtil {
      * @return
      */
     public static String timeStampToFormat(long timeStamp) {
-        long curTime = System.currentTimeMillis() / (long) 1000;
+        long curTime = NetTimeUtils.getWebsiteDatetime() / (long) 1000;
         long time = curTime - timeStamp;
         return time / 60 + "";
     }
@@ -296,7 +296,7 @@ public class DateUtil {
      * @return
      */
     public static int nowCurrentTime(long timeStamp) {
-        long curTime = System.currentTimeMillis() / (long) 1000;
+        long curTime = NetTimeUtils.getWebsiteDatetime() / (long) 1000;
         long time = timeStamp - curTime;
         return (int) time;
     }
@@ -310,7 +310,7 @@ public class DateUtil {
      */
     public static String nowCurrentPoint(boolean flag) {
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-        String date = sdf.format(System.currentTimeMillis());
+        String date = sdf.format(NetTimeUtils.getWebsiteDatetime());
         String[] split = date.split(":");
         String hour = null;
         String minute = null;
@@ -340,7 +340,7 @@ public class DateUtil {
             Date d = sdf.parse(str);
             long timeStamp = d.getTime();
 
-            long curTime = System.currentTimeMillis() / (long) 1000;
+            long curTime = NetTimeUtils.getWebsiteDatetime() / (long) 1000;
             long time = curTime - timeStamp / 1000;
             return time / 60 + "";
         } catch (ParseException e) {
@@ -356,7 +356,7 @@ public class DateUtil {
      * @return
      */
     public static String convertTimeToFormat(long timeStamp) {
-        long curTime = System.currentTimeMillis() / (long) 1000;
+        long curTime = NetTimeUtils.getWebsiteDatetime() / (long) 1000;
         long time;
         if (String.valueOf(timeStamp).length() > 10) {
             time = curTime - timeStamp / 1000;

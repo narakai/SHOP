@@ -1,6 +1,7 @@
 package wiki.scene.shop.activity.mvpview;
 
 import wiki.scene.shop.entity.ConfigInfo;
+import wiki.scene.shop.entity.UserInfo;
 import wiki.scene.shop.mvp.BaseView;
 
 /**
@@ -13,4 +14,8 @@ public interface ILauncherView extends BaseView {
     void getConfigSuccess(ConfigInfo configInfo);
 
     void getConfigFail(String res);
+
+    void loginFail();
+
+    void loginSuccess(UserInfo userInfo);
 }

@@ -20,6 +20,7 @@ import wiki.scene.shop.R;
 import wiki.scene.shop.ShopApplication;
 import wiki.scene.shop.entity.IndexInfo;
 import wiki.scene.shop.utils.DateFormatUtils;
+import wiki.scene.shop.utils.NetTimeUtils;
 import wiki.scene.shop.utils.PriceUtil;
 import wiki.scene.shop.widgets.RatioImageView;
 
@@ -36,11 +37,17 @@ public class IndianaGoodsAdapter extends BaseAdapter {
     //用于退出 Activity,避免 Countdown，造成资源浪费。
     private SparseArray<CountDownTimer> countDownCounters;
 
+    private IndianaTimeDownListener timeDownListener;
+
     public IndianaGoodsAdapter(Context context, List<IndexInfo.ProductsBean> list) {
         this.context = context;
         this.list = list;
         inflater = LayoutInflater.from(context);
         this.countDownCounters = new SparseArray<>();
+    }
+
+    public void setTimeDownListener(IndianaTimeDownListener timeDownListener) {
+        this.timeDownListener = timeDownListener;
     }
 
     /**
@@ -85,15 +92,17 @@ public class IndianaGoodsAdapter extends BaseAdapter {
         }
         final IndexInfo.ProductsBean info = list.get(i);
         viewHolder.goodsName.setText(info.getName());
-        GlideImageLoader.create(viewHolder.goodsImage).loadRoundCornerImage(ShopApplication.configInfo.getFile_domain()+info.getThumb(), R.drawable.ic_default_goods_image, PtrLocalDisplay.dp2px(3));
-        viewHolder.goodsPrice.setText(PriceUtil.getPrice(info.getTen_price()) + "/" + PriceUtil.getPrice(info.getFour_price()) + "/" + PriceUtil.getPrice(info.getTwo_price()));
+        GlideImageLoader.create(viewHolder.goodsImage).loadRoundCornerImage(ShopApplication.configInfo.getFile_domain() + info.getThumb(), R.drawable.ic_default_goods_image, PtrLocalDisplay.dp2px(3));
+        viewHolder.price1.setText("￥" + PriceUtil.getPrice(info.getTwo_price()));
+        viewHolder.price2.setText("￥" + PriceUtil.getPrice(info.getFour_price()));
+        viewHolder.price3.setText("￥" + PriceUtil.getPrice(info.getTen_price()));
         //倒计时
         CountDownTimer countDownTimer = countDownCounters.get(viewHolder.countdownView.hashCode());
         if (countDownTimer != null) {
             //将复用的倒计时清除
             countDownTimer.cancel();
         }
-        long timer = info.getOpen_time() * 1000 - System.currentTimeMillis();
+        long timer = info.getOpen_time() * 1000 - NetTimeUtils.getWebsiteDatetime();
         if (timer > 0) {
             countDownTimer = new CountDownTimer(timer, 1000) {
                 public void onTick(long millisUntilFinished) {
@@ -102,12 +111,18 @@ public class IndianaGoodsAdapter extends BaseAdapter {
 
                 public void onFinish() {
                     viewHolder.countdownView.setText("等待开奖");
+                    if (timeDownListener != null) {
+                        timeDownListener.onTimeDownListener();
+                    }
                 }
             }.start();
             //将此 countDownTimer 放入list.
             countDownCounters.put(viewHolder.countdownView.hashCode(), countDownTimer);
         } else {
             viewHolder.countdownView.setText("等待开奖");
+            if (timeDownListener != null) {
+                timeDownListener.onTimeDownListener();
+            }
         }
 
         return view;
@@ -118,16 +133,23 @@ public class IndianaGoodsAdapter extends BaseAdapter {
         RatioImageView goodsImage;
         @BindView(R.id.goods_name)
         TextView goodsName;
-        @BindView(R.id.goods_price)
-        TextView goodsPrice;
         @BindView(R.id.countdownView)
         TextView countdownView;
         @BindView(R.id.indiana_now)
         TextView indianaNow;
+        @BindView(R.id.price_1)
+        TextView price1;
+        @BindView(R.id.price_2)
+        TextView price2;
+        @BindView(R.id.price_3)
+        TextView price3;
 
         IndianaGoodsViewHolder(View view) {
             ButterKnife.bind(this, view);
         }
     }
 
+    public interface IndianaTimeDownListener {
+        void onTimeDownListener();
+    }
 }

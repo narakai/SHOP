@@ -20,6 +20,7 @@ public class ConfigInfo implements Serializable {
     private String intro;
     private String file_domain;
     private String withdraw_fee;
+    private long server_time;
 
     public String getUser_agreement() {
         return user_agreement;
@@ -51,5 +52,13 @@ public class ConfigInfo implements Serializable {
 
     public void setWithdraw_fee(String withdraw_fee) {
         this.withdraw_fee = withdraw_fee;
+    }
+
+    public long getServer_time() {
+        return server_time;
+    }
+
+    public void setServer_time(long server_time) {
+        this.server_time = server_time;
     }
 }

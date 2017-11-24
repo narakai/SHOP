@@ -15,6 +15,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import wiki.scene.shop.R;
+import wiki.scene.shop.ShopApplication;
 import wiki.scene.shop.entity.NewestWinInfo;
 
 /**
@@ -64,7 +65,7 @@ public class IndianaWinAdapter extends BaseAdapter {
         viewHolder.time.setText(TimeUtils.getFriendlyTimeSpanByNow(info.getCreate_time() * 1000));
         viewHolder.number.setText(String.valueOf(info.getNumber()));
         viewHolder.status.setText("获胜");
-        //viewHolder.userAvater.loadCircleImage(ShopApplication.configInfo.getFile_domain()+ info.get)
+        viewHolder.userAvater.loadCircleImage(ShopApplication.configInfo.getFile_domain()+ info.getAvatar(),R.drawable.ic_default_avater);
         return convertView;
     }
 

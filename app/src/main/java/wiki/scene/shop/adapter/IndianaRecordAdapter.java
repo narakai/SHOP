@@ -24,6 +24,7 @@ import wiki.scene.shop.ShopApplication;
 import wiki.scene.shop.config.AppConfig;
 import wiki.scene.shop.entity.MineOrderInfo;
 import wiki.scene.shop.utils.DateFormatUtils;
+import wiki.scene.shop.utils.NetTimeUtils;
 import wiki.scene.shop.utils.PriceUtil;
 import wiki.scene.shop.widgets.RatioImageView;
 
@@ -82,7 +83,7 @@ public class IndianaRecordAdapter extends RecyclerView.Adapter<RecyclerView.View
             //将复用的倒计时清除
             countDownTimer.cancel();
         }
-        long timer = info.getOpen_time() * 1000 - System.currentTimeMillis();
+        long timer = info.getOpen_time() * 1000 - NetTimeUtils.getWebsiteDatetime();
         if (timer > 0) {
             countDownTimer = new CountDownTimer(timer, 1000) {
                 public void onTick(long millisUntilFinished) {
@@ -109,7 +110,7 @@ public class IndianaRecordAdapter extends RecyclerView.Adapter<RecyclerView.View
 
         if (info.getStatus() == 2) {
             //已支付未开奖
-            if (info.getOpen_time() * 1000 > System.currentTimeMillis()) {
+            if (info.getOpen_time() * 1000 > NetTimeUtils.getWebsiteDatetime()) {
                 //需要倒计时
                 viewHolder.imageGoodsStatus.setImageResource(R.drawable.ic_goods_state_wait);
                 viewHolder.imageGoodsStatus.setVisibility(View.VISIBLE);

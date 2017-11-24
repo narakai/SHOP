@@ -8,7 +8,7 @@ package wiki.scene.shop.utils;
 public class DateFormatUtils {
 
     public static String getHoursByNow(long time) {
-        time = time * 1000 - System.currentTimeMillis();
+        time = time * 1000 - NetTimeUtils.getWebsiteDatetime();
         long second = time / 1000;
         long hour = second / 60 / 60;
         long minute = (second - hour * 60 * 60) / 60;

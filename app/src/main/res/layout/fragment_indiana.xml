@@ -205,14 +205,13 @@
                         android:textSize="@dimen/text_size_middle" />
                 </LinearLayout>
 
-                <wiki.scene.shop.widgets.CustomeGridView
+                <wiki.scene.shop.widgets.CustomListView
                     android:id="@+id/gridView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="10dp"
-                    android:horizontalSpacing="1dp"
-                    android:numColumns="2"
-                    android:verticalSpacing="1dp" />
+                    android:divider="#F5F5F5"
+                    android:dividerHeight="5dp" />
 
                 <RadioGroup
                     android:id="@+id/radioGroup"

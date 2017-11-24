@@ -36,6 +36,7 @@ import wiki.scene.shop.mvp.BaseMainMvpFragment;
 import wiki.scene.shop.ui.trend.presenter.TrendPresenter;
 import wiki.scene.shop.ui.trend.view.ITrendView;
 import wiki.scene.shop.utils.DateFormatUtils;
+import wiki.scene.shop.utils.NetTimeUtils;
 import wiki.scene.shop.utils.ThreadPoolUtils;
 import wiki.scene.shop.utils.UpdatePageUtils;
 
@@ -120,7 +121,7 @@ public class TrendFragment extends BaseMainMvpFragment<ITrendView, TrendPresente
                     @Override
                     public void run() {
                         try {
-                            if (ShopApplication.currentCycleInfo.getOpen_time() * 1000 <= System.currentTimeMillis()) {
+                            if (ShopApplication.currentCycleInfo.getOpen_time() * 1000 <= NetTimeUtils.getWebsiteDatetime()) {
                                 if (!countdownView.getText().toString().equals("开奖中")) {
                                     ((MainActivity) _mActivity).getCurrentCycleData();
                                 }
