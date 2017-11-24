@@ -19,7 +19,36 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:paddingTop="10dp">
 
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_laba" />
+
+                    <wiki.scene.shop.widgets.MarqueeView
+                        android:id="@+id/notice"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:ellipsize="marquee"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:marqueeRepeatLimit="marquee_forever"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true"
+                        android:textColor="@color/color_theme"
+                        android:textSize="@dimen/text_size_middle" />
+                </LinearLayout>
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -101,13 +130,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/shape_btn_theme_orange"
-                        android:paddingBottom="2dp"
+                        android:paddingBottom="5dp"
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
-                        android:paddingTop="2dp"
-                        android:text="时时彩"
+                        android:paddingTop="5dp"
+                        android:text="重庆时时彩"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/text_size_middle" />
+                        android:textSize="10sp" />
 
                     <TextView
                         android:id="@+id/cycle_code"
@@ -172,39 +201,6 @@
                         android:textColor="@color/white"
                         android:textSize="@dimen/text_size_middle" />
                 </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:background="@color/white"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:paddingBottom="10dp"
-                    android:paddingLeft="15dp"
-                    android:paddingRight="15dp"
-                    android:paddingTop="10dp">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_laba" />
-
-                    <wiki.scene.shop.widgets.MarqueeView
-                        android:id="@+id/notice"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:ellipsize="marquee"
-                        android:focusable="true"
-                        android:focusableInTouchMode="true"
-                        android:marqueeRepeatLimit="marquee_forever"
-                        android:scrollHorizontally="true"
-                        android:singleLine="true"
-                        android:textColor="@color/color_theme"
-                        android:textSize="@dimen/text_size_middle" />
-                </LinearLayout>
-
                 <wiki.scene.shop.widgets.CustomListView
                     android:id="@+id/gridView"
                     android:layout_width="match_parent"

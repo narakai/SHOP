@@ -4,11 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -100,6 +98,9 @@ public class RechargeFragment extends BaseBackMvpFragment<IRechargeView, Recharg
         loadingDialog = LoadingDialog.getInstance(getContext());
         initView();
         UpdatePageUtils.updatePagePosition(AppConfig.POSITION_RECHARGE, 0);
+        String priceStr = String.valueOf(100);
+        priceCustom.setText(priceStr);
+        priceCustom.setSelection(priceStr.length());
     }
 
     private void initView() {
@@ -109,11 +110,9 @@ public class RechargeFragment extends BaseBackMvpFragment<IRechargeView, Recharg
                 try {
                     if (v == priceCustom && hasFocus) {
                         radioGroup.clearCheck();
-                        priceCustom.setTextColor(ContextCompat.getColor(getContext(), R.color.color_theme));
                         cost = 0;
                     } else {
                         hideSoftInput();
-                        priceCustom.setTextColor(Color.parseColor("#999999"));
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -124,7 +123,6 @@ public class RechargeFragment extends BaseBackMvpFragment<IRechargeView, Recharg
             @Override
             public void onClick(View view) {
                 radioGroup.clearCheck();
-                priceCustom.setTextColor(ContextCompat.getColor(getContext(), R.color.color_theme));
                 cost = 0;
             }
         });
@@ -138,32 +136,41 @@ public class RechargeFragment extends BaseBackMvpFragment<IRechargeView, Recharg
             @Override
             public void onClick(View view) {
                 hideSoftInput();
-                priceCustom.setTextColor(Color.parseColor("#999999"));
                 cost = 100;
+                String priceStr = String.valueOf(100);
+                priceCustom.setText(priceStr);
+                priceCustom.setSelection(priceStr.length());
             }
         });
         money2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 hideSoftInput();
-                priceCustom.setTextColor(Color.parseColor("#999999"));
                 cost = 200;
+                String priceStr = String.valueOf(200);
+                priceCustom.setText(priceStr);
+                priceCustom.setSelection(priceStr.length());
             }
         });
         money3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 hideSoftInput();
-                priceCustom.setTextColor(Color.parseColor("#999999"));
                 cost = 500;
+                String priceStr = String.valueOf(500);
+                priceCustom.setText(priceStr);
+                priceCustom.setSelection(priceStr.length());
+
             }
         });
         money4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 hideSoftInput();
-                priceCustom.setTextColor(Color.parseColor("#999999"));
                 cost = 1000;
+                String priceStr = String.valueOf(1000);
+                priceCustom.setText(priceStr);
+                priceCustom.setSelection(priceStr.length());
             }
         });
     }

@@ -1,6 +1,5 @@
 package wiki.scene.shop.pay;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -8,12 +7,12 @@ import android.support.annotation.Nullable;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-
 import com.blankj.utilcode.util.ToastUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import me.yokeyword.fragmentation.SupportActivity;
 import wiki.scene.shop.R;
 
 /**
@@ -22,7 +21,7 @@ import wiki.scene.shop.R;
  * Author：scene on 2017/4/21 17:37
  */
 
-public class WechatPayActivity extends Activity {
+public class WechatPayActivity extends SupportActivity {
     @BindView(R.id.webView)
     WebView mWebView;
     private Unbinder unbinder;

@@ -1,6 +1,5 @@
 package wiki.scene.shop.pay;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -10,10 +9,10 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.TextView;
 
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import me.yokeyword.fragmentation.SupportActivity;
 import wiki.scene.shop.R;
 
 /**
@@ -22,7 +21,7 @@ import wiki.scene.shop.R;
  * Author：scene on 2017/4/21 17:37
  */
 
-public class AliPayActivity extends Activity {
+public class AliPayActivity extends SupportActivity {
     @BindView(R.id.webView)
     WebView mWebView;
     @BindView(R.id.notice_textView)

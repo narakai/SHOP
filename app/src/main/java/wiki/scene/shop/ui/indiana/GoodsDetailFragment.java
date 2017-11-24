@@ -143,6 +143,8 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
     @BindView(R.id.layout_shouhou)
     LinearLayout layoutShouhou;
     private int goodsId;
+    @BindView(R.id.goods_price)
+    TextView goodsPrice;
 
     private GoodsDetailWinCodeAdapter winCodeAdapter;
     private List<WinCodeInfo> winCodeList = new ArrayList<>();
@@ -238,7 +240,7 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
                     }
                 });
             }
-        }, 3, 3, TimeUnit.SECONDS);
+        }, 1, 1, TimeUnit.SECONDS);
         //倒计时
         startCountDown();
 
@@ -401,6 +403,7 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
             twoPrice.setText(PriceUtil.getPrice(goodsInfo.getTwo_price()));
             fourPrice.setText(PriceUtil.getPrice(goodsInfo.getFour_price()));
             tenPrice.setText(PriceUtil.getPrice(goodsInfo.getTen_price()));
+            goodsPrice.setText("￥" + PriceUtil.getPrice(goodsInfo.getTen_price()) + "/" + PriceUtil.getPrice(goodsInfo.getFour_price()) + "/" + PriceUtil.getPrice(goodsInfo.getTwo_price()));
             GlideImageLoader.create(goodsJieshao).loadImage(ShopApplication.configInfo.getFile_domain() + goodsInfo.getThumb_js(), 0);
             GlideImageLoader.create(goodsGuige).loadImage(ShopApplication.configInfo.getFile_domain() + goodsInfo.getThumb_gg(), 0);
             GlideImageLoader.create(goodsShouhou).loadImage(ShopApplication.configInfo.getFile_domain() + goodsInfo.getThumb_sh(), 0);
