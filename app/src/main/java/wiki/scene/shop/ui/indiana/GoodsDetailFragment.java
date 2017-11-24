@@ -142,6 +142,8 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
     TextView serviceCenter;
     @BindView(R.id.layout_shouhou)
     LinearLayout layoutShouhou;
+    @BindView(R.id.toolbar_text)
+    TextView toolbarText;
     private int goodsId;
     @BindView(R.id.goods_price)
     TextView goodsPrice;
@@ -195,6 +197,7 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_goods_detail, container, false);
         unbinder = ButterKnife.bind(this, view);
+        toolbarText.setText("玩法说明");
         return attachToSwipeBack(view);
     }
 
