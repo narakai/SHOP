@@ -233,7 +233,7 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
                     @Override
                     public void run() {
                         try {
-                            buyListView.smoothScrollToPositionFromTop(buyListView.getFirstVisiblePosition() + 1, 1);
+                            buyListView.smoothScrollToPositionFromTop(buyListView.getFirstVisiblePosition() + 1, 0);
                         } catch (Exception e) {
                             e.printStackTrace();
                         }

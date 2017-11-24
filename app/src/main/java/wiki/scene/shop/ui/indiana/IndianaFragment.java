@@ -170,8 +170,8 @@ public class IndianaFragment extends BaseMainMvpFragment<IIndianaView, IndianaPr
                     @Override
                     public void run() {
                         try {
-                            canyuListView.smoothScrollToPositionFromTop(canyuListView.getFirstVisiblePosition() + 1, 1);
-                            huojiangListView.smoothScrollToPositionFromTop(huojiangListView.getFirstVisiblePosition() + 1, 1);
+                            canyuListView.smoothScrollToPositionFromTop(canyuListView.getFirstVisiblePosition() + 1, 0);
+                            huojiangListView.smoothScrollToPositionFromTop(huojiangListView.getFirstVisiblePosition() + 1, 0);
                         } catch (Exception e) {
                             e.printStackTrace();
                         }

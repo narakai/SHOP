@@ -28,14 +28,14 @@ public class IndianaPresenter extends BasePresenter<IIndianaView> {
 
     public void getIndianaData(final boolean isFirst, final boolean isNeedRefreshGoods) {
         if (indianaView != null) {
-            if (!isFirst) {
+            if (isFirst) {
                 indianaView.showLoading(R.string.loading);
             }
             model.getIndianaIndexData(new HttpResultListener<IndexInfo>() {
                 @Override
                 public void onSuccess(IndexInfo data) {
                     if (indianaView != null) {
-                        if (!isFirst) {
+                        if (isFirst) {
                             indianaView.hideLoading();
                         } else {
                             indianaView.refreshComplete();

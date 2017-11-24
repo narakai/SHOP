@@ -92,7 +92,10 @@ public class IndianaGoodsAdapter extends BaseAdapter {
         }
         final IndexInfo.ProductsBean info = list.get(i);
         viewHolder.goodsName.setText(info.getName());
-        GlideImageLoader.create(viewHolder.goodsImage).loadRoundCornerImage(ShopApplication.configInfo.getFile_domain() + info.getThumb(), R.drawable.ic_default_goods_image, PtrLocalDisplay.dp2px(3));
+        if (viewHolder.goodsName.getTag() == null || !viewHolder.goodsName.getTag().toString().equals(info.getThumb())) {
+            GlideImageLoader.create(viewHolder.goodsImage).loadRoundCornerImage(ShopApplication.configInfo.getFile_domain() + info.getThumb(), R.drawable.ic_default_goods_image, PtrLocalDisplay.dp2px(3));
+            viewHolder.goodsName.setTag(info.getThumb());
+        }
         viewHolder.price1.setText("￥" + PriceUtil.getPrice(info.getTwo_price()));
         viewHolder.price2.setText("￥" + PriceUtil.getPrice(info.getFour_price()));
         viewHolder.price3.setText("￥" + PriceUtil.getPrice(info.getTen_price()));
