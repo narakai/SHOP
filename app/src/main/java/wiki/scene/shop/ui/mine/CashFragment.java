@@ -8,11 +8,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
+import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.zhl.cbdialog.CBDialogBuilder;
 
@@ -25,6 +28,7 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import wiki.scene.loadmore.StatusViewLayout;
 import wiki.scene.shop.R;
+import wiki.scene.shop.ShopApplication;
 import wiki.scene.shop.adapter.CashBankAdapter;
 import wiki.scene.shop.config.AppConfig;
 import wiki.scene.shop.entity.BankInfo;
@@ -32,8 +36,10 @@ import wiki.scene.shop.http.api.ApiUtil;
 import wiki.scene.shop.mvp.BaseBackMvpFragment;
 import wiki.scene.shop.ui.mine.mvpview.ICashView;
 import wiki.scene.shop.ui.mine.presenter.CashPresenter;
+import wiki.scene.shop.utils.PriceUtil;
+import wiki.scene.shop.utils.SharedPreferencesUtil;
 import wiki.scene.shop.utils.UpdatePageUtils;
-import wiki.scene.shop.widgets.CustomListView;
+import wiki.scene.shop.view.CustomRadioButton;
 import wiki.scene.shop.widgets.LoadingDialog;
 
 /**
@@ -46,13 +52,33 @@ public class CashFragment extends BaseBackMvpFragment<ICashView, CashPresenter> 
     Toolbar toolbar;
     @BindView(R.id.toolbar_title)
     TextView toolbarTitle;
-    @BindView(R.id.listview)
-    CustomListView listview;
     @BindView(R.id.priceCustom)
     EditText priceCustom;
     @BindView(R.id.status_layout)
     StatusViewLayout statusLayout;
     Unbinder unbinder;
+    @BindView(R.id.can_cash_money)
+    TextView canCashMoney;
+    @BindView(R.id.rd_alipay)
+    CustomRadioButton rdAlipay;
+    @BindView(R.id.rd_bank)
+    CustomRadioButton rdBank;
+    @BindView(R.id.radioGroup)
+    RadioGroup radioGroup;
+    @BindView(R.id.bank_name)
+    EditText bankName;
+    @BindView(R.id.bank_account)
+    EditText bankAccount;
+    @BindView(R.id.bank_user)
+    EditText bankUser;
+    @BindView(R.id.layout_bank)
+    LinearLayout layoutBank;
+    @BindView(R.id.alipay_user)
+    EditText alipayUser;
+    @BindView(R.id.alipay_account)
+    EditText alipayAccount;
+    @BindView(R.id.layout_alipay)
+    LinearLayout layoutAlipay;
 
     private LoadingDialog loadingDialog;
 
@@ -80,23 +106,38 @@ public class CashFragment extends BaseBackMvpFragment<ICashView, CashPresenter> 
         toolbarTitle.setText("账户提现");
         initToolbarNav(toolbar);
         initView();
-        presenter.getBankData();
         UpdatePageUtils.updatePagePosition(AppConfig.POSITION_CASH, 0);
+        statusLayout.showContent();
+        canCashMoney.setText("￥" + PriceUtil.getPrice(ShopApplication.userInfo.getMoney() - 500 < 0 ? 0 : ShopApplication.userInfo.getMoney() - 500));
     }
 
     private void initView() {
-        adapter = new CashBankAdapter(getContext(), list);
-        listview.setAdapter(adapter);
-        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                int size = list.size();
-                for (int i = 0; i < size; i++) {
-                    list.get(i).setChecked(i == position);
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                if (i == rdAlipay.getId()) {
+                    layoutBank.setVisibility(View.GONE);
+                    layoutAlipay.setVisibility(View.VISIBLE);
+                } else if (i == rdBank.getId()) {
+                    layoutAlipay.setVisibility(View.GONE);
+                    layoutBank.setVisibility(View.VISIBLE);
                 }
-                adapter.notifyDataSetChanged();
             }
         });
+
+        String bankInfoStr = SharedPreferencesUtil.getString(_mActivity, "bank", "");
+        if (!StringUtils.isEmpty(bankInfoStr)) {
+            BankInfo bankInfo = new Gson().fromJson(bankInfoStr, BankInfo.class);
+            bankAccount.setText(bankInfo.getAccount());
+            bankName.setText(bankInfo.getBank());
+            bankUser.setText(bankInfo.getName());
+        }
+        String alipayInfoStr = SharedPreferencesUtil.getString(_mActivity, "alipay", "");
+        if (!StringUtils.isEmpty(alipayInfoStr)) {
+            BankInfo alipayInfo = new Gson().fromJson(alipayInfoStr, BankInfo.class);
+            alipayAccount.setText(alipayInfo.getAccount());
+            alipayUser.setText(alipayInfo.getName());
+        }
     }
 
     @OnClick(R.id.submit)
@@ -153,7 +194,7 @@ public class CashFragment extends BaseBackMvpFragment<ICashView, CashPresenter> 
     @Override
     public void showFailPage() {
         try {
-            statusLayout.showFailed(retryListener);
+            statusLayout.showFailed();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -164,30 +205,6 @@ public class CashFragment extends BaseBackMvpFragment<ICashView, CashPresenter> 
         ToastUtils.showShort(message);
     }
 
-    @Override
-    public void getBankDataSuccess(List<BankInfo> data) {
-        try {
-            list.clear();
-            list.addAll(data);
-            if (list.size() > 0) {
-                list.get(0).setChecked(true);
-            }
-            adapter.notifyDataSetChanged();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    @Override
-    public BankInfo getBankInfo() {
-        for (BankInfo info : list) {
-            if (info.isChecked()) {
-                return info;
-            }
-        }
-        return null;
-    }
 
     @Override
     public int getMoney() {
@@ -213,18 +230,51 @@ public class CashFragment extends BaseBackMvpFragment<ICashView, CashPresenter> 
     @Override
     public void applyCashSuccess(BankInfo bankInfo, int money) {
         try {
+            if (bankInfo.getType() == AppConfig.BANK_TYPE_BANK_CARD) {
+                SharedPreferencesUtil.putString(_mActivity, "bank", new Gson().toJson(bankInfo));
+            } else {
+                SharedPreferencesUtil.putString(_mActivity, "alipay", new Gson().toJson(bankInfo));
+            }
             start(CashResultFragment.newInstance(bankInfo, money));
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private View.OnClickListener retryListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            presenter.getBankData();
+    @Override
+    public String getBankName() {
+        return bankName.getText().toString().trim();
+    }
+
+    @Override
+    public String getBankUser() {
+        return bankUser.getText().toString().trim();
+    }
+
+    @Override
+    public String getBankAccount() {
+        return bankAccount.getText().toString().trim();
+    }
+
+    @Override
+    public String getAlipayUser() {
+        return alipayUser.getText().toString().trim();
+    }
+
+    @Override
+    public String getAlipayAccount() {
+        return alipayAccount.getText().toString().trim();
+    }
+
+    @Override
+    public int getCashType() {
+        if (radioGroup.getCheckedRadioButtonId() == R.id.rd_alipay) {
+            return AppConfig.BANK_TYPE_ALIPAY;
+        } else if (radioGroup.getCheckedRadioButtonId() == R.id.rd_bank) {
+            return AppConfig.BANK_TYPE_BANK_CARD;
         }
-    };
+        return AppConfig.BANK_TYPE_ALIPAY;
+    }
 
     private void showNoticeDialog(String message) {
         CBDialogBuilder builder = new CBDialogBuilder(getContext());

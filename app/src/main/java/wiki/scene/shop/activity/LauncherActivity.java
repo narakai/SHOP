@@ -34,7 +34,6 @@ import wiki.scene.shop.http.api.ApiUtil;
 import wiki.scene.shop.http.base.LzyResponse;
 import wiki.scene.shop.http.callback.JsonCallback;
 import wiki.scene.shop.mvp.BaseMvpActivity;
-import wiki.scene.shop.utils.NetTimeUtils;
 import wiki.scene.shop.utils.SharedPreferencesUtil;
 import wiki.scene.shop.utils.ToastUtils;
 
@@ -221,7 +220,7 @@ public class LauncherActivity extends BaseMvpActivity<ILauncherView, LauncherPre
                                         if (ShopApplication.hasLogin) {
                                             startActivity(new Intent(LauncherActivity.this, MainActivity.class));
                                         } else {
-                                            startActivity(new Intent(LauncherActivity.this, LoginWaitActivity.class));
+                                            startActivity(new Intent(LauncherActivity.this, MainActivity.class));
                                         }
                                         LauncherActivity.this.finish();
                                         presenter.startApp();

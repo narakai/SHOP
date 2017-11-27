@@ -164,6 +164,7 @@ public class SettingFragment extends BaseBackMvpFragment<ISettingView, SettingPr
         ShopApplication.userInfo = null;
         SharedPreferencesUtil.deleteByKey(getContext(), ShopApplication.USER_INFO_KEY);
         EventBus.getDefault().post(new LoginOutEvent());
+        SharedPreferencesUtil.deleteByKey(getContext(),"password");
         _mActivity.onBackPressed();
     }
 }

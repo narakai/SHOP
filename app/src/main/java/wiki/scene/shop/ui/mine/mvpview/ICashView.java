@@ -19,13 +19,21 @@ public interface ICashView extends BaseView {
 
     void showMessage(String message);
 
-    void getBankDataSuccess(List<BankInfo> data);
-
-    BankInfo getBankInfo();
-
     int getMoney();
 
     void applyCashFail(String message);
 
     void applyCashSuccess(BankInfo bankInfo, int money);
+
+    String getBankName();
+
+    String getBankUser();
+
+    String getBankAccount();
+
+    String getAlipayUser();
+
+    String getAlipayAccount();
+
+    int getCashType();
 }

@@ -161,4 +161,50 @@ public class Register1Presenter extends BasePresenter<IRegister1View> {
             });
         }
     }
+
+    public void registerByOthers(int type, String mobile, String code, String unionid, String nickname, String avater, int sex) {
+        if (register1View != null) {
+            if (TextUtils.isEmpty(register1View.getPassword())) {
+                register1View.showFail(R.string.please_edit_password);
+                return;
+            }
+            if (register1View.getPassword().length() < 6 || register1View.getPassword().length() > 20) {
+                register1View.showFail(R.string.password_length_6_20);
+                return;
+            }
+            register1View.showLoading(R.string.is_registing);
+            HttpParams params = new HttpParams();
+            params.put("mobile", mobile);
+            params.put("password", MD5Util.string2Md5(register1View.getPassword(), "UTF-8"));
+            params.put("code", code);
+            params.put("unionid", unionid);
+            if (!TextUtils.isEmpty(nickname)) {
+                params.put("nickname", nickname);
+            }
+            if (sex != 0) {
+                params.put("sex", sex);
+            }
+            if (avater != null) {
+                params.put("avatar", avater);
+            }
+            model.registerByOthers(params, type, new OnRegisterResultListener() {
+                @Override
+                public void onRegisterSuccess(UserInfo userInfo) {
+                    register1View.registerSuccess(userInfo);
+                }
+
+                @Override
+                public void onRegisterFail(String message) {
+                    register1View.showFail(message);
+                }
+
+                @Override
+                public void onRegisterFinish() {
+                    if (register1View != null) {
+                        register1View.hideLoading();
+                    }
+                }
+            });
+        }
+    }
 }

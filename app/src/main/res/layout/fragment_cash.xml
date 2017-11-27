@@ -25,24 +25,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginTop="30dp"
-                    android:text="到账方式"
-                    android:textColor="@color/color_theme"
-                    android:textSize="@dimen/text_size_big" />
-
-                <wiki.scene.shop.widgets.CustomListView
-                    android:id="@+id/listview"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:divider="@color/transparent"
-                    android:dividerHeight="10dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
-                    android:layout_marginLeft="15dp"
+                    android:layout_marginLeft="30dp"
                     android:layout_marginTop="20dp"
                     android:text="提现金额"
                     android:textColor="@color/color_theme"
@@ -83,7 +66,301 @@
                     android:layout_marginLeft="30dp"
                     android:layout_marginRight="30dp"
                     android:layout_marginTop="2dp"
+                    android:background="@color/text_color_title" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="（您的可提现金额为"
+                        android:textColor="#999999"
+                        android:textSize="@dimen/text_size_small" />
+
+                    <TextView
+                        android:id="@+id/can_cash_money"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="￥0"
+                        android:textColor="@color/color_theme"
+                        android:textSize="@dimen/text_size_small" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="）"
+                        android:textColor="#999999"
+                        android:textSize="@dimen/text_size_small" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:layout_marginTop="20dp"
                     android:background="#F0F0F0" />
+
+                <RadioGroup
+                    android:id="@+id/radioGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/white"
+                    android:orientation="horizontal"
+                    android:paddingTop="10dp">
+
+                    <wiki.scene.shop.view.CustomRadioButton
+                        android:id="@+id/rd_alipay"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:button="@null"
+                        android:checked="true"
+                        android:drawableBottom="@drawable/bg_index_radio_button_selector"
+                        android:drawableLeft="@drawable/radio_cash_alipay"
+                        android:drawablePadding="10dp"
+                        android:gravity="center"
+                        android:text="支付宝"
+                        android:textColor="@drawable/bg_index_radio_button_textcolor_selector"
+                        android:textSize="18sp" />
+
+                    <wiki.scene.shop.view.CustomRadioButton
+                        android:id="@+id/rd_bank"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:button="@null"
+                        android:drawableBottom="@drawable/bg_index_radio_button_selector"
+                        android:drawableLeft="@drawable/radio_cash_bank"
+                        android:drawablePadding="10dp"
+                        android:gravity="center"
+                        android:text="银行卡"
+                        android:textColor="@drawable/bg_index_radio_button_textcolor_selector"
+                        android:textSize="18sp" />
+                </RadioGroup>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:id="@+id/layout_bank"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:paddingLeft="15dp"
+                            android:paddingRight="15dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:lines="1"
+                                android:maxLines="1"
+                                android:paddingBottom="15dp"
+                                android:paddingTop="15dp"
+                                android:text="银行名称："
+                                android:textColor="@color/text_color_title"
+                                android:textSize="@dimen/text_size_big" />
+
+                            <EditText
+                                android:id="@+id/bank_name"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@null"
+                                android:lines="1"
+                                android:maxLines="1"
+                                android:paddingBottom="15dp"
+                                android:paddingLeft="10dp"
+                                android:paddingTop="15dp" />
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginRight="15dp"
+                            android:background="#F0F0F0" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:paddingLeft="15dp"
+                            android:paddingRight="15dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:lines="1"
+                                android:maxLines="1"
+                                android:paddingBottom="15dp"
+                                android:paddingTop="15dp"
+                                android:text="银行卡号："
+                                android:textColor="@color/text_color_title"
+                                android:textSize="@dimen/text_size_big" />
+
+                            <EditText
+                                android:id="@+id/bank_account"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@null"
+                                android:lines="1"
+                                android:maxLines="1"
+                                android:paddingBottom="15dp"
+                                android:paddingLeft="10dp"
+                                android:paddingTop="15dp" />
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginRight="15dp"
+                            android:background="#F0F0F0" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:paddingLeft="15dp"
+                            android:paddingRight="15dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:lines="1"
+                                android:maxLines="1"
+                                android:paddingBottom="15dp"
+                                android:paddingTop="15dp"
+                                android:text="开"
+                                android:textColor="@color/text_color_title"
+                                android:textSize="@dimen/text_size_big"
+                                android:visibility="invisible" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:lines="1"
+                                android:maxLines="1"
+                                android:paddingBottom="15dp"
+                                android:paddingTop="15dp"
+                                android:text="开户人："
+                                android:textColor="@color/text_color_title"
+                                android:textSize="@dimen/text_size_big" />
+
+                            <EditText
+                                android:id="@+id/bank_user"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@null"
+                                android:lines="1"
+                                android:maxLines="1"
+                                android:paddingBottom="15dp"
+                                android:paddingLeft="10dp"
+                                android:paddingTop="15dp" />
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginRight="15dp"
+                            android:background="#F0F0F0" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/layout_alipay"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="visible">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:paddingLeft="15dp"
+                            android:paddingRight="15dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:lines="1"
+                                android:maxLines="1"
+                                android:paddingBottom="15dp"
+                                android:paddingTop="15dp"
+                                android:text="支付宝姓名："
+                                android:textColor="@color/text_color_title"
+                                android:textSize="@dimen/text_size_big" />
+
+                            <EditText
+                                android:id="@+id/alipay_user"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@null"
+                                android:lines="1"
+                                android:maxLines="1"
+                                android:paddingBottom="15dp"
+                                android:paddingLeft="10dp"
+                                android:paddingTop="15dp" />
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginRight="15dp"
+                            android:background="#F0F0F0" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:paddingLeft="15dp"
+                            android:paddingRight="15dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:lines="1"
+                                android:maxLines="1"
+                                android:paddingBottom="15dp"
+                                android:paddingTop="15dp"
+                                android:text="支付宝账号："
+                                android:textColor="@color/text_color_title"
+                                android:textSize="@dimen/text_size_big" />
+
+                            <EditText
+                                android:id="@+id/alipay_account"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@null"
+                                android:lines="1"
+                                android:maxLines="1"
+                                android:paddingBottom="15dp"
+                                android:paddingLeft="10dp"
+                                android:paddingTop="15dp" />
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginRight="15dp"
+                            android:background="#F0F0F0" />
+                    </LinearLayout>
+                </RelativeLayout>
 
                 <TextView
                     android:id="@+id/submit"

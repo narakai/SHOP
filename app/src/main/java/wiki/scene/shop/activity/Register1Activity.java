@@ -116,7 +116,11 @@ public class Register1Activity extends BaseMvpActivity<IRegister1View, Register1
 
     @OnClick(R.id.next_step)
     public void onClickNextStep() {
-        presenter.setPassword();
+        if (type != 0) {
+            presenter.registerByOthers(type,getPhoneNumber(),getCode(),unionid,nickName,avaterPath,sex);
+        } else {
+            presenter.setPassword();
+        }
     }
 
     @OnClick(R.id.get_verification)

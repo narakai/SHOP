@@ -1,12 +1,11 @@
 package wiki.scene.shop.ui.mine.presenter;
 
-import com.lzy.okgo.OkGo;
+import com.blankj.utilcode.util.StringUtils;
 import com.lzy.okgo.model.HttpParams;
-
-import java.util.List;
 
 import wiki.scene.shop.R;
 import wiki.scene.shop.ShopApplication;
+import wiki.scene.shop.config.AppConfig;
 import wiki.scene.shop.entity.BankInfo;
 import wiki.scene.shop.http.listener.HttpResultListener;
 import wiki.scene.shop.mvp.BasePresenter;
@@ -26,47 +25,11 @@ public class CashPresenter extends BasePresenter<ICashView> {
         model = new CashModel();
     }
 
-    public void getBankData() {
-        try {
-            mView.showLoadingPage();
-            model.getBankList(new HttpResultListener<List<BankInfo>>() {
-                @Override
-                public void onSuccess(List<BankInfo> data) {
-                    try {
-                        mView.showContentPage();
-                        mView.getBankDataSuccess(data);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-
-                @Override
-                public void onFail(String message) {
-                    try {
-                        mView.showFailPage();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-
-                @Override
-                public void onFinish() {
-
-                }
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     public void applyCash() {
         try {
-            final BankInfo bankInfo = mView.getBankInfo();
+            final BankInfo bankInfo = new BankInfo();
             final int money = mView.getMoney();
-            if (bankInfo == null) {
-                mView.showMessage("请先选择您要提现的账户");
-                return;
-            }
+            HttpParams params = new HttpParams();
             if (money == 0) {
                 mView.showMessage("请先输入您要提现的金额");
                 return;
@@ -75,10 +38,44 @@ public class CashPresenter extends BasePresenter<ICashView> {
                 mView.showMessage("提现金额不能大于当前可用金额");
                 return;
             }
-            mView.showLoading(R.string.loading);
-            HttpParams params = new HttpParams();
-            params.put("bank_id", bankInfo.getId());
             params.put("money", money);
+            if (mView.getCashType() == AppConfig.BANK_TYPE_BANK_CARD) {
+                if (StringUtils.isEmpty(mView.getBankName())) {
+                    mView.showMessage("请输入银行名称");
+                    return;
+                }
+                if (StringUtils.isEmpty(mView.getBankAccount())) {
+                    mView.showMessage("请输入银行卡号");
+                    return;
+                }
+                if (StringUtils.isEmpty(mView.getBankUser())) {
+                    mView.showMessage("请输入开户人");
+                    return;
+                }
+                params.put("name", mView.getBankName());
+                params.put("bank", mView.getBankName());
+                params.put("card_id", mView.getBankAccount());
+                bankInfo.setBank(mView.getBankName());
+                bankInfo.setAccount(mView.getBankAccount());
+                bankInfo.setName(mView.getBankUser());
+                bankInfo.setType(AppConfig.BANK_TYPE_BANK_CARD);
+            } else {
+                if (StringUtils.isEmpty(mView.getAlipayUser())) {
+                    mView.showMessage("请输入支付宝姓名");
+                    return;
+                }
+                if (StringUtils.isEmpty(mView.getAlipayAccount())) {
+                    mView.showMessage("请输入支付宝账号");
+                    return;
+                }
+                params.put("name", mView.getAlipayUser());
+                params.put("alipay", mView.getAlipayAccount());
+                bankInfo.setBank("支付宝");
+                bankInfo.setName(mView.getAlipayUser());
+                bankInfo.setAccount(mView.getAlipayAccount());
+                bankInfo.setType(AppConfig.BANK_TYPE_ALIPAY);
+            }
+            mView.showLoading(R.string.loading);
             model.applyCash(params, new HttpResultListener<String>() {
                 @Override
                 public void onSuccess(String data) {

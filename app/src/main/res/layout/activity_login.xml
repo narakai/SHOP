@@ -2,22 +2,25 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@drawable/bg_login"
+
     android:orientation="vertical">
 
-    <include layout="@layout/toolbar_back" />
+    <include layout="@layout/toolbar_back"
+        android:visibility="gone"/>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
         android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
             android:orientation="vertical">
 
             <EditText
@@ -25,8 +28,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="25dp"
-                android:background="@color/white"
-                android:drawableLeft="@drawable/ic_username"
+                android:background="@drawable/shape_bg_login"
                 android:drawablePadding="20dp"
                 android:gravity="center_vertical"
                 android:hint="@string/please_edit_phone_munber"
@@ -34,19 +36,16 @@
                 android:lines="1"
                 android:maxLines="1"
                 android:padding="15dp"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
                 android:textSize="@dimen/text_size_big" />
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:background="#F0F0F0"/>
 
             <EditText
                 android:id="@+id/password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="1dp"
-                android:background="@color/white"
-                android:drawableLeft="@drawable/ic_password"
+                android:layout_marginTop="25dp"
+                android:background="@drawable/shape_bg_login"
                 android:drawablePadding="20dp"
                 android:gravity="center_vertical"
                 android:hint="@string/please_edit_password"
@@ -54,74 +53,76 @@
                 android:lines="1"
                 android:maxLines="1"
                 android:padding="15dp"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
                 android:textSize="@dimen/text_size_big" />
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:background="#F0F0F0"/>
-            <TextView
-                android:id="@+id/lose_password"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:layout_marginTop="10dp"
-                android:text="@string/lose_password"
-                android:textColor="#38383A"
-                android:textSize="@dimen/text_size_small" />
+
 
             <Button
                 android:id="@+id/login"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                android:background="@drawable/bg_btn_login"
+                android:layout_marginTop="25dp"
+                android:background="@drawable/shape_btn_login"
                 android:text="@string/login"
-                android:textColor="@color/white"
+                android:textColor="@color/color_theme"
                 android:textSize="@dimen/btn_text_size" />
 
-            <Button
-                android:id="@+id/register"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/bg_btn_rigister"
-                android:text="@string/fast_register"
-                android:textColor="@color/white"
-                android:textSize="@dimen/btn_text_size" />
+                android:orientation="horizontal">
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                <TextView
+                    android:id="@+id/register"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:padding="10dp"
+                    android:text="立即注册"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_small" />
+
+                <TextView
+                    android:id="@+id/lose_password"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_gravity="right"
+                    android:padding="10dp"
+                    android:text="@string/lose_password"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_small" />
+            </RelativeLayout>
+
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
                 android:gravity="center_vertical"
-                android:visibility="gone"
                 android:orientation="horizontal">
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_weight="1"
-                    android:background="@color/line_color" />
+                    android:background="@color/white" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
-                    android:text="@string/use_others_way_login"
-                    android:textColor="@color/text_color_des"
+                    android:text="快捷登录"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/text_size_small" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_weight="1"
-                    android:background="@color/line_color" />
+                    android:background="@color/white" />
             </LinearLayout>
 
             <LinearLayout
@@ -129,28 +130,23 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="25dp"
                 android:gravity="center"
-                android:visibility="gone"
                 android:orientation="horizontal">
 
-                <TextView
+                <ImageView
                     android:id="@+id/wechat_login"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="20dp"
+                    android:layout_marginRight="30dp"
                     android:drawablePadding="10dp"
-                    android:drawableTop="@drawable/ic_wechat_login"
-                    android:text="@string/wechat_login"
-                    android:textColor="@color/text_color_des"
-                    android:textSize="@dimen/text_size_xsmall" />
+                    android:src="@drawable/ic_wechat_login"/>
 
-                <TextView
+                <ImageView
                     android:id="@+id/qq_login"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
+                    android:layout_marginLeft="30dp"
                     android:drawablePadding="10dp"
-                    android:drawableTop="@drawable/ic_qq_login"
-                    android:text="@string/qq_login"
+                    android:src="@drawable/ic_qq_login"
                     android:textColor="@color/text_color_des"
                     android:textSize="@dimen/text_size_xsmall" />
             </LinearLayout>
@@ -159,9 +155,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="45dp"
-                android:visibility="gone"
                 android:gravity="center_horizontal"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/app_des"
@@ -196,6 +192,7 @@
                 android:layout_marginBottom="20dp"
                 android:layout_marginTop="10dp"
                 android:text="@string/app_copyright"
+                android:visibility="gone"
                 android:textSize="@dimen/text_size_xsmall" />
         </LinearLayout>
     </ScrollView>
