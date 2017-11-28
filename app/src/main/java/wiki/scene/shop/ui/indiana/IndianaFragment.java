@@ -32,6 +32,7 @@ import wiki.scene.loadmore.PtrFrameLayout;
 import wiki.scene.loadmore.StatusViewLayout;
 import wiki.scene.shop.R;
 import wiki.scene.shop.ShopApplication;
+import wiki.scene.shop.activity.HowToPayActitivty;
 import wiki.scene.shop.activity.LoginActivity;
 import wiki.scene.shop.adapter.IndianaCanyuAdapter;
 import wiki.scene.shop.adapter.IndianaGoodsAdapter;
@@ -229,6 +230,16 @@ public class IndianaFragment extends BaseMainMvpFragment<IIndianaView, IndianaPr
     public void showLoading(int resId) {
         try {
             statusLayout.showLoading();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @OnClick(R.id.how_to_play)
+    public void onClickHowToPlay() {
+        try {
+            Intent intent = new Intent(_mActivity, HowToPayActitivty.class);
+            startActivity(intent);
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -35,6 +35,7 @@ import wiki.scene.loadmore.StatusViewLayout;
 import wiki.scene.shop.MainActivity;
 import wiki.scene.shop.R;
 import wiki.scene.shop.ShopApplication;
+import wiki.scene.shop.activity.HowToPayActitivty;
 import wiki.scene.shop.activity.LoginActivity;
 import wiki.scene.shop.adapter.GoodsDetailBuyAdapter;
 import wiki.scene.shop.adapter.GoodsDetailWinCodeAdapter;
@@ -276,6 +277,16 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
             presenter.getGoodsDetailInfo(true, goodsId);
         }
     };
+
+    @OnClick(R.id.toolbar_text)
+    public void onClickToolbarText() {
+        try {
+            Intent intent = new Intent(_mActivity, HowToPayActitivty.class);
+            startActivity(intent);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     @OnClick(R.id.layout_win_code_history)
     public void onClickWinCode() {

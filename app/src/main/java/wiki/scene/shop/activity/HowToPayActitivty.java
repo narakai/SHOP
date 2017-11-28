@@ -35,7 +35,11 @@ public class HowToPayActitivty extends SwipeBackActivity {
         ButterKnife.bind(this);
         initToolbar();
         UpdatePageUtils.updatePagePosition(AppConfig.POSITION_USER_AGREEMENT, 0);
-        webView.loadUrl(ShopApplication.configInfo.getUser_agreement());
+        try {
+            webView.loadUrl(ShopApplication.configInfo.getPlay_method());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void initToolbar() {

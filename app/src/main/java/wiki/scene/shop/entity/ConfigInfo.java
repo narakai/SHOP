@@ -21,6 +21,7 @@ public class ConfigInfo implements Serializable {
     private String file_domain;
     private String withdraw_fee;
     private long server_time;
+    private String play_method;
 
     public String getUser_agreement() {
         return user_agreement;
@@ -60,5 +61,13 @@ public class ConfigInfo implements Serializable {
 
     public void setServer_time(long server_time) {
         this.server_time = server_time;
+    }
+
+    public String getPlay_method() {
+        return play_method;
+    }
+
+    public void setPlay_method(String play_method) {
+        this.play_method = play_method;
     }
 }
