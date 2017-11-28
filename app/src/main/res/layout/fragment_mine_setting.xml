@@ -171,6 +171,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dp"
                 android:background="@color/white"
+                android:visibility="gone"
                 android:drawableRight="@drawable/ic_mine_arrow_right"
                 android:gravity="center_vertical"
                 android:paddingBottom="13.33dp"
@@ -185,6 +186,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
                 android:layout_marginLeft="8dp"
+                android:visibility="gone"
                 android:layout_marginRight="8dp"
                 android:background="#F0F0F0" />
 

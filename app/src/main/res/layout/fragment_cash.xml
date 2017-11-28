@@ -83,14 +83,28 @@
                         android:textColor="#999999"
                         android:textSize="@dimen/text_size_small" />
 
-                    <TextView
-                        android:id="@+id/can_cash_money"
+                   <TextView
+                         android:id="@+id/can_cash_money"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="￥0"
                         android:textColor="@color/color_theme"
                         android:textSize="@dimen/text_size_small" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#999999"
+                        android:textSize="@dimen/text_size_small"
+                        android:text="手续费"
+                        android:layout_marginLeft="10dp"/>
 
+                    <TextView
+                        android:id="@+id/shouxufei"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="2%"
+                        android:textColor="@color/color_theme"
+                        android:textSize="@dimen/text_size_small" />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

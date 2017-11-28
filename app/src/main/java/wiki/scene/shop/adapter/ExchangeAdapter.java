@@ -46,42 +46,47 @@ public class ExchangeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
-        ExchangeViewHolder viewHolder = (ExchangeViewHolder) holder;
-        PrizeInfo info = list.get(position);
-        viewHolder.status.setImageResource(info.isChecked() ? R.drawable.ic_address_choosed_s : R.drawable.ic_address_choosed_d);
-        viewHolder.goodsName.setText(info.getProduct_name());
-        viewHolder.money.setText("￥" + PriceUtil.getPrice(info.getCost()));
-        viewHolder.num.setText(String.valueOf(info.getNumber()));
-        if (viewHolder.goodsImage.getTag() == null || !viewHolder.goodsImage.getTag().toString().equals(info.getThumb())) {
-            GlideImageLoader.create(viewHolder.goodsImage).loadImage(ShopApplication.configInfo.getFile_domain() + info.getThumb(), R.drawable.ic_default_goods_image);
-            viewHolder.goodsImage.setTag(info.getThumb());
-        }
-        viewHolder.choosedNumber.setText(String.valueOf(info.getCheckedNumber()));
-        viewHolder.numberLess.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (onExchangeItemClickListener != null) {
-                    onExchangeItemClickListener.onClickNumberLess(position);
-                }
+        try {
+            ExchangeViewHolder viewHolder = (ExchangeViewHolder) holder;
+            PrizeInfo info = list.get(position);
+            viewHolder.status.setImageResource(info.isChecked() ? R.drawable.ic_address_choosed_s : R.drawable.ic_address_choosed_d);
+            viewHolder.goodsName.setText(info.getProduct_name());
+            viewHolder.money.setText("￥" + PriceUtil.getPrice(info.getCost()));
+            viewHolder.num.setText(String.valueOf(info.getNumber()));
+            if (viewHolder.goodsImage.getTag() == null || !viewHolder.goodsImage.getTag().toString().equals(info.getThumb())) {
+                GlideImageLoader.create(viewHolder.goodsImage).loadImage(ShopApplication.configInfo.getFile_domain() + info.getThumb(), R.drawable.ic_default_goods_image);
+                viewHolder.goodsImage.setTag(info.getThumb());
             }
-        });
-        viewHolder.numberAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (onExchangeItemClickListener != null) {
-                    onExchangeItemClickListener.onClickNumberAdd(position);
+            viewHolder.choosedNumber.setText(String.valueOf(info.getCheckedNumber()));
+            viewHolder.numberLess.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (onExchangeItemClickListener != null) {
+                        onExchangeItemClickListener.onClickNumberLess(position);
+                    }
                 }
-            }
-        });
+            });
+            viewHolder.numberAdd.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (onExchangeItemClickListener != null) {
+                        onExchangeItemClickListener.onClickNumberAdd(position);
+                    }
+                }
+            });
 
-        viewHolder.status.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (onExchangeItemClickListener != null) {
-                    onExchangeItemClickListener.onClickStatus(position);
+            viewHolder.status.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (onExchangeItemClickListener != null) {
+                        onExchangeItemClickListener.onClickStatus(position);
+                    }
                 }
-            }
-        });
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override

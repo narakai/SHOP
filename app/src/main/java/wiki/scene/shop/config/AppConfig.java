@@ -118,4 +118,6 @@ public class AppConfig {
     public static final int POSITION_LOGIN_AND_REGISTER = 27;
     //提现结果
     public static final int POSITION_CASH_RESULT = 28;
+    //玩法说明
+    public static final int POSITION_HOW_TO_PLAY = 29;
 }

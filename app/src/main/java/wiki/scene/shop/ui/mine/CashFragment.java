@@ -79,6 +79,8 @@ public class CashFragment extends BaseBackMvpFragment<ICashView, CashPresenter> 
     EditText alipayAccount;
     @BindView(R.id.layout_alipay)
     LinearLayout layoutAlipay;
+    @BindView(R.id.shouxufei)
+    TextView shouxufei;
 
     private LoadingDialog loadingDialog;
 
@@ -109,6 +111,7 @@ public class CashFragment extends BaseBackMvpFragment<ICashView, CashPresenter> 
         UpdatePageUtils.updatePagePosition(AppConfig.POSITION_CASH, 0);
         statusLayout.showContent();
         canCashMoney.setText("￥" + PriceUtil.getPrice(ShopApplication.userInfo.getMoney() - 500 < 0 ? 0 : ShopApplication.userInfo.getMoney() - 500));
+        shouxufei.setText(ShopApplication.configInfo.getWithdraw_fee()+"%");
     }
 
     private void initView() {

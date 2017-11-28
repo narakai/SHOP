@@ -1,4 +1,4 @@
-package wiki.scene.shop.ui.mine;
+package wiki.scene.shop.activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,7 +8,6 @@ import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import me.yokeyword.fragmentation_swipeback.SwipeBackActivity;
 import wiki.scene.shop.R;
 import wiki.scene.shop.ShopApplication;
@@ -17,35 +16,30 @@ import wiki.scene.shop.utils.UpdatePageUtils;
 import wiki.scene.shop.widgets.ProgressWebView;
 
 /**
- * 用户协议
- * Created by scene on 2017/9/5.
+ * 玩法
+ * Created by scene on 2017/11/28.
  */
 
-public class UserAgreementActivity extends SwipeBackActivity {
+public class HowToPayActitivty extends SwipeBackActivity {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.toolbar_title)
     TextView toolbarTitle;
     @BindView(R.id.webView)
     ProgressWebView webView;
-    Unbinder unbinder;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_user_agreement);
-        unbinder = ButterKnife.bind(this);
+        setContentView(R.layout.activity_how_to_play);
+        ButterKnife.bind(this);
         initToolbar();
         UpdatePageUtils.updatePagePosition(AppConfig.POSITION_USER_AGREEMENT, 0);
-        try {
-            webView.loadUrl(ShopApplication.configInfo.getUser_agreement());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        webView.loadUrl(ShopApplication.configInfo.getUser_agreement());
     }
 
     private void initToolbar() {
-        toolbarTitle.setText("用户协议");
+        toolbarTitle.setText("玩法说明");
         toolbar.setNavigationIcon(R.drawable.ic_toolbar_back);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,12 +47,5 @@ public class UserAgreementActivity extends SwipeBackActivity {
                 onBackPressed();
             }
         });
-    }
-
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        unbinder.unbind();
     }
 }

@@ -19,6 +19,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -49,6 +50,7 @@
                         android:textColor="@color/color_theme"
                         android:textSize="@dimen/text_size_middle" />
                 </LinearLayout>
+
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -62,55 +64,75 @@
                     android:background="@color/white"
                     android:orientation="horizontal"
                     android:paddingBottom="10dp"
-                    android:paddingLeft="15dp"
-                    android:paddingRight="15dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
                     android:paddingTop="10dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:drawableLeft="@drawable/ic_zhuancoin"
+                        android:background="@drawable/bg_index_tab_1"
+                        android:drawableLeft="@drawable/ic_index_tab_icon_1"
                         android:drawablePadding="5dp"
-                        android:gravity="center_vertical"
-                        android:text="赚取夺宝币"
-                        android:textColor="@color/text_color_title"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        android:text="代理赚钱"
+                        android:textColor="@color/white"
                         android:textSize="@dimen/text_size_small" />
+
+                    <View
+                        android:layout_width="5dp"
+                        android:layout_height="1dp" />
 
                     <TextView
                         android:id="@+id/recharge"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:drawableLeft="@drawable/ic_chongzhi"
+                        android:background="@drawable/bg_index_tab_2"
+                        android:drawableLeft="@drawable/ic_index_tab_icon_2"
                         android:drawablePadding="5dp"
-                        android:gravity="center_vertical"
+                        android:gravity="center"
+                        android:padding="5dp"
                         android:text="充值"
-                        android:textColor="@color/text_color_title"
+                        android:textColor="@color/white"
                         android:textSize="@dimen/text_size_small" />
+
+                    <View
+                        android:layout_width="5dp"
+                        android:layout_height="1dp" />
 
                     <TextView
                         android:id="@+id/exchange"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:drawableLeft="@drawable/ic_duihuan"
+                        android:background="@drawable/bg_index_tab_3"
+                        android:drawableLeft="@drawable/ic_index_tab_icon_3"
                         android:drawablePadding="5dp"
-                        android:gravity="center_vertical"
+                        android:gravity="center"
+                        android:padding="5dp"
                         android:text="兑换"
-                        android:textColor="@color/text_color_title"
+                        android:textColor="@color/white"
                         android:textSize="@dimen/text_size_small" />
+
+                    <View
+                        android:layout_width="5dp"
+                        android:layout_height="1dp" />
 
                     <TextView
                         android:id="@+id/cash"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:drawableLeft="@drawable/ic_tixian"
+                        android:background="@drawable/bg_index_tab_4"
+                        android:drawableLeft="@drawable/ic_index_tab_icon_4"
                         android:drawablePadding="5dp"
-                        android:gravity="center_vertical"
+                        android:gravity="center"
+                        android:padding="5dp"
                         android:text="提现"
-                        android:textColor="@color/text_color_title"
+                        android:textColor="@color/white"
                         android:textSize="@dimen/text_size_small" />
                 </LinearLayout>
 
@@ -201,6 +223,7 @@
                         android:textColor="@color/white"
                         android:textSize="@dimen/text_size_middle" />
                 </LinearLayout>
+
                 <wiki.scene.shop.widgets.CustomListView
                     android:id="@+id/gridView"
                     android:layout_width="match_parent"
