@@ -105,7 +105,7 @@
                 android:drawablePadding="5dp"
                 android:gravity="center_vertical"
                 android:textColor="@color/color_theme"
-                android:textSize="@dimen/text_size_10sp" />
+                android:textSize="@dimen/text_size_middle" />
 
             <TextView
                 android:id="@+id/indiana_now"

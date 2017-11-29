@@ -135,7 +135,7 @@ public class OrderPkDetailFragment extends BaseBackMvpFragment<IOrderPkDetailVie
     @Override
     public void getPkInfoSuccess(PkResultInfo info) {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.addItemDecoration(new SpacesItemDecoration(PtrLocalDisplay.dp2px(1)));
+        recyclerView.addItemDecoration(new SpacesItemDecoration(PtrLocalDisplay.dp2px(10),true,false));
         PkMineInfo mineInfo = new PkMineInfo();
         mineInfo.setAvatar(info.getAvatar());
         mineInfo.setUsername(info.getNickname());

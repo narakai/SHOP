@@ -130,6 +130,14 @@ public class ChooseGoodsNumberPopupWindow extends PopupWindow implements View.On
         accountBalance = (TextView) view.findViewById(R.id.account_balance);
         payPrice = (TextView) view.findViewById(R.id.pay_price);
         toPay = (TextView) view.findViewById(R.id.to_pay);
+        view.findViewById(R.id.how_to_play).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(onClickPopWindowPayListener!=null){
+                    onClickPopWindowPayListener.onClickHowToPlay();
+                }
+            }
+        });
         setTotalPrice();
     }
 
@@ -518,5 +526,7 @@ public class ChooseGoodsNumberPopupWindow extends PopupWindow implements View.On
         void onClickToPay(int playType, int buyType, int buyNumber);
 
         void onClickToRecharge();
+
+        void onClickHowToPlay();
     }
 }

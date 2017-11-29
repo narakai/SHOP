@@ -39,18 +39,30 @@ public class TrendAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         TrendViewHolder viewHolder = (TrendViewHolder) holder;
         viewHolder.qishu.setText(info.getCycle_code());
         char[] numbers = info.getResult().toCharArray();
-        viewHolder.number1.setText(numbers[0]+"");
-        viewHolder.number2.setText(numbers[1]+"");
-        viewHolder.number3.setText(numbers[2]+"");
-        viewHolder.number4.setText(numbers[3]+"");
-        viewHolder.number5.setText(numbers[4]+"");
+        viewHolder.number1.setText(numbers[0] + "");
+        viewHolder.number2.setText(numbers[1] + "");
+        viewHolder.number3.setText(numbers[2] + "");
+        viewHolder.number4.setText(numbers[3] + "");
+        viewHolder.number5.setText(numbers[4] + "");
         String result1 = Integer.parseInt(String.valueOf(numbers[4])) > 4 ? "大" : "小";
         String result2 = Integer.parseInt(String.valueOf(numbers[4])) % 2 == 0 ? "双" : "单";
         String result3 = Integer.parseInt(String.valueOf(numbers[3])) > 4 ? "大" : "小";
         viewHolder.result1.setText(result1);
         viewHolder.result2.setText(result2);
         viewHolder.result3.setText(result3 + result2);
-        viewHolder.result4.setText(numbers[4]+"");
+        viewHolder.result4.setText(numbers[4] + "");
+
+        if (result1.equals("大")) {
+            viewHolder.result1.setBackgroundResource(R.drawable.bg_trend_red);
+        } else {
+            viewHolder.result1.setBackgroundResource(R.drawable.bg_trend_blue);
+        }
+
+        if (result2.equals("双")) {
+            viewHolder.result2.setBackgroundResource(R.drawable.bg_trend_red);
+        } else {
+            viewHolder.result2.setBackgroundResource(R.drawable.bg_trend_blue);
+        }
     }
 
     @Override

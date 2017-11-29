@@ -98,6 +98,26 @@
 
             </RadioGroup>
 
+            <RadioGroup
+                android:id="@+id/radioGroup2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
+
+                <RadioButton
+                    android:id="@+id/money_5"
+                    android:layout_width="60dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/bg_choose_type_radio_button_selector"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:text="2000"
+                    android:textColor="@drawable/bg_choose_money_radio_button_textcolor_selector"
+                    android:textSize="@dimen/text_size_big" />
+            </RadioGroup>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

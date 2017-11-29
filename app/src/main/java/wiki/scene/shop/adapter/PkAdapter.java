@@ -51,6 +51,8 @@ public class PkAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         viewHolder.otherName.setText(info.getNickname());
         viewHolder.otherAvatar.loadCircleImage(ShopApplication.configInfo.getFile_domain() + info.getAvatar(), R.drawable.ic_default_avater);
         viewHolder.otherBuyType.setText(getBuyTypeString(info.getTarget_buy_type()));
+        viewHolder.pk_number.setText("匹配数量："+info.getTarget_number());
+        viewHolder.orderCode.setText("订单编号："+info.getOrder_id());
     }
 
     @Override
@@ -71,6 +73,10 @@ public class PkAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         GlideImageView otherAvatar;
         @BindView(R.id.other_name)
         TextView otherName;
+        @BindView(R.id.order_code)
+        TextView orderCode;
+        @BindView(R.id.pk_number)
+        TextView pk_number;
 
         PkViewHolder(View view) {
             super(view);

@@ -34,6 +34,7 @@ import wiki.scene.shop.http.api.ApiUtil;
 import wiki.scene.shop.http.base.LzyResponse;
 import wiki.scene.shop.http.callback.JsonCallback;
 import wiki.scene.shop.mvp.BaseMvpActivity;
+import wiki.scene.shop.utils.NetTimeUtils;
 import wiki.scene.shop.utils.SharedPreferencesUtil;
 import wiki.scene.shop.utils.ToastUtils;
 
@@ -72,10 +73,34 @@ public class LauncherActivity extends BaseMvpActivity<ILauncherView, LauncherPre
     private void checkHasLogin() {
         String passwordStr = SharedPreferencesUtil.getString(LauncherActivity.this, "password", "");
         if (StringUtils.isEmpty(passwordStr)) {
-            loginFail();
+            String userInfoStr = SharedPreferencesUtil.getString(LauncherActivity.this, ShopApplication.USER_INFO_KEY, "");
+            if (StringUtils.isEmpty(userInfoStr)) {
+                loginFail();
+            } else {
+                UserInfo userInfo = new Gson().fromJson(userInfoStr, UserInfo.class);
+                if (userInfo != null && userInfo.getExpired_time() * 1000 < NetTimeUtils.getWebsiteDatetime() - (24 * 60 * 60 * 1000)) {
+                    loginSuccess(userInfo);
+                } else {
+                    loginFail();
+                }
+            }
         } else {
             PasswordInfo passwordInfo = new Gson().fromJson(passwordStr, PasswordInfo.class);
-            presenter.login(passwordInfo.getAccount(), passwordInfo.getPassword());
+            if (StringUtils.isEmpty(passwordInfo.getAccount()) || StringUtils.isEmpty(passwordInfo.getPassword())) {
+                String userInfoStr = SharedPreferencesUtil.getString(LauncherActivity.this, ShopApplication.USER_INFO_KEY, "");
+                if (StringUtils.isEmpty(userInfoStr)) {
+                    loginFail();
+                } else {
+                    UserInfo userInfo = new Gson().fromJson(userInfoStr, UserInfo.class);
+                    if (userInfo != null && userInfo.getExpired_time() - (24 * 60 * 60 * 1000) > NetTimeUtils.getWebsiteDatetime()) {
+                        loginSuccess(userInfo);
+                    } else {
+                        loginFail();
+                    }
+                }
+            } else {
+                presenter.login(passwordInfo.getAccount(), passwordInfo.getPassword());
+            }
         }
     }
 

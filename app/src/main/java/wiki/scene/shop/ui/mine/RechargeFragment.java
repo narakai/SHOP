@@ -70,6 +70,10 @@ public class RechargeFragment extends BaseBackMvpFragment<IRechargeView, Recharg
     TextView recharge;
     @BindView(R.id.priceCustom)
     EditText priceCustom;
+    @BindView(R.id.money_5)
+    RadioButton money5;
+    @BindView(R.id.radioGroup2)
+    RadioGroup radioGroup2;
 
     private int cost = 100;
 
@@ -110,6 +114,7 @@ public class RechargeFragment extends BaseBackMvpFragment<IRechargeView, Recharg
                 try {
                     if (v == priceCustom && hasFocus) {
                         radioGroup.clearCheck();
+                        radioGroup2.clearCheck();
                         cost = 0;
                     } else {
                         hideSoftInput();
@@ -123,6 +128,7 @@ public class RechargeFragment extends BaseBackMvpFragment<IRechargeView, Recharg
             @Override
             public void onClick(View view) {
                 radioGroup.clearCheck();
+                radioGroup2.clearCheck();
                 cost = 0;
             }
         });
@@ -140,6 +146,7 @@ public class RechargeFragment extends BaseBackMvpFragment<IRechargeView, Recharg
                 String priceStr = String.valueOf(100);
                 priceCustom.setText(priceStr);
                 priceCustom.setSelection(priceStr.length());
+                radioGroup2.clearCheck();
             }
         });
         money2.setOnClickListener(new View.OnClickListener() {
@@ -150,6 +157,7 @@ public class RechargeFragment extends BaseBackMvpFragment<IRechargeView, Recharg
                 String priceStr = String.valueOf(200);
                 priceCustom.setText(priceStr);
                 priceCustom.setSelection(priceStr.length());
+                radioGroup2.clearCheck();
             }
         });
         money3.setOnClickListener(new View.OnClickListener() {
@@ -160,6 +168,7 @@ public class RechargeFragment extends BaseBackMvpFragment<IRechargeView, Recharg
                 String priceStr = String.valueOf(500);
                 priceCustom.setText(priceStr);
                 priceCustom.setSelection(priceStr.length());
+                radioGroup2.clearCheck();
 
             }
         });
@@ -171,6 +180,18 @@ public class RechargeFragment extends BaseBackMvpFragment<IRechargeView, Recharg
                 String priceStr = String.valueOf(1000);
                 priceCustom.setText(priceStr);
                 priceCustom.setSelection(priceStr.length());
+                radioGroup2.clearCheck();
+            }
+        });
+        money5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                hideSoftInput();
+                cost = 2000;
+                String priceStr = String.valueOf(2000);
+                priceCustom.setText(priceStr);
+                priceCustom.setSelection(priceStr.length());
+                radioGroup.clearCheck();
             }
         });
     }

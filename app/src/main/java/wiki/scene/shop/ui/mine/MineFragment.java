@@ -28,6 +28,7 @@ import wiki.scene.loadmore.PtrFrameLayout;
 import wiki.scene.loadmore.StatusViewLayout;
 import wiki.scene.shop.R;
 import wiki.scene.shop.ShopApplication;
+import wiki.scene.shop.activity.HowToPayActitivty;
 import wiki.scene.shop.activity.LoginActivity;
 import wiki.scene.shop.config.AppConfig;
 import wiki.scene.shop.entity.MineInfo;
@@ -40,6 +41,7 @@ import wiki.scene.shop.event.TabSelectedEvent;
 import wiki.scene.shop.mvp.BaseMainMvpFragment;
 import wiki.scene.shop.ui.mine.mvpview.IMineView;
 import wiki.scene.shop.ui.mine.presenter.MinePresenter;
+import wiki.scene.shop.ui.servicecenter.ServiceCenterFragment;
 import wiki.scene.shop.utils.PriceUtil;
 import wiki.scene.shop.utils.SharedPreferencesUtil;
 import wiki.scene.shop.utils.UpdatePageUtils;
@@ -154,6 +156,34 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
             startActivity(new Intent(_mActivity, MineInfoActivity.class));
         } else {
             enterLogin();
+        }
+    }
+
+    @OnClick(R.id.service_center)
+    public void onClickServiceCenter() {
+        try {
+            EventBus.getDefault().post(new StartBrotherEvent(ServiceCenterFragment.newInstance()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @OnClick(R.id.how_to_play)
+    public void onClickHowToPlay() {
+        try {
+            Intent intent = new Intent(_mActivity, HowToPayActitivty.class);
+            startActivity(intent);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @OnClick(R.id.make_money)
+    public void onClickMakeMoney() {
+        try {
+            ToastUtils.showShort("尚在开发中！！！");
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

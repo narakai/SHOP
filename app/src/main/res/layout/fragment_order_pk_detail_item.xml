@@ -5,110 +5,140 @@
     android:layout_height="wrap_content"
     android:background="@color/white"
     android:gravity="center_vertical"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:paddingBottom="10dp"
     android:paddingLeft="15dp"
     android:paddingRight="15dp"
     android:paddingTop="10dp">
 
-    <LinearLayout
-        android:layout_width="0dp"
+    <TextView
+        android:id="@+id/order_code"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
+        android:text="订单编号:"
+        android:textColor="@color/text_color_title"
+        android:textSize="@dimen/text_size_middle" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/pk_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="匹配数量:"
+        android:textColor="@color/text_color_title"
+        android:textSize="@dimen/text_size_middle" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/text_color_des" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/mine_buy_type"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="40dp"
+                    android:background="@drawable/shape_bg_round_theme"
+                    android:gravity="center"
+                    android:paddingLeft="10dp"
+                    android:text="单数"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_middle" />
+
+                <com.sunfusheng.glideimageview.GlideImageView
+                    android:id="@+id/mine_avatar"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_centerVertical="true"
+                    app:siv_border_color="@color/white"
+                    app:siv_border_width="2dp"
+                    app:siv_shape_type="circle" />
+            </RelativeLayout>
 
             <TextView
-                android:id="@+id/mine_buy_type"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="40dp"
-                android:background="@drawable/shape_bg_round_theme"
-                android:gravity="center"
-                android:paddingLeft="10dp"
-                android:text="单数"
-                android:textColor="@color/white"
+                android:id="@+id/mine_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:ellipsize="end"
+                android:lines="1"
+                android:text=""
+                android:textColor="@color/text_color_title"
                 android:textSize="@dimen/text_size_middle" />
+        </LinearLayout>
 
-            <com.sunfusheng.glideimageview.GlideImageView
-                android:id="@+id/mine_avatar"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_centerVertical="true"
-                app:siv_border_color="@color/white"
-                app:siv_border_width="2dp"
-                app:siv_shape_type="circle" />
-        </RelativeLayout>
-
-        <TextView
-            android:id="@+id/mine_name"
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="20dp"
-            android:ellipsize="end"
-            android:lines="1"
-            android:text=""
-            android:textColor="@color/text_color_title"
-            android:textSize="@dimen/text_size_middle" />
-    </LinearLayout>
+            android:layout_margin="20dp"
+            android:src="@drawable/ic_vs" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:src="@drawable/ic_vs" />
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+                <TextView
+                    android:id="@+id/other_buy_type"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="40dp"
+                    android:background="@drawable/shape_bg_round_theme_stoke"
+                    android:gravity="center"
+                    android:paddingRight="10dp"
+                    android:text="双数"
+                    android:textColor="@color/color_theme" />
+
+                <com.sunfusheng.glideimageview.GlideImageView
+                    android:id="@+id/other_avatar"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    app:siv_border_color="@color/white"
+                    app:siv_border_width="2dp"
+                    app:siv_shape_type="circle" />
+
+            </RelativeLayout>
 
             <TextView
-                android:id="@+id/other_buy_type"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="40dp"
-                android:background="@drawable/shape_bg_round_theme_stoke"
-                android:gravity="center"
-                android:paddingRight="10dp"
-                android:text="双数"
-                android:textColor="@color/color_theme" />
-
-            <com.sunfusheng.glideimageview.GlideImageView
-                android:id="@+id/other_avatar"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                app:siv_border_color="@color/white"
-                app:siv_border_width="2dp"
-                app:siv_shape_type="circle" />
-
-        </RelativeLayout>
-
-        <TextView
-            android:id="@+id/other_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="20dp"
-            android:ellipsize="end"
-            android:lines="1"
-            android:text=""
-            android:textColor="@color/text_color_title"
-            android:textSize="@dimen/text_size_middle" />
+                android:id="@+id/other_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:ellipsize="end"
+                android:lines="1"
+                android:text=""
+                android:textColor="@color/text_color_title"
+                android:textSize="@dimen/text_size_middle" />
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>

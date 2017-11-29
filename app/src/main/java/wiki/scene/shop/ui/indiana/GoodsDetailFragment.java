@@ -330,6 +330,16 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
                             popupWindow.dismiss();
                         }
                     }
+
+                    @Override
+                    public void onClickHowToPlay() {
+                        try {
+                            Intent intent = new Intent(_mActivity, HowToPayActitivty.class);
+                            startActivity(intent);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
                 });
                 popupWindow.show(buy);
             } else {
@@ -603,7 +613,7 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
                     }
                 });
             }
-        }, 1, 1, TimeUnit.SECONDS);
+        }, 50, 50, TimeUnit.MILLISECONDS);
     }
 
     private void showDanmu(final List<NewestWinInfo> list) {

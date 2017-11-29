@@ -135,7 +135,7 @@ public class TrendFragment extends BaseMainMvpFragment<ITrendView, TrendPresente
                     }
                 });
             }
-        }, 1, 1, TimeUnit.SECONDS);
+        }, 50, 50, TimeUnit.MILLISECONDS);
     }
 
     @Override

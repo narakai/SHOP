@@ -107,7 +107,7 @@ public class IndianaGoodsAdapter extends BaseAdapter {
         }
         long timer = info.getOpen_time() * 1000 - NetTimeUtils.getWebsiteDatetime();
         if (timer > 0) {
-            countDownTimer = new CountDownTimer(timer, 1000) {
+            countDownTimer = new CountDownTimer(timer, 100) {
                 public void onTick(long millisUntilFinished) {
                     viewHolder.countdownView.setText(DateFormatUtils.getHoursByNow(info.getOpen_time()));
                 }

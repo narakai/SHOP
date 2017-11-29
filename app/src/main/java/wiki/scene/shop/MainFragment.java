@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -129,13 +128,11 @@ public class MainFragment extends SupportFragment {
                 if (position == tabNames.size() - 1) {
                     EventBus.getDefault().post(new TabSelectedEvent(position));
                 }
-//                if (position != tabNames.size() - 1) {
-//                    toolbarLayout.setVisibility(View.VISIBLE);
-//
-//                    toolbarPublish.setVisibility(View.GONE);
-//                } else {
-//                    toolbarLayout.setVisibility(View.GONE);
-//                }
+                if (position != tabNames.size() - 1) {
+                    toolbarLayout.setVisibility(View.VISIBLE);
+                } else {
+                    toolbarLayout.setVisibility(View.GONE);
+                }
             }
 
             @Override

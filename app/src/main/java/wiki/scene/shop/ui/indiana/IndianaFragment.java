@@ -508,6 +508,15 @@ public class IndianaFragment extends BaseMainMvpFragment<IIndianaView, IndianaPr
         presenter.clickDrawCash();
     }
 
+    @OnClick(R.id.make_money)
+    public void onClickMakeMoney() {
+        try {
+            ToastUtils.showShort("尚在开发中！！！");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     @Subscribe
     public void refreshTime(GetCurrentCycleSuccessEvent event) {
         try {

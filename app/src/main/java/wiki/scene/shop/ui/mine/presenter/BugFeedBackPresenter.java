@@ -32,10 +32,10 @@ public class BugFeedBackPresenter extends BasePresenter<IBugFeedbackView> {
                 mView.showMessage(R.string.please_edit_your_need_feedback_questions);
                 return;
             }
-            if (TextUtils.isEmpty(contact)) {
-                mView.showMessage(R.string.please_edit_contact_info);
-                return;
-            }
+//            if (TextUtils.isEmpty(contact)) {
+//                mView.showMessage(R.string.please_edit_contact_info);
+//                return;
+//            }
             if (ShopApplication.hasLogin && ShopApplication.userInfo != null) {
                 mView.showLoading(R.string.loading);
                 HttpParams params = new HttpParams();

@@ -88,45 +88,42 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:text="一、充值失败怎么办？"
+                        android:text="@string/question_1"
                         android:textColor="#666666" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:text="      1如果已经付款成功显示充值失败，可能是网络问题导致充值失败，请联系官方客服，核对订单，我们将人工为您充值。
-/n/t 2 如果无法充值成功，可能是系统使用的三方支付异常，请联系官方客服，我们会尽快恢复支付。"
+                        android:text="@string/answer_1"
                         android:textColor="#666666" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:text="二、关于“商品不满意，无条件退款”怎么退款"
+                        android:text="@string/question_2"
                         android:textColor="@color/text_color_title" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:text="      本平台出售的全部商品，用户不满意一律无条件退款。您可以通过兑换功能直接退货把商品兑换成夺宝币，然后通过提现就可以得到现金了。
-/n        注意：
-/n        商品可以退换，订单无法取消，您一旦参与夺宝，支付成功以后系统将自动把您跟其他夺宝用户进行匹配共同购买一个商品，订单匹配成功以后是不能取消的。"
+                        android:text="@string/answer_2"
                         android:textColor="#666666" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:text="三、夺宝成功怎么领取商品"
+                        android:text="@string/question_3"
                         android:textColor="@color/text_color_title" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:text="/t如果夺宝成功，请您联系官方客服发货。官方客服QQ为：170059106。请认准官方客服，不要轻信他人，以防被骗。"
+                        android:text="@string/answer_3"
                         android:textColor="#666666" />
                 </LinearLayout>
             </ScrollView>

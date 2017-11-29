@@ -17,6 +17,7 @@ public class DateFormatUtils {
         String rHour = "";
         String rMin = "";
         String rSs = "";
+        String rMs = "";
         // 时
         if (hour < 10) {
             rHour = "0" + hour;
@@ -35,10 +36,16 @@ public class DateFormatUtils {
         } else {
             rSs = sec + "";
         }
-        // return hour + "小时" + minute + "分钟" + sec + "秒";
-        return rHour + ":" + rMin + ":" + rSs;
-    }
 
+        long mls = (time - second * 1000) / 10;
+        if (mls < 10) {
+            rMs = "0" + mls;
+        } else {
+            rMs = String.valueOf(mls);
+        }
+        // return hour + "小时" + minute + "分钟" + sec + "秒";
+        return rHour + ":" + rMin + ":" + rSs + ":" + rMs;
+    }
 
     public static String getHours(long time) {
         long second = time / 1000;
