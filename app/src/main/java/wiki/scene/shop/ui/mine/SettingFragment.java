@@ -21,6 +21,8 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import wiki.scene.shop.R;
 import wiki.scene.shop.ShopApplication;
+import wiki.scene.shop.activity.FindPasswordActivity;
+import wiki.scene.shop.activity.LoginActivity;
 import wiki.scene.shop.config.AppConfig;
 import wiki.scene.shop.event.LoginOutEvent;
 import wiki.scene.shop.mvp.BaseBackMvpFragment;
@@ -137,6 +139,23 @@ public class SettingFragment extends BaseBackMvpFragment<ISettingView, SettingPr
         }
     }
 
+    @OnClick(R.id.update_password)
+    public void onClickUpdatePassword() {
+        try {
+            if (ShopApplication.userInfo != null) {
+                Intent intent = new Intent(_mActivity, FindPasswordActivity.class);
+                intent.putExtra("title", "修改密码");
+                startActivity(intent);
+            } else {
+                Intent intent = new Intent(_mActivity, LoginActivity.class);
+                startActivity(intent);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public void showLoading(@StringRes int resId) {
         loadingDialog.showLoadingDialog(getString(resId));
@@ -164,7 +183,7 @@ public class SettingFragment extends BaseBackMvpFragment<ISettingView, SettingPr
         ShopApplication.userInfo = null;
         SharedPreferencesUtil.deleteByKey(getContext(), ShopApplication.USER_INFO_KEY);
         EventBus.getDefault().post(new LoginOutEvent());
-        SharedPreferencesUtil.deleteByKey(getContext(),"password");
+        SharedPreferencesUtil.deleteByKey(getContext(), "password");
         _mActivity.onBackPressed();
     }
 }

@@ -1,5 +1,6 @@
 package wiki.scene.shop.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.StringRes;
 import android.support.v7.widget.Toolbar;
@@ -8,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.StringUtils;
 import com.lzy.okgo.OkGo;
 
 import java.util.Timer;
@@ -70,14 +72,28 @@ public class FindPasswordActivity extends BaseMvpActivity<IFindPasswordView, Fin
     }
 
     private void initToolbar() {
-        toolbarTitle.setText(R.string.find_password);
-        toolbar.setNavigationIcon(R.drawable.ic_toolbar_back);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
+        try {
+            toolbar.setNavigationIcon(R.drawable.ic_toolbar_back);
+            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onBackPressed();
+                }
+            });
+            Intent intent = getIntent();
+            if (intent != null) {
+                String title = intent.getStringExtra("title");
+                if (StringUtils.isEmpty(title)) {
+                    toolbarTitle.setText("找回密码");
+                } else {
+                    toolbarTitle.setText("修改密码");
+                }
             }
-        });
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     private void initView() {

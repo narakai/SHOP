@@ -8,11 +8,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.sunfusheng.glideimageview.GlideImageLoader;
+import com.sunfusheng.glideimageview.GlideImageView;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,8 +32,10 @@ import wiki.scene.shop.ShopApplication;
 import wiki.scene.shop.adapter.RankAdapter;
 import wiki.scene.shop.config.AppConfig;
 import wiki.scene.shop.entity.RankInfo;
+import wiki.scene.shop.event.StartBrotherEvent;
 import wiki.scene.shop.itemDecoration.SpacesItemDecoration;
 import wiki.scene.shop.mvp.BaseMainMvpFragment;
+import wiki.scene.shop.ui.mine.OthersIndianaRecordFragment;
 import wiki.scene.shop.ui.rank.presenter.RankPresenter;
 import wiki.scene.shop.ui.rank.view.IRankView;
 import wiki.scene.shop.utils.ToastUtils;
@@ -56,9 +59,9 @@ public class RankFragment extends BaseMainMvpFragment<IRankView, RankPresenter> 
     private LinearLayout layoutRank1;
     private LinearLayout layoutRank2;
     private LinearLayout layoutRank3;
-    private ImageView rank1Avater;
-    private ImageView rank2Avater;
-    private ImageView rank3Avater;
+    private GlideImageView rank1Avater;
+    private GlideImageView rank2Avater;
+    private GlideImageView rank3Avater;
     private TextView rank1Nickname;
     private TextView rank2Nickname;
     private TextView rank3Nickname;
@@ -103,6 +106,18 @@ public class RankFragment extends BaseMainMvpFragment<IRankView, RankPresenter> 
         headerView = LayoutInflater.from(getContext()).inflate(R.layout.fragment_rank_header, null, false);
         initHeaderView();
         mAdapter.addHeader(headerView);
+        mAdapter.setOnItemClickListener(new RecyclerAdapterWithHF.OnItemClickListener() {
+            @Override
+            public void onItemClick(RecyclerAdapterWithHF adapter, RecyclerView.ViewHolder vh, int position) {
+                if (position < list.size()) {
+                    try {
+                        EventBus.getDefault().post(new StartBrotherEvent(OthersIndianaRecordFragment.newInstance()));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
         recyclerView.setAdapter(mAdapter);
         presenter.getRankData(true);
         ptrLayout.setPtrHandler(new PtrDefaultHandler() {
@@ -117,9 +132,9 @@ public class RankFragment extends BaseMainMvpFragment<IRankView, RankPresenter> 
         layoutRank1 = (LinearLayout) headerView.findViewById(R.id.layout_rank1);
         layoutRank2 = (LinearLayout) headerView.findViewById(R.id.layout_rank2);
         layoutRank3 = (LinearLayout) headerView.findViewById(R.id.layout_rank3);
-        rank1Avater = (ImageView) headerView.findViewById(R.id.rank1_avater);
-        rank2Avater = (ImageView) headerView.findViewById(R.id.rank2_avater);
-        rank3Avater = (ImageView) headerView.findViewById(R.id.rank3_avater);
+        rank1Avater = (GlideImageView) headerView.findViewById(R.id.rank1_avater);
+        rank2Avater = (GlideImageView) headerView.findViewById(R.id.rank2_avater);
+        rank3Avater = (GlideImageView) headerView.findViewById(R.id.rank3_avater);
         rank1Nickname = (TextView) headerView.findViewById(R.id.rank1_nickname);
         rank2Nickname = (TextView) headerView.findViewById(R.id.rank2_nickname);
         rank3Nickname = (TextView) headerView.findViewById(R.id.rank3_nickname);
@@ -224,39 +239,74 @@ public class RankFragment extends BaseMainMvpFragment<IRankView, RankPresenter> 
     }
 
     private void bindHeaderViewData() {
-        switch (headerList.size()) {
-            case 3:
-                layoutRank3.setVisibility(View.VISIBLE);
-                GlideImageLoader.create(rank3Avater).loadCircleImage(ShopApplication.configInfo.getFile_domain() + headerList.get(2).getAvatar(), R.drawable.ic_default_avater);
-                rank3Nickname.setText(headerList.get(2).getNickname());
-                rank3WinTime.setText(String.valueOf(headerList.get(2).getWin_times()));
-            case 2:
-                layoutRank2.setVisibility(View.VISIBLE);
-                GlideImageLoader.create(rank2Avater).loadCircleImage(ShopApplication.configInfo.getFile_domain() + headerList.get(1).getAvatar(), R.drawable.ic_default_avater);
-                rank2Nickname.setText(headerList.get(1).getNickname());
-                rank2WinTime.setText(String.valueOf(headerList.get(1).getWin_times()));
-            case 1:
-                layoutRank1.setVisibility(View.VISIBLE);
-                GlideImageLoader.create(rank1Avater).loadCircleImage(ShopApplication.configInfo.getFile_domain() + headerList.get(0).getAvatar(), R.drawable.ic_default_avater);
-                rank1Nickname.setText(headerList.get(0).getNickname());
-                rank1WinTime.setText(String.valueOf(headerList.get(0).getWin_times()));
-                break;
-        }
-        switch (headerList.size()) {
-            case 0:
-                layoutRank1.setVisibility(View.GONE);
-                layoutRank2.setVisibility(View.GONE);
-                layoutRank3.setVisibility(View.GONE);
-                break;
-            case 1:
-                layoutRank2.setVisibility(View.INVISIBLE);
-                layoutRank3.setVisibility(View.INVISIBLE);
-                break;
-            case 2:
-                layoutRank3.setVisibility(View.INVISIBLE);
-                break;
+        try {
+            switch (headerList.size()) {
+                case 3:
+                    layoutRank3.setVisibility(View.VISIBLE);
+                    rank3Avater.loadCircleImage(ShopApplication.configInfo.getFile_domain() + headerList.get(2).getAvatar(), R.drawable.ic_default_avater);
+                    rank3Nickname.setText(headerList.get(2).getNickname());
+                    rank3WinTime.setText(String.valueOf(headerList.get(2).getWin_times()));
+                case 2:
+                    layoutRank2.setVisibility(View.VISIBLE);
+                    rank2Avater.loadCircleImage(ShopApplication.configInfo.getFile_domain() + headerList.get(1).getAvatar(), R.drawable.ic_default_avater);
+                    rank2Nickname.setText(headerList.get(1).getNickname());
+                    rank2WinTime.setText(String.valueOf(headerList.get(1).getWin_times()));
+                case 1:
+                    layoutRank1.setVisibility(View.VISIBLE);
+                    rank1Avater.loadCircleImage(ShopApplication.configInfo.getFile_domain() + headerList.get(0).getAvatar(), R.drawable.ic_default_avater);
+                    rank1Nickname.setText(headerList.get(0).getNickname());
+                    rank1WinTime.setText(String.valueOf(headerList.get(0).getWin_times()));
+                    break;
+            }
+            switch (headerList.size()) {
+                case 0:
+                    layoutRank1.setVisibility(View.GONE);
+                    layoutRank2.setVisibility(View.GONE);
+                    layoutRank3.setVisibility(View.GONE);
+                    break;
+                case 1:
+                    layoutRank2.setVisibility(View.INVISIBLE);
+                    layoutRank3.setVisibility(View.INVISIBLE);
+                    break;
+                case 2:
+                    layoutRank3.setVisibility(View.INVISIBLE);
+                    break;
 
+            }
+            layoutRank1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    try {
+                        EventBus.getDefault().post(new StartBrotherEvent(OthersIndianaRecordFragment.newInstance()));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+            layoutRank2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    try {
+                        EventBus.getDefault().post(new StartBrotherEvent(OthersIndianaRecordFragment.newInstance()));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+            layoutRank3.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    try {
+                        EventBus.getDefault().post(new StartBrotherEvent(OthersIndianaRecordFragment.newInstance()));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
     }
 
     View.OnClickListener retryListener = new View.OnClickListener() {

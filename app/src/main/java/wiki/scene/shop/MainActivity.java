@@ -227,9 +227,14 @@ public class MainActivity extends SupportActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        if (ShopApplication.currentCycleInfo.getOpen_time() * 1000 < NetTimeUtils.getWebsiteDatetime()) {
-                            getCurrentCycleData();
+                        try {
+                            if (ShopApplication.currentCycleInfo.getOpen_time() * 1000 < NetTimeUtils.getWebsiteDatetime()) {
+                                getCurrentCycleData();
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
+
                     }
                 });
             }

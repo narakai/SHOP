@@ -23,6 +23,35 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/update_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:background="@color/white"
+                    android:drawableRight="@drawable/ic_mine_arrow_right"
+                    android:gravity="center_vertical"
+                    android:paddingBottom="13.33dp"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:paddingTop="13.33dp"
+                    android:text="修改密码"
+                    android:textColor="@color/text_color_title"
+                    android:textSize="@dimen/text_size_middle" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:background="#F0F0F0" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="1dp"
@@ -171,7 +200,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dp"
                 android:background="@color/white"
-                android:visibility="gone"
                 android:drawableRight="@drawable/ic_mine_arrow_right"
                 android:gravity="center_vertical"
                 android:paddingBottom="13.33dp"
@@ -180,15 +208,16 @@
                 android:paddingTop="13.33dp"
                 android:text="@string/about_us"
                 android:textColor="@color/text_color_title"
-                android:textSize="@dimen/text_size_middle" />
+                android:textSize="@dimen/text_size_middle"
+                android:visibility="gone" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
                 android:layout_marginLeft="8dp"
-                android:visibility="gone"
                 android:layout_marginRight="8dp"
-                android:background="#F0F0F0" />
+                android:background="#F0F0F0"
+                android:visibility="gone" />
 
             <Button
                 android:id="@+id/exit_login"

@@ -58,7 +58,6 @@ public class LoginActivity extends BaseMvpActivity<ILoginView, LoginPresenter> i
     private LoadingDialog loadingDialog;
     private UMShareAPI shareAPI;
 
-
     private String unionid;
     private String nickName;
     private int sex;
@@ -92,7 +91,7 @@ public class LoginActivity extends BaseMvpActivity<ILoginView, LoginPresenter> i
 
     private void initView() {
         loadingDialog = LoadingDialog.getInstance(this);
-        shareAPI = UMShareAPI.get(this);
+
     }
 
     @Override
@@ -194,6 +193,7 @@ public class LoginActivity extends BaseMvpActivity<ILoginView, LoginPresenter> i
 
     @OnClick(R.id.wechat_login)
     public void onClickWechatLogin() {
+        shareAPI = UMShareAPI.get(this);
         if (shareAPI.isInstall(this, SHARE_MEDIA.WEIXIN)) {
             shareAPI.getPlatformInfo(this, SHARE_MEDIA.WEIXIN, this);
         } else {
@@ -203,6 +203,7 @@ public class LoginActivity extends BaseMvpActivity<ILoginView, LoginPresenter> i
 
     @OnClick(R.id.qq_login)
     public void onClickQQLogin() {
+        shareAPI = UMShareAPI.get(this);
         if (shareAPI.isInstall(this, SHARE_MEDIA.QQ)) {
             shareAPI.getPlatformInfo(this, SHARE_MEDIA.QQ, this);
         } else {
