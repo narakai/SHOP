@@ -27,14 +27,11 @@
             android:background="@drawable/bg_rank_header_avater"
             android:gravity="center">
 
-            <com.sunfusheng.glideimageview.GlideImageView
+            <ImageView
                 android:id="@+id/rank2_avater"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                android:src="@drawable/ic_default_avater"
-                app:siv_border_color="@color/white"
-                app:siv_border_width="2dp"
-                app:siv_shape_type="none" />
+                android:src="@drawable/ic_default_avater"/>
         </RelativeLayout>
 
         <TextView
@@ -106,14 +103,11 @@
             android:background="@drawable/bg_rank_header_avater"
             android:gravity="center">
 
-            <com.sunfusheng.glideimageview.GlideImageView
+            <ImageView
                 android:id="@+id/rank1_avater"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                android:src="@drawable/ic_default_avater"
-                app:siv_border_color="@color/white"
-                app:siv_border_width="2dp"
-                app:siv_shape_type="none" />
+                android:src="@drawable/ic_default_avater" />
         </RelativeLayout>
 
         <TextView
@@ -185,14 +179,11 @@
             android:background="@drawable/bg_rank_header_avater"
             android:gravity="center">
 
-            <com.sunfusheng.glideimageview.GlideImageView
+            <ImageView
                 android:id="@+id/rank3_avater"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                android:src="@drawable/ic_default_avater"
-                app:siv_border_color="@color/white"
-                app:siv_border_width="2dp"
-                app:siv_shape_type="none" />
+                android:src="@drawable/ic_default_avater" />
         </RelativeLayout>
 
         <TextView

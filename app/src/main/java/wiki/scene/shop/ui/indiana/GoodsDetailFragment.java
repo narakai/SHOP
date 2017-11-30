@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -50,6 +51,7 @@ import wiki.scene.shop.mvp.BaseBackMvpFragment;
 import wiki.scene.shop.ui.indiana.mvpview.IGoodsDetailView;
 import wiki.scene.shop.ui.indiana.presenter.GoodsDetailPresenter;
 import wiki.scene.shop.ui.mine.IndianaRecordFragment;
+import wiki.scene.shop.ui.mine.OthersIndianaRecordFragment;
 import wiki.scene.shop.ui.mine.RechargeFragment;
 import wiki.scene.shop.utils.DateFormatUtils;
 import wiki.scene.shop.utils.NetTimeUtils;
@@ -237,14 +239,14 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
                     @Override
                     public void run() {
                         try {
-                            buyListView.smoothScrollToPositionFromTop(buyListView.getFirstVisiblePosition() + 1, 0);
+                            buyListView.smoothScrollBy(2, 1);
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }
                 });
             }
-        }, 1, 1, TimeUnit.SECONDS);
+        }, 50, 50, TimeUnit.MILLISECONDS);
         //倒计时
         startCountDown();
 
@@ -482,7 +484,18 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
             } else {
                 buyAdapter.notifyDataSetChanged();
             }
+            buyListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    try {
+                        start(OthersIndianaRecordFragment.newInstance(buyList.get(i % buyList.size()).getUser_id()));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
             showDanmu(list);
+
         } catch (Exception e) {
             e.printStackTrace();
         }

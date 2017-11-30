@@ -52,13 +52,23 @@ public class OthersIndianaRecordFragment extends BaseBackMvpFragment<IIdianaReco
     @BindView(R.id.toolbar_text)
     TextView toolbarText;
 
-    public static OthersIndianaRecordFragment newInstance() {
+    private int targetUserId = 0;
+
+    public static OthersIndianaRecordFragment newInstance(int targetUserId) {
         Bundle args = new Bundle();
+        args.putInt("id", targetUserId);
         OthersIndianaRecordFragment fragment = new OthersIndianaRecordFragment();
         fragment.setArguments(args);
         return fragment;
     }
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            targetUserId = getArguments().getInt("id", 0);
+        }
+    }
 
     @Nullable
     @Override
@@ -79,8 +89,8 @@ public class OthersIndianaRecordFragment extends BaseBackMvpFragment<IIdianaReco
     private void initView() {
         String tabTitle[] = {getString(R.string.all), getString(R.string.win)};
         List<Fragment> fragmentList = new ArrayList<>();
-        fragmentList.add(OthersIndianaRecordTypeFragment.newInstance(OthersIndianaRecordTypeFragment.OTHERS_INDIANA_RECORD_TYPE_ALL));
-        fragmentList.add(OthersIndianaRecordTypeFragment.newInstance(OthersIndianaRecordTypeFragment.OTHERS_INDIANA_RECORD_TYPE_WIN));
+        fragmentList.add(OthersIndianaRecordTypeFragment.newInstance(OthersIndianaRecordTypeFragment.OTHERS_INDIANA_RECORD_TYPE_ALL, targetUserId));
+        fragmentList.add(OthersIndianaRecordTypeFragment.newInstance(OthersIndianaRecordTypeFragment.OTHERS_INDIANA_RECORD_TYPE_WIN, targetUserId));
         tab.addTab(tab.newTab().setText(tabTitle[0]));
         tab.addTab(tab.newTab().setText(tabTitle[1]));
         viewPager.setAdapter(new IndiaRecordPagerFragmentAdapter(getChildFragmentManager(), tabTitle, fragmentList));

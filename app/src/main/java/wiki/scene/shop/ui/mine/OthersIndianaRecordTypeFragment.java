@@ -25,7 +25,6 @@ import wiki.scene.loadmore.loadmore.OnLoadMoreListener;
 import wiki.scene.loadmore.recyclerview.RecyclerAdapterWithHF;
 import wiki.scene.loadmore.utils.PtrLocalDisplay;
 import wiki.scene.shop.R;
-import wiki.scene.shop.adapter.IndianaRecordAdapter;
 import wiki.scene.shop.adapter.OthersIndianaRecordAdapter;
 import wiki.scene.shop.config.AppConfig;
 import wiki.scene.shop.entity.CreateOrderInfo;
@@ -37,8 +36,8 @@ import wiki.scene.shop.itemDecoration.SpacesItemDecoration;
 import wiki.scene.shop.mvp.BaseBackMvpFragment;
 import wiki.scene.shop.mvp.BaseMvpFragment;
 import wiki.scene.shop.ui.car.PayOrderFragment;
-import wiki.scene.shop.ui.mine.mvpview.IIndianaRecordTypeView;
-import wiki.scene.shop.ui.mine.presenter.IndianaRecordTypePresenter;
+import wiki.scene.shop.ui.mine.mvpview.IOthersIndianaRecordTypeView;
+import wiki.scene.shop.ui.mine.presenter.OthersIndianaRecordTypePresenter;
 import wiki.scene.shop.utils.ToastUtils;
 import wiki.scene.shop.utils.UpdatePageUtils;
 import wiki.scene.shop.widgets.LoadingDialog;
@@ -49,7 +48,7 @@ import wiki.scene.shop.widgets.LoadingDialog;
  * Author：scene on 2017/7/5 13:49
  */
 
-public class OthersIndianaRecordTypeFragment extends BaseMvpFragment<IIndianaRecordTypeView, IndianaRecordTypePresenter> implements IIndianaRecordTypeView {
+public class OthersIndianaRecordTypeFragment extends BaseMvpFragment<IOthersIndianaRecordTypeView, OthersIndianaRecordTypePresenter> implements IOthersIndianaRecordTypeView {
     private final static String ARG_INDIANA_RECORD_TYPE = "arg_indiana_record_type";
     public final static int OTHERS_INDIANA_RECORD_TYPE_ALL = 0;
     public final static int OTHERS_INDIANA_RECORD_TYPE_WIN = 1;
@@ -61,6 +60,8 @@ public class OthersIndianaRecordTypeFragment extends BaseMvpFragment<IIndianaRec
     StatusViewLayout statusLayout;
     Unbinder unbinder;
 
+    private int targetUserId = 0;
+
     private int page = 1;
     //adapter
     private List<MineOrderInfo> list = new ArrayList<>();
@@ -69,9 +70,10 @@ public class OthersIndianaRecordTypeFragment extends BaseMvpFragment<IIndianaRec
     private LoadingDialog loadingDialog;
     private int type = OTHERS_INDIANA_RECORD_TYPE_ALL;
 
-    public static OthersIndianaRecordTypeFragment newInstance(int type) {
+    public static OthersIndianaRecordTypeFragment newInstance(int type, int targetUserId) {
         Bundle args = new Bundle();
         args.putInt(ARG_INDIANA_RECORD_TYPE, type);
+        args.putInt("id", targetUserId);
         OthersIndianaRecordTypeFragment fragment = new OthersIndianaRecordTypeFragment();
         fragment.setArguments(args);
         return fragment;
@@ -83,6 +85,7 @@ public class OthersIndianaRecordTypeFragment extends BaseMvpFragment<IIndianaRec
         Bundle args = getArguments();
         if (args != null) {
             type = args.getInt(ARG_INDIANA_RECORD_TYPE, OTHERS_INDIANA_RECORD_TYPE_ALL);
+            targetUserId = args.getInt("id", 0);
         }
     }
 
@@ -99,10 +102,10 @@ public class OthersIndianaRecordTypeFragment extends BaseMvpFragment<IIndianaRec
         super.onEnterAnimationEnd(savedInstanceState);
         initView();
         if (type == OTHERS_INDIANA_RECORD_TYPE_ALL) {
-            presenter.getIndianaRecordData(page, true);
+            presenter.getIndianaRecordData(targetUserId, page, true);
             UpdatePageUtils.updatePagePosition(AppConfig.POSITION_INDIANA_RECORD_ALL, 0);
         } else {
-            presenter.getWinIndianaRecordData(page, true);
+            presenter.getWinIndianaRecordData(targetUserId, page, true);
             UpdatePageUtils.updatePagePosition(AppConfig.POSITION_INDIANA_RECORD_WIN, 0);
         }
     }
@@ -115,9 +118,9 @@ public class OthersIndianaRecordTypeFragment extends BaseMvpFragment<IIndianaRec
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
                 if (type == OTHERS_INDIANA_RECORD_TYPE_ALL) {
-                    presenter.getIndianaRecordData(1, false);
+                    presenter.getIndianaRecordData(targetUserId, 1, false);
                 } else {
-                    presenter.getWinIndianaRecordData(1, false);
+                    presenter.getWinIndianaRecordData(targetUserId, 1, false);
                 }
             }
         });
@@ -125,9 +128,9 @@ public class OthersIndianaRecordTypeFragment extends BaseMvpFragment<IIndianaRec
             @Override
             public void loadMore() {
                 if (type == OTHERS_INDIANA_RECORD_TYPE_ALL) {
-                    presenter.getIndianaRecordData(page + 1, false);
+                    presenter.getIndianaRecordData(targetUserId, page + 1, false);
                 } else {
-                    presenter.getWinIndianaRecordData(page + 1, false);
+                    presenter.getWinIndianaRecordData(targetUserId, page + 1, false);
                 }
             }
         });
@@ -173,15 +176,15 @@ public class OthersIndianaRecordTypeFragment extends BaseMvpFragment<IIndianaRec
     }
 
     @Override
-    public IndianaRecordTypePresenter initPresenter() {
-        return new IndianaRecordTypePresenter(this);
+    public OthersIndianaRecordTypePresenter initPresenter() {
+        return new OthersIndianaRecordTypePresenter(this);
     }
 
     @Override
     public void onDestroyView() {
         try {
-            OkGo.getInstance().cancelTag(ApiUtil.MINE_ORDER_TAG);
-            OkGo.getInstance().cancelTag(ApiUtil.WIN_RECORD_TAG);
+            OkGo.getInstance().cancelTag(ApiUtil.OTHERS_INDIANA_RECORD_TAG);
+            OkGo.getInstance().cancelTag(ApiUtil.OTHERS_WIN_RECORD_TAG);
             adapter.cancelAllTimers();
         } catch (Exception e) {
             e.printStackTrace();
@@ -265,9 +268,9 @@ public class OthersIndianaRecordTypeFragment extends BaseMvpFragment<IIndianaRec
         @Override
         public void onClick(View v) {
             if (type == OTHERS_INDIANA_RECORD_TYPE_ALL) {
-                presenter.getIndianaRecordData(page, true);
+                presenter.getIndianaRecordData(targetUserId, page, true);
             } else {
-                presenter.getWinIndianaRecordData(page, true);
+                presenter.getWinIndianaRecordData(targetUserId, page, true);
             }
         }
     };

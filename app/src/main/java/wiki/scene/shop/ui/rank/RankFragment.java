@@ -8,9 +8,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.sunfusheng.glideimageview.GlideImageLoader;
 import com.sunfusheng.glideimageview.GlideImageView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -59,9 +61,9 @@ public class RankFragment extends BaseMainMvpFragment<IRankView, RankPresenter> 
     private LinearLayout layoutRank1;
     private LinearLayout layoutRank2;
     private LinearLayout layoutRank3;
-    private GlideImageView rank1Avater;
-    private GlideImageView rank2Avater;
-    private GlideImageView rank3Avater;
+    private ImageView rank1Avater;
+    private ImageView rank2Avater;
+    private ImageView rank3Avater;
     private TextView rank1Nickname;
     private TextView rank2Nickname;
     private TextView rank3Nickname;
@@ -111,7 +113,7 @@ public class RankFragment extends BaseMainMvpFragment<IRankView, RankPresenter> 
             public void onItemClick(RecyclerAdapterWithHF adapter, RecyclerView.ViewHolder vh, int position) {
                 if (position < list.size()) {
                     try {
-                        EventBus.getDefault().post(new StartBrotherEvent(OthersIndianaRecordFragment.newInstance()));
+                        EventBus.getDefault().post(new StartBrotherEvent(OthersIndianaRecordFragment.newInstance(list.get(position).getUser_id())));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -132,9 +134,9 @@ public class RankFragment extends BaseMainMvpFragment<IRankView, RankPresenter> 
         layoutRank1 = (LinearLayout) headerView.findViewById(R.id.layout_rank1);
         layoutRank2 = (LinearLayout) headerView.findViewById(R.id.layout_rank2);
         layoutRank3 = (LinearLayout) headerView.findViewById(R.id.layout_rank3);
-        rank1Avater = (GlideImageView) headerView.findViewById(R.id.rank1_avater);
-        rank2Avater = (GlideImageView) headerView.findViewById(R.id.rank2_avater);
-        rank3Avater = (GlideImageView) headerView.findViewById(R.id.rank3_avater);
+        rank1Avater = (ImageView) headerView.findViewById(R.id.rank1_avater);
+        rank2Avater = (ImageView) headerView.findViewById(R.id.rank2_avater);
+        rank3Avater = (ImageView) headerView.findViewById(R.id.rank3_avater);
         rank1Nickname = (TextView) headerView.findViewById(R.id.rank1_nickname);
         rank2Nickname = (TextView) headerView.findViewById(R.id.rank2_nickname);
         rank3Nickname = (TextView) headerView.findViewById(R.id.rank3_nickname);
@@ -243,17 +245,17 @@ public class RankFragment extends BaseMainMvpFragment<IRankView, RankPresenter> 
             switch (headerList.size()) {
                 case 3:
                     layoutRank3.setVisibility(View.VISIBLE);
-                    rank3Avater.loadCircleImage(ShopApplication.configInfo.getFile_domain() + headerList.get(2).getAvatar(), R.drawable.ic_default_avater);
+                    GlideImageLoader.create(rank3Avater).loadCircleImage(ShopApplication.configInfo.getFile_domain() + headerList.get(2).getAvatar(), R.drawable.ic_default_avater);
                     rank3Nickname.setText(headerList.get(2).getNickname());
                     rank3WinTime.setText(String.valueOf(headerList.get(2).getWin_times()));
                 case 2:
                     layoutRank2.setVisibility(View.VISIBLE);
-                    rank2Avater.loadCircleImage(ShopApplication.configInfo.getFile_domain() + headerList.get(1).getAvatar(), R.drawable.ic_default_avater);
+                    GlideImageLoader.create(rank2Avater).loadCircleImage(ShopApplication.configInfo.getFile_domain() + headerList.get(1).getAvatar(), R.drawable.ic_default_avater);
                     rank2Nickname.setText(headerList.get(1).getNickname());
                     rank2WinTime.setText(String.valueOf(headerList.get(1).getWin_times()));
                 case 1:
                     layoutRank1.setVisibility(View.VISIBLE);
-                    rank1Avater.loadCircleImage(ShopApplication.configInfo.getFile_domain() + headerList.get(0).getAvatar(), R.drawable.ic_default_avater);
+                    GlideImageLoader.create(rank1Avater).loadCircleImage(ShopApplication.configInfo.getFile_domain() + headerList.get(0).getAvatar(), R.drawable.ic_default_avater);
                     rank1Nickname.setText(headerList.get(0).getNickname());
                     rank1WinTime.setText(String.valueOf(headerList.get(0).getWin_times()));
                     break;
@@ -277,7 +279,7 @@ public class RankFragment extends BaseMainMvpFragment<IRankView, RankPresenter> 
                 @Override
                 public void onClick(View view) {
                     try {
-                        EventBus.getDefault().post(new StartBrotherEvent(OthersIndianaRecordFragment.newInstance()));
+                        EventBus.getDefault().post(new StartBrotherEvent(OthersIndianaRecordFragment.newInstance(list.get(0).getUser_id())));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -287,7 +289,7 @@ public class RankFragment extends BaseMainMvpFragment<IRankView, RankPresenter> 
                 @Override
                 public void onClick(View view) {
                     try {
-                        EventBus.getDefault().post(new StartBrotherEvent(OthersIndianaRecordFragment.newInstance()));
+                        EventBus.getDefault().post(new StartBrotherEvent(OthersIndianaRecordFragment.newInstance(list.get(1).getUser_id())));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -297,7 +299,7 @@ public class RankFragment extends BaseMainMvpFragment<IRankView, RankPresenter> 
                 @Override
                 public void onClick(View view) {
                     try {
-                        EventBus.getDefault().post(new StartBrotherEvent(OthersIndianaRecordFragment.newInstance()));
+                        EventBus.getDefault().post(new StartBrotherEvent(OthersIndianaRecordFragment.newInstance(list.get(2).getUser_id())));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

@@ -49,6 +49,7 @@ import wiki.scene.shop.ui.indiana.mvpview.IIndianaView;
 import wiki.scene.shop.ui.indiana.presenter.IndianaPresenter;
 import wiki.scene.shop.ui.mine.CashFragment;
 import wiki.scene.shop.ui.mine.ExchangeFragment;
+import wiki.scene.shop.ui.mine.OthersIndianaRecordFragment;
 import wiki.scene.shop.ui.mine.RechargeFragment;
 import wiki.scene.shop.utils.ThreadPoolUtils;
 import wiki.scene.shop.utils.UpdatePageUtils;
@@ -139,7 +140,7 @@ public class IndianaFragment extends BaseMainMvpFragment<IIndianaView, IndianaPr
     }
 
     private void initView() {
-        View canyuItemview = LayoutInflater.from(getContext()).inflate(R.layout.fragment_indiana_canyu_item, null);
+        final View canyuItemview = LayoutInflater.from(getContext()).inflate(R.layout.fragment_indiana_canyu_item, null);
         ViewUtils.setViewHeightByViewGroup(canyuListView, ViewUtils.getViewHeight(canyuItemview) * 4);
         ViewUtils.setViewHeightByViewGroup(huojiangListView, ViewUtils.getViewHeight(canyuItemview) * 4);
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -171,15 +172,17 @@ public class IndianaFragment extends BaseMainMvpFragment<IIndianaView, IndianaPr
                     @Override
                     public void run() {
                         try {
-                            canyuListView.smoothScrollToPositionFromTop(canyuListView.getFirstVisiblePosition() + 1, 0);
-                            huojiangListView.smoothScrollToPositionFromTop(huojiangListView.getFirstVisiblePosition() + 1, 0);
+                            canyuListView.smoothScrollBy(2, 1);
+                            huojiangListView.smoothScrollBy(2, 1);
+//                            canyuListView.smoothScrollToPositionFromTop(canyuListView.getFirstVisiblePosition() + 1, 0);
+//                            huojiangListView.smoothScrollToPositionFromTop(huojiangListView.getFirstVisiblePosition() + 1, 0);
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }
                 });
             }
-        }, 1, 1, TimeUnit.SECONDS);
+        }, 50, 50, TimeUnit.MILLISECONDS);
 
         goodsAdapter = new IndianaGoodsAdapter(getContext(), goodsList);
         gridView.setAdapter(goodsAdapter);
@@ -322,7 +325,7 @@ public class IndianaFragment extends BaseMainMvpFragment<IIndianaView, IndianaPr
      * @param list 集合
      */
     @Override
-    public void getNewestWinSuccess(List<NewestWinInfo> list) {
+    public void getNewestWinSuccess(final List<NewestWinInfo> list) {
         if (list == null || list.size() == 0) {
             return;
         }
@@ -343,6 +346,17 @@ public class IndianaFragment extends BaseMainMvpFragment<IIndianaView, IndianaPr
         notice.setFocusable(true);
         notice.setFocusableInTouchMode(true);
         notice.requestFocus();
+
+        huojiangListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                try {
+                    EventBus.getDefault().post(new StartBrotherEvent(OthersIndianaRecordFragment.newInstance(newestWinList.get(i % newestWinList.size()).getUser_id())));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     /**
@@ -363,6 +377,16 @@ public class IndianaFragment extends BaseMainMvpFragment<IIndianaView, IndianaPr
         } else {
             canyuAdapter.notifyDataSetChanged();
         }
+        canyuListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                try {
+                    EventBus.getDefault().post(new StartBrotherEvent(OthersIndianaRecordFragment.newInstance(newestBuyList.get(i % newestBuyList.size()).getUser_id())));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     @Override

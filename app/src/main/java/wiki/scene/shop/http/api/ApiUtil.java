@@ -223,7 +223,12 @@ public class ApiUtil {
     //上报界面
     public static final String UPDATE_PAGE = "/data/position";
     public static final String UPDATE_PAGE_TAG = "/data/position";
-
+    //别人的夺宝记录
+    public static final String OTHERS_INDIANA_RECORD = "/ranking/detail";
+    public static final String OTHERS_INDIANA_RECORD_TAG = "OTHERS_INDIANA_RECORD";
+    //别人的中奖纪录
+    public static final String OTHERS_WIN_RECORD = "/ranking/win";
+    public static final String OTHERS_WIN_RECORD_TAG = "OTHERS_WIN_RECORD";
 
     /**
      * Case By:创建参数基础信息

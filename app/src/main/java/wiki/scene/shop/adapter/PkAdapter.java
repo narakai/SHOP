@@ -52,7 +52,7 @@ public class PkAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         viewHolder.otherAvatar.loadCircleImage(ShopApplication.configInfo.getFile_domain() + info.getAvatar(), R.drawable.ic_default_avater);
         viewHolder.otherBuyType.setText(getBuyTypeString(info.getTarget_buy_type()));
         viewHolder.pk_number.setText("匹配数量："+info.getTarget_number());
-        viewHolder.orderCode.setText("订单编号："+info.getOrder_id());
+        viewHolder.orderCode.setText("订单编号："+info.getTarget_order_id());
     }
 
     @Override

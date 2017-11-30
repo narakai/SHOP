@@ -17,17 +17,17 @@ public class RankInfo implements Serializable {
      * nickname : scene1
      */
 
-    private String user_id;
+    private int user_id;
     private int win_times;
     private String total_cost;
     private String avatar;
     private String nickname;
 
-    public String getUser_id() {
+    public int getUser_id() {
         return user_id;
     }
 
-    public void setUser_id(String user_id) {
+    public void setUser_id(int user_id) {
         this.user_id = user_id;
     }
 
