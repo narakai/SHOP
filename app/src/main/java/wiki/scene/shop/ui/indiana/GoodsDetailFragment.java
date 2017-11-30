@@ -8,7 +8,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -484,11 +483,11 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
             } else {
                 buyAdapter.notifyDataSetChanged();
             }
-            buyListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            buyAdapter.setOnClickGoodsDetailBuyItemListener(new GoodsDetailBuyAdapter.OnClickGoodsDetailBuyItemListener() {
                 @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                public void onClickItem(int position) {
                     try {
-                        start(OthersIndianaRecordFragment.newInstance(buyList.get(i % buyList.size()).getUser_id()));
+                        start(OthersIndianaRecordFragment.newInstance(buyList.get(position % buyList.size()).getUser_id()));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

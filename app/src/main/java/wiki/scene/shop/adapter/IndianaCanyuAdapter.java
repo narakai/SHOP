@@ -5,9 +5,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.TimeUtils;
+import com.sunfusheng.glideimageview.GlideImageLoader;
 import com.sunfusheng.glideimageview.GlideImageView;
 
 import java.util.List;
@@ -27,6 +30,8 @@ public class IndianaCanyuAdapter extends BaseAdapter {
     private Context context;
     private List<NewestWinInfo> list;
     private LayoutInflater mInflater;
+
+    private OnClickItemViewListener onClickItemViewListener;
 
     public IndianaCanyuAdapter(Context context, List<NewestWinInfo> list) {
         this.context = context;
@@ -49,8 +54,12 @@ public class IndianaCanyuAdapter extends BaseAdapter {
         return i % list.size();
     }
 
+    public void setOnClickItemViewListener(OnClickItemViewListener onClickItemViewListener) {
+        this.onClickItemViewListener = onClickItemViewListener;
+    }
+
     @Override
-    public View getView(int i, View convertView, ViewGroup viewGroup) {
+    public View getView(final int i, View convertView, ViewGroup viewGroup) {
         IndianaCanyuViewHolder viewHolder;
         if (convertView == null) {
             convertView = mInflater.inflate(R.layout.fragment_indiana_canyu_item, viewGroup, false);
@@ -65,13 +74,25 @@ public class IndianaCanyuAdapter extends BaseAdapter {
         viewHolder.time.setText(TimeUtils.getFriendlyTimeSpanByNow(info.getCreate_time() * 1000));
         viewHolder.number.setText(String.valueOf(info.getNumber()));
         viewHolder.status.setText("参与");
-        viewHolder.userAvater.loadCircleImage(ShopApplication.configInfo.getFile_domain() + info.getAvatar(), R.drawable.ic_default_avater);
+        GlideImageLoader.create(viewHolder.userAvater).loadCircleImage(ShopApplication.configInfo.getFile_domain() + info.getAvatar(), R.drawable.ic_default_avater);
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    if (onClickItemViewListener != null) {
+                        onClickItemViewListener.onClickItem(i % list.size());
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
         return convertView;
     }
 
     static class IndianaCanyuViewHolder {
         @BindView(R.id.user_avater)
-        GlideImageView userAvater;
+        ImageView userAvater;
         @BindView(R.id.username)
         TextView username;
         @BindView(R.id.time)
@@ -82,9 +103,15 @@ public class IndianaCanyuAdapter extends BaseAdapter {
         TextView number;
         @BindView(R.id.goods_name)
         TextView goodsName;
+        @BindView(R.id.item_view)
+        LinearLayout itemView;
 
         IndianaCanyuViewHolder(View view) {
             ButterKnife.bind(this, view);
         }
+    }
+
+    public interface OnClickItemViewListener {
+        void onClickItem(int realPosition);
     }
 }

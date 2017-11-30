@@ -30,52 +30,48 @@ public class OthersIndianaRecordTypePresenter extends BasePresenter<IOthersIndia
                 mView.showLoading();
             }
             HttpParams params = new HttpParams();
-            if (ShopApplication.hasLogin) {
-                params.put("page", page);
-                params.put("target_user_id", targetUserId);
-                model.getIndianaRecordData(params, new HttpResultListener<MineOrderResultInfo>() {
-                    @Override
-                    public void onSuccess(MineOrderResultInfo data) {
-                        try {
-                            mView.changePage(page);
-                            if (isLoading) {
-                                mView.showContent();
-                            } else {
-                                mView.refreshComplete();
-                            }
-                            mView.getDataSuccess(data);
-                        } catch (Exception e) {
-                            e.printStackTrace();
+            params.put("page", page);
+            params.put("target_user_id", targetUserId);
+            model.getIndianaRecordData(params, new HttpResultListener<MineOrderResultInfo>() {
+                @Override
+                public void onSuccess(MineOrderResultInfo data) {
+                    try {
+                        mView.changePage(page);
+                        if (isLoading) {
+                            mView.showContent();
+                        } else {
+                            mView.refreshComplete();
                         }
+                        mView.getDataSuccess(data);
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
+                }
 
-                    @Override
-                    public void onFail(String message) {
-                        try {
-                            if (isLoading) {
-                                mView.showFail();
-                            } else {
-                                mView.showMessage(message);
+                @Override
+                public void onFail(String message) {
+                    try {
+                        if (isLoading) {
+                            mView.showFail();
+                        } else {
+                            mView.showMessage(message);
 
-                            }
-                            if (page == 1) {
-                                mView.refreshComplete();
-                            } else {
-                                mView.changePage(page - 1);
-                                mView.loadmoreFail();
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
                         }
+                        if (page == 1) {
+                            mView.refreshComplete();
+                        } else {
+                            mView.changePage(page - 1);
+                            mView.loadmoreFail();
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
+                }
 
-                    @Override
-                    public void onFinish() {
-                    }
-                });
-            } else {
-                mView.showMessage(R.string.you_has_no_login_please_login);
-            }
+                @Override
+                public void onFinish() {
+                }
+            });
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -87,52 +83,48 @@ public class OthersIndianaRecordTypePresenter extends BasePresenter<IOthersIndia
                 mView.showLoading();
             }
             HttpParams params = new HttpParams();
-            if (ShopApplication.hasLogin) {
-                params.put("page", page);
-                params.put("target_user_id", targetUserId);
-                model.getWinIndianaRecordData(params, new HttpResultListener<MineOrderResultInfo>() {
-                    @Override
-                    public void onSuccess(MineOrderResultInfo data) {
-                        try {
-                            mView.changePage(page);
-                            if (isLoading) {
-                                mView.showContent();
-                            } else {
-                                mView.refreshComplete();
-                            }
-                            mView.getDataSuccess(data);
-                        } catch (Exception e) {
-                            e.printStackTrace();
+            params.put("page", page);
+            params.put("target_user_id", targetUserId);
+            model.getWinIndianaRecordData(params, new HttpResultListener<MineOrderResultInfo>() {
+                @Override
+                public void onSuccess(MineOrderResultInfo data) {
+                    try {
+                        mView.changePage(page);
+                        if (isLoading) {
+                            mView.showContent();
+                        } else {
+                            mView.refreshComplete();
                         }
+                        mView.getDataSuccess(data);
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
+                }
 
-                    @Override
-                    public void onFail(String message) {
-                        try {
-                            if (isLoading) {
-                                mView.showFail();
-                            } else {
-                                mView.showMessage(message);
+                @Override
+                public void onFail(String message) {
+                    try {
+                        if (isLoading) {
+                            mView.showFail();
+                        } else {
+                            mView.showMessage(message);
 
-                            }
-                            if (page == 1) {
-                                mView.refreshComplete();
-                            } else {
-                                mView.changePage(page - 1);
-                                mView.loadmoreFail();
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
                         }
+                        if (page == 1) {
+                            mView.refreshComplete();
+                        } else {
+                            mView.changePage(page - 1);
+                            mView.loadmoreFail();
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
+                }
 
-                    @Override
-                    public void onFinish() {
-                    }
-                });
-            } else {
-                mView.showMessage(R.string.you_has_no_login_please_login);
-            }
+                @Override
+                public void onFinish() {
+                }
+            });
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -10,7 +10,6 @@ import java.util.Date;
 import java.util.Locale;
 
 import wiki.scene.shop.utils.DateFormatUtil;
-import wiki.scene.shop.utils.DateFormatUtils;
 import wiki.scene.shop.utils.NetTimeUtils;
 
 /**
@@ -697,6 +696,10 @@ public final class TimeUtils {
         return getFriendlyTimeSpanByNow(string2Millis(time, format));
     }
 
+    public static String getFriendlyTimeSpanByNow(final long time, final DateFormat format) {
+        return getFriendlyTimeSpanByNow(time, format);
+    }
+
     /**
      * 获取友好型与当前时间的差
      *
@@ -735,7 +738,7 @@ public final class TimeUtils {
         long now = NetTimeUtils.getWebsiteDatetime();
         long span = now - millis;
         if (span < 0)
-            return String.format("%tc", millis);// U can read http://www.apihome.cn/api/java/Formatter.html to understand it.
+            return "刚刚";// U can read http://www.apihome.cn/api/java/Formatter.html to understand it.
         if (span < 1000) {
             return "刚刚";
         } else if (span < TimeConstants.MIN) {

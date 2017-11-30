@@ -73,7 +73,15 @@ public class IndianaRecordTypePresenter extends BasePresenter<IIndianaRecordType
                     }
                 });
             } else {
-                mView.showMessage(R.string.you_has_no_login_please_login);
+                try {
+                    if (isLoading) {
+                        mView.showFail();
+                    } else {
+                        mView.showMessage(R.string.you_has_no_login_please_login);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -129,7 +137,15 @@ public class IndianaRecordTypePresenter extends BasePresenter<IIndianaRecordType
                     }
                 });
             } else {
-                mView.showMessage(R.string.you_has_no_login_please_login);
+                try {
+                    if (isLoading) {
+                        mView.showFail();
+                    } else {
+                        mView.showMessage(R.string.you_has_no_login_please_login);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();

@@ -1,8 +1,6 @@
 package wiki.scene.shop.ui.mine;
 
-import android.content.Intent;
 import android.content.res.Resources;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
@@ -23,11 +21,9 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import butterknife.Unbinder;
 import wiki.scene.shop.R;
 import wiki.scene.shop.adapter.IndiaRecordPagerFragmentAdapter;
-import wiki.scene.shop.dialog.ExtractDialog;
 import wiki.scene.shop.mvp.BaseBackMvpFragment;
 import wiki.scene.shop.ui.mine.mvpview.IIdianaRecordView;
 import wiki.scene.shop.ui.mine.presenter.IndianaRecordPresenter;
@@ -75,6 +71,7 @@ public class OthersIndianaRecordFragment extends BaseBackMvpFragment<IIdianaReco
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_indiana_record, container, false);
         unbinder = ButterKnife.bind(this, view);
+        toolbarText.setVisibility(View.GONE);
         return attachToSwipeBack(view);
     }
 
@@ -121,13 +118,6 @@ public class OthersIndianaRecordFragment extends BaseBackMvpFragment<IIdianaReco
 
     @Override
     public void onDestroyView() {
-        try {
-            if (dialog != null) {
-                dialog.cancel();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
         super.onDestroyView();
         unbinder.unbind();
     }
@@ -163,28 +153,4 @@ public class OthersIndianaRecordFragment extends BaseBackMvpFragment<IIdianaReco
         }
 
     }
-
-
-    private ExtractDialog dialog;
-
-    @OnClick(R.id.toolbar_text)
-    public void onClickToolbarText() {
-        try {
-            if (dialog == null) {
-                ExtractDialog.Builder builder = new ExtractDialog.Builder(_mActivity);
-                builder.setListener(new ExtractDialog.ExtractDialogConfirmListener() {
-                    @Override
-                    public void onClickConfirm() {
-                        String qqUrl = "mqqwpa://im/chat?chat_type=wpa&uin=170059106&version=1";
-                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(qqUrl)));
-                    }
-                });
-                dialog = builder.create();
-            }
-            dialog.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
 }

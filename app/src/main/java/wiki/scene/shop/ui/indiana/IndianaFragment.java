@@ -347,11 +347,11 @@ public class IndianaFragment extends BaseMainMvpFragment<IIndianaView, IndianaPr
         notice.setFocusableInTouchMode(true);
         notice.requestFocus();
 
-        huojiangListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        winAdapter.setOnClickIndianaWinItemListener(new IndianaWinAdapter.OnClickIndianaWinItemListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            public void onClickItem(int position) {
                 try {
-                    EventBus.getDefault().post(new StartBrotherEvent(OthersIndianaRecordFragment.newInstance(newestWinList.get(i % newestWinList.size()).getUser_id())));
+                    EventBus.getDefault().post(new StartBrotherEvent(OthersIndianaRecordFragment.newInstance(newestWinList.get(position % newestWinList.size()).getUser_id())));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -373,20 +373,20 @@ public class IndianaFragment extends BaseMainMvpFragment<IIndianaView, IndianaPr
         newestBuyList.addAll(list);
         if (canyuAdapter == null) {
             canyuAdapter = new IndianaCanyuAdapter(getContext(), newestBuyList);
+            canyuAdapter.setOnClickItemViewListener(new IndianaCanyuAdapter.OnClickItemViewListener() {
+                @Override
+                public void onClickItem(int realPosition) {
+                    try {
+                        EventBus.getDefault().post(new StartBrotherEvent(OthersIndianaRecordFragment.newInstance(newestBuyList.get(realPosition % newestBuyList.size()).getUser_id())));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
             canyuListView.setAdapter(canyuAdapter);
         } else {
             canyuAdapter.notifyDataSetChanged();
         }
-        canyuListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                try {
-                    EventBus.getDefault().post(new StartBrotherEvent(OthersIndianaRecordFragment.newInstance(newestBuyList.get(i % newestBuyList.size()).getUser_id())));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
     }
 
     @Override

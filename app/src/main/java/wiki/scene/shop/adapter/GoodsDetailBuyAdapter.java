@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.TimeUtils;
@@ -18,6 +19,7 @@ import butterknife.ButterKnife;
 import wiki.scene.shop.R;
 import wiki.scene.shop.ShopApplication;
 import wiki.scene.shop.entity.NewestWinInfo;
+import wiki.scene.shop.utils.DateFormatUtil;
 
 /**
  * 商品详情开奖记录
@@ -28,11 +30,16 @@ public class GoodsDetailBuyAdapter extends BaseAdapter {
     private Context context;
     private List<NewestWinInfo> list;
     private LayoutInflater inflater;
+    private OnClickGoodsDetailBuyItemListener onClickGoodsDetailBuyItemListener;
 
     public GoodsDetailBuyAdapter(Context context, List<NewestWinInfo> list) {
         this.context = context;
         this.list = list;
         inflater = LayoutInflater.from(context);
+    }
+
+    public void setOnClickGoodsDetailBuyItemListener(OnClickGoodsDetailBuyItemListener onClickGoodsDetailBuyItemListener) {
+        this.onClickGoodsDetailBuyItemListener = onClickGoodsDetailBuyItemListener;
     }
 
     @Override
@@ -51,7 +58,7 @@ public class GoodsDetailBuyAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
+    public View getView(final int i, View view, ViewGroup viewGroup) {
         GoodsDetailBuyViewHolder viewHolder;
         if (view == null) {
             view = inflater.inflate(R.layout.fragment_goods_detail_buy_item, viewGroup, false);
@@ -65,6 +72,18 @@ public class GoodsDetailBuyAdapter extends BaseAdapter {
         viewHolder.number.setText(String.valueOf(info.getNumber()));
         viewHolder.time.setText(TimeUtils.getFriendlyTimeSpanByNow(info.getCreate_time() * 1000));
         GlideImageLoader.create(viewHolder.userAvater).loadCircleImage(ShopApplication.configInfo.getFile_domain() + info.getAvatar(), R.drawable.ic_default_avater);
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    if (onClickGoodsDetailBuyItemListener != null) {
+                        onClickGoodsDetailBuyItemListener.onClickItem(i % list.size());
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
         return view;
     }
 
@@ -77,9 +96,15 @@ public class GoodsDetailBuyAdapter extends BaseAdapter {
         TextView number;
         @BindView(R.id.time)
         TextView time;
+        @BindView(R.id.item_view)
+        LinearLayout itemView;
 
         GoodsDetailBuyViewHolder(View view) {
             ButterKnife.bind(this, view);
         }
+    }
+
+    public interface OnClickGoodsDetailBuyItemListener {
+        void onClickItem(int position);
     }
 }
