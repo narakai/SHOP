@@ -6,8 +6,6 @@ import com.lzy.okgo.model.Response;
 
 import java.util.List;
 
-import wiki.scene.shop.entity.AddCartResultInfo;
-import wiki.scene.shop.entity.CreateOrderInfo;
 import wiki.scene.shop.entity.GoodsDetailInfo;
 import wiki.scene.shop.entity.NewestWinInfo;
 import wiki.scene.shop.entity.OrderBuyResultInfo;
@@ -64,9 +62,9 @@ public class GoodsDetailModel {
                     @Override
                     public void onError(Response<LzyResponse<List<NewestWinInfo>>> response) {
                         super.onError(response);
-                        try{
+                        try {
                             listener.onFail(response.getException() != null && response.getException().getMessage() != null ? response.getException().getMessage() : response.message());
-                        }catch (Exception e){
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }
@@ -79,7 +77,7 @@ public class GoodsDetailModel {
                 });
     }
 
-    public void orderBuy(HttpParams params,final HttpResultListener<OrderBuyResultInfo> listener) {
+    public void orderBuy(HttpParams params, final HttpResultListener<OrderBuyResultInfo> listener) {
         OkGo.<LzyResponse<OrderBuyResultInfo>>post(ApiUtil.API_PRE + ApiUtil.ORDER_BUY)
                 .tag(ApiUtil.ORDER_BUY_TAG)
                 .params(params)
@@ -92,9 +90,9 @@ public class GoodsDetailModel {
                     @Override
                     public void onError(Response<LzyResponse<OrderBuyResultInfo>> response) {
                         super.onError(response);
-                        try{
+                        try {
                             listener.onFail(response.getException() != null && response.getException().getMessage() != null ? response.getException().getMessage() : response.message());
-                        }catch (Exception e){
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }
