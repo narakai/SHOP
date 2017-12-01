@@ -1,8 +1,6 @@
 package wiki.scene.shop.ui.mine;
 
-import android.content.Intent;
 import android.content.res.Resources;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
@@ -17,8 +15,6 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.lzy.okgo.OkGo;
-
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +26,6 @@ import butterknife.Unbinder;
 import wiki.scene.shop.R;
 import wiki.scene.shop.adapter.IndiaRecordPagerFragmentAdapter;
 import wiki.scene.shop.dialog.ExtractDialog;
-import wiki.scene.shop.http.api.ApiUtil;
 import wiki.scene.shop.mvp.BaseBackMvpFragment;
 import wiki.scene.shop.ui.mine.mvpview.IIdianaRecordView;
 import wiki.scene.shop.ui.mine.presenter.IndianaRecordPresenter;
@@ -75,6 +70,7 @@ public class IndianaRecordFragment extends BaseBackMvpFragment<IIdianaRecordView
     public void onEnterAnimationEnd(Bundle savedInstanceState) {
         super.onEnterAnimationEnd(savedInstanceState);
         toolbarTitle.setText(R.string.indiana_record);
+        toolbarText.setText("领取奖品");
         initToolbarNav(toolbar);
         initView();
     }
@@ -163,18 +159,7 @@ public class IndianaRecordFragment extends BaseBackMvpFragment<IIdianaRecordView
     @OnClick(R.id.toolbar_text)
     public void onClickToolbarText() {
         try {
-            if (dialog == null) {
-                ExtractDialog.Builder builder = new ExtractDialog.Builder(_mActivity);
-                builder.setListener(new ExtractDialog.ExtractDialogConfirmListener() {
-                    @Override
-                    public void onClickConfirm() {
-                        String qqUrl = "mqqwpa://im/chat?chat_type=wpa&uin=170059106&version=1";
-                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(qqUrl)));
-                    }
-                });
-                dialog = builder.create();
-            }
-            dialog.show();
+            start(ExchangeFragment.newInstance());
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -19,7 +19,6 @@ import butterknife.ButterKnife;
 import wiki.scene.shop.R;
 import wiki.scene.shop.ShopApplication;
 import wiki.scene.shop.entity.NewestWinInfo;
-import wiki.scene.shop.utils.DateFormatUtil;
 
 /**
  * 首页最新参与
@@ -75,6 +74,54 @@ public class IndianaWinAdapter extends BaseAdapter {
         viewHolder.status.setText("获胜");
         GlideImageLoader.create(viewHolder.userAvater).loadCircleImage(ShopApplication.configInfo.getFile_domain() + info.getAvatar(), R.drawable.ic_default_avater);
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    if (onClickIndianaWinItemListener != null) {
+                        onClickIndianaWinItemListener.onClickItem(i % list.size());
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        viewHolder.userAvater.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    if (onClickIndianaWinItemListener != null) {
+                        onClickIndianaWinItemListener.onClickItem(i % list.size());
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        viewHolder.username.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    if (onClickIndianaWinItemListener != null) {
+                        onClickIndianaWinItemListener.onClickItem(i % list.size());
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        viewHolder.time.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    if (onClickIndianaWinItemListener != null) {
+                        onClickIndianaWinItemListener.onClickItem(i % list.size());
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        viewHolder.goodsName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 try {

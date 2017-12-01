@@ -40,7 +40,6 @@ public class ShopApplication extends Application {
     public static final String USER_INFO_KEY = "user_info_key";
     public static final String UUID_KEY = "uuid";
     public static String UUID = "";
-    public static String CHANNEL_ID;
     public static String RESOURCE_ID;
     public static int versionCode = 0;
     public static boolean hasLogin = false;
@@ -55,8 +54,7 @@ public class ShopApplication extends Application {
     public void onCreate() {
         super.onCreate();
         PtrLocalDisplay.init(this);
-        CHANNEL_ID = getChannelName();
-        RESOURCE_ID = getResouyceName();
+        RESOURCE_ID = getChannelName();
         initOKhttp();
         initUmengShare();
         //初始化工具类
@@ -109,12 +107,8 @@ public class ShopApplication extends Application {
                 ApplicationInfo applicationInfo = packageManager.getApplicationInfo(getPackageName(), PackageManager.GET_META_DATA);
                 if (applicationInfo != null) {
                     if (applicationInfo.metaData != null) {
-                        String str = applicationInfo.metaData.getString("CHANNEL");
-                        if (TextUtils.isEmpty(str)) {
-                            return "";
-                        } else {
-                            resultData = str.substring(0, str.indexOf(","));
-                        }
+                        int str = applicationInfo.metaData.getInt("CHANNEL", 1001);
+                        resultData = String.valueOf(str);
                     }
                 }
 

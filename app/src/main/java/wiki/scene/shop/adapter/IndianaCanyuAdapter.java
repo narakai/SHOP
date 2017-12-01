@@ -75,6 +75,55 @@ public class IndianaCanyuAdapter extends BaseAdapter {
         viewHolder.number.setText(String.valueOf(info.getNumber()));
         viewHolder.status.setText("参与");
         GlideImageLoader.create(viewHolder.userAvater).loadCircleImage(ShopApplication.configInfo.getFile_domain() + info.getAvatar(), R.drawable.ic_default_avater);
+        viewHolder.userAvater.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    if (onClickItemViewListener != null) {
+                        onClickItemViewListener.onClickItem(i % list.size());
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        viewHolder.username.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    if (onClickItemViewListener != null) {
+                        onClickItemViewListener.onClickItem(i % list.size());
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        viewHolder.time.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    if (onClickItemViewListener != null) {
+                        onClickItemViewListener.onClickItem(i % list.size());
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        viewHolder.goodsName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    if (onClickItemViewListener != null) {
+                        onClickItemViewListener.onClickItem(i % list.size());
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

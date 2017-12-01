@@ -237,10 +237,9 @@ public class ApiUtil {
     public static HashMap<String, String> createParams() {
         HashMap<String, String> params = new HashMap<>();
         long timestamp = NetTimeUtils.getWebsiteDatetime();
-        params.put("agent_id", ShopApplication.CHANNEL_ID + "");
         params.put("resource_id", ShopApplication.RESOURCE_ID + "");
         params.put("timestamp", timestamp + "");
-        params.put("signature", getSign(ShopApplication.CHANNEL_ID + "", timestamp + ""));
+        params.put("signature", getSign(timestamp + ""));
         params.put("app_type", "1");
         params.put("uuid", ShopApplication.UUID);
         params.put("version", AppUtils.getAppVersionCode() + "");
@@ -251,7 +250,7 @@ public class ApiUtil {
      * Case By:获取sign
      * Author: scene on 2017/5/19 13:19
      */
-    private static String getSign(String agent_id, String timestamp) {
-        return MD5Util.string2Md5(MD5Util.string2Md5(agent_id + 1 + ShopApplication.RESOURCE_ID + timestamp + ShopApplication.UUID + AppUtils.getAppVersionCode(), "UTF-8") + SIGN_KEY, "UTF-8");
+    private static String getSign(String timestamp) {
+        return MD5Util.string2Md5(MD5Util.string2Md5(1 + ShopApplication.RESOURCE_ID + timestamp + ShopApplication.UUID + AppUtils.getAppVersionCode(), "UTF-8") + SIGN_KEY, "UTF-8");
     }
 }

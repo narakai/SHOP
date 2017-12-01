@@ -20,15 +20,19 @@
         android:layout_below="@id/noNetWork_imageView"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-        android:text="无网络连接，请检查后重试"
+        android:text="遇到未知问题 请选择刷新"
         android:textColor="#999999" />
 
     <Button
         android:id="@+id/noNetWork_reload_button"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="30dp"
         android:layout_below="@id/noNetWork_textView"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-        android:text="重试" />
+        android:background="@drawable/shape_error_btn"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:text="刷新"
+        android:textSize="16sp" />
 </RelativeLayout>

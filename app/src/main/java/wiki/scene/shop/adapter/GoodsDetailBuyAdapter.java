@@ -19,7 +19,6 @@ import butterknife.ButterKnife;
 import wiki.scene.shop.R;
 import wiki.scene.shop.ShopApplication;
 import wiki.scene.shop.entity.NewestWinInfo;
-import wiki.scene.shop.utils.DateFormatUtil;
 
 /**
  * 商品详情开奖记录
@@ -75,13 +74,7 @@ public class GoodsDetailBuyAdapter extends BaseAdapter {
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                try {
-                    if (onClickGoodsDetailBuyItemListener != null) {
-                        onClickGoodsDetailBuyItemListener.onClickItem(i % list.size());
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+
             }
         });
         return view;

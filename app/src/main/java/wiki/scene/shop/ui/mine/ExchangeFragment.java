@@ -2,6 +2,8 @@ package wiki.scene.shop.ui.mine;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -33,6 +35,7 @@ import wiki.scene.loadmore.utils.PtrLocalDisplay;
 import wiki.scene.shop.R;
 import wiki.scene.shop.adapter.ExchangeAdapter;
 import wiki.scene.shop.config.AppConfig;
+import wiki.scene.shop.dialog.ExtractDialog;
 import wiki.scene.shop.entity.PrizeInfo;
 import wiki.scene.shop.http.api.ApiUtil;
 import wiki.scene.shop.itemDecoration.SpacesItemDecoration;
@@ -66,6 +69,8 @@ public class ExchangeFragment extends BaseBackMvpFragment<IExchangeView, Exchang
     @BindView(R.id.exchange)
     TextView exchange;
     Unbinder unbinder;
+    @BindView(R.id.toolbar_text)
+    TextView toolbarText;
 
     private ExchangeAdapter adapter;
     private List<PrizeInfo> list = new ArrayList<>();
@@ -93,6 +98,7 @@ public class ExchangeFragment extends BaseBackMvpFragment<IExchangeView, Exchang
     public void onEnterAnimationEnd(Bundle savedInstanceState) {
         super.onEnterAnimationEnd(savedInstanceState);
         toolbarTitle.setText("兑换");
+        toolbarText.setText("领取奖品");
         initToolbarNav(toolbar);
         initView();
         presenter.getPrizeData(true);
@@ -383,6 +389,28 @@ public class ExchangeFragment extends BaseBackMvpFragment<IExchangeView, Exchang
                     }
                 })
                 .create().show();
+    }
+
+    private ExtractDialog dialog;
+
+    @OnClick(R.id.toolbar_text)
+    public void onClickToolbarText() {
+        try {
+            if (dialog == null) {
+                ExtractDialog.Builder builder = new ExtractDialog.Builder(_mActivity);
+                builder.setListener(new ExtractDialog.ExtractDialogConfirmListener() {
+                    @Override
+                    public void onClickConfirm() {
+                        String qqUrl = "mqqwpa://im/chat?chat_type=wpa&uin=170059106&version=1";
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(qqUrl)));
+                    }
+                });
+                dialog = builder.create();
+            }
+            dialog.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }
