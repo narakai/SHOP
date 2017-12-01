@@ -51,7 +51,7 @@ public class ExchangeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             PrizeInfo info = list.get(position);
             viewHolder.status.setImageResource(info.isChecked() ? R.drawable.ic_address_choosed_s : R.drawable.ic_address_choosed_d);
             viewHolder.goodsName.setText(info.getProduct_name());
-            viewHolder.money.setText("￥" + PriceUtil.getPrice(info.getCost()));
+            viewHolder.money.setText(PriceUtil.getPrice(info.getCost()) + "夺宝币");
             viewHolder.num.setText(String.valueOf(info.getNumber()));
             if (viewHolder.goodsImage.getTag() == null || !viewHolder.goodsImage.getTag().toString().equals(info.getThumb())) {
                 GlideImageLoader.create(viewHolder.goodsImage).loadImage(ShopApplication.configInfo.getFile_domain() + info.getThumb(), R.drawable.ic_default_goods_image);
