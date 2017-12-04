@@ -148,23 +148,28 @@ public class ChooseGoodsNumberPopupWindow extends PopupWindow implements View.On
     }
 
     private void setTotalPrice() {
-        switch (playType) {
-            case AppConfig.PLAY_TYPE_TWO:
-                totalPrice = twoPrice * buyNumber;
-                break;
-            case AppConfig.PLAY_TYPE_FOUR:
-                totalPrice = fourPrice * buyNumber;
-                break;
-            case AppConfig.PLAY_TYPE_TEN:
-                totalPrice = tenPrice * buyNumber;
-                break;
+        try {
+            switch (playType) {
+                case AppConfig.PLAY_TYPE_TWO:
+                    totalPrice = twoPrice * buyNumber;
+                    break;
+                case AppConfig.PLAY_TYPE_FOUR:
+                    totalPrice = fourPrice * buyNumber;
+                    break;
+                case AppConfig.PLAY_TYPE_TEN:
+                    totalPrice = tenPrice * buyNumber;
+                    break;
+            }
+            payPrice.setText(PriceUtil.getPrice(totalPrice));
+            if (totalPrice > balance) {
+                toPay.setText("余额不足，去充值");
+            } else {
+                toPay.setText("确定购买");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        payPrice.setText(PriceUtil.getPrice(totalPrice));
-        if (totalPrice > balance) {
-            toPay.setText("余额不足，去充值");
-        } else {
-            toPay.setText("确定购买");
-        }
+
     }
 
     private void setListener() {
@@ -249,21 +254,15 @@ public class ChooseGoodsNumberPopupWindow extends PopupWindow implements View.On
                 String numberText = number.getText().toString().trim();
                 try {
                     buyNumber = Integer.parseInt(numberText);
-                    if (buyNumber < 1) {
-                        buyNumber = 1;
-                    } else if (buyNumber > AppConfig.MAX_BUY_NUMBER) {
+                    if (buyNumber > AppConfig.MAX_BUY_NUMBER) {
                         buyNumber = AppConfig.MAX_BUY_NUMBER;
+                        number.setText(String.valueOf(buyNumber));
                     }
-                    setTotalPrice();
                 } catch (Exception e) {
-                    e.printStackTrace();
                     buyNumber = 0;
+                    e.printStackTrace();
                 } finally {
-                    String numberString = String.valueOf(buyNumber);
-                    if (!numberText.equals(numberString)) {
-                        number.setText(numberString);
-                        number.setSelection(numberString.length());
-                    }
+                    setTotalPrice();
                 }
             }
         });
