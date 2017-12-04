@@ -53,7 +53,7 @@ public class AppConfig {
     public static final int BUY_TYPE_NUM_9 = 17;
     public static final int BUY_TYPE_NUM_0 = 18;
     //单次的最大购买数量
-    public static final int MAX_BUY_NUMBER = 1000;
+    public static final int MAX_BUY_NUMBER = 100;
     //银行卡分类
     public static final int BANK_TYPE_BANK_CARD = 1;
     public static final int BANK_TYPE_ALIPAY = 2;

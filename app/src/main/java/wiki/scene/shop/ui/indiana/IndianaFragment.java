@@ -49,6 +49,7 @@ import wiki.scene.shop.ui.indiana.mvpview.IIndianaView;
 import wiki.scene.shop.ui.indiana.presenter.IndianaPresenter;
 import wiki.scene.shop.ui.mine.CashFragment;
 import wiki.scene.shop.ui.mine.ExchangeFragment;
+import wiki.scene.shop.ui.mine.IndianaRecordFragment;
 import wiki.scene.shop.ui.mine.OthersIndianaRecordFragment;
 import wiki.scene.shop.ui.mine.RechargeFragment;
 import wiki.scene.shop.utils.ThreadPoolUtils;
@@ -535,7 +536,8 @@ public class IndianaFragment extends BaseMainMvpFragment<IIndianaView, IndianaPr
     @OnClick(R.id.make_money)
     public void onClickMakeMoney() {
         try {
-            ToastUtils.showShort("尚在开发中！！！");
+            //ToastUtils.showShort("尚在开发中！！！");
+            EventBus.getDefault().post(new StartBrotherEvent(IndianaRecordFragment.newInstance()));
         } catch (Exception e) {
             e.printStackTrace();
         }

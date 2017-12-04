@@ -418,13 +418,13 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
         try {
             ShopApplication.userInfo.setMoney(mineInfo.getMoney());
             SharedPreferencesUtil.putString(_mActivity, ShopApplication.USER_INFO_KEY, new Gson().toJson(ShopApplication.userInfo));
-            winTime.setText(mineInfo.getWin_times() + "次");
+            winTime.setText(mineInfo.getWin_times() + "组");
             commission.setText("0");
             coin.setText(PriceUtil.getPrice(mineInfo.getMoney()));
 
-            todayJoin.setText("今日参与：" + mineInfo.getToday_buy() + "次");
+            todayJoin.setText("今日参与：" + mineInfo.getToday_buy() + "组");
             todayCommission.setText("今日佣金：0");
-            todayWin.setText("今日获胜：" + mineInfo.getToday_win() + "次");
+            todayWin.setText("今日获胜：" + mineInfo.getToday_win() + "组");
         } catch (Exception e) {
             e.printStackTrace();
         }

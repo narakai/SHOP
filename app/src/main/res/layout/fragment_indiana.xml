@@ -75,11 +75,11 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="@drawable/bg_index_tab_1"
-                        android:drawableLeft="@drawable/ic_index_tab_icon_1"
+                        android:drawableLeft="@drawable/ic_index_indiana_record"
                         android:drawablePadding="5dp"
                         android:gravity="center"
                         android:padding="5dp"
-                        android:text="代理赚钱"
+                        android:text="夺宝记录"
                         android:textColor="@color/white"
                         android:textSize="@dimen/text_size_small" />
 
