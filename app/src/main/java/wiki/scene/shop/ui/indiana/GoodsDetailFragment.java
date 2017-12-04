@@ -200,14 +200,15 @@ public class GoodsDetailFragment extends BaseBackMvpFragment<IGoodsDetailView, G
         View view = inflater.inflate(R.layout.fragment_goods_detail, container, false);
         unbinder = ButterKnife.bind(this, view);
         toolbarText.setText("玩法说明");
+        toolbarTitle.setText("商品详情");
+        initToolbarNav(toolbar);
         return attachToSwipeBack(view);
     }
 
     @Override
     public void onEnterAnimationEnd(Bundle savedInstanceState) {
         super.onEnterAnimationEnd(savedInstanceState);
-        toolbarTitle.setText("商品详情");
-        initToolbarNav(toolbar);
+
         hideLoading();
         initView();
         presenter.getGoodsDetailInfo(true, goodsId);

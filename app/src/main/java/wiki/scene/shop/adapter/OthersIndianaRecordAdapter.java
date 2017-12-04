@@ -221,7 +221,7 @@ public class OthersIndianaRecordAdapter extends RecyclerView.Adapter<RecyclerVie
             @Override
             public void onClick(View view) {
                 if (indianaRecordItemButtonClickListener != null) {
-                    indianaRecordItemButtonClickListener.onClickGoonIndiana();
+                    indianaRecordItemButtonClickListener.onClickGoonIndiana(position);
                 }
             }
         });
@@ -244,7 +244,7 @@ public class OthersIndianaRecordAdapter extends RecyclerView.Adapter<RecyclerVie
 
 
     public interface IndianaRecordItemButtonClickListener {
-        void onClickGoonIndiana();
+        void onClickGoonIndiana(int position);
 
         void onClickPKDetail(int position);
     }

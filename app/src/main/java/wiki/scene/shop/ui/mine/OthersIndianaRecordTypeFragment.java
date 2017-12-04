@@ -36,6 +36,7 @@ import wiki.scene.shop.itemDecoration.SpacesItemDecoration;
 import wiki.scene.shop.mvp.BaseBackMvpFragment;
 import wiki.scene.shop.mvp.BaseMvpFragment;
 import wiki.scene.shop.ui.car.PayOrderFragment;
+import wiki.scene.shop.ui.indiana.GoodsDetailFragment;
 import wiki.scene.shop.ui.mine.mvpview.IOthersIndianaRecordTypeView;
 import wiki.scene.shop.ui.mine.presenter.OthersIndianaRecordTypePresenter;
 import wiki.scene.shop.utils.ToastUtils;
@@ -144,14 +145,19 @@ public class OthersIndianaRecordTypeFragment extends BaseMvpFragment<IOthersIndi
         ptrLayout.setNoMoreData();
         adapter.setIndianaRecordItemButtonClickListener(new OthersIndianaRecordAdapter.IndianaRecordItemButtonClickListener() {
             @Override
-            public void onClickGoonIndiana() {
+            public void onClickGoonIndiana(int position) {
+                try {
+                    ((OthersIndianaRecordFragment) getParentFragment()).start(GoodsDetailFragment.newInstance(list.get(position).getProduct_id()));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 _mActivity.onBackPressed();
             }
 
             @Override
             public void onClickPKDetail(int position) {
                 try {
-                    ((IndianaRecordFragment) getParentFragment()).start(OrderPkDetailFragment.newInstance(list.get(position).getOrder_id()));
+                    ((OthersIndianaRecordFragment) getParentFragment()).start(OrderPkDetailFragment.newInstance(list.get(position).getOrder_id()));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

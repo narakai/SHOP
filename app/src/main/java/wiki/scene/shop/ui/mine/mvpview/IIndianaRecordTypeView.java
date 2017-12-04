@@ -30,4 +30,6 @@ public interface IIndianaRecordTypeView extends BaseListView {
     void changePage(int page);
 
     void loadmoreFail();
+
+    void showNonePage();
 }

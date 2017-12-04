@@ -19,6 +19,8 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.ToastUtils;
+
 import butterknife.ButterKnife;
 import wiki.scene.shop.R;
 import wiki.scene.shop.config.AppConfig;
@@ -133,7 +135,7 @@ public class ChooseGoodsNumberPopupWindow extends PopupWindow implements View.On
         view.findViewById(R.id.how_to_play).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(onClickPopWindowPayListener!=null){
+                if (onClickPopWindowPayListener != null) {
                     onClickPopWindowPayListener.onClickHowToPlay();
                 }
             }
@@ -221,7 +223,11 @@ public class ChooseGoodsNumberPopupWindow extends PopupWindow implements View.On
                     if (totalPrice > balance) {
                         onClickPopWindowPayListener.onClickToRecharge();
                     } else {
-                        onClickPopWindowPayListener.onClickToPay(playType, buyType, buyNumber);
+                        if (buyNumber < 1) {
+                            ToastUtils.showShort("请输入您要购买的数量");
+                        } else {
+                            onClickPopWindowPayListener.onClickToPay(playType, buyType, buyNumber);
+                        }
                     }
                 }
             }
@@ -248,16 +254,15 @@ public class ChooseGoodsNumberPopupWindow extends PopupWindow implements View.On
                     } else if (buyNumber > AppConfig.MAX_BUY_NUMBER) {
                         buyNumber = AppConfig.MAX_BUY_NUMBER;
                     }
-
+                    setTotalPrice();
                 } catch (Exception e) {
                     e.printStackTrace();
-                    buyNumber = 1;
+                    buyNumber = 0;
                 } finally {
                     String numberString = String.valueOf(buyNumber);
                     if (!numberText.equals(numberString)) {
                         number.setText(numberString);
                         number.setSelection(numberString.length());
-                        setTotalPrice();
                     }
                 }
             }

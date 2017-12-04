@@ -36,6 +36,7 @@ import wiki.scene.shop.itemDecoration.SpacesItemDecoration;
 import wiki.scene.shop.mvp.BaseBackMvpFragment;
 import wiki.scene.shop.mvp.BaseMvpFragment;
 import wiki.scene.shop.ui.car.PayOrderFragment;
+import wiki.scene.shop.ui.indiana.GoodsDetailFragment;
 import wiki.scene.shop.ui.mine.mvpview.IIndianaRecordTypeView;
 import wiki.scene.shop.ui.mine.presenter.IndianaRecordTypePresenter;
 import wiki.scene.shop.utils.ToastUtils;
@@ -140,8 +141,12 @@ public class IndianaRecordTypeFragment extends BaseMvpFragment<IIndianaRecordTyp
         ptrLayout.setNoMoreData();
         adapter.setIndianaRecordItemButtonClickListener(new IndianaRecordAdapter.IndianaRecordItemButtonClickListener() {
             @Override
-            public void onClickGoonIndiana() {
-                _mActivity.onBackPressed();
+            public void onClickGoonIndiana(int position) {
+                try {
+                    ((IndianaRecordFragment) getParentFragment()).start(GoodsDetailFragment.newInstance(list.get(position).getProduct_id()));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override
@@ -219,6 +224,9 @@ public class IndianaRecordTypeFragment extends BaseMvpFragment<IIndianaRecordTyp
             adapter.notifyDataSetChanged();
             ptrLayout.loadMoreComplete(resultPageInfo.getPage_total() > page);
             ptrLayout.setLoadMoreEnable(resultPageInfo.getPage_total() > page);
+            if (list.size() == 0) {
+                showNonePage();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -260,6 +268,25 @@ public class IndianaRecordTypeFragment extends BaseMvpFragment<IIndianaRecordTyp
         }
     }
 
+    @Override
+    public void showNonePage() {
+        try {
+            statusLayout.showNone(noneListener);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private View.OnClickListener noneListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            try {
+                _mActivity.onBackPressed();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    };
     private View.OnClickListener retryListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {

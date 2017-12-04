@@ -224,7 +224,7 @@ public class RankFragment extends BaseMainMvpFragment<IRankView, RankPresenter> 
     @Override
     public void bindData(List<RankInfo> data) {
         if (data == null || data.size() == 0) {
-            showNonePage();
+            //showNonePage();
             return;
         }
         list.clear();
