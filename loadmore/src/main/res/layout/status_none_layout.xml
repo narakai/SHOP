@@ -58,14 +58,14 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="30dp"
             android:src="@drawable/ic_none_record" />
 
         <ImageView
             android:id="@+id/none_reload_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
             android:background="@drawable/btn_indiana" />
     </LinearLayout>
 </RelativeLayout>
