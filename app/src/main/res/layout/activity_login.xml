@@ -136,7 +136,6 @@
                     android:id="@+id/wechat_login"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="30dp"
                     android:drawablePadding="10dp"
                     android:src="@drawable/ic_wechat_login"/>
 
@@ -147,6 +146,7 @@
                     android:layout_marginLeft="30dp"
                     android:drawablePadding="10dp"
                     android:src="@drawable/ic_qq_login"
+                    android:visibility="gone"
                     android:textColor="@color/text_color_des"
                     android:textSize="@dimen/text_size_xsmall" />
             </LinearLayout>

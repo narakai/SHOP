@@ -20,6 +20,8 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.lzy.okgo.OkGo;
 import com.zhl.cbdialog.CBDialogBuilder;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,6 +39,7 @@ import wiki.scene.shop.adapter.ExchangeAdapter;
 import wiki.scene.shop.config.AppConfig;
 import wiki.scene.shop.dialog.ExtractDialog;
 import wiki.scene.shop.entity.PrizeInfo;
+import wiki.scene.shop.event.RefreshMineEvent;
 import wiki.scene.shop.http.api.ApiUtil;
 import wiki.scene.shop.itemDecoration.SpacesItemDecoration;
 import wiki.scene.shop.mvp.BaseBackMvpFragment;
@@ -298,6 +301,7 @@ public class ExchangeFragment extends BaseBackMvpFragment<IExchangeView, Exchang
         try {
             showOpenViewDialog("恭喜您兑换成功");
             ptrLayout.autoRefresh();
+            EventBus.getDefault().post(new RefreshMineEvent());
         } catch (Exception e) {
             e.printStackTrace();
         }
