@@ -14,7 +14,7 @@ public class CheckPayResultInfo implements Serializable {
      */
 
     private boolean status;
-    private int cost;
+    private long cost;
 
     public boolean isStatus() {
         return status;
@@ -24,11 +24,11 @@ public class CheckPayResultInfo implements Serializable {
         this.status = status;
     }
 
-    public int getCost() {
+    public long getCost() {
         return cost;
     }
 
-    public void setCost(int cost) {
+    public void setCost(long cost) {
         this.cost = cost;
     }
 }

@@ -15,23 +15,23 @@ public class CashRecordInfo implements Serializable {
      * done_time : 1234567890
      */
 
-    private int money;
-    private int spend;
+    private long money;
+    private long spend;
     private long done_time;
 
-    public int getMoney() {
+    public long getMoney() {
         return money;
     }
 
-    public void setMoney(int money) {
+    public void setMoney(long money) {
         this.money = money;
     }
 
-    public int getSpend() {
+    public long getSpend() {
         return spend;
     }
 
-    public void setSpend(int spend) {
+    public void setSpend(long spend) {
         this.spend = spend;
     }
 

@@ -69,8 +69,8 @@ public class ChooseGoodsNumberPopupWindow extends PopupWindow implements View.On
     private int fourPrice = 0;
     private int tenPrice = 0;
     //需要支付的总价
-    private int totalPrice = 0;
-    private int balance = 0;
+    private long totalPrice = 0;
+    private long balance = 0;
     //监听器
     private OnClickPopWindowPayListener onClickPopWindowPayListener;
 
@@ -490,7 +490,7 @@ public class ChooseGoodsNumberPopupWindow extends PopupWindow implements View.On
      *
      * @param balance 余额 单位分
      */
-    public void setAccountBalance(int balance) {
+    public void setAccountBalance(long balance) {
         this.balance = balance;
         accountBalance.setText(PriceUtil.getPrice(balance));
         setTotalPrice();

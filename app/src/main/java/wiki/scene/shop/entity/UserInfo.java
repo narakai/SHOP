@@ -40,7 +40,7 @@ public class UserInfo implements Serializable {
     private int payed_times;
     private int score;
     private String avatar;
-    private int money;
+    private long money;
     private boolean isResgistered;
 
     public int getUser_id() {
@@ -143,11 +143,11 @@ public class UserInfo implements Serializable {
         this.avatar = avatar;
     }
 
-    public int getMoney() {
+    public long getMoney() {
         return money;
     }
 
-    public void setMoney(int money) {
+    public void setMoney(long money) {
         this.money = money;
     }
 

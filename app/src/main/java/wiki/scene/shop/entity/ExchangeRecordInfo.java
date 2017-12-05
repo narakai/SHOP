@@ -19,7 +19,7 @@ public class ExchangeRecordInfo {
     private int product_id;
     private int prize_id;
     private int number;
-    private int cost;
+    private long cost;
     private long create_time;
     private int price;
     private String thumb;
@@ -49,11 +49,11 @@ public class ExchangeRecordInfo {
         this.number = number;
     }
 
-    public int getCost() {
+    public long getCost() {
         return cost;
     }
 
-    public void setCost(int cost) {
+    public void setCost(long cost) {
         this.cost = cost;
     }
 

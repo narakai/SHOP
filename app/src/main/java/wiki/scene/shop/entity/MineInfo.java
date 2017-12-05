@@ -22,8 +22,8 @@ public class MineInfo {
 
     private int id;
     private String uuid;
-    private long mobile;
-    private int money;
+    private String mobile;
+    private long money;
     private String nickname;
     private int sex;
     private String avatar;
@@ -48,19 +48,19 @@ public class MineInfo {
         this.uuid = uuid;
     }
 
-    public long getMobile() {
+    public String getMobile() {
         return mobile;
     }
 
-    public void setMobile(long mobile) {
+    public void setMobile(String mobile) {
         this.mobile = mobile;
     }
 
-    public int getMoney() {
+    public long getMoney() {
         return money;
     }
 
-    public void setMoney(int money) {
+    public void setMoney(long money) {
         this.money = money;
     }
 
