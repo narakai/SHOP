@@ -13,7 +13,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.sunfusheng.glideimageview.GlideImageLoader;
-import com.sunfusheng.glideimageview.GlideImageView;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -42,6 +41,7 @@ import wiki.scene.shop.ui.rank.presenter.RankPresenter;
 import wiki.scene.shop.ui.rank.view.IRankView;
 import wiki.scene.shop.utils.ToastUtils;
 import wiki.scene.shop.utils.UpdatePageUtils;
+import wiki.scene.shop.utils.ViewUtils;
 
 /**
  * 排行榜
@@ -143,6 +143,9 @@ public class RankFragment extends BaseMainMvpFragment<IRankView, RankPresenter> 
         rank1WinTime = (TextView) headerView.findViewById(R.id.rank1_win_time);
         rank2WinTime = (TextView) headerView.findViewById(R.id.rank2_win_time);
         rank3WinTime = (TextView) headerView.findViewById(R.id.rank3_win_time);
+        ViewUtils.setDialogViewWidth(layoutRank1, PtrLocalDisplay.SCREEN_WIDTH_PIXELS / 3);
+        ViewUtils.setDialogViewWidth(layoutRank2, PtrLocalDisplay.SCREEN_WIDTH_PIXELS / 3);
+        ViewUtils.setDialogViewWidth(layoutRank3, PtrLocalDisplay.SCREEN_WIDTH_PIXELS / 3);
     }
 
     @Override
@@ -223,21 +226,22 @@ public class RankFragment extends BaseMainMvpFragment<IRankView, RankPresenter> 
 
     @Override
     public void bindData(List<RankInfo> data) {
-        if (data == null || data.size() == 0) {
-            //showNonePage();
-            return;
-        }
-        list.clear();
-        headerList.clear();
-        for (int i = 0; i < data.size(); i++) {
-            if (i < 3) {
-                headerList.add(data.get(i));
-            } else {
-                list.add(data.get(i));
+        try {
+            list.clear();
+            headerList.clear();
+            for (int i = 0; i < data.size(); i++) {
+                if (i < 3) {
+                    headerList.add(data.get(i));
+                } else {
+                    list.add(data.get(i));
+                }
             }
+            bindHeaderViewData();
+            adapter.notifyDataSetChanged();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        bindHeaderViewData();
-        adapter.notifyDataSetChanged();
+
     }
 
     private void bindHeaderViewData() {
@@ -258,10 +262,12 @@ public class RankFragment extends BaseMainMvpFragment<IRankView, RankPresenter> 
                     GlideImageLoader.create(rank1Avater).loadCircleImage(ShopApplication.configInfo.getFile_domain() + headerList.get(0).getAvatar(), R.drawable.ic_default_avater);
                     rank1Nickname.setText(headerList.get(0).getNickname());
                     rank1WinTime.setText(String.valueOf(headerList.get(0).getWin_times()));
+                    headerView.setVisibility(View.VISIBLE);
                     break;
             }
             switch (headerList.size()) {
                 case 0:
+                    headerView.setVisibility(View.GONE);
                     layoutRank1.setVisibility(View.GONE);
                     layoutRank2.setVisibility(View.GONE);
                     layoutRank3.setVisibility(View.GONE);

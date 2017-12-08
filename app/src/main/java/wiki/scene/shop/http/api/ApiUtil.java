@@ -16,7 +16,7 @@ import wiki.scene.shop.utils.NetTimeUtils;
 
 public class ApiUtil {
     private static final String SIGN_KEY = "045448f765b0c0592563123a2652fb63";
-    public static final String API_PRE = "http://api.tianya-wz.cn";
+    public static final String API_PRE = "http://api.banjiasc.com";
 
     //获取APP的配置文件
     public static final String APP_CONFIG = "/common";
