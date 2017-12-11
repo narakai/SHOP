@@ -11,8 +11,8 @@ public class AppConfig {
     public static final int ADD_ADDRESS_REQUEST_CODE = 1002;
     public static final int ORDER_DETAIL_TO_PAY_REQUEST_CODE = 1003;
     public static final int SHARE_ORDER_REQUEST_CODE = 1004;
-    public static final String WX_APPKEY = "wx9ca0dad4e08bf44c";
-    public static final String WX_APPSECRET = "fcb60e5b094846ef4e87253454bf583e";
+    public static final String WX_APPKEY = "wx93be6bb427ec4f22";
+    public static final String WX_APPSECRET = "758403fcbe2b4d10a7e9028515ba1023";
     public static final String QQ_APPKEY = "1106258470";
     public static final String QQ_APPSECRET = "YED2DoxyDzJGlmVX";
     public static final String WEIBO_APPKEY = "4230088431";

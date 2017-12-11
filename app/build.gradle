@@ -84,6 +84,15 @@ android {
         NNY_1024 {
             manifestPlaceholders = [CHANNEL_ID: "1024"]
         }
+        NNY_1025 {
+            manifestPlaceholders = [CHANNEL_ID: "1025"]
+        }
+        NNY_1026 {
+            manifestPlaceholders = [CHANNEL_ID: "1026"]
+        }
+        NNY_1027 {
+            manifestPlaceholders = [CHANNEL_ID: "1027"]
+        }
     }
     signingConfigs {
         release {
