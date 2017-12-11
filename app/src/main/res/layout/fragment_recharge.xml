@@ -36,13 +36,29 @@
                 android:padding="20dp">
 
                 <RadioButton
-                    android:id="@+id/money_1"
+                    android:id="@+id/money_0"
                     android:layout_width="60dp"
                     android:layout_height="50dp"
                     android:layout_weight="1"
                     android:background="@drawable/bg_choose_type_radio_button_selector"
                     android:button="@null"
                     android:checked="true"
+                    android:gravity="center"
+                    android:text="50"
+                    android:textColor="@drawable/bg_choose_money_radio_button_textcolor_selector"
+                    android:textSize="@dimen/text_size_big" />
+
+                <View
+                    android:layout_width="20dp"
+                    android:layout_height="1dp" />
+
+                <RadioButton
+                    android:id="@+id/money_1"
+                    android:layout_width="60dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_choose_type_radio_button_selector"
+                    android:button="@null"
                     android:gravity="center"
                     android:text="100"
                     android:textColor="@drawable/bg_choose_money_radio_button_textcolor_selector"
@@ -80,21 +96,6 @@
                     android:textColor="@drawable/bg_choose_money_radio_button_textcolor_selector"
                     android:textSize="@dimen/text_size_big" />
 
-                <View
-                    android:layout_width="20dp"
-                    android:layout_height="1dp" />
-
-                <RadioButton
-                    android:id="@+id/money_4"
-                    android:layout_width="60dp"
-                    android:layout_height="50dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/bg_choose_type_radio_button_selector"
-                    android:button="@null"
-                    android:gravity="center"
-                    android:text="1000"
-                    android:textColor="@drawable/bg_choose_money_radio_button_textcolor_selector"
-                    android:textSize="@dimen/text_size_big" />
 
             </RadioGroup>
 
@@ -107,8 +108,23 @@
                 android:paddingRight="20dp">
 
                 <RadioButton
+                    android:id="@+id/money_4"
+                    android:layout_width="65dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/bg_choose_type_radio_button_selector"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:text="1000"
+                    android:textColor="@drawable/bg_choose_money_radio_button_textcolor_selector"
+                    android:textSize="@dimen/text_size_big" />
+
+                <View
+                    android:layout_width="20dp"
+                    android:layout_height="1dp" />
+
+                <RadioButton
                     android:id="@+id/money_5"
-                    android:layout_width="60dp"
+                    android:layout_width="65dp"
                     android:layout_height="50dp"
                     android:background="@drawable/bg_choose_type_radio_button_selector"
                     android:button="@null"
@@ -153,7 +169,7 @@
                     android:lines="1"
                     android:maxLength="7"
                     android:paddingLeft="@dimen/text_size_10sp"
-                    android:text="100"
+                    android:text="50"
                     android:textColor="@color/color_theme"
                     android:textSize="@dimen/text_size_big" />
             </LinearLayout>

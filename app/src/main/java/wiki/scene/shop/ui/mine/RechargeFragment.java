@@ -74,8 +74,10 @@ public class RechargeFragment extends BaseBackMvpFragment<IRechargeView, Recharg
     RadioButton money5;
     @BindView(R.id.radioGroup2)
     RadioGroup radioGroup2;
+    @BindView(R.id.money_0)
+    RadioButton money0;
 
-    private int cost = 100;
+    private int cost = 50;
 
     private LoadingDialog loadingDialog;
 
@@ -102,7 +104,7 @@ public class RechargeFragment extends BaseBackMvpFragment<IRechargeView, Recharg
         loadingDialog = LoadingDialog.getInstance(getContext());
         initView();
         UpdatePageUtils.updatePagePosition(AppConfig.POSITION_RECHARGE, 0);
-        String priceStr = String.valueOf(100);
+        String priceStr = String.valueOf(cost);
         priceCustom.setText(priceStr);
         priceCustom.setSelection(priceStr.length());
     }
@@ -138,6 +140,17 @@ public class RechargeFragment extends BaseBackMvpFragment<IRechargeView, Recharg
         } else {
             radioAlipay.setChecked(true);
         }
+        money0.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                hideSoftInput();
+                cost = 50;
+                String priceStr = String.valueOf(50);
+                priceCustom.setText(priceStr);
+                priceCustom.setSelection(priceStr.length());
+                radioGroup2.clearCheck();
+            }
+        });
         money1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -180,7 +193,7 @@ public class RechargeFragment extends BaseBackMvpFragment<IRechargeView, Recharg
                 String priceStr = String.valueOf(1000);
                 priceCustom.setText(priceStr);
                 priceCustom.setSelection(priceStr.length());
-                radioGroup2.clearCheck();
+                radioGroup.clearCheck();
             }
         });
         money5.setOnClickListener(new View.OnClickListener() {
