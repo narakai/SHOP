@@ -110,7 +110,7 @@ android {
     android.applicationVariants.all { variant ->
         variant.outputs.all { output ->
             def flavorFlag = "${variant.productFlavors.get(0).name}"
-            def file_pre = flavorFlag.replace("NNY", "Shop")
+            def file_pre = flavorFlag.replace("NNY", "duobao")
             outputFileName = "../../${file_pre}_${defaultConfig.versionCode}.apk"
         }
     }
