@@ -30,6 +30,7 @@ import wiki.scene.loadmore.PtrClassicFrameLayout;
 import wiki.scene.loadmore.PtrDefaultHandler;
 import wiki.scene.loadmore.PtrFrameLayout;
 import wiki.scene.loadmore.StatusViewLayout;
+import wiki.scene.loadmore.utils.PtrLocalDisplay;
 import wiki.scene.shop.R;
 import wiki.scene.shop.ShopApplication;
 import wiki.scene.shop.activity.HowToPayActitivty;
@@ -112,7 +113,7 @@ public class IndianaFragment extends BaseMainMvpFragment<IIndianaView, IndianaPr
     private IndianaCanyuAdapter canyuAdapter;
     private IndianaWinAdapter winAdapter;
 
-    private String currentCycleCode;
+    private int scrollDistance = 0;
 
     public static IndianaFragment newInstance() {
         Bundle args = new Bundle();
@@ -164,7 +165,7 @@ public class IndianaFragment extends BaseMainMvpFragment<IIndianaView, IndianaPr
                 presenter.getIndianaData(false, false);
             }
         });
-
+        scrollDistance = PtrLocalDisplay.designedDP2px(1);
         threadPoolUtils = new ThreadPoolUtils(ThreadPoolUtils.SingleThread, 1);
         scheduledFuture = threadPoolUtils.scheduleWithFixedDelay(new Runnable() {
             @Override
@@ -173,8 +174,8 @@ public class IndianaFragment extends BaseMainMvpFragment<IIndianaView, IndianaPr
                     @Override
                     public void run() {
                         try {
-                            canyuListView.smoothScrollBy(2, 1);
-                            huojiangListView.smoothScrollBy(2, 1);
+                            canyuListView.smoothScrollBy(scrollDistance, 1);
+                            huojiangListView.smoothScrollBy(scrollDistance, 1);
 //                            canyuListView.smoothScrollToPositionFromTop(canyuListView.getFirstVisiblePosition() + 1, 0);
 //                            huojiangListView.smoothScrollToPositionFromTop(huojiangListView.getFirstVisiblePosition() + 1, 0);
                         } catch (Exception e) {
@@ -280,7 +281,7 @@ public class IndianaFragment extends BaseMainMvpFragment<IIndianaView, IndianaPr
             }
             goodsAdapter.notifyDataSetChanged();
             refreshCurrentCycleCode(indexInfo.getLast_ssc_result());
-            currentCycleCode = indexInfo.getCurrent_cycle().getCycle_code();
+            String currentCycleCode = indexInfo.getCurrent_cycle().getCycle_code();
         } catch (Exception e) {
             e.printStackTrace();
         }
